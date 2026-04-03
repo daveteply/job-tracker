@@ -1,0 +1,156 @@
+import { EventCategoryType } from '@job-tracker/domain';
+import { EventTypeDocument } from './documents/event-type.document';
+
+export const seedEventTypes: EventTypeDocument[] = [
+  // Application & Discovery
+  {
+    id: '3b2d1c6e-4f5a-4b7c-8d9e-0f1a2b3c4d5e',
+    serverId: null,
+    updatedAt: new Date().toISOString(),
+    name: 'Job Lead',
+    category: EventCategoryType.Discovery,
+    isSystemDefined: true,
+  },
+  {
+    id: '5c3e2d7f-5a6b-5c8d-9e0f-1a2b3c4d5e6f',
+    serverId: null,
+    updatedAt: new Date().toISOString(),
+    name: 'Applied',
+    category: EventCategoryType.Application,
+    isSystemDefined: true,
+  },
+  {
+    id: '7ff1f978-029e-484e-9dee-f6fb373f5444',
+    serverId: null,
+    updatedAt: new Date().toISOString(),
+    name: 'Application Viewed',
+    category: EventCategoryType.Application,
+    isSystemDefined: true,
+  },
+  {
+    id: '7fc6b92d-61cb-4122-bb17-b644a7e56666',
+    serverId: null,
+    updatedAt: new Date().toISOString(),
+    name: 'Recruiter Screening Scheduled',
+    category: EventCategoryType.Application,
+    isSystemDefined: true,
+  },
+
+  // Communication & Networking
+  {
+    id: '7d4f3e80-6b7c-6d9e-0f1a-2b3c4d5e6f7a',
+    serverId: null,
+    updatedAt: new Date().toISOString(),
+    name: 'Recruiter Outreach',
+    category: EventCategoryType.Communication,
+    isSystemDefined: true,
+  },
+  {
+    id: '9e5a4f91-7c8d-7e0f-1a2b-3c4d5e6f7a8b',
+    serverId: null,
+    updatedAt: new Date().toISOString(),
+    name: 'Networking/Coffee Chat',
+    category: EventCategoryType.Networking,
+    isSystemDefined: true,
+  },
+  {
+    id: 'af6b5f02-8d9e-8f1a-2b3c-4d5e6f7a8b9c',
+    serverId: null,
+    updatedAt: new Date().toISOString(),
+    name: 'Follow-up Sent',
+    category: EventCategoryType.Communication,
+    isSystemDefined: true,
+  },
+  {
+    id: 'c30498f4-8784-465a-a513-d665999bb5be',
+    serverId: null,
+    updatedAt: new Date().toISOString(),
+    name: 'Email Received',
+    category: EventCategoryType.Communication,
+    isSystemDefined: true,
+  },
+  {
+    id: 'a903ec72-57c1-4ed4-8de9-b559b989d8e7',
+    serverId: null,
+    updatedAt: new Date().toISOString(),
+    name: 'Email Sent',
+    category: EventCategoryType.Communication,
+    isSystemDefined: true,
+  },
+  {
+    id: 'aafe028c-bb68-43a3-bd0d-cfd64c349b40',
+    serverId: null,
+    updatedAt: new Date().toISOString(),
+    name: 'Phone Call',
+    category: EventCategoryType.Communication,
+    isSystemDefined: true,
+  },
+
+  // Assessments & Interviews
+  {
+    id: 'bd7c6f13-9e0f-9a2b-3c4d-5e6f7a8b9c0d',
+    serverId: null,
+    updatedAt: new Date().toISOString(),
+    name: 'Technical Assessment',
+    category: EventCategoryType.Assessment,
+    isSystemDefined: true,
+  },
+  {
+    id: 'ce8d7f24-0f1a-0b3c-4d5e-6f7a8b9c0d1e',
+    serverId: null,
+    updatedAt: new Date().toISOString(),
+    name: 'Screening Call',
+    category: EventCategoryType.Interview,
+    isSystemDefined: true,
+  },
+  {
+    id: 'df9e8f35-1a2b-1c4d-5e6f-7a8b9c0d1e2f',
+    serverId: null,
+    updatedAt: new Date().toISOString(),
+    name: 'Technical Interview',
+    category: EventCategoryType.Interview,
+    isSystemDefined: true,
+  },
+  {
+    id: 'e0af9f46-2b3c-2d5e-6f7a-8b9c0d1e2f3a',
+    serverId: null,
+    updatedAt: new Date().toISOString(),
+    name: 'Onsite Interview',
+    category: EventCategoryType.Interview,
+    isSystemDefined: true,
+  },
+
+  // Outcomes
+  {
+    id: 'f1bfaf57-3c4d-3e6f-7a8b-9c0d1e2f3a4b',
+    serverId: null,
+    updatedAt: new Date().toISOString(),
+    name: 'Offer Received',
+    category: EventCategoryType.Offer,
+    isSystemDefined: true,
+  },
+  {
+    id: '02cfbf68-4d5e-4f7a-8b9c-0d1e2f3a4b5c',
+    serverId: null,
+    updatedAt: new Date().toISOString(),
+    name: 'Offer Accepted',
+    category: EventCategoryType.Outcome,
+    isSystemDefined: true,
+  },
+  {
+    id: '13dfcf79-5e6f-5a8b-9c0d-1e2f3a4b5c6d',
+    serverId: null,
+    updatedAt: new Date().toISOString(),
+    name: 'Rejected',
+    category: EventCategoryType.Outcome,
+    isSystemDefined: true,
+  },
+  {
+    id: '24efdf8a-6f7a-6b9c-0d1e-2f3a4b5c6d7e',
+    serverId: null,
+    updatedAt: new Date().toISOString(),
+    name: 'Withdrew Application',
+    category: EventCategoryType.Outcome,
+    isSystemDefined: true,
+  },
+];

@@ -1,0 +1,14 @@
+{
+  "name": "@job-tracker/data-access",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@job-tracker/app-logic": "workspace:*",
+    "@job-tracker/domain": "workspace:*",
+    "rxdb": "^16.21.1",
+    "rxjs": "^7.8.2",
+    "react": "^19.0.0",
+    "@job-tracker/validation": "0.0.1"
+  }
+}

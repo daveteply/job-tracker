@@ -1,0 +1,18 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "allowJs": true,
+    "sourceMap": false,
+    "module": "es2015"
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.js",
+    "playwright.config.ts",
+    "src/**/*.spec.ts",
+    "src/**/*.spec.js",
+    "src/**/*.test.ts",
+    "src/**/*.test.js",
+    "src/**/*.d.ts"
+  ]
+}

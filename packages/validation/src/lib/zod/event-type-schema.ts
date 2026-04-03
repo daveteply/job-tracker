@@ -1,0 +1,35 @@
+import { z } from 'zod';
+import { EventCategoryType } from '@job-tracker/domain';
+import { EventCategoryTypeSchema } from './enum-schema';
+import { updateRequiredBoolean, updateRequiredString } from '../helpers/schema-helpers';
+
+export const EventTypeCreateSchema = z.object({
+  name: z.string().min(1, 'Event Type name is required').max(100),
+  category: EventCategoryTypeSchema,
+  isSystemDefined: z.boolean().default(false),
+});
+
+export const EventTypeUpdateSchema = z
+  .object({
+    name: updateRequiredString(100, 'Event Type name is required'),
+    category: EventCategoryTypeSchema.optional(),
+    isSystemDefined: updateRequiredBoolean(),
+  })
+  .partial();
+
+export const EventTypeDTOSchema = z.object({
+  id: z.string(),
+  serverId: z.number().nullable().optional(),
+  updatedAt: z.string().optional(),
+  createdAt: z.string().optional(),
+
+  name: z.string(),
+  category: z
+    .enum(Object.values(EventCategoryType) as [string, ...string[]])
+    .transform((val) => val as EventCategoryType),
+  isSystemDefined: z.boolean(),
+});
+
+export type EventTypeCreate = z.infer<typeof EventTypeCreateSchema>;
+export type EventTypeUpdate = z.infer<typeof EventTypeUpdateSchema>;
+export type EventTypeDTO = z.infer<typeof EventTypeDTOSchema>;

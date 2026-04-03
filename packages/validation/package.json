@@ -1,0 +1,9 @@
+{
+  "name": "@job-tracker/validation",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@job-tracker/domain": "workspace:*"
+  }
+}

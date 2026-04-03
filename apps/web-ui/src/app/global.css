@@ -1,0 +1,8 @@
+@import 'tailwindcss';
+@source "../../../../packages/ui-components/src/**/*.{ts,tsx,js,jsx}";
+@plugin "daisyui" {
+  themes:
+    light --default,
+    dark --prefersdark,
+    cupcake;
+}

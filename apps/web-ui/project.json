@@ -1,0 +1,12 @@
+{
+  "name": "web-ui",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/web-ui",
+  "projectType": "application",
+  "tags": [],
+  "implicitDependencies": ["ui-components", "hooks", "validation"],
+  "targets": {},
+  "overrides": {
+    "baseline-browser-mapping": "latest"
+  }
+}

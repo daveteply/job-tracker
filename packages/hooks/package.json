@@ -1,0 +1,12 @@
+{
+  "name": "@job-tracker/hooks",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@job-tracker/app-logic": "workspace:*",
+    "@job-tracker/domain": "workspace:*",
+    "@job-tracker/data-access": "workspace:*",
+    "rxjs": "^7.8.2"
+  }
+}

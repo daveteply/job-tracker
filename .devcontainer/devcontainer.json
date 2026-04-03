@@ -1,0 +1,36 @@
+{
+  "name": "Job Tracker App Workspace",
+  "dockerComposeFile": ["../docker-compose.yml"],
+  "service": "dev",
+  "workspaceFolder": "/workspace",
+  "remoteUser": "vscode",
+  "features": {
+    "ghcr.io/devcontainers/features/java:1": {
+      "version": "21"
+    },
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20"
+    },
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": true,
+      "configureZshAsDefaultShell": true
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "nrwl.angular-console",
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint",
+        "vscjava.vscode-java-pack",
+        "vmware.vscode-spring-boot",
+        "ms-playwright.playwright",
+        "firsttris.vscode-jest-runner",
+        "ms-azuretools.vscode-containers",
+        "streetsidesoftware.code-spell-checker"
+      ]
+    }
+  },
+  "postCreateCommand": "npm install -g npm@latest nx@latest && npm ci && npx playwright install --with-deps",
+  "forwardPorts": [3000, 8080, 5432, 5050]
+}

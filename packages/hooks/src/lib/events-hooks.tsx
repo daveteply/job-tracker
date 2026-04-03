@@ -1,0 +1,259 @@
+'use client';
+
+import { EntitySelection, resolveCompanyId, resolveEntityId } from '@job-tracker/app-logic';
+import {
+  CompanyRepository,
+  ContactRepository,
+  EventRepository,
+  EventTypeRepository,
+  RoleRepository,
+  useDb,
+} from '@job-tracker/data-access';
+import { EventDTO, EventWithChildrenDTO } from '@job-tracker/validation';
+import { useEffect, useMemo, useState } from 'react';
+import { combineLatest, map } from 'rxjs';
+import { useObservable } from './use-observable';
+
+export function useEventRepository() {
+  const db = useDb();
+
+  return useMemo(() => {
+    if (!db) return null;
+    return new EventRepository(db);
+  }, [db]);
+}
+
+export function useEventWithChildren(id: string) {
+  const db = useDb();
+  const eventRepository = useEventRepository();
+
+  const eventTypeRepository = useMemo(() => {
+    if (!db) return null;
+    return new EventTypeRepository(db);
+  }, [db]);
+
+  const companyRepository = useMemo(() => {
+    if (!db) return null;
+    return new CompanyRepository(db);
+  }, [db]);
+
+  const contactRepository = useMemo(() => {
+    if (!db) return null;
+    return new ContactRepository(db);
+  }, [db]);
+
+  const roleRepository = useMemo(() => {
+    if (!db) return null;
+    return new RoleRepository(db);
+  }, [db]);
+
+  const [data, setData] = useState<EventWithChildrenDTO | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (
+      eventRepository &&
+      eventTypeRepository &&
+      companyRepository &&
+      contactRepository &&
+      roleRepository &&
+      id
+    ) {
+      setLoading(true);
+
+      eventRepository
+        .getById(id)
+        .then(async (event) => {
+          if (!event) {
+            setData(null);
+            return;
+          }
+
+          const eventType = await eventTypeRepository.getById(event.eventTypeId);
+          const company = event.companyId ? await companyRepository.getById(event.companyId) : null;
+          const contact = event.contactId ? await contactRepository.getById(event.contactId) : null;
+          const role = event.roleId ? await roleRepository.getById(event.roleId) : null;
+
+          setData({
+            ...event,
+            eventType,
+            company,
+            contact,
+            role,
+          });
+        })
+        .finally(() => setLoading(false));
+    }
+  }, [
+    eventRepository,
+    eventTypeRepository,
+    companyRepository,
+    contactRepository,
+    roleRepository,
+    id,
+  ]);
+
+  return { event: data, loading };
+}
+
+export function useEventsWithChildren() {
+  const db = useDb();
+  const eventRepository = useEventRepository();
+
+  const eventTypeRepository = useMemo(() => {
+    if (!db) return null;
+    return new EventTypeRepository(db);
+  }, [db]);
+
+  const companyRepository = useMemo(() => {
+    if (!db) return null;
+    return new CompanyRepository(db);
+  }, [db]);
+
+  const contactRepository = useMemo(() => {
+    if (!db) return null;
+    return new ContactRepository(db);
+  }, [db]);
+
+  const roleRepository = useMemo(() => {
+    if (!db) return null;
+    return new RoleRepository(db);
+  }, [db]);
+
+  const eventsWithChildren$ = useMemo(() => {
+    if (
+      !eventRepository ||
+      !eventTypeRepository ||
+      !companyRepository ||
+      !contactRepository ||
+      !roleRepository
+    ) {
+      return undefined;
+    }
+
+    return combineLatest([
+      eventRepository.list$(),
+      eventTypeRepository.list$(),
+      companyRepository.list$(),
+      contactRepository?.list$(),
+      roleRepository?.list$(),
+    ]).pipe(
+      map(([events, eventTypes, companies, contacts, roles]) => {
+        const eventTypeId = new Map(eventTypes.map((eventType) => [eventType.id, eventType]));
+        const companiesById = new Map(companies.map((company) => [company.id, company]));
+        const contactsById = new Map(contacts.map((contact) => [contact.id, contact]));
+        const rolesById = new Map(roles.map((role) => [role.id, role]));
+
+        return events.map<EventWithChildrenDTO>((event) => ({
+          ...event,
+          eventType: event.eventTypeId ? (eventTypeId.get(event.eventTypeId) ?? null) : null,
+          company: event.companyId ? (companiesById.get(event.companyId) ?? null) : null,
+          contact: event.contactId ? (contactsById.get(event.contactId) ?? null) : null,
+          role: event.roleId ? (rolesById.get(event.roleId) ?? null) : null,
+        }));
+      }),
+    );
+  }, [eventRepository, eventTypeRepository, companyRepository, contactRepository, roleRepository]);
+
+  const events = useObservable<EventWithChildrenDTO[]>(eventsWithChildren$, []);
+
+  return {
+    events,
+    loading: !eventRepository || !companyRepository,
+  };
+}
+
+export function useEventActions() {
+  const db = useDb();
+  const repository = useEventRepository();
+
+  const companyRepository = useMemo(() => {
+    if (!db) return null;
+    return new CompanyRepository(db);
+  }, [db]);
+
+  const contactRepository = useMemo(() => {
+    if (!db) return null;
+    return new ContactRepository(db);
+  }, [db]);
+
+  const roleRepository = useMemo(() => {
+    if (!db) return null;
+    return new RoleRepository(db);
+  }, [db]);
+
+  type EventUpsertInput = Partial<EventDTO> & {
+    company?: EntitySelection | null;
+    contact?: EntitySelection | null;
+    role?: EntitySelection | null;
+  };
+
+  return {
+    upsertEvent: async (event: EventUpsertInput) => {
+      if (!repository) {
+        return { success: false, message: 'Database not initialized' };
+      }
+
+      try {
+        const { company, contact, role, ...eventData } = event;
+
+        const resolvedCompanyId = await resolveCompanyId({
+          selection: company,
+          currentCompanyId: eventData.companyId,
+          upsertCompany: companyRepository ? (input) => companyRepository.upsert(input) : undefined,
+        });
+
+        const resolvedContactId = await resolveEntityId({
+          selection: contact,
+          currentId: eventData.contactId,
+          upsertEntity: contactRepository
+            ? (input) => contactRepository.upsert(input as any)
+            : undefined,
+          nameField: 'lastName',
+          additionalFields: { companyId: resolvedCompanyId || '' },
+        });
+
+        const resolvedRoleId = await resolveEntityId({
+          selection: role,
+          currentId: eventData.roleId,
+          upsertEntity: roleRepository ? (input) => roleRepository.upsert(input as any) : undefined,
+          nameField: 'title',
+          additionalFields: { companyId: resolvedCompanyId || '' },
+        });
+
+        const id = eventData.id || crypto.randomUUID();
+
+        if (!eventData.eventTypeId) {
+          return { success: false, message: 'Event type is required' };
+        }
+
+        await repository.upsert({
+          ...eventData,
+          id,
+          companyId: resolvedCompanyId || '',
+          contactId: resolvedContactId || '',
+          roleId: resolvedRoleId || '',
+          eventTypeId: eventData.eventTypeId,
+        });
+
+        return { success: true, message: 'Event saved successfully' };
+      } catch (error) {
+        console.error('Failed to upsert Event:', error);
+        return { success: false, message: 'Failed to save Event' };
+      }
+    },
+    removeEvent: async (id: string) => {
+      if (!repository) {
+        return { success: false, message: 'Database not initialized' };
+      }
+
+      try {
+        await repository.remove(id);
+        return { success: true, message: 'Event removed successfully' };
+      } catch (error) {
+        console.error('Failed to remove Event:', error);
+        return { success: false, message: 'Failed to remove Event' };
+      }
+    },
+  };
+}

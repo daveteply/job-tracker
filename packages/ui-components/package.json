@@ -1,0 +1,11 @@
+{
+  "name": "@job-tracker/ui-components",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@job-tracker/domain": "workspace:*",
+    "@job-tracker/data-access": "workspace:*",
+    "@job-tracker/hooks": "workspace:*"
+  }
+}
