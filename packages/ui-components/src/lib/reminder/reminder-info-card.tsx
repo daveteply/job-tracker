@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { PencilIcon, CheckCircleIcon } from '@heroicons/react/24/solid';
 import { ReminderWithChildrenDTO } from '@job-tracker/validation';
+import FormattedDate from '../common/formatted-date';
 
 export interface ReminderCardProps {
   reminder: ReminderWithChildrenDTO;
@@ -30,10 +31,7 @@ export function ReminderInfoCard({ reminder, showControls = true, onComplete }: 
               </p>
             )}
             <p className="text-[10px] font-medium mt-1 uppercase opacity-50">
-              {reminder.remindAt.toLocaleDateString(undefined, {
-                month: 'short',
-                day: 'numeric',
-              })}
+              <FormattedDate  dateValue={reminder.remindAt}></FormattedDate>
             </p>
           </div>
           {showControls && (
