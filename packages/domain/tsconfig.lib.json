@@ -5,7 +5,6 @@
     "incremental": true,
     "tsBuildInfoFile": "../../tmp/tsc/domain.tsbuildinfo",
     "rootDir": "src",
-    "baseUrl": ".",
     "types": ["node"]
   },
   "include": ["src/**/*.ts"],
