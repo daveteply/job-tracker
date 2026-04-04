@@ -15,7 +15,7 @@ export function EventList(props: EventListProps) {
           ))}
         </>
       ) : (
-        <p>No events found!</p>
+        <p className="text-sm opacity-50 italic px-1">No Events found</p>
       )}
     </div>
   );

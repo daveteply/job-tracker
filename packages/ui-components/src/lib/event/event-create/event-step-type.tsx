@@ -101,7 +101,7 @@ export function EventStepType({
           </button>
         ))}
         {!loading && categoryKeys.length === 0 && (
-          <div className="text-base-content/50 italic">No event types found.</div>
+          <p className="text-sm opacity-50 italic px-1">No Event Types found</p>
         )}
       </div>
     </div>
