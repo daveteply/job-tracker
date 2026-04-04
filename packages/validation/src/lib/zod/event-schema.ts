@@ -12,6 +12,7 @@ import { CompanyDTO } from './company-schema';
 import { ContactDTO } from './contact-schema';
 import { RoleDTO } from './role-schema';
 import { EventTypeDTO } from './event-type-schema';
+import { ReminderDTO } from './reminder-schema';
 
 export const EventCreateSchema = z.object({
   // Relations: Optional and Composable to match Role/Contact patterns
@@ -70,6 +71,10 @@ export const EventUpdateSchema = z
     details: updateOptionalString(10000), // High limit for "unlimited" notes
     source: SourceTypeSchema.optional(),
     direction: DirectionTypeSchema.optional(),
+
+    // Reminder handling
+    hasReminder: z.boolean().optional(),
+    remindAt: z.coerce.date().optional().nullable(),
   })
   .partial();
 
@@ -105,4 +110,5 @@ export interface EventWithChildrenDTO extends EventDTO {
   company?: CompanyDTO | null;
   contact?: ContactDTO | null;
   role?: RoleDTO | null;
+  reminder?: ReminderDTO | null;
 }

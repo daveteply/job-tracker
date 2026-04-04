@@ -6,6 +6,7 @@ import {
   ContactRepository,
   EventRepository,
   EventTypeRepository,
+  ReminderRepository,
   RoleRepository,
   useDb,
 } from '@job-tracker/data-access';
@@ -47,6 +48,11 @@ export function useEventWithChildren(id: string) {
     return new RoleRepository(db);
   }, [db]);
 
+  const reminderRepository = useMemo(() => {
+    if (!db) return null;
+    return new ReminderRepository(db);
+  }, [db]);
+
   const [data, setData] = useState<EventWithChildrenDTO | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -57,6 +63,7 @@ export function useEventWithChildren(id: string) {
       companyRepository &&
       contactRepository &&
       roleRepository &&
+      reminderRepository &&
       id
     ) {
       setLoading(true);
@@ -73,6 +80,7 @@ export function useEventWithChildren(id: string) {
           const company = event.companyId ? await companyRepository.getById(event.companyId) : null;
           const contact = event.contactId ? await contactRepository.getById(event.contactId) : null;
           const role = event.roleId ? await roleRepository.getById(event.roleId) : null;
+          const reminder = await reminderRepository.getByEventId(event.id);
 
           setData({
             ...event,
@@ -80,6 +88,7 @@ export function useEventWithChildren(id: string) {
             company,
             contact,
             role,
+            reminder,
           });
         })
         .finally(() => setLoading(false));
@@ -90,6 +99,7 @@ export function useEventWithChildren(id: string) {
     companyRepository,
     contactRepository,
     roleRepository,
+    reminderRepository,
     id,
   ]);
 
@@ -120,13 +130,19 @@ export function useEventsWithChildren() {
     return new RoleRepository(db);
   }, [db]);
 
+  const reminderRepository = useMemo(() => {
+    if (!db) return null;
+    return new ReminderRepository(db);
+  }, [db]);
+
   const eventsWithChildren$ = useMemo(() => {
     if (
       !eventRepository ||
       !eventTypeRepository ||
       !companyRepository ||
       !contactRepository ||
-      !roleRepository
+      !roleRepository ||
+      !reminderRepository
     ) {
       return undefined;
     }
@@ -137,12 +153,16 @@ export function useEventsWithChildren() {
       companyRepository.list$(),
       contactRepository?.list$(),
       roleRepository?.list$(),
+      reminderRepository?.list$(),
     ]).pipe(
-      map(([events, eventTypes, companies, contacts, roles]) => {
+      map(([events, eventTypes, companies, contacts, roles, reminders]) => {
         const eventTypeId = new Map(eventTypes.map((eventType) => [eventType.id, eventType]));
         const companiesById = new Map(companies.map((company) => [company.id, company]));
         const contactsById = new Map(contacts.map((contact) => [contact.id, contact]));
         const rolesById = new Map(roles.map((role) => [role.id, role]));
+        const remindersByEventId = new Map(
+          reminders.map((reminder) => [reminder.eventId, reminder]),
+        );
 
         return events.map<EventWithChildrenDTO>((event) => ({
           ...event,
@@ -150,10 +170,18 @@ export function useEventsWithChildren() {
           company: event.companyId ? (companiesById.get(event.companyId) ?? null) : null,
           contact: event.contactId ? (contactsById.get(event.contactId) ?? null) : null,
           role: event.roleId ? (rolesById.get(event.roleId) ?? null) : null,
+          reminder: remindersByEventId.get(event.id) ?? null,
         }));
       }),
     );
-  }, [eventRepository, eventTypeRepository, companyRepository, contactRepository, roleRepository]);
+  }, [
+    eventRepository,
+    eventTypeRepository,
+    companyRepository,
+    contactRepository,
+    roleRepository,
+    reminderRepository,
+  ]);
 
   const events = useObservable<EventWithChildrenDTO[]>(eventsWithChildren$, []);
 
@@ -182,10 +210,17 @@ export function useEventActions() {
     return new RoleRepository(db);
   }, [db]);
 
+  const reminderRepository = useMemo(() => {
+    if (!db) return null;
+    return new ReminderRepository(db);
+  }, [db]);
+
   type EventUpsertInput = Partial<EventDTO> & {
     company?: EntitySelection | null;
     contact?: EntitySelection | null;
     role?: EntitySelection | null;
+    hasReminder?: boolean;
+    remindAt?: Date | string | null;
   };
 
   return {
@@ -195,12 +230,21 @@ export function useEventActions() {
       }
 
       try {
-        const { company, contact, role, ...eventData } = event;
+        const {
+          company,
+          contact,
+          role,
+          hasReminder,
+          remindAt,
+          ...eventData
+        } = event;
 
         const resolvedCompanyId = await resolveCompanyId({
           selection: company,
           currentCompanyId: eventData.companyId,
-          upsertCompany: companyRepository ? (input) => companyRepository.upsert(input) : undefined,
+          upsertCompany: companyRepository
+            ? (input) => companyRepository.upsert(input)
+            : undefined,
         });
 
         const resolvedContactId = await resolveEntityId({
@@ -216,7 +260,9 @@ export function useEventActions() {
         const resolvedRoleId = await resolveEntityId({
           selection: role,
           currentId: eventData.roleId,
-          upsertEntity: roleRepository ? (input) => roleRepository.upsert(input as any) : undefined,
+          upsertEntity: roleRepository
+            ? (input) => roleRepository.upsert(input as any)
+            : undefined,
           nameField: 'title',
           additionalFields: { companyId: resolvedCompanyId || '' },
         });
@@ -236,6 +282,23 @@ export function useEventActions() {
           eventTypeId: eventData.eventTypeId,
         });
 
+        // Handle Reminder
+        if (reminderRepository) {
+          const existingReminder = await reminderRepository.getByEventId(id);
+
+          if (hasReminder && remindAt) {
+            const reminderId = existingReminder?.id || crypto.randomUUID();
+            await reminderRepository.upsert({
+              id: reminderId,
+              eventId: id,
+              remindAt: remindAt instanceof Date ? remindAt : new Date(remindAt),
+            });
+          } else if (existingReminder) {
+            // If hasReminder is false but an existing reminder was found, remove it
+            await reminderRepository.deleteById(existingReminder.id);
+          }
+        }
+
         return { success: true, message: 'Event saved successfully' };
       } catch (error) {
         console.error('Failed to upsert Event:', error);
@@ -248,6 +311,13 @@ export function useEventActions() {
       }
 
       try {
+        if (reminderRepository) {
+          const existingReminder = await reminderRepository.getByEventId(id);
+          if (existingReminder) {
+            await reminderRepository.deleteById(existingReminder.id);
+          }
+        }
+
         await repository.remove(id);
         return { success: true, message: 'Event removed successfully' };
       } catch (error) {

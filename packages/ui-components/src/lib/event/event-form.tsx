@@ -186,7 +186,7 @@ export function EventForm<T extends EventFormValues>({
       </fieldset>
 
       <fieldset className="fieldset">
-        <legend className="fieldset-legend">Date</legend>
+        <legend className="fieldset-legend">Date Occurred</legend>
         <input
           type="date"
           className="input"

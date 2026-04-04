@@ -37,6 +37,9 @@ type EventEditFormData = EventDTO & {
     shouldRemove?: boolean;
     displayValue?: string;
   } | null;
+
+  hasReminder?: boolean;
+  remindAt?: string | Date | null;
 };
 
 export default function EventUpdatePage({ params }: { params: Promise<{ id: string }> }) {
@@ -80,6 +83,8 @@ export default function EventUpdatePage({ params }: { params: Promise<{ id: stri
           isNew: false,
         }
       : null,
+    hasReminder: !!event.reminder,
+    remindAt: event.reminder?.remindAt || null,
   };
 
   return (

@@ -28,6 +28,17 @@ export class ReminderRepository {
     return ReminderMapper.toDto(doc.toJSON());
   }
 
+  async getByEventId(eventId: string): Promise<ReminderDTO | null> {
+    const doc = await this.db.reminders
+      .findOne({
+        selector: { eventId },
+      })
+      .exec();
+    if (!doc) return null;
+
+    return ReminderMapper.toDto(doc.toJSON());
+  }
+
   async create(reminder: Partial<ReminderDTO> & { id: string }): Promise<ReminderDTO> {
     const timestamps = createAuditTimestamps();
     const doc = ReminderMapper.toDocument({
