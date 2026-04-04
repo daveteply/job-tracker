@@ -1,23 +1,28 @@
 'use client';
 
 import ReminderInfoCard from './reminder-info-card';
-import { ReminderDTO } from '@job-tracker/validation';
+import { ReminderWithChildrenDTO } from '@job-tracker/validation';
 
 export interface ReminderListProps {
-  reminders: ReminderDTO[];
+  reminders: ReminderWithChildrenDTO[];
+  onComplete?: (id: string) => void;
 }
 
-export function ReminderList({ reminders }: ReminderListProps) {
+export function ReminderList({ reminders, onComplete }: ReminderListProps) {
   return (
     <div className="flex flex-col gap-3">
       {reminders && reminders.length ? (
         <>
           {reminders.map((reminder) => (
-            <ReminderInfoCard key={reminder.id} Reminder={reminder} />
+            <ReminderInfoCard
+              key={reminder.id}
+              reminder={reminder}
+              onComplete={onComplete}
+            />
           ))}
         </>
       ) : (
-        <p>No Reminders found</p>
+        <p className="text-sm opacity-50 italic">No reminders found</p>
       )}
     </div>
   );

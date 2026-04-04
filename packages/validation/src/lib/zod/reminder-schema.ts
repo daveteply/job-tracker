@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { EventWithChildrenDTO } from './event-schema';
 
 export const ReminderInputSchema = z.object({
   eventId: z.string(),
@@ -23,3 +24,7 @@ export const ReminderDTOSchema = z.object({
 
 export type ReminderInput = z.infer<typeof ReminderInputSchema>;
 export type ReminderDTO = z.infer<typeof ReminderDTOSchema>;
+
+export interface ReminderWithChildrenDTO extends ReminderDTO {
+  event?: EventWithChildrenDTO | null;
+}

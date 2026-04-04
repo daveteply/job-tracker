@@ -1,6 +1,7 @@
 export * from './lib/common/direction-type';
 export * from './lib/common/event-category-type';
 export * from './lib/common/source-type';
+export * from './lib/common/role-status-type';
 
 export * from './lib/company/company.entity';
 export * from './lib/company/company.schema';
