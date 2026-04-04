@@ -18,6 +18,7 @@ export * from './lib/contact/contact-form';
 export * from './lib/role/role-info-card';
 export * from './lib/role/role-list';
 export * from './lib/role/role-form';
+export * from './lib/role/pipeline';
 
 export * from './lib/event/event-action-menu';
 export * from './lib/event/event-info-card';
