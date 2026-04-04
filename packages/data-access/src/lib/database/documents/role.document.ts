@@ -1,4 +1,4 @@
-import { RoleStatus } from 'packages/domain/src/lib/common/role-status-type';
+import { RoleStatus } from '@job-tracker/domain';
 
 export interface RoleDocument {
   id: string;

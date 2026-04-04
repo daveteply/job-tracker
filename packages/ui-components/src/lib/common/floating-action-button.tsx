@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { PlusIcon } from '@heroicons/react/24/outline'; // Ensure heroicons is installed
 
-export default function FloatingActionButton() {
+export function FloatingActionButton() {
   const [isOpen, setIsOpen] = useState(false);
 
   // Function to close menu when a link is clicked

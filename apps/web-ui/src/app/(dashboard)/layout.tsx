@@ -1,5 +1,5 @@
 import { BottomNav, Breadcrumbs } from '@job-tracker/ui-components';
-import FloatingActionButton from 'packages/ui-components/src/lib/common/floating-action-button';
+import { FloatingActionButton } from '@job-tracker/ui-components';
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (

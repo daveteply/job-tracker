@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { DirectionType, EventCategoryType, SourceType } from '@job-tracker/domain';
-import { RoleStatus } from 'packages/domain/src/lib/common/role-status-type';
+import { RoleStatus } from '@job-tracker/domain';
 
 const directionSchema = z.enum(Object.values(DirectionType));
 const sourceSchema = z.enum(Object.values(SourceType));

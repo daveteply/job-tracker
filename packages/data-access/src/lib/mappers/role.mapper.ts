@@ -1,7 +1,6 @@
-import { RoleEntity } from '@job-tracker/domain';
+import { RoleEntity, RoleStatus } from '@job-tracker/domain';
 import { RoleDocument } from '../database/documents/role.document';
 import { RoleDTO } from '@job-tracker/validation';
-import { RoleStatus } from 'packages/domain/src/lib/common/role-status-type';
 
 export class RoleMapper {
   static toEntity(doc: RoleDocument): RoleEntity {

@@ -7,7 +7,7 @@ import {
   updateOptionalString,
 } from '../helpers/schema-helpers';
 import { CompanyDTO } from './company-schema';
-import { RoleStatus } from 'packages/domain/src/lib/common/role-status-type';
+import { RoleStatus } from '@job-tracker/domain';
 import { RoleStatusSchema } from './enum-schema';
 
 const roleCreateBase = {

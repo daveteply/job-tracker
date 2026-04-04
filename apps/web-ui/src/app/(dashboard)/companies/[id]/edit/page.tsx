@@ -3,7 +3,7 @@
 import { use } from 'react';
 import { useCompany, useCompanyActions } from '@job-tracker/hooks';
 import { CompanyForm, PageLoading } from '@job-tracker/ui-components';
-import { CompanyDocument } from 'packages/data-access/src/lib/database/documents/company.document';
+import { CompanyDocument } from '@job-tracker/data-access';
 
 export default function EditCompanyPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);

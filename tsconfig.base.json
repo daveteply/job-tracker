@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "isolatedModules": true,
     "lib": ["es2022"],
     "module": "esnext",
@@ -14,12 +13,12 @@
     "strict": true,
     "target": "es2022",
     "paths": {
-      "@job-tracker/ui-components": ["packages/ui-components/src/index.ts"],
-      "@job-tracker/domain": ["packages/domain/src/index.ts"],
-      "@job-tracker/hooks": ["packages/hooks/src/index.ts"],
-      "@job-tracker/data-access": ["packages/data-access/src/index.ts"],
-      "@job-tracker/validation": ["packages/validation/src/index.ts"],
-      "@job-tracker/app-logic": ["packages/app-logic/src/index.ts"]
+      "@job-tracker/ui-components": ["./packages/ui-components/src/index.ts"],
+      "@job-tracker/domain": ["./packages/domain/src/index.ts"],
+      "@job-tracker/hooks": ["./packages/hooks/src/index.ts"],
+      "@job-tracker/data-access": ["./packages/data-access/src/index.ts"],
+      "@job-tracker/validation": ["./packages/validation/src/index.ts"],
+      "@job-tracker/app-logic": ["./packages/app-logic/src/index.ts"]
     }
   }
 }

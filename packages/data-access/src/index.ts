@@ -1,4 +1,10 @@
 export * from './lib/database/db';
+export * from './lib/database/documents/company.document';
+export * from './lib/database/documents/contact.document';
+export * from './lib/database/documents/event-type.document';
+export * from './lib/database/documents/event.document';
+export * from './lib/database/documents/reminder.document';
+export * from './lib/database/documents/role.document';
 
 export * from './lib/repositories/company.repository';
 export * from './lib/repositories/contact.repository';
@@ -6,5 +12,12 @@ export * from './lib/repositories/role.repository';
 export * from './lib/repositories/event.repository';
 export * from './lib/repositories/event-type.repository';
 export * from './lib/repositories/reminder.repository';
+
+export * from './lib/mappers/company.mapper';
+export * from './lib/mappers/contact.mapper';
+export * from './lib/mappers/role.mapper';
+export * from './lib/mappers/event.mapper';
+export * from './lib/mappers/event-type.mapper';
+export * from './lib/mappers/reminder.mapper';
 
 export * from './lib/types/common';

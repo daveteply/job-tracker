@@ -8,7 +8,7 @@ import { useToast } from '../common/toast-context';
 import { useRouter } from 'next/navigation';
 import CompanyCombobox from '../company/company-combobox';
 import EnumSelector from '../common/enum-selector';
-import { RoleStatus } from 'packages/domain/src/lib/common/role-status-type';
+import { RoleStatus } from '@job-tracker/domain';
 
 interface RoleFormProps<T extends FieldValues> {
   onSubmitAction: (data: T) => Promise<{ success: boolean; message: string }>;
