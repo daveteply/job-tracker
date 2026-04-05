@@ -10,6 +10,7 @@ import {
   UserGroupIcon,
   XCircleIcon,
   ArchiveBoxIcon,
+  EyeSlashIcon,
 } from '@heroicons/react/24/outline';
 
 const STATUS_ORDER = [
@@ -20,6 +21,7 @@ const STATUS_ORDER = [
   RoleStatus.Accepted,
   RoleStatus.Rejected,
   RoleStatus.Withdrawn,
+  RoleStatus.Ghosted,
 ];
 
 const STATUS_CONFIG: Record<RoleStatus, { title: string; icon: any; color: string }> = {
@@ -30,6 +32,7 @@ const STATUS_CONFIG: Record<RoleStatus, { title: string; icon: any; color: strin
   [RoleStatus.Accepted]: { title: 'Accepted', icon: BriefcaseIcon, color: 'text-success' },
   [RoleStatus.Rejected]: { title: 'Rejected', icon: XCircleIcon, color: 'text-error' },
   [RoleStatus.Withdrawn]: { title: 'Withdrawn', icon: ArchiveBoxIcon, color: 'text-base-content/50' },
+  [RoleStatus.Ghosted]: { title: 'Ghosted', icon: EyeSlashIcon, color: 'text-base-content/30' },
 };
 
 export interface PipelineColumnProps {
