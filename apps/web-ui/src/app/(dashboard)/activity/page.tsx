@@ -1,8 +1,19 @@
 'use client';
 
-// Everything that happens is an event
-// Tap → Event Detail
+import { EventList } from '@job-tracker/ui-components';
+import { useEventsWithChildren } from '@job-tracker/hooks';
 
 export default function ActivityPage() {
-  return <div>Activity Page</div>;
+  const { events, loading } = useEventsWithChildren();
+
+  return (
+    <>
+      <div className="flex mb-3 justify-between">
+        {loading}
+        <h1 className="text-xl pr-1">Activity</h1>
+      </div>
+
+      <EventList events={events} />
+    </>
+  );
 }

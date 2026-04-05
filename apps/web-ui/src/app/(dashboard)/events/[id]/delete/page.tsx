@@ -22,7 +22,7 @@ export default function DeleteEventPage({ params }: { params: Promise<{ id: stri
         <EntityDelete
           id={event.id}
           entityName="event"
-          postActionRoute="/events"
+          postActionRoute="/activity"
           onDeleteAction={removeEvent}
         />
       </>

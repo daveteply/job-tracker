@@ -39,10 +39,10 @@ export default function CompanyDetailPage({ params }: { params: Promise<{ id: st
       <CompanyInfoCard company={company} showControls={false} />
 
       <div className="mt-5">
-        <Link className="btn mr-3" href="./">
+        <Link className="btn mr-3" href="/companies">
           Back to Companies
         </Link>
-        <Link className="btn" href="../">
+        <Link className="btn" href="/activity">
           Back to Events
         </Link>
       </div>

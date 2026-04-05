@@ -65,8 +65,8 @@ export default function EventDetailsPage({ params }: { params: Promise<{ id: str
       </div>
 
       <div className="mt-5">
-        <Link className="btn" href="/events">
-          Back to Events
+        <Link className="btn" href="/activity">
+          Back to Activity
         </Link>
       </div>
     </>

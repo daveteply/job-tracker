@@ -69,7 +69,7 @@ export default function EventsNewPage() {
     try {
       const result = await upsertEvent(data);
       if (result.success) {
-        router.push('/events');
+        router.push('/activity');
       }
     } catch (error) {
       console.error('Failed to create event', error);
@@ -141,7 +141,7 @@ export default function EventsNewPage() {
                   <button
                     type="button"
                     className="btn btn-ghost"
-                    onClick={() => router.push('/events')}
+                    onClick={() => router.push('/activity')}
                   >
                     Cancel
                   </button>

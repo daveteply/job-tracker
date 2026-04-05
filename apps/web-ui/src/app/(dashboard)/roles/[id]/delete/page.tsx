@@ -38,7 +38,7 @@ export default function DeleteRolePage({ params }: { params: Promise<{ id: strin
               <Link className="btn btn-info mr-3" href="/roles">
                 Back to Roles
               </Link>
-              <Link className="btn btn-info" href="/events">
+              <Link className="btn btn-info" href="/activity">
                 Back to Events
               </Link>
             </div>

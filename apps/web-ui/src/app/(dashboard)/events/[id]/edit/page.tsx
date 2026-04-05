@@ -99,7 +99,7 @@ export default function EventUpdatePage({ params }: { params: Promise<{ id: stri
         onSearchRole={searchRoles}
         eventTypes={eventTypes}
         eventTypesLoading={eventTypesLoading}
-        postActionRoute={'/events'}
+        postActionRoute={`/events/${id}`}
       ></EventForm>
     </>
   );
