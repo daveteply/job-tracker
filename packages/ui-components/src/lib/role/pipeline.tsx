@@ -24,7 +24,10 @@ const STATUS_ORDER = [
   RoleStatus.Ghosted,
 ];
 
-const STATUS_CONFIG: Record<RoleStatus, { title: string; icon: any; color: string }> = {
+const STATUS_CONFIG: Record<
+  RoleStatus,
+  { title: string; icon: React.ElementType; color: string }
+> = {
   [RoleStatus.Lead]: { title: 'Leads', icon: UserGroupIcon, color: 'text-info' },
   [RoleStatus.Applied]: { title: 'Applied', icon: RocketLaunchIcon, color: 'text-primary' },
   [RoleStatus.Interviewing]: {

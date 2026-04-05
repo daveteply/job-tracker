@@ -110,19 +110,19 @@ export default function EventsNewPage() {
 
                 {step === 2 && (
                   <EventStepContext
-                    control={control}
+                    control={control as any}
                     onSearchCompany={searchCompanies}
                     onSearchContact={searchContacts}
                     onSearchRole={searchRoles}
                   />
                 )}
-                {step === 3 && <EventStepDetails register={register} />}
+                {step === 3 && <EventStepDetails register={register as any} />}
                 {step === 4 && (
                   <EventStepReminder
-                    register={register}
-                    control={control}
-                    setValue={setValue}
-                    errors={errors}
+                    register={register as any}
+                    control={control as any}
+                    setValue={setValue as any}
+                    errors={errors as any}
                   />
                 )}
               </div>

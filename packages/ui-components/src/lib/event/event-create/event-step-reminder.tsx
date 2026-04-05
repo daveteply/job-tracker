@@ -1,23 +1,34 @@
 'use client';
 
-import { UseFormRegister, useWatch, Control, FieldErrors, UseFormSetValue } from 'react-hook-form';
+import {
+  useWatch,
+  FieldValues,
+  Path,
+  UseFormRegister,
+  Control,
+  UseFormSetValue,
+  FieldErrors,
+  RegisterOptions,
+} from 'react-hook-form';
 
-export interface EventStepReminderProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  register: UseFormRegister<any>;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  control: Control<any>;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  setValue: UseFormSetValue<any>;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  errors?: FieldErrors<any>;
+export interface EventStepReminderProps<T extends FieldValues = FieldValues> {
+  register: UseFormRegister<T>;
+  control: Control<T>;
+  setValue: UseFormSetValue<T>;
+  errors?: FieldErrors<T>;
 }
 
-export function EventStepReminder({ register, control, setValue, errors }: EventStepReminderProps) {
+export function EventStepReminder<T extends FieldValues = FieldValues>({
+  register,
+  control,
+  setValue,
+  errors,
+}: EventStepReminderProps<T>) {
   const hasReminder = useWatch({
     control,
-    name: 'hasReminder',
-    defaultValue: false,
+    name: 'hasReminder' as Path<T>,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    defaultValue: false as any,
   });
 
   const setReminderDate = (days: number, isBusinessDays = false) => {
@@ -40,7 +51,8 @@ export function EventStepReminder({ register, control, setValue, errors }: Event
     const dayOfMonth = String(date.getDate()).padStart(2, '0');
     const formattedDate = `${year}-${month}-${dayOfMonth}`;
 
-    setValue('remindAt', formattedDate, {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    setValue('remindAt' as Path<T>, formattedDate as any, {
       shouldValidate: true,
       shouldDirty: true,
     });
@@ -55,7 +67,7 @@ export function EventStepReminder({ register, control, setValue, errors }: Event
           <input
             type="checkbox"
             className="checkbox checkbox-primary"
-            {...register('hasReminder')}
+            {...register('hasReminder' as Path<T>)}
           />
           <span className="label-text font-medium text-base-content">
             Create a follow-up reminder?
@@ -71,7 +83,7 @@ export function EventStepReminder({ register, control, setValue, errors }: Event
           <input
             type="date"
             className={`input input-bordered w-full ${errors?.remindAt ? 'input-error' : ''}`}
-            {...register('remindAt', { valueAsDate: true })}
+            {...register('remindAt' as Path<T>, { valueAsDate: true } as unknown as RegisterOptions<T, Path<T>>)}
           />
           <div className="flex flex-wrap gap-2 mt-3">
             <button

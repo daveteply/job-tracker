@@ -11,7 +11,7 @@ import {
   useDb,
 } from '@job-tracker/data-access';
 import { RoleStatus } from '@job-tracker/domain';
-import { EventDTO, EventWithChildrenDTO } from '@job-tracker/validation';
+import { ContactDTO, EventDTO, EventWithChildrenDTO, RoleDTO } from '@job-tracker/validation';
 import { useEffect, useMemo, useState } from 'react';
 import { combineLatest, map } from 'rxjs';
 import { useObservable } from './use-observable';
@@ -248,7 +248,7 @@ export function useEventActions() {
           selection: contact,
           currentId: eventData.contactId,
           upsertEntity: contactRepository
-            ? (input) => contactRepository.upsert(input as any)
+            ? (input) => contactRepository.upsert(input as unknown as ContactDTO)
             : undefined,
           nameField: 'lastName',
           additionalFields: { companyId: resolvedCompanyId || '' },
@@ -267,12 +267,14 @@ export function useEventActions() {
           selection: role,
           currentId: eventData.roleId,
           upsertEntity: roleRepository
-            ? (input) =>
-                roleRepository.upsert({
-                  ...(input as any),
+            ? (input) => {
+                const roleData = input as unknown as RoleDTO;
+                return roleRepository.upsert({
+                  ...roleData,
                   // If it's a new role, use the target status from the event type
-                  status: (input as any).status ?? targetRoleStatus ?? RoleStatus.Lead,
-                })
+                  status: roleData.status ?? targetRoleStatus ?? RoleStatus.Lead,
+                });
+              }
             : undefined,
           nameField: 'title',
           additionalFields: { companyId: resolvedCompanyId || '' },

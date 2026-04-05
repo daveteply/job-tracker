@@ -70,7 +70,7 @@ export function useEventTypeActions() {
           ...eventType,
           id,
           name,
-        } as any);
+        });
 
         return { success: true, message: 'Event Type saved successfully' };
       } catch (error) {
