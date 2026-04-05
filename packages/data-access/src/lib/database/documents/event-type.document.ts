@@ -1,4 +1,4 @@
-import { EventCategoryType } from '@job-tracker/domain';
+import { EventCategoryType, RoleStatus } from '@job-tracker/domain';
 
 export interface EventTypeDocument {
   id: string;
@@ -8,5 +8,6 @@ export interface EventTypeDocument {
 
   name: string;
   category: EventCategoryType;
+  targetStatus?: RoleStatus | null;
   isSystemDefined: boolean;
 }

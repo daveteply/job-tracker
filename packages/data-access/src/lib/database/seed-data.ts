@@ -1,4 +1,4 @@
-import { EventCategoryType } from '@job-tracker/domain';
+import { EventCategoryType, RoleStatus } from '@job-tracker/domain';
 import { EventTypeDocument } from './documents/event-type.document';
 
 export const seedEventTypes: EventTypeDocument[] = [
@@ -9,6 +9,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     updatedAt: new Date().toISOString(),
     name: 'Job Lead',
     category: EventCategoryType.Discovery,
+    targetStatus: RoleStatus.Lead,
     isSystemDefined: true,
   },
   {
@@ -17,6 +18,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     updatedAt: new Date().toISOString(),
     name: 'Applied',
     category: EventCategoryType.Application,
+    targetStatus: RoleStatus.Applied,
     isSystemDefined: true,
   },
   {
@@ -25,6 +27,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     updatedAt: new Date().toISOString(),
     name: 'Application Viewed',
     category: EventCategoryType.Application,
+    targetStatus: RoleStatus.Applied,
     isSystemDefined: true,
   },
   {
@@ -33,6 +36,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     updatedAt: new Date().toISOString(),
     name: 'Recruiter Screening Scheduled',
     category: EventCategoryType.Application,
+    targetStatus: RoleStatus.Applied,
     isSystemDefined: true,
   },
 
@@ -93,6 +97,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     updatedAt: new Date().toISOString(),
     name: 'Technical Assessment',
     category: EventCategoryType.Assessment,
+    targetStatus: RoleStatus.Interviewing,
     isSystemDefined: true,
   },
   {
@@ -101,6 +106,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     updatedAt: new Date().toISOString(),
     name: 'Screening Call',
     category: EventCategoryType.Interview,
+    targetStatus: RoleStatus.Interviewing,
     isSystemDefined: true,
   },
   {
@@ -109,6 +115,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     updatedAt: new Date().toISOString(),
     name: 'Technical Interview',
     category: EventCategoryType.Interview,
+    targetStatus: RoleStatus.Interviewing,
     isSystemDefined: true,
   },
   {
@@ -117,6 +124,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     updatedAt: new Date().toISOString(),
     name: 'Onsite Interview',
     category: EventCategoryType.Interview,
+    targetStatus: RoleStatus.Interviewing,
     isSystemDefined: true,
   },
 
@@ -127,6 +135,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     updatedAt: new Date().toISOString(),
     name: 'Offer Received',
     category: EventCategoryType.Offer,
+    targetStatus: RoleStatus.Offer,
     isSystemDefined: true,
   },
   {
@@ -135,6 +144,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     updatedAt: new Date().toISOString(),
     name: 'Offer Accepted',
     category: EventCategoryType.Outcome,
+    targetStatus: RoleStatus.Accepted,
     isSystemDefined: true,
   },
   {
@@ -143,6 +153,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     updatedAt: new Date().toISOString(),
     name: 'Rejected',
     category: EventCategoryType.Outcome,
+    targetStatus: RoleStatus.Rejected,
     isSystemDefined: true,
   },
   {
@@ -151,6 +162,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     updatedAt: new Date().toISOString(),
     name: 'Withdrew Application',
     category: EventCategoryType.Outcome,
+    targetStatus: RoleStatus.Withdrawn,
     isSystemDefined: true,
   },
 ];

@@ -1,5 +1,6 @@
 import { RxJsonSchema } from 'rxdb';
 import { EventCategoryType } from '../common/event-category-type';
+import { RoleStatus } from '../common/role-status-type';
 import { EventTypeEntity } from './event-type.entity';
 
 const EVENTTYPE_SCHEMA_VERSION = 0;
@@ -15,6 +16,7 @@ export const EventTypeSchema: RxJsonSchema<EventTypeEntity> = {
 
     name: { type: 'string' },
     category: { type: 'string', enum: Object.values(EventCategoryType) }, // Discovery, Networking, etc.
+    targetStatus: { type: ['string', 'null'], enum: [...Object.values(RoleStatus), null] },
     isSystemDefined: { type: 'boolean' },
 
     updatedAt: { type: 'string', format: 'date-time', maxLength: 30 },

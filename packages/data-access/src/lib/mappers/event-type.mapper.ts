@@ -12,6 +12,7 @@ export class EventTypeMapper {
 
       name: doc.name,
       category: doc.category,
+      targetStatus: doc.targetStatus,
       isSystemDefined: doc.isSystemDefined,
     };
   }
@@ -25,6 +26,7 @@ export class EventTypeMapper {
 
       name: doc.name,
       category: doc.category,
+      targetStatus: doc.targetStatus ?? null,
       isSystemDefined: doc.isSystemDefined,
     };
   }
@@ -41,6 +43,7 @@ export class EventTypeMapper {
 
       name: entity.name,
       category: entity.category ?? EventCategoryType.Application,
+      targetStatus: entity.targetStatus,
       isSystemDefined: entity.isSystemDefined ?? false,
     };
 

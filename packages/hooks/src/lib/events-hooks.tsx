@@ -10,6 +10,7 @@ import {
   RoleRepository,
   useDb,
 } from '@job-tracker/data-access';
+import { RoleStatus } from '@job-tracker/domain';
 import { EventDTO, EventWithChildrenDTO } from '@job-tracker/validation';
 import { useEffect, useMemo, useState } from 'react';
 import { combineLatest, map } from 'rxjs';
@@ -195,6 +196,11 @@ export function useEventActions() {
   const db = useDb();
   const repository = useEventRepository();
 
+  const eventTypeRepository = useMemo(() => {
+    if (!db) return null;
+    return new EventTypeRepository(db);
+  }, [db]);
+
   const companyRepository = useMemo(() => {
     if (!db) return null;
     return new CompanyRepository(db);
@@ -257,15 +263,37 @@ export function useEventActions() {
           additionalFields: { companyId: resolvedCompanyId || '' },
         });
 
+        // Determine if we should set a default status for a new role or update an existing one
+        let targetRoleStatus: RoleStatus | undefined;
+        if (eventData.eventTypeId && eventTypeRepository) {
+          const eventType = await eventTypeRepository.getById(eventData.eventTypeId);
+          if (eventType?.targetStatus) {
+            targetRoleStatus = eventType.targetStatus;
+          }
+        }
+
         const resolvedRoleId = await resolveEntityId({
           selection: role,
           currentId: eventData.roleId,
           upsertEntity: roleRepository
-            ? (input) => roleRepository.upsert(input as any)
+            ? (input) =>
+                roleRepository.upsert({
+                  ...(input as any),
+                  // If it's a new role, use the target status from the event type
+                  status: (input as any).status ?? targetRoleStatus ?? RoleStatus.Lead,
+                })
             : undefined,
           nameField: 'title',
           additionalFields: { companyId: resolvedCompanyId || '' },
         });
+
+        // If we have a resolved role and a target status, ensure the role's status is updated
+        if (resolvedRoleId && targetRoleStatus && roleRepository) {
+          const existingRole = await roleRepository.getById(resolvedRoleId);
+          if (existingRole && existingRole.status !== targetRoleStatus) {
+            await roleRepository.update(resolvedRoleId, { status: targetRoleStatus });
+          }
+        }
 
         const id = eventData.id || crypto.randomUUID();
 

@@ -1,11 +1,12 @@
 import { z } from 'zod';
-import { EventCategoryType } from '@job-tracker/domain';
-import { EventCategoryTypeSchema } from './enum-schema';
+import { EventCategoryType, RoleStatus } from '@job-tracker/domain';
+import { EventCategoryTypeSchema, RoleStatusSchema } from './enum-schema';
 import { updateRequiredBoolean, updateRequiredString } from '../helpers/schema-helpers';
 
 export const EventTypeCreateSchema = z.object({
   name: z.string().min(1, 'Event Type name is required').max(100),
   category: EventCategoryTypeSchema,
+  targetStatus: RoleStatusSchema.nullable().optional(),
   isSystemDefined: z.boolean().default(false),
 });
 
@@ -13,6 +14,7 @@ export const EventTypeUpdateSchema = z
   .object({
     name: updateRequiredString(100, 'Event Type name is required'),
     category: EventCategoryTypeSchema.optional(),
+    targetStatus: RoleStatusSchema.nullable().optional(),
     isSystemDefined: updateRequiredBoolean(),
   })
   .partial();
@@ -27,6 +29,11 @@ export const EventTypeDTOSchema = z.object({
   category: z
     .enum(Object.values(EventCategoryType) as [string, ...string[]])
     .transform((val) => val as EventCategoryType),
+  targetStatus: z
+    .enum(Object.values(RoleStatus) as [string, ...string[]])
+    .nullable()
+    .optional()
+    .transform((val) => (val ? (val as RoleStatus) : null)),
   isSystemDefined: z.boolean(),
 });
 
