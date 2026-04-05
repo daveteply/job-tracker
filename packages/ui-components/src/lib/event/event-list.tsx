@@ -3,6 +3,7 @@ import EventInfoCard from './event-info-card';
 
 export interface EventListProps {
   events: EventWithChildrenDTO[];
+  showControls?: boolean;
 }
 
 export function EventList(props: EventListProps) {
@@ -11,7 +12,11 @@ export function EventList(props: EventListProps) {
       {props.events && props.events.length ? (
         <>
           {props.events.map((event: EventWithChildrenDTO) => (
-            <EventInfoCard key={event.id} event={event} />
+            <EventInfoCard
+              key={event.id}
+              event={event}
+              showControls={props.showControls}
+            />
           ))}
         </>
       ) : (
