@@ -27,7 +27,7 @@ export function FormattedDate({ dateValue, useRelativeTime = true }: FormattedDa
     currentMidnight.setHours(0, 0, 0, 0);
 
     const differenceInDays = Math.round(
-      (eventMidnight.getTime() - currentMidnight.getTime()) / 86400000
+      (eventMidnight.getTime() - currentMidnight.getTime()) / 86400000,
     );
 
     const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });

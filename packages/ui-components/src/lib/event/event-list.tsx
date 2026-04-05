@@ -12,11 +12,7 @@ export function EventList(props: EventListProps) {
       {props.events && props.events.length ? (
         <>
           {props.events.map((event: EventWithChildrenDTO) => (
-            <EventInfoCard
-              key={event.id}
-              event={event}
-              showControls={props.showControls}
-            />
+            <EventInfoCard key={event.id} event={event} showControls={props.showControls} />
           ))}
         </>
       ) : (

@@ -28,9 +28,7 @@ export class EventRepository {
     return EventMapper.toDto(doc.toJSON());
   }
 
-  async create(
-    event: Partial<EventDTO> & { id: string },
-  ): Promise<EventDTO> {
+  async create(event: Partial<EventDTO> & { id: string }): Promise<EventDTO> {
     const timestamps = createAuditTimestamps();
     const doc = EventMapper.toDocument({
       ...(event as Parameters<typeof EventMapper.toDocument>[0]),
@@ -41,10 +39,7 @@ export class EventRepository {
     return EventMapper.toDto(inserted.toJSON());
   }
 
-  async update(
-    id: string,
-    event: Partial<EventDTO>,
-  ): Promise<EventDTO | null> {
+  async update(id: string, event: Partial<EventDTO>): Promise<EventDTO | null> {
     const existing = await this.db.events.findOne(id).exec();
     if (!existing) return null;
 
@@ -61,9 +56,7 @@ export class EventRepository {
     return EventMapper.toDto(updated.toJSON());
   }
 
-  async upsert(
-    event: Partial<EventDTO> & { id: string },
-  ): Promise<EventDTO> {
+  async upsert(event: Partial<EventDTO> & { id: string }): Promise<EventDTO> {
     return upsertEntity(event, {
       entityName: 'event',
       create: (input) => this.create(input),

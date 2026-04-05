@@ -1,11 +1,7 @@
 import { ReminderDTO } from '@job-tracker/validation';
 import { TrackerDatabase } from '../database/db';
 import { map, Observable } from 'rxjs';
-import {
-  createAuditTimestamps,
-  createUpdatedAt,
-  upsertEntity,
-} from '@job-tracker/app-logic';
+import { createAuditTimestamps, createUpdatedAt, upsertEntity } from '@job-tracker/app-logic';
 import { ReminderMapper } from '../mappers/reminder.mapper';
 
 export class ReminderRepository {
@@ -16,9 +12,7 @@ export class ReminderRepository {
       .find({
         sort: [{ remindAt: 'asc' }],
       })
-      .$.pipe(
-        map((docs) => docs.map((doc) => ReminderMapper.toDto(doc.toJSON()))),
-      );
+      .$.pipe(map((docs) => docs.map((doc) => ReminderMapper.toDto(doc.toJSON()))));
   }
 
   async getById(id: string): Promise<ReminderDTO | null> {
@@ -50,10 +44,7 @@ export class ReminderRepository {
     return ReminderMapper.toDto(inserted.toJSON());
   }
 
-  async update(
-    id: string,
-    reminder: Partial<ReminderDTO>,
-  ): Promise<ReminderDTO | null> {
+  async update(id: string, reminder: Partial<ReminderDTO>): Promise<ReminderDTO | null> {
     const existing = await this.db.reminders.findOne(id).exec();
     if (!existing) return null;
 

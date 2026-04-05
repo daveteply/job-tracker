@@ -56,7 +56,7 @@ export const EventCreateWithReminderSchema = EventCreateSchema.extend({
   {
     message: 'Reminder date is required',
     path: ['remindAt'],
-  }
+  },
 );
 
 export const EventUpdateSchema = z

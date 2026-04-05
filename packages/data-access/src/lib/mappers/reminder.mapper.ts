@@ -51,8 +51,8 @@ export class ReminderMapper {
       remindAt: (entity.remindAt instanceof Date
         ? entity.remindAt
         : entity.remindAt
-        ? new Date(entity.remindAt)
-        : now
+          ? new Date(entity.remindAt)
+          : now
       ).toISOString(),
       completedAt: entity.completedAt
         ? (entity.completedAt instanceof Date

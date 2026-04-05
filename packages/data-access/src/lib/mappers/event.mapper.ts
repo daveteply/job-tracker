@@ -43,7 +43,9 @@ export class EventMapper {
     };
   }
 
-  static toDocument(entity: Partial<Omit<EventDTO, 'occurredAt'>> & { occurredAt?: string | Date; id: string }): EventDocument {
+  static toDocument(
+    entity: Partial<Omit<EventDTO, 'occurredAt'>> & { occurredAt?: string | Date; id: string },
+  ): EventDocument {
     const now = new Date();
     const document: EventDocument = {
       id: entity.id,
@@ -59,8 +61,8 @@ export class EventMapper {
       occurredAt: (entity.occurredAt instanceof Date
         ? entity.occurredAt
         : entity.occurredAt
-        ? new Date(entity.occurredAt)
-        : now
+          ? new Date(entity.occurredAt)
+          : now
       ).toISOString(),
       source: entity.source ?? SourceType.Email,
       direction: entity.direction ?? DirectionType.Inbound,

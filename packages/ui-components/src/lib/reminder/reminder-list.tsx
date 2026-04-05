@@ -14,11 +14,7 @@ export function ReminderList({ reminders, onComplete }: ReminderListProps) {
       {reminders && reminders.length ? (
         <>
           {reminders.map((reminder) => (
-            <ReminderInfoCard
-              key={reminder.id}
-              reminder={reminder}
-              onComplete={onComplete}
-            />
+            <ReminderInfoCard key={reminder.id} reminder={reminder} onComplete={onComplete} />
           ))}
         </>
       ) : (

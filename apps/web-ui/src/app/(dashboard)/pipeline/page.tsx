@@ -12,10 +12,7 @@ export default function PipelinePage() {
     <div className="h-full flex flex-col gap-6">
       <h1 className="text-2xl font-bold px-1">Pipeline</h1>
 
-      <Pipeline
-        roles={roles}
-        loading={loadingRoles}
-      />
+      <Pipeline roles={roles} loading={loadingRoles} />
     </div>
   );
 }

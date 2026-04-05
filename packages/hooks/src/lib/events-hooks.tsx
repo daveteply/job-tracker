@@ -236,21 +236,12 @@ export function useEventActions() {
       }
 
       try {
-        const {
-          company,
-          contact,
-          role,
-          hasReminder,
-          remindAt,
-          ...eventData
-        } = event;
+        const { company, contact, role, hasReminder, remindAt, ...eventData } = event;
 
         const resolvedCompanyId = await resolveCompanyId({
           selection: company,
           currentCompanyId: eventData.companyId,
-          upsertCompany: companyRepository
-            ? (input) => companyRepository.upsert(input)
-            : undefined,
+          upsertCompany: companyRepository ? (input) => companyRepository.upsert(input) : undefined,
         });
 
         const resolvedContactId = await resolveEntityId({

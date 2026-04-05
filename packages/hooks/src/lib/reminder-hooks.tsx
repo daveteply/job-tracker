@@ -91,46 +91,30 @@ export function useRemindersWithChildren() {
       contactRepository?.list$(),
       roleRepository?.list$(),
     ]).pipe(
-      map(
-        ([reminders, events, eventTypes, companies, contacts, roles]) => {
-          const eventTypeId = new Map(
-            eventTypes.map((eventType) => [eventType.id, eventType]),
-          );
-          const companiesById = new Map(
-            companies.map((company) => [company.id, company]),
-          );
-          const contactsById = new Map(
-            contacts.map((contact) => [contact.id, contact]),
-          );
-          const rolesById = new Map(roles.map((role) => [role.id, role]));
+      map(([reminders, events, eventTypes, companies, contacts, roles]) => {
+        const eventTypeId = new Map(eventTypes.map((eventType) => [eventType.id, eventType]));
+        const companiesById = new Map(companies.map((company) => [company.id, company]));
+        const contactsById = new Map(contacts.map((contact) => [contact.id, contact]));
+        const rolesById = new Map(roles.map((role) => [role.id, role]));
 
-          const eventsWithChildrenById = new Map<string, EventWithChildrenDTO>(
-            events.map((event) => [
-              event.id,
-              {
-                ...event,
-                eventType: event.eventTypeId
-                  ? eventTypeId.get(event.eventTypeId) ?? null
-                  : null,
-                company: event.companyId
-                  ? companiesById.get(event.companyId) ?? null
-                  : null,
-                contact: event.contactId
-                  ? contactsById.get(event.contactId) ?? null
-                  : null,
-                role: event.roleId ? rolesById.get(event.roleId) ?? null : null,
-              },
-            ]),
-          );
+        const eventsWithChildrenById = new Map<string, EventWithChildrenDTO>(
+          events.map((event) => [
+            event.id,
+            {
+              ...event,
+              eventType: event.eventTypeId ? (eventTypeId.get(event.eventTypeId) ?? null) : null,
+              company: event.companyId ? (companiesById.get(event.companyId) ?? null) : null,
+              contact: event.contactId ? (contactsById.get(event.contactId) ?? null) : null,
+              role: event.roleId ? (rolesById.get(event.roleId) ?? null) : null,
+            },
+          ]),
+        );
 
-          return reminders.map<ReminderWithChildrenDTO>((reminder) => ({
-            ...reminder,
-            event: reminder.eventId
-              ? eventsWithChildrenById.get(reminder.eventId) ?? null
-              : null,
-          }));
-        },
-      ),
+        return reminders.map<ReminderWithChildrenDTO>((reminder) => ({
+          ...reminder,
+          event: reminder.eventId ? (eventsWithChildrenById.get(reminder.eventId) ?? null) : null,
+        }));
+      }),
     );
   }, [
     reminderRepository,
@@ -141,10 +125,7 @@ export function useRemindersWithChildren() {
     roleRepository,
   ]);
 
-  const reminders = useObservable<ReminderWithChildrenDTO[]>(
-    remindersWithChildren$,
-    [],
-  );
+  const reminders = useObservable<ReminderWithChildrenDTO[]>(remindersWithChildren$, []);
 
   return {
     reminders,

@@ -12,9 +12,7 @@ export default function ActivityPage() {
     <>
       <div className="flex mb-3 justify-between items-center">
         <h1 className="text-xl pr-1">Activity</h1>
-        {loading && (
-          <span className="loading loading-spinner loading-sm opacity-20"></span>
-        )}
+        {loading && <span className="loading loading-spinner loading-sm opacity-20"></span>}
       </div>
 
       {!loading && events.length === 0 ? (
@@ -22,8 +20,8 @@ export default function ActivityPage() {
           <ArchiveBoxIcon className="h-16 w-16 opacity-10 mb-4" />
           <h2 className="text-2xl font-bold opacity-60">No activity yet</h2>
           <p className="text-sm opacity-40 text-center mt-2 max-w-xs mb-8">
-            Your activity feed is empty. Start by logging an event like an application, 
-            an interview, or a networking call.
+            Your activity feed is empty. Start by logging an event like an application, an
+            interview, or a networking call.
           </p>
           <Link href="/events/new" className="btn btn-primary gap-2">
             <PlusIcon className="h-5 w-5" />

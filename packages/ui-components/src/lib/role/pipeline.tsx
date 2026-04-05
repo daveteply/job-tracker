@@ -27,11 +27,19 @@ const STATUS_ORDER = [
 const STATUS_CONFIG: Record<RoleStatus, { title: string; icon: any; color: string }> = {
   [RoleStatus.Lead]: { title: 'Leads', icon: UserGroupIcon, color: 'text-info' },
   [RoleStatus.Applied]: { title: 'Applied', icon: RocketLaunchIcon, color: 'text-primary' },
-  [RoleStatus.Interviewing]: { title: 'Interviewing', icon: ChatBubbleLeftRightIcon, color: 'text-warning' },
+  [RoleStatus.Interviewing]: {
+    title: 'Interviewing',
+    icon: ChatBubbleLeftRightIcon,
+    color: 'text-warning',
+  },
   [RoleStatus.Offer]: { title: 'Offers', icon: CheckCircleIcon, color: 'text-success' },
   [RoleStatus.Accepted]: { title: 'Accepted', icon: BriefcaseIcon, color: 'text-success' },
   [RoleStatus.Rejected]: { title: 'Rejected', icon: XCircleIcon, color: 'text-error' },
-  [RoleStatus.Withdrawn]: { title: 'Withdrawn', icon: ArchiveBoxIcon, color: 'text-base-content/50' },
+  [RoleStatus.Withdrawn]: {
+    title: 'Withdrawn',
+    icon: ArchiveBoxIcon,
+    color: 'text-base-content/50',
+  },
   [RoleStatus.Ghosted]: { title: 'Ghosted', icon: EyeSlashIcon, color: 'text-base-content/30' },
 };
 
@@ -41,11 +49,7 @@ export interface PipelineColumnProps {
   loading?: boolean;
 }
 
-export function PipelineColumn({
-  status,
-  roles,
-  loading,
-}: PipelineColumnProps) {
+export function PipelineColumn({ status, roles, loading }: PipelineColumnProps) {
   const config = STATUS_CONFIG[status];
   const Icon = config.icon;
 
@@ -56,9 +60,7 @@ export function PipelineColumn({
           <Icon className={`h-5 w-5 ${config.color}`} />
           <h2 className="font-bold text-lg tracking-tight">{config.title}</h2>
         </div>
-        <span className="badge badge-ghost badge-sm font-mono opacity-60">
-          {roles.length}
-        </span>
+        <span className="badge badge-ghost badge-sm font-mono opacity-60">{roles.length}</span>
       </div>
 
       <div className="flex-grow space-y-3">
@@ -93,7 +95,7 @@ export function Pipeline({ roles, loading, columns }: PipelineProps) {
     if (columns) return columns;
 
     const statusesInData = new Set(roles.map((r) => r.status as RoleStatus));
-    
+
     // Only show statuses that have data
     return STATUS_ORDER.filter((status) => statusesInData.has(status)).map((status) => ({
       title: STATUS_CONFIG[status].title,
@@ -101,16 +103,12 @@ export function Pipeline({ roles, loading, columns }: PipelineProps) {
     }));
   }, [roles, columns]);
 
-  const groupedRoles = (status: RoleStatus) =>
-    roles.filter((role) => role.status === status);
+  const groupedRoles = (status: RoleStatus) => roles.filter((role) => role.status === status);
 
   return (
     <div className="flex flex-col sm:flex-row gap-6 sm:overflow-x-auto pb-8 items-start sm:snap-x sm:snap-mandatory sm:scroll-smooth -mx-1 px-1">
       {activeColumns.map((column: { title: string; status: RoleStatus }) => (
-        <div 
-          key={column.status} 
-          className="w-full sm:w-72 md:w-80 shrink-0 sm:snap-center"
-        >
+        <div key={column.status} className="w-full sm:w-72 md:w-80 shrink-0 sm:snap-center">
           <PipelineColumn
             status={column.status}
             roles={groupedRoles(column.status)}
@@ -118,12 +116,14 @@ export function Pipeline({ roles, loading, columns }: PipelineProps) {
           />
         </div>
       ))}
-      
+
       {activeColumns.length === 0 && !loading && (
         <div className="flex-grow flex flex-col items-center justify-center p-12 bg-base-200/30 rounded-2xl border-2 border-dashed border-base-300 min-h-[300px] w-full">
           <ArchiveBoxIcon className="h-12 w-12 opacity-10 mb-4" />
           <p className="text-lg font-bold opacity-60">Your pipeline is empty</p>
-          <p className="text-sm opacity-40 text-center mt-2 max-w-xs">Add a new job lead to begin tracking your progress.</p>
+          <p className="text-sm opacity-40 text-center mt-2 max-w-xs">
+            Add a new job lead to begin tracking your progress.
+          </p>
         </div>
       )}
     </div>

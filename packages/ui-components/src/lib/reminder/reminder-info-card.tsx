@@ -31,7 +31,7 @@ export function ReminderInfoCard({ reminder, showControls = true, onComplete }: 
               </p>
             )}
             <p className="text-[10px] font-medium mt-1 uppercase opacity-50">
-              <FormattedDate  dateValue={reminder.remindAt}></FormattedDate>
+              <FormattedDate dateValue={reminder.remindAt}></FormattedDate>
             </p>
           </div>
           {showControls && (
