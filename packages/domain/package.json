@@ -4,6 +4,6 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "rxdb": "^16.21.1"
+    "rxdb": "^17.1.0"
   }
 }

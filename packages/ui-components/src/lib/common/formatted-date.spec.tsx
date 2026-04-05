@@ -12,7 +12,7 @@ describe('FormattedDate', () => {
 
   it('should show "yesterday" for an event from the previous day, even if less than 12 hours ago', () => {
     // Current time: Mar 12, 10:00 AM local
-    jest.setSystemTime(new Date(2026, 2, 12, 10, 0, 0));
+    jest.setSystemTime(new Date(2026, 2, 12, 10, 0, 0).getTime());
     // Event time: Mar 11, 11:00 PM local (11 hours ago)
     const eventDate = new Date(2026, 2, 11, 23, 0, 0);
 
@@ -23,7 +23,7 @@ describe('FormattedDate', () => {
 
   it('should show "tomorrow" for an event in the next day, even if less than 12 hours away', () => {
     // Current time: Mar 12, 10:00 PM local
-    jest.setSystemTime(new Date(2026, 2, 12, 22, 0, 0));
+    jest.setSystemTime(new Date(2026, 2, 12, 22, 0, 0).getTime());
     // Event time: Mar 13, 01:00 AM local (3 hours away)
     const eventDate = new Date(2026, 2, 13, 1, 0, 0);
 
@@ -34,7 +34,7 @@ describe('FormattedDate', () => {
 
   it('should show "today" for an event from earlier today', () => {
     // Current time: Mar 12, 10:00 PM local
-    jest.setSystemTime(new Date(2026, 2, 12, 22, 0, 0));
+    jest.setSystemTime(new Date(2026, 2, 12, 22, 0, 0).getTime());
     // Event time: Mar 12, 01:00 AM local
     const eventDate = new Date(2026, 2, 12, 1, 0, 0);
 
@@ -45,7 +45,7 @@ describe('FormattedDate', () => {
 
   it('should show "2 days ago" for an event from two days ago', () => {
     // Current time: Mar 12, 10:00 AM local
-    jest.setSystemTime(new Date(2026, 2, 12, 10, 0, 0));
+    jest.setSystemTime(new Date(2026, 2, 12, 10, 0, 0).getTime());
     // Event time: Mar 10, 10:00 AM local
     const eventDate = new Date(2026, 2, 10, 10, 0, 0);
 
