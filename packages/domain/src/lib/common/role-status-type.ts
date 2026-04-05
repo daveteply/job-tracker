@@ -6,4 +6,5 @@ export enum RoleStatus {
   Accepted = 'Accepted',
   Rejected = 'Rejected',
   Withdrawn = 'Withdrawn',
+  Ghosted = "Ghosted"
 }
