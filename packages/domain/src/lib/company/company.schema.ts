@@ -17,6 +17,7 @@ export const CompanySchema: RxJsonSchema<CompanyEntity> = {
     industry: { type: ['string', 'null'], maxLength: 100 },
     sizeRange: { type: ['string', 'null'], maxLength: 100 },
     notes: { type: ['string', 'null'], maxLength: 2048 },
+    version: { type: 'number', minimum: 0 },
 
     updatedAt: { type: 'string', format: 'date-time', maxLength: 30 },
     createdAt: { type: 'string', format: 'date-time', maxLength: 30 },

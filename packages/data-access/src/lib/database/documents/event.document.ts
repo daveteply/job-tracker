@@ -3,6 +3,7 @@ import { DirectionType, SourceType } from '@job-tracker/domain';
 export interface EventDocument {
   id: string;
   serverId: number | null;
+  version: number;
   updatedAt: string;
   createdAt?: string;
 

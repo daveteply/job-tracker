@@ -11,6 +11,7 @@ export const ContactSchema: RxJsonSchema<ContactEntity> = {
   properties: {
     id: { type: 'string', maxLength: 36 },
     serverId: { type: ['number', 'null'] },
+    version: { type: 'number', minimum: 0 },
 
     companyId: { type: 'string', maxLength: 36, ref: 'companies', default: '' },
 

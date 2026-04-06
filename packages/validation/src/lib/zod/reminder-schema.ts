@@ -14,6 +14,7 @@ export const ReminderUpdateSchema = ReminderInputSchema.partial().required({
 export const ReminderDTOSchema = z.object({
   id: z.string(),
   serverId: z.number().nullable().optional(),
+  version: z.number(),
   updatedAt: z.string().optional(),
   createdAt: z.string().optional(),
 

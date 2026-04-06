@@ -1,6 +1,7 @@
 export interface CompanyEntity {
   id: string;
-  serverId: number;
+  serverId: number | null;
+  version: number;
 
   name: string;
   website?: string;

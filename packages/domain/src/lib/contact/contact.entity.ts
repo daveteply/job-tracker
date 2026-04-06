@@ -2,7 +2,8 @@ import { CompanyEntity } from '../company/company.entity';
 
 export interface ContactEntity {
   id: string;
-  serverId: number;
+  serverId: number | null;
+  version: number;
 
   companyId?: string | null;
 

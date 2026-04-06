@@ -7,6 +7,7 @@ export class RoleMapper {
     return {
       id: doc.id,
       serverId: doc.serverId ?? 0,
+      version: doc.version,
       updatedAt: doc.updatedAt,
       createdAt: doc.createdAt,
 
@@ -26,6 +27,7 @@ export class RoleMapper {
     return {
       id: doc.id,
       serverId: doc.serverId,
+      version: doc.version,
       updatedAt: doc.updatedAt,
       createdAt: doc.createdAt,
 
@@ -46,6 +48,7 @@ export class RoleMapper {
     const document: RoleDocument = {
       id: entity.id,
       serverId: entity.serverId ?? null,
+      version: entity.version ?? 0,
       updatedAt: entity.updatedAt ?? now,
       createdAt: entity.createdAt ?? now,
 

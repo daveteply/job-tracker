@@ -7,7 +7,8 @@ import { EventTypeEntity } from './event-type.entity';
 
 export interface EventEntity {
   id: string;
-  serverId: number;
+  serverId: number | null;
+  version: number;
 
   companyId?: string | null;
   contactId?: string | null;

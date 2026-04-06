@@ -11,6 +11,7 @@ export const ReminderSchema: RxJsonSchema<ReminderEntity> = {
   properties: {
     id: { type: 'string', maxLength: 36 },
     serverId: { type: ['number', 'null'] },
+    version: { type: 'number', minimum: 0 },
 
     eventId: { type: 'string', maxLength: 36, ref: 'events' },
 

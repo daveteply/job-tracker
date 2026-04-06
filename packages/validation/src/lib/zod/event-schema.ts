@@ -81,6 +81,7 @@ export const EventUpdateSchema = z
 export const EventDTOSchema = z.object({
   id: z.string(),
   serverId: z.number().nullable().optional(),
+  version: z.number(),
   updatedAt: z.string().optional(),
   createdAt: z.string().optional(),
 

@@ -3,6 +3,7 @@ import { RoleStatus } from '@job-tracker/domain';
 export interface RoleDocument {
   id: string;
   serverId: number | null;
+  version: number;
   updatedAt: string;
   createdAt?: string;
 

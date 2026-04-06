@@ -51,6 +51,7 @@ export const ContactUpdateSchema = z
 export const ContactDTOSchema = z.object({
   id: z.string(),
   serverId: z.number().nullable().optional(),
+  version: z.number(),
   companyId: z.string().nullable().optional(),
   updatedAt: z.string().optional(),
   createdAt: z.string().optional(),
