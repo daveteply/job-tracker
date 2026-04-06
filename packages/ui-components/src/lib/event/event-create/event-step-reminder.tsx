@@ -83,7 +83,10 @@ export function EventStepReminder<T extends FieldValues = FieldValues>({
           <input
             type="date"
             className={`input input-bordered w-full ${errors?.remindAt ? 'input-error' : ''}`}
-            {...register('remindAt' as Path<T>, { valueAsDate: true } as unknown as RegisterOptions<T, Path<T>>)}
+            {...register(
+              'remindAt' as Path<T>,
+              { valueAsDate: true } as unknown as RegisterOptions<T, Path<T>>,
+            )}
           />
           <div className="flex flex-wrap gap-2 mt-3">
             <button

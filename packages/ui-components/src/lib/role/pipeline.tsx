@@ -24,27 +24,25 @@ const STATUS_ORDER = [
   RoleStatus.Ghosted,
 ];
 
-const STATUS_CONFIG: Record<
-  RoleStatus,
-  { title: string; icon: React.ElementType; color: string }
-> = {
-  [RoleStatus.Lead]: { title: 'Leads', icon: UserGroupIcon, color: 'text-info' },
-  [RoleStatus.Applied]: { title: 'Applied', icon: RocketLaunchIcon, color: 'text-primary' },
-  [RoleStatus.Interviewing]: {
-    title: 'Interviewing',
-    icon: ChatBubbleLeftRightIcon,
-    color: 'text-warning',
-  },
-  [RoleStatus.Offer]: { title: 'Offers', icon: CheckCircleIcon, color: 'text-success' },
-  [RoleStatus.Accepted]: { title: 'Accepted', icon: BriefcaseIcon, color: 'text-success' },
-  [RoleStatus.Rejected]: { title: 'Rejected', icon: XCircleIcon, color: 'text-error' },
-  [RoleStatus.Withdrawn]: {
-    title: 'Withdrawn',
-    icon: ArchiveBoxIcon,
-    color: 'text-base-content/50',
-  },
-  [RoleStatus.Ghosted]: { title: 'Ghosted', icon: EyeSlashIcon, color: 'text-base-content/30' },
-};
+const STATUS_CONFIG: Record<RoleStatus, { title: string; icon: React.ElementType; color: string }> =
+  {
+    [RoleStatus.Lead]: { title: 'Leads', icon: UserGroupIcon, color: 'text-info' },
+    [RoleStatus.Applied]: { title: 'Applied', icon: RocketLaunchIcon, color: 'text-primary' },
+    [RoleStatus.Interviewing]: {
+      title: 'Interviewing',
+      icon: ChatBubbleLeftRightIcon,
+      color: 'text-warning',
+    },
+    [RoleStatus.Offer]: { title: 'Offers', icon: CheckCircleIcon, color: 'text-success' },
+    [RoleStatus.Accepted]: { title: 'Accepted', icon: BriefcaseIcon, color: 'text-success' },
+    [RoleStatus.Rejected]: { title: 'Rejected', icon: XCircleIcon, color: 'text-error' },
+    [RoleStatus.Withdrawn]: {
+      title: 'Withdrawn',
+      icon: ArchiveBoxIcon,
+      color: 'text-base-content/50',
+    },
+    [RoleStatus.Ghosted]: { title: 'Ghosted', icon: EyeSlashIcon, color: 'text-base-content/30' },
+  };
 
 export interface PipelineColumnProps {
   status: RoleStatus;

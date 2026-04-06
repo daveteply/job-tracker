@@ -1,0 +1,7 @@
+FROM maven:3.9.9-eclipse-temurin-21-alpine
+
+WORKDIR /app
+
+# The quarkus-dev mode works by watching files and recompiling.
+# We mount the source code into the container.
+CMD ["mvn", "quarkus:dev", "-Dquarkus.http.host=0.0.0.0"]

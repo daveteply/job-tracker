@@ -1,0 +1,29 @@
+{
+  "name": "sync-backend",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/sync-backend/src/main/java",
+  "targets": {
+    "dev": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "./mvnw quarkus:dev",
+        "cwd": "apps/sync-backend"
+      }
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "./mvnw package",
+        "cwd": "apps/sync-backend"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "./mvnw test",
+        "cwd": "apps/sync-backend"
+      }
+    }
+  }
+}

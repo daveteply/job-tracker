@@ -1,0 +1,5 @@
+com/jobtracker/sync/SyncResource$PullRequest.class
+com/jobtracker/sync/SyncEvent.class
+com/jobtracker/sync/SyncResource$PullResponse.class
+com/jobtracker/sync/SyncResource$PushRow.class
+com/jobtracker/sync/SyncResource$Checkpoint.class
