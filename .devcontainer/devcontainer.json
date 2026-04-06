@@ -32,5 +32,5 @@
     }
   },
   "postCreateCommand": "npm install -g npm@latest nx@latest && npm ci && npx playwright install --with-deps",
-  "forwardPorts": [3000, 8080, 5432, 5050]
+  "forwardPorts": [3000, 8080]
 }
