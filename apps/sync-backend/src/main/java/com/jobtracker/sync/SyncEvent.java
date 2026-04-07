@@ -24,6 +24,9 @@ public class SyncEvent extends PanacheEntityBase {
     @Column(name = "document_id", nullable = false)
     public String documentId;
 
+    @Column(name = "collection_name", nullable = false)
+    public String collectionName;
+
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "payload", nullable = false)
     public JsonNode payload;

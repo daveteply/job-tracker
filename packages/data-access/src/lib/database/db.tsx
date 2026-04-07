@@ -119,6 +119,7 @@ export const DatabaseProvider = ({ children }: { children: React.ReactNode }) =>
                       'X-User-Id': userId
                     },
                     body: JSON.stringify({
+                      collection: collection.name,
                       checkpoint: lastCheckpoint,
                       limit: batchSize
                     })
@@ -133,7 +134,7 @@ export const DatabaseProvider = ({ children }: { children: React.ReactNode }) =>
             push: {
               handler: async (rows) => {
                 try {
-                  const response = await fetch(`${SYNC_URL}/push`, {
+                  const response = await fetch(`${SYNC_URL}/push?collection=${collection.name}`, {
                     method: 'POST',
                     headers: {
                       'Content-Type': 'application/json',
