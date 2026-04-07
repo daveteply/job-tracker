@@ -1,7 +1,12 @@
-# ui-components
+# 📦 ui-components
 
-This library was generated with [Nx](https://nx.dev).
+A library of reusable React components for the JobTracker ecosystem.
 
-## Running unit tests
+## 🛠️ Tech Stack
 
-Run `nx test ui-components` to execute the unit tests via [Jest](https://jestjs.io).
+- **Framework:** React
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/) & [daisyUI](https://daisyui.com/)
+
+## 🏗️ Purpose
+
+This package ensures a consistent user experience by providing high-quality, pre-styled, and accessible components for building JobTracker's frontend interfaces.

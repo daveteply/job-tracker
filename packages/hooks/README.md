@@ -1,7 +1,11 @@
-# hooks
+# 📦 hooks
 
-This library was generated with [Nx](https://nx.dev).
+A collection of reusable React hooks for JobTracker's frontend ecosystem.
 
-## Running unit tests
+## 🛠️ Tech Stack
 
-Run `nx test hooks` to execute the unit tests via [Jest](https://jestjs.io).
+- **Framework:** React
+
+## 🏗️ Purpose
+
+This package provides a set of reusable, high-level React hooks for common application patterns, ensuring logic is easily shared across the web interface and future React-based platforms.

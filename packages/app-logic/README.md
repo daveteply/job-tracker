@@ -1,11 +1,12 @@
-# app-logic
+# 📦 app-logic
 
-This library was generated with [Nx](https://nx.dev).
+The core business logic layer for JobTracker, coordinating application-level state and processes.
 
-## Building
+## 🛠️ Tech Stack
 
-Run `nx build app-logic` to build the library.
+- **Framework:** TypeScript
+- **State Management:** Reactive business rules and application state.
 
-## Running unit tests
+## 🏗️ Purpose
 
-Run `nx test app-logic` to execute the unit tests via [Jest](https://jestjs.io).
+This package provides a central location for the application's complex logic, separating it from the UI layer to improve maintainability and testability.

@@ -1,7 +1,13 @@
-# data-access
+# 📦 data-access
 
-This library was generated with [Nx](https://nx.dev).
+The data persistence layer for JobTracker, handling local database configuration and synchronization logic.
 
-## Running unit tests
+## 🛠️ Tech Stack
 
-Run `nx test data-access` to execute the unit tests via [Jest](https://jestjs.io).
+- **Framework:** TypeScript
+- **Database:** [RxDB](https://rxdb.pub/) for local-first storage.
+- **Sync:** Synchronization orchestration between the local database and the remote backend.
+
+## 🏗️ Purpose
+
+This package centralizes all database-related operations, ensuring consistent data handling and reliable real-time synchronization across the application.

@@ -1,11 +1,12 @@
-# domain
+# 📦 domain
 
-This library was generated with [Nx](https://nx.dev).
+The core library containing JobTracker's domain entities, TypeScript types, and RxDB schemas.
 
-## Building
+## 🛠️ Tech Stack
 
-Run `nx build domain` to build the library.
+- **Framework:** TypeScript
+- **Data Schemas:** [RxDB](https://rxdb.pub/) for local-first data definitions.
 
-## Running unit tests
+## 🏗️ Purpose
 
-Run `nx test domain` to execute the unit tests via [Jest](https://jestjs.io).
+This package serves as the single source of truth for the application's data model, shared across both frontend and backend logic.
