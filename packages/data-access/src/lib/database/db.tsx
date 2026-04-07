@@ -33,7 +33,7 @@ if (process.env['NODE_ENV'] === 'development') {
   addRxPlugin(RxDBDevModePlugin);
 }
 
-const SYNC_URL = 'http://localhost:8080/sync';
+const SYNC_URL = process.env['NEXT_PUBLIC_SYNC_URL'] || 'http://localhost:8080/sync';
 
 export type CompanyCollection = RxCollection<CompanyDocument>;
 export type ContactCollection = RxCollection<ContactDocument>;
