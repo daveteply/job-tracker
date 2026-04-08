@@ -9,36 +9,76 @@
 
 ---
 
-## 🏗️ Architecture & Tech Stack
+## 🏗️ System Architecture
 
-This project is managed as an **Nx Monorepo**, ensuring high scalability, efficient builds, and shared logic across the entire ecosystem.
+JobTracker utilizes a modern, distributed architecture optimized for developer experience and offline resilience.
 
-### 🌐 Frontend (Web UI)
-- **Framework:** [Next.js 16](https://nextjs.org/) (React 19)
-- **Styling:** [Tailwind CSS](https://tailwindcss.com/) & [daisyUI](https://daisyui.com/)
-- **Data Persistence:** [RxDB](https://rxdb.pub/) for offline-first, real-time synchronization.
-- **Form Management:** React Hook Form with Zod validation.
+```mermaid
+graph TD
+    subgraph "💻 Client (web-ui)"
+        A[Next.js App] -->|Local Storage| B[(RxDB)]
+        B -->|WebSockets/HTTPS| C{Sync Manager}
+    end
 
-### ⚙️ Backend (Sync Service)
-- **Framework:** [Quarkus](https://quarkus.io/) (Java 21)
-- **Database:** PostgreSQL with Flyway for schema migrations.
-- **ORM:** Hibernate with Panache for simplified data access.
-- **API:** RESTful endpoints for real-time data synchronization with the frontend.
+    subgraph "⚙️ Backend (sync-backend)"
+        C <-->|Sync Protocol| D[Quarkus API]
+        D <-->|ORM| E[(PostgreSQL)]
+    end
 
-### 📦 Shared Packages
-- **`domain`**: Core entities and RxDB schemas.
-- **`data-access`**: Data persistence and synchronization logic.
-- **`ui-components`**: Shared, accessible UI components.
-- **`app-logic`**: Centralized business rules.
-- **`validation`**: Unified Zod schemas for type-safe validation.
-- **`hooks`**: Reusable React hooks for application state and logic.
+    subgraph "📦 Nx Workspace (Shared Logic)"
+        F[domain] -.-> A
+        F -.-> D
+        G[data-access] -.-> A
+        H[ui-components] -.-> A
+        I[validation] -.-> A
+    end
+
+    subgraph "🐳 Infrastructure"
+        E
+        J[pgAdmin] -.-> E
+    end
+```
+
+---
+
+## 🏗️ Nx Monorepo
+
+This project is managed as an **Nx Monorepo**, providing a unified workflow for frontend, backend, and shared libraries.
+
+### Key Benefits
+- **Shared Logic:** The `domain` and `validation` packages ensure that data structures and business rules are identical between the Java backend and TypeScript frontend.
+- **Affected Commands:** Nx intelligently tracks changes. Running `npx nx affected:test` only runs tests for the projects you modified.
+- **Dependency Graph:** Visualize how your code is interconnected:
+  ```bash
+  npx nx graph
+  ```
+- **Consistent Tooling:** Single `package.json` for all Node-based tools, unified linting, and formatting rules.
+
+---
+
+## 🐳 Containerization & Environment
+
+JobTracker is built to be "Environment Agnostic" using Docker and VS Code Dev Containers.
+
+### 🛠️ Dev Containers (VS Code)
+The project includes a `.devcontainer` configuration that automatically sets up:
+- **Runtimes:** Java 21 & Node.js 24.
+- **Tooling:** Nx CLI, Maven, Playwright, and specialized VS Code extensions (ESLint, Prettier, Java Pack).
+- **Automation:** Automatically runs `npm install` and installs Playwright browsers upon container creation.
+
+### 📦 Docker Compose Services
+The `docker-compose.yml` orchestrates the local development infrastructure:
+- **`db`**: PostgreSQL 16 database.
+- **`pgadmin`**: Web-based database management (accessible at `http://localhost:5050`).
+- **`sync-backend`**: Hot-reloading Quarkus instance.
+- **`dev`**: The VS Code development environment itself.
 
 ---
 
 ## 🛠️ Getting Started
 
-### 💻 Development Environment
-This project is optimized for development on **Windows 11** using **WSL2** (Ubuntu) and **Docker Desktop**. It utilizes **Dev Containers** to ensure a consistent environment for all contributors.
+### 💻 Development Environment Setup
+This project is optimized for development on **Windows 11 (WSL2)** or **Linux/macOS** using **Docker Desktop**.
 
 1.  **Clone the Repository:**
     ```bash
@@ -46,27 +86,21 @@ This project is optimized for development on **Windows 11** using **WSL2** (Ubun
     cd job-tracker
     ```
 2.  **Open in VS Code:**
-    - When prompted, click **"Reopen in Container"** to launch the development environment.
-    - Ensure Docker Desktop is running.
-3.  **Install Dependencies:**
-    ```bash
-    npm install
-    ```
+    - Launch VS Code in the project root.
+    - When prompted, click **"Reopen in Container"**.
+    - *Wait for the build to finish; this may take a few minutes on the first run.*
+3.  **Environment Variables:**
+    - Copy `.env.sample` to `.env` and adjust if necessary.
 
 ### 🏃 Running the Application
 Use Nx to run the development servers:
 
 ```bash
-# Start the web frontend
+# Start the web frontend (http://localhost:3000)
 npx nx dev web-ui
 
-# Start the sync backend (requires Docker for PostgreSQL)
+# Start the sync backend (http://localhost:8080)
 npx nx dev sync-backend
-```
-
-To view the dependency graph and explore the monorepo structure:
-```bash
-npx nx graph
 ```
 
 ---
@@ -75,40 +109,18 @@ npx nx graph
 
 - **Offline-First Synchronization:** Leverages RxDB to provide a snappy, local-first experience that syncs automatically when online.
 - **Type Safety:** Comprehensive TypeScript and Zod integration from frontend to shared logic.
-- **Cloud-Native Backend:** Quarkus provides lightning-fast startup times and low memory footprint, ideal for containerized environments.
-- **Unified Design System:** Shared UI components using Tailwind and daisyUI for a consistent look and feel.
+- **Cloud-Native Backend:** Quarkus provides lightning-fast startup times and low memory footprint.
+- **Unified Design System:** Shared UI components using Tailwind and daisyUI.
 
 ---
 
 ## 🛠️ Troubleshooting
 
 ### 🛑 Permission Issues in `sync-backend`
-If you encounter a `FileSystemException: Operation not permitted` or similar permission error when building the `sync-backend` project, it is likely because the `target` directory was created by a container running as `root`.
-
-**Fix:**
-Run the following command in your terminal to reclaim ownership of the `target` directory:
+If you encounter a `FileSystemException: Operation not permitted` in the backend:
 ```bash
 sudo chown -R $(id -u):$(id -g) apps/sync-backend/target
 ```
-
-Alternatively, you can delete the `target` directory and rebuild:
-```bash
-sudo rm -rf apps/sync-backend/target
-npx nx build sync-backend
-```
-
----
-
-## 🤝 Contributing & Documentation
-
-We welcome contributions! Please follow these guidelines:
-
-1.  **Branching:** Create a feature branch from `main`.
-2.  **Linting & Formatting:** Ensure your code passes `npm run lint` and is formatted with Prettier.
-3.  **Testing:** Add tests for new features. Use `npx nx test <project>` to run specific tests.
-4.  **Documentation:** Update the relevant package `README.md` if making structural changes.
-
-For more detailed technical documentation, please refer to the individual `README.md` files within the `apps/` and `packages/` directories.
 
 ---
 
