@@ -80,6 +80,25 @@ npx nx graph
 
 ---
 
+## 🛠️ Troubleshooting
+
+### 🛑 Permission Issues in `sync-backend`
+If you encounter a `FileSystemException: Operation not permitted` or similar permission error when building the `sync-backend` project, it is likely because the `target` directory was created by a container running as `root`.
+
+**Fix:**
+Run the following command in your terminal to reclaim ownership of the `target` directory:
+```bash
+sudo chown -R $(id -u):$(id -g) apps/sync-backend/target
+```
+
+Alternatively, you can delete the `target` directory and rebuild:
+```bash
+sudo rm -rf apps/sync-backend/target
+npx nx build sync-backend
+```
+
+---
+
 ## 🤝 Contributing & Documentation
 
 We welcome contributions! Please follow these guidelines:

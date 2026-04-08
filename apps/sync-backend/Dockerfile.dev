@@ -1,6 +1,14 @@
 FROM maven:3.9.9-eclipse-temurin-21-alpine
 
+# Create a non-root user that matches the Dev Container user (UID 1000)
+RUN addgroup -S -g 1000 maven && adduser -S -u 1000 -G maven maven
+
 WORKDIR /app
+
+# Ensure the app directory is owned by the maven user
+RUN chown maven:maven /app
+
+USER maven
 
 # The quarkus-dev mode works by watching files and recompiling.
 # We mount the source code into the container.

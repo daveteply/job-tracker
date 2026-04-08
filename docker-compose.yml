@@ -48,17 +48,19 @@ services:
       - app-net
 
   sync-backend:
+    user: "1000:1000"
     build:
       context: apps/sync-backend
       dockerfile: Dockerfile.dev
     volumes:
       - ./apps/sync-backend:/app
-      - ~/.m2:/root/.m2
+      - ~/.m2:/home/maven/.m2
     environment:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_PORT=5432
+      - MAVEN_CONFIG=/home/maven/.m2
     ports:
       - '8080:8080'
       - '5005:5005'
