@@ -14,7 +14,7 @@ describe('DTO Schemas version property', () => {
   it('CompanyDTOSchema should require version', () => {
     const data = { ...validBase, name: 'Test' };
     expect(CompanyDTOSchema.safeParse(data).success).toBe(true);
-    
+
     const { version, ...withoutVersion } = data;
     expect(CompanyDTOSchema.safeParse(withoutVersion).success).toBe(false);
   });
@@ -22,45 +22,45 @@ describe('DTO Schemas version property', () => {
   it('ContactDTOSchema should require version', () => {
     const data = { ...validBase, firstName: 'John', lastName: 'Doe' };
     expect(ContactDTOSchema.safeParse(data).success).toBe(true);
-    
+
     const { version, ...withoutVersion } = data;
     expect(ContactDTOSchema.safeParse(withoutVersion).success).toBe(false);
   });
 
   it('EventDTOSchema should require version', () => {
-    const data = { 
-      ...validBase, 
-      eventTypeId: 'type-1', 
+    const data = {
+      ...validBase,
+      eventTypeId: 'type-1',
       occurredAt: new Date(),
       source: SourceType.Email,
-      direction: DirectionType.Inbound
+      direction: DirectionType.Inbound,
     };
     expect(EventDTOSchema.safeParse(data).success).toBe(true);
-    
+
     const { version, ...withoutVersion } = data;
     expect(EventDTOSchema.safeParse(withoutVersion).success).toBe(false);
   });
 
   it('ReminderDTOSchema should require version', () => {
-    const data = { 
-      ...validBase, 
+    const data = {
+      ...validBase,
       eventId: 'event-1',
-      remindAt: new Date()
+      remindAt: new Date(),
     };
     expect(ReminderDTOSchema.safeParse(data).success).toBe(true);
-    
+
     const { version, ...withoutVersion } = data;
     expect(ReminderDTOSchema.safeParse(withoutVersion).success).toBe(false);
   });
 
   it('RoleDTOSchema should require version', () => {
-    const data = { 
-      ...validBase, 
+    const data = {
+      ...validBase,
       title: 'Engineer',
-      status: RoleStatus.Applied
+      status: RoleStatus.Applied,
     };
     expect(RoleDTOSchema.safeParse(data).success).toBe(true);
-    
+
     const { version, ...withoutVersion } = data;
     expect(RoleDTOSchema.safeParse(withoutVersion).success).toBe(false);
   });

@@ -40,19 +40,19 @@ describe('Header', () => {
   it('toggles shadow on scroll', () => {
     render(<Header title="Test App" />);
     const header = screen.getByRole('banner');
-    
+
     expect(header.className).toContain('shadow-none');
-    
+
     // Simulate scroll
     Object.defineProperty(window, 'scrollY', { value: 10, writable: true });
     fireEvent.scroll(window);
-    
+
     expect(header.className).toContain('shadow-lg');
-    
+
     // Scroll back
     Object.defineProperty(window, 'scrollY', { value: 0, writable: true });
     fireEvent.scroll(window);
-    
+
     expect(header.className).toContain('shadow-none');
   });
 });

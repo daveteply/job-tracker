@@ -46,6 +46,7 @@ graph TD
 This project is managed as an **Nx Monorepo**, providing a unified workflow for frontend, backend, and shared libraries.
 
 ### Key Benefits
+
 - **Shared Logic:** The `domain` and `validation` packages ensure that data structures and business rules are identical between the Java backend and TypeScript frontend.
 - **Affected Commands:** Nx intelligently tracks changes. Running `npx nx affected:test` only runs tests for the projects you modified.
 - **Dependency Graph:** Visualize how your code is interconnected:
@@ -61,13 +62,17 @@ This project is managed as an **Nx Monorepo**, providing a unified workflow for 
 JobTracker is built to be "Environment Agnostic" using Docker and VS Code Dev Containers.
 
 ### 🛠️ Dev Containers (VS Code)
+
 The project includes a `.devcontainer` configuration that automatically sets up:
+
 - **Runtimes:** Java 21 & Node.js 24.
 - **Tooling:** Nx CLI, Maven, Playwright, and specialized VS Code extensions (ESLint, Prettier, Java Pack).
 - **Automation:** Automatically runs `npm install` and installs Playwright browsers upon container creation.
 
 ### 📦 Docker Compose Services
+
 The `docker-compose.yml` orchestrates the local development infrastructure:
+
 - **`db`**: PostgreSQL 16 database.
 - **`pgadmin`**: Web-based database management (accessible at `http://localhost:5050`).
 - **`sync-backend`**: Hot-reloading Quarkus instance.
@@ -78,6 +83,7 @@ The `docker-compose.yml` orchestrates the local development infrastructure:
 ## 🛠️ Getting Started
 
 ### 💻 Development Environment Setup
+
 This project is optimized for development on **Windows 11 (WSL2)** or **Linux/macOS** using **Docker Desktop**.
 
 1.  **Clone the Repository:**
@@ -88,11 +94,12 @@ This project is optimized for development on **Windows 11 (WSL2)** or **Linux/ma
 2.  **Open in VS Code:**
     - Launch VS Code in the project root.
     - When prompted, click **"Reopen in Container"**.
-    - *Wait for the build to finish; this may take a few minutes on the first run.*
+    - _Wait for the build to finish; this may take a few minutes on the first run._
 3.  **Environment Variables:**
     - Copy `.env.sample` to `.env` and adjust if necessary.
 
 ### 🏃 Running the Application
+
 Use Nx to run the development servers:
 
 ```bash
@@ -117,11 +124,13 @@ npx nx dev sync-backend
 ## 🛠️ Troubleshooting
 
 ### 🛑 Permission Issues in `sync-backend`
+
 If you encounter a `FileSystemException: Operation not permitted` in the backend:
+
 ```bash
 sudo chown -R $(id -u):$(id -g) apps/sync-backend/target
 ```
 
 ---
 
-*Built with ❤️ using Nx, Next.js, and Quarkus.*
+_Built with ❤️ using Nx, Next.js, and Quarkus._

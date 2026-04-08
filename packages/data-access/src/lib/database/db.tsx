@@ -99,8 +99,8 @@ export const DatabaseProvider = ({ children }: { children: React.ReactNode }) =>
 
         // Initialize replication for each collection
         const userId = 'test-user'; // TODO: replace with actual user ID from auth
-        
-        Object.values(collections).forEach(collection => {
+
+        Object.values(collections).forEach((collection) => {
           // Don't sync eventTypes as they are seeded and fixed
           if (collection.name === 'eventTypes') return;
 
@@ -116,20 +116,20 @@ export const DatabaseProvider = ({ children }: { children: React.ReactNode }) =>
                     method: 'POST',
                     headers: {
                       'Content-Type': 'application/json',
-                      'X-User-Id': userId
+                      'X-User-Id': userId,
                     },
                     body: JSON.stringify({
                       collection: collection.name,
                       checkpoint: lastCheckpoint,
-                      limit: batchSize
-                    })
+                      limit: batchSize,
+                    }),
                   });
                   return response.json();
                 } catch (err) {
                   setSyncStatus('offline');
                   throw err;
                 }
-              }
+              },
             },
             push: {
               handler: async (rows) => {
@@ -138,26 +138,26 @@ export const DatabaseProvider = ({ children }: { children: React.ReactNode }) =>
                     method: 'POST',
                     headers: {
                       'Content-Type': 'application/json',
-                      'X-User-Id': userId
+                      'X-User-Id': userId,
                     },
-                    body: JSON.stringify(rows)
+                    body: JSON.stringify(rows),
                   });
                   return response.json();
                 } catch (err) {
                   setSyncStatus('offline');
                   throw err;
                 }
-              }
-            }
+              },
+            },
           });
 
           // Update sync status based on replication state
-          replicationState.active$.subscribe(active => {
+          replicationState.active$.subscribe((active) => {
             if (active) setSyncStatus('syncing');
             else setSyncStatus('synced');
           });
 
-          replicationState.error$.subscribe(err => {
+          replicationState.error$.subscribe((err) => {
             console.error(`Replication error in ${collection.name}:`, err);
             setSyncStatus('error');
           });
@@ -188,11 +188,7 @@ export const DatabaseProvider = ({ children }: { children: React.ReactNode }) =>
     );
   }
 
-  return (
-    <DatabaseContext.Provider value={{ db, syncStatus }}>
-      {children}
-    </DatabaseContext.Provider>
-  );
+  return <DatabaseContext.Provider value={{ db, syncStatus }}>{children}</DatabaseContext.Provider>;
 };
 
 export const useDb = () => {

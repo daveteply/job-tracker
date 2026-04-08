@@ -29,9 +29,7 @@ export function Header({ title, iconSrc, homeHref = '/home' }: HeaderProps) {
     >
       <div className="container mx-auto flex justify-between items-center">
         <Link href={homeHref} className="flex items-center gap-2">
-          {iconSrc && (
-            <img src={iconSrc} alt="App Icon" className="w-8 h-8 rounded" />
-          )}
+          {iconSrc && <img src={iconSrc} alt="App Icon" className="w-8 h-8 rounded" />}
           <h1 className="text-2xl font-bold">{title}</h1>
         </Link>
         <SyncIndicator />
