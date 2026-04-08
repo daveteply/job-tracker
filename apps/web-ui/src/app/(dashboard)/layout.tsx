@@ -1,14 +1,9 @@
-import { BottomNav, Breadcrumbs, FloatingActionButton, SyncIndicator } from '@job-tracker/ui-components';
+import { BottomNav, Breadcrumbs, FloatingActionButton, Header } from '@job-tracker/ui-components';
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="pb-14 flex flex-col min-h-screen">
-      <header className="bg-blue-600 text-white p-4 shadow-md">
-        <div className="container mx-auto flex justify-between items-center">
-          <h1 className="text-2xl font-bold">Job Tracker</h1>
-          <SyncIndicator />
-        </div>
-      </header>
+      <Header title="Job Tracker" iconSrc="/favicon-32x32.png" />
       <nav className="pl-3 bg-accent-content">
         <Breadcrumbs />
       </nav>
