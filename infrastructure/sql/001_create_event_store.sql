@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS sync_events (
 );
 
 -- Index for fast "Pull" requests
-CREATE INDEX idx_user_timestamp ON sync_events (user_id, server_timestamp);
+CREATE INDEX IF NOT EXISTS idx_user_timestamp ON sync_events (user_id, server_timestamp);
 
 -- Index for finding the history of a specific contact
-CREATE INDEX idx_doc_id ON sync_events (document_id);
+CREATE INDEX IF NOT EXISTS idx_doc_id ON sync_events (document_id);

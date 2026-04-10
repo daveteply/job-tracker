@@ -100,14 +100,16 @@ This project is optimized for development on **Windows 11 (WSL2)** or **Linux/ma
 
 ### 🏃 Running the Application
 
-Use Nx to run the development servers:
+For the best experience within the VS Code Dev Container, use these integrated commands:
+
+> **Important:** Run these commands **inside the VS Code terminal** (the Dev Container).
 
 ```bash
-# Start the web frontend (http://localhost:3000)
-npx nx dev web-ui
+# 1. First-time setup (migrations + build backend)
+npm run setup
 
-# Start the sync backend (http://localhost:8080)
-npx nx dev sync-backend
+# 2. Start both Frontend and Backend
+npm run start
 ```
 
 ---
@@ -122,6 +124,43 @@ npx nx dev sync-backend
 ---
 
 ## 🛠️ Troubleshooting
+
+### 🐘 Database Migrations Not Running?
+
+If you find that your database tables (like `sync_events`) were not created after a fresh dev container build, or if you are getting sync errors in the UI:
+
+1.  **Ensure `.env` is set up:**
+    - `cp .env.sample .env` (if not already done).
+2.  **Run the Setup Script:**
+    ```bash
+    npm run setup
+    ```
+    This script performs two critical tasks:
+    - Runs the database migrations via `nx run infrastructure:migrate`.
+    - Builds the `sync-backend` so it's ready to handle synchronization requests.
+
+3.  **Check Sync Backend:**
+    The `sync-backend` also attempts to run migrations (via Flyway) on startup. **Note:** To start the backend along with the frontend, always use `npm run start`.
+
+### 🛑 Permission Issues or "Failed to run: ...dev-app-model.dat"
+
+If you see permission errors when running `npm run setup` or if the backend fails to start:
+
+1.  **Stop any existing containers.**
+2.  **Fix permissions:**
+    ```bash
+    sudo rm -rf apps/sync-backend/target
+    ```
+    (The `sync-backend` Docker container sometimes creates files as `root`, which blocks the Nx dev server).
+3.  **Avoid using the `sync-backend` container:** 
+    Running the backend directly in your Dev Container via `npm run start` is faster and more reliable for development.
+
+### 📊 PGAdmin Server Registration
+
+The `docker-compose.yml` is configured to automatically register the "JobTracker DB" in PGAdmin. 
+- **Login:** Use the credentials in your `.env` (default: `vscode@vscode.com` / `vscode`).
+- **Access:** http://localhost:5050
+- **Server:** "JobTracker DB" should already be listed in the left panel. (Note: You may still need to enter the database password `postgres_password` when first connecting).
 
 ### 🛑 Permission Issues in `sync-backend`
 

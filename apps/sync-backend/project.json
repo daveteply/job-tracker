@@ -7,14 +7,14 @@
     "dev": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "./mvnw quarkus:dev",
+        "command": "./mvnw quarkus:dev -Dquarkus.analytics.disabled=true -Dquarkus.http.host=0.0.0.0",
         "cwd": "apps/sync-backend"
       }
     },
     "build": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "./mvnw package",
+        "command": "./mvnw clean package",
         "cwd": "apps/sync-backend"
       }
     },

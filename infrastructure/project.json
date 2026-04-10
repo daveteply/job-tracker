@@ -4,5 +4,12 @@
   "projectType": "library",
   "sourceRoot": "infrastructure",
   "tags": ["infrastructure"],
-  "targets": {}
+  "targets": {
+    "migrate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "ts-node infrastructure/scripts/migrate.ts"
+      }
+    }
+  }
 }

@@ -41,6 +41,7 @@ services:
       - '${PGADMIN_PORT}:80'
     volumes:
       - pgadmin_data:/var/lib/pgadmin
+      - ./infrastructure/pgadmin/servers.json:/pgadmin4/servers.json:ro
     depends_on:
       db:
         condition: service_healthy
