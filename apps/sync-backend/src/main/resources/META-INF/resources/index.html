@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sync Backend API</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; background-color: #f4f7f6; }
+        .card { background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; max-width: 400px; }
+        h1 { color: #2c3e50; margin-top: 0; }
+        p { color: #7f8c8d; }
+        .status { display: inline-flex; align-items: center; background: #e8f5e9; color: #2e7d32; padding: 0.5rem 1rem; border-radius: 20px; font-weight: bold; margin: 1rem 0; }
+        .status::before { content: ""; display: inline-block; width: 10px; height: 10px; background: #4caf50; border-radius: 50%; margin-right: 8px; }
+        .links { margin-top: 1.5rem; display: flex; gap: 10px; justify-content: center; }
+        a { color: #3498db; text-decoration: none; font-weight: 500; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Sync Backend</h1>
+        <div class="status">API is Online</div>
+        <p>This is the data synchronization engine for JobTracker.</p>
+        <div class="links">
+            <a href="/q/health">Health Check</a>
+            <span>•</span>
+            <a href="/q/swagger-ui">Swagger API Docs</a>
+        </div>
+    </div>
+</body>
+</html>
