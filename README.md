@@ -125,24 +125,14 @@ npm run start
 
 ## 🛠️ Troubleshooting
 
-### 🐘 Database Migrations Not Running?
+### 📊 PGAdmin Server Registration
 
-If you find that your database tables (like `sync_events`) were not created after a fresh dev container build, or if you are getting sync errors in the UI:
 
-1.  **Ensure `.env` is set up:**
-    - `cp .env.sample .env` (if not already done).
-2.  **Run the Setup Script:**
-    ```bash
-    npm run setup
-    ```
-    This script performs two critical tasks:
-    - Runs the database migrations via `nx run infrastructure:migrate`.
-    - Builds the `sync-backend` so it's ready to handle synchronization requests.
+If your database tables (like `sync_events`) are missing or you see sync errors:
 
-3.  **Check Sync Backend:**
-    The `sync-backend` also attempts to run migrations (via Flyway) on startup. **Note:** To start the backend along with the frontend, always use `npm run start`.
-
-### 🛑 Permission Issues or "Failed to run: ...dev-app-model.dat"
+1.  **Ensure `.env` is set up:** `cp .env.sample .env`.
+2.  **Start the Backend:** Migrations only run when the `sync-backend` is active. Run `npm run start`.
+3.  **Check Logs:** Look for Flyway logs in the terminal where you ran `npm run start`.
 
 If you see permission errors when running `npm run setup` or if the backend fails to start:
 

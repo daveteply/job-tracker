@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "setup": "npm run clear-target && POSTGRES_HOST=${POSTGRES_HOST:-db} npx nx run infrastructure:migrate && npx nx run-many -t build -p sync-backend",
+    "setup": "npm run clear-target && npx nx run-many -t build -p sync-backend",
     "clear-target": "rm -rf apps/sync-backend/target",
     "start": "npx nx run-many -t dev -p web-ui sync-backend",
     "start:backend": "npx nx run sync-backend:dev"
@@ -47,7 +47,6 @@
     "@testing-library/react": "16.3.0",
     "@types/jest": "^30.0.0",
     "@types/node": "20.19.9",
-    "@types/pg": "^8.20.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^4.2.0",
@@ -58,7 +57,6 @@
     "babel-jest": "^30.0.2",
     "baseline-browser-mapping": "^2.10.0",
     "daisyui": "^5.5.19",
-    "dotenv": "^17.4.1",
     "eslint": "^9.8.0",
     "eslint-config-next": "^16.0.1",
     "eslint-config-prettier": "^10.0.0",
@@ -75,7 +73,6 @@
     "jsdom": "^29.0.1",
     "jsonc-eslint-parser": "^2.1.0",
     "nx": "^22.6.3",
-    "pg": "^8.20.0",
     "postcss": "8.4.38",
     "prettier": "~3.6.2",
     "tailwindcss": "^4.2.1",
