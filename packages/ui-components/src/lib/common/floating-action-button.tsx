@@ -2,13 +2,19 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { PlusIcon } from '@heroicons/react/24/outline'; // Ensure heroicons is installed
+import { PlusIcon } from '@heroicons/react/24/outline';
+import { useFloatingUI } from './floating-ui-context';
 
 export function FloatingActionButton() {
+  const { isContainerActive } = useFloatingUI();
   const [isOpen, setIsOpen] = useState(false);
 
   // Function to close menu when a link is clicked
   const handleLinkClick = () => setIsOpen(false);
+
+  if (isContainerActive) {
+    return null;
+  }
 
   return (
     <div className="fixed bottom-15 right-5 flex flex-col items-end gap-4 z-50">
