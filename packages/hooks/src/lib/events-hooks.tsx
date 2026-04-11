@@ -10,7 +10,7 @@ import {
   RoleRepository,
   useDb,
 } from '@job-tracker/data-access';
-import { RoleStatus } from '@job-tracker/domain';
+import { DirectionType, RoleStatus, SourceType } from '@job-tracker/domain';
 import { ContactDTO, EventDTO, EventWithChildrenDTO, RoleDTO } from '@job-tracker/validation';
 import { useEffect, useMemo, useState } from 'react';
 import { combineLatest, map } from 'rxjs';
@@ -221,12 +221,21 @@ export function useEventActions() {
     return new ReminderRepository(db);
   }, [db]);
 
-  type EventUpsertInput = Partial<EventDTO> & {
+  type EventUpsertInput = Omit<
+    Partial<EventDTO>,
+    'eventTypeId' | 'source' | 'direction' | 'remindAt' | 'companyId' | 'contactId' | 'roleId'
+  > & {
     company?: EntitySelection | null;
     contact?: EntitySelection | null;
     role?: EntitySelection | null;
     hasReminder?: boolean;
     remindAt?: Date | string | null;
+    eventTypeId?: string | null;
+    source?: SourceType | null | '';
+    direction?: DirectionType | null | '';
+    companyId?: string | null;
+    contactId?: string | null;
+    roleId?: string | null;
   };
 
   return {
@@ -300,7 +309,9 @@ export function useEventActions() {
           companyId: resolvedCompanyId || '',
           contactId: resolvedContactId || '',
           roleId: resolvedRoleId || '',
-          eventTypeId: eventData.eventTypeId,
+          eventTypeId: eventData.eventTypeId || undefined,
+          source: (eventData.source || undefined) as SourceType | undefined,
+          direction: (eventData.direction || undefined) as DirectionType | undefined,
         });
 
         // Handle Reminder

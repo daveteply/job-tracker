@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { CompanyCreateSchema, CompanyUpdateSchema } from '@job-tracker/validation';
 import { useToast } from '../common/toast-context';
 import Link from 'next/link';
+import { FloatingButtonContainer } from '../common/floating-button-container';
 
 interface CompanyFormProps<T extends FieldValues> {
   onSubmitAction: (data: T) => Promise<{ success: boolean; message: string }>;
@@ -101,14 +102,14 @@ export function CompanyForm<T extends FieldValues>({
         <ErrorMsg name={'notes' as Path<T>} />
       </fieldset>
 
-      <div className="flex w-full mt-5">
-        <button className="btn btn-outline" type="submit" disabled={isSubmitting}>
-          {isEdit ? 'Update' : 'Create'}
-        </button>
-        <Link href={postActionRoute} className="btn">
+      <FloatingButtonContainer>
+        <Link href={postActionRoute} className="btn btn-ghost">
           Cancel
         </Link>
-      </div>
+        <button className="btn btn-primary px-8" type="submit" disabled={isSubmitting}>
+          {isEdit ? 'Update' : 'Create'}
+        </button>
+      </FloatingButtonContainer>
     </form>
   );
 }

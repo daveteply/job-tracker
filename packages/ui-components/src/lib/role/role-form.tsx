@@ -9,6 +9,8 @@ import { useRouter } from 'next/navigation';
 import CompanyCombobox from '../company/company-combobox';
 import EnumSelector from '../common/enum-selector';
 import { RoleStatus } from '@job-tracker/domain';
+import { FloatingButtonContainer } from '../common/floating-button-container';
+import Link from 'next/link';
 
 interface RoleFormProps<T extends FieldValues> {
   onSubmitAction: (data: T) => Promise<{ success: boolean; message: string }>;
@@ -126,9 +128,14 @@ export function RoleForm<T extends FieldValues>({
         <ErrorMsg name={'salaryRange' as Path<T>} />
       </fieldset>
 
-      <button className="btn mt-4" type="submit" disabled={isSubmitting}>
-        {isEdit ? 'Update' : 'Create'}
-      </button>
+      <FloatingButtonContainer>
+        <Link href={postActionRoute} className="btn btn-ghost">
+          Cancel
+        </Link>
+        <button className="btn btn-primary px-8" type="submit" disabled={isSubmitting}>
+          {isEdit ? 'Update' : 'Create'}
+        </button>
+      </FloatingButtonContainer>
     </form>
   );
 }

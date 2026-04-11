@@ -7,6 +7,7 @@ export * from './lib/common/entity-delete';
 export * from './lib/common/toast-context';
 export * from './lib/common/bottom-nav';
 export * from './lib/common/floating-action-button';
+export * from './lib/common/floating-button-container';
 export * from './lib/common/sync-indicator';
 
 export * from './lib/company/company-info-card';

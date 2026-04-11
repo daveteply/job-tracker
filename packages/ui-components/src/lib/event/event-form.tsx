@@ -21,6 +21,7 @@ import CompanyCombobox from '../company/company-combobox';
 import Link from 'next/link';
 import EventTypeSelect from '../event-type/event-type-select';
 import { DirectionType, SourceType } from '@job-tracker/domain';
+import { FloatingButtonContainer } from '../common/floating-button-container';
 
 interface EventFormValues extends FieldValues {
   occurredAt?: Date | string | null;
@@ -207,14 +208,14 @@ export function EventForm<T extends EventFormValues>({
         <ErrorMsg name={'details' as Path<T>} />
       </fieldset>
 
-      <div className="mt-4">
-        <button className="btn btn-primary" type="submit" disabled={isSubmitting}>
-          {isEdit ? 'Update' : 'Create'}
-        </button>
-        <Link href={postActionRoute} className="btn">
+      <FloatingButtonContainer>
+        <Link href={postActionRoute} className="btn btn-ghost">
           Cancel
         </Link>
-      </div>
+        <button className="btn btn-primary px-8" type="submit" disabled={isSubmitting}>
+          {isEdit ? 'Update' : 'Create'}
+        </button>
+      </FloatingButtonContainer>
     </form>
   );
 }

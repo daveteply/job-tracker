@@ -12,11 +12,12 @@ import {
   EventStepDetails,
   EventStepReminder,
   EventStepType,
+  FloatingButtonContainer,
 } from '@job-tracker/ui-components';
 import { useState } from 'react';
-import { useForm, FormProvider, FieldValues } from 'react-hook-form';
+import { useForm, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { EventCreateWithReminderSchema } from '@job-tracker/validation';
+import { EventCreateWithReminderSchema, EventCreateWithReminder } from '@job-tracker/validation';
 import { DirectionType, SourceType } from '@job-tracker/domain';
 import { useRouter } from 'next/navigation';
 
@@ -30,18 +31,18 @@ export default function EventsNewPage() {
 
   const [step, setStep] = useState(1);
 
-  const methods = useForm({
-    resolver: zodResolver(EventCreateWithReminderSchema),
+  const methods = useForm<EventCreateWithReminder>({
+    resolver: zodResolver(EventCreateWithReminderSchema) as any,
     mode: 'onChange',
     defaultValues: {
       eventTypeId: '',
       direction: DirectionType.Inbound,
       source: SourceType.Email,
-      occurredAt: new Date().toISOString().split('T')[0],
+      occurredAt: new Date(),
       summary: '',
       details: '',
       hasReminder: false,
-      remindAt: null,
+      remindAt: undefined,
     },
   });
 
@@ -59,7 +60,7 @@ export default function EventsNewPage() {
 
   const selectedTypeId = watch('eventTypeId');
 
-  const onSubmit = async (data: FieldValues) => {
+  const onSubmit = async (data: EventCreateWithReminder) => {
     // Prevent submission if not on the final step
     if (step < 4) {
       nextStep();
@@ -83,7 +84,7 @@ export default function EventsNewPage() {
 
   return (
     <FormProvider {...methods}>
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-2xl mx-auto pb-32">
         <h1 className="text-3xl font-bold mb-4 text-base-content">New Event</h1>
 
         <ul className="steps w-full">
@@ -93,7 +94,7 @@ export default function EventsNewPage() {
           <li className={`step ${step >= 4 ? 'step-info' : ''}`}>Reminder</li>
         </ul>
 
-        <div className="card bg-base-100 shadow-xl border border-base-200">
+        <div className="card bg-base-100 shadow-xl border border-base-200 mt-4">
           <div className="card-body min-h-[400px]">
             <form onSubmit={handleSubmit(onSubmit)} className="h-full flex flex-col">
               <div className="flex-grow">
@@ -110,24 +111,24 @@ export default function EventsNewPage() {
 
                 {step === 2 && (
                   <EventStepContext
-                    control={control as any}
+                    control={control}
                     onSearchCompany={searchCompanies}
                     onSearchContact={searchContacts}
                     onSearchRole={searchRoles}
                   />
                 )}
-                {step === 3 && <EventStepDetails register={register as any} />}
+                {step === 3 && <EventStepDetails register={register} />}
                 {step === 4 && (
                   <EventStepReminder
-                    register={register as any}
-                    control={control as any}
-                    setValue={setValue as any}
-                    errors={errors as any}
+                    register={register}
+                    control={control}
+                    setValue={setValue}
+                    errors={errors}
                   />
                 )}
               </div>
 
-              <div className="card-actions justify-between mt-auto pt-8 border-t border-base-200">
+              <FloatingButtonContainer>
                 <button
                   type="button"
                   className="btn btn-ghost"
@@ -170,7 +171,7 @@ export default function EventsNewPage() {
                     </button>
                   )}
                 </div>
-              </div>
+              </FloatingButtonContainer>
             </form>
           </div>
         </div>

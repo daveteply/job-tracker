@@ -89,13 +89,13 @@ export function EventStepType({
 
       <h2 className="text-lg font-semibold text-base-content">Select an event type</h2>
 
-      <div className="flex flex-wrap gap-2">
+      <div className="grid grid-cols-2 gap-3 w-full">
         {groupedCategories[activeCategory]?.map((eventType) => (
           <button
             type="button"
             key={eventType.id}
             onClick={() => onSelect(eventType.id)}
-            className={`btn btn-small btn-soft ${selectedTypeId === eventType.id ? 'btn-secondary' : 'btn-ghost'}`}
+            className={`h-16 leading-tight btn btn-small btn-soft ${selectedTypeId === eventType.id ? 'btn-secondary' : 'btn-ghost'}`}
           >
             {eventType.name}
           </button>

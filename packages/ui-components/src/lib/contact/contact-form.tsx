@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { CompanyDTO, ContactCreateSchema, ContactUpdateSchema } from '@job-tracker/validation';
 import CompanyCombobox from '../company/company-combobox';
 import Link from 'next/link';
+import { FloatingButtonContainer } from '../common/floating-button-container';
 
 interface ContactFormProps<T extends FieldValues> {
   onSubmitAction: (data: T) => Promise<{ success: boolean; message: string }>;
@@ -145,14 +146,14 @@ export function ContactForm<T extends FieldValues>({
         <ErrorMsg name={'notes' as Path<T>} />
       </fieldset>
 
-      <div className="flex w-full mt-5">
-        <button className="btn btn-outline" type="submit" disabled={isSubmitting}>
-          {isEdit ? 'Update' : 'Create'}
-        </button>
-        <Link href={postActionRoute} className="btn">
+      <FloatingButtonContainer>
+        <Link href={postActionRoute} className="btn btn-ghost">
           Cancel
         </Link>
-      </div>
+        <button className="btn btn-primary px-8" type="submit" disabled={isSubmitting}>
+          {isEdit ? 'Update' : 'Create'}
+        </button>
+      </FloatingButtonContainer>
     </form>
   );
 }

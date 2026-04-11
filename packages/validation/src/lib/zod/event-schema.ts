@@ -31,8 +31,8 @@ export const EventCreateSchema = z.object({
   occurredAt: z.coerce.date({ message: 'Must be a valid date' }),
 
   // Text fields aligned with RxDB schema
-  summary: emptyToUndefined(z.string().max(500).optional()),
-  details: emptyToUndefined(z.string().optional()),
+  summary: emptyToUndefined(z.string().max(500)).optional(),
+  details: emptyToUndefined(z.string()).optional(),
 
   // Enums
   source: SourceTypeSchema.nullable().refine((val) => val !== null, {
