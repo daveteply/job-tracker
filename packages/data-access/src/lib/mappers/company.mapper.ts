@@ -12,6 +12,7 @@ export class CompanyMapper {
       createdAt: doc.createdAt,
 
       name: doc.name,
+      search: doc.search,
       website: doc.website ?? undefined,
       industry: doc.industry ?? undefined,
       sizeRange: doc.sizeRange ?? undefined,
@@ -28,6 +29,7 @@ export class CompanyMapper {
       createdAt: doc.createdAt,
 
       name: doc.name,
+      search: doc.search,
       website: doc.website,
       industry: doc.industry,
       sizeRange: doc.sizeRange,
@@ -46,6 +48,7 @@ export class CompanyMapper {
       createdAt: entity.createdAt ?? now,
 
       name: entity.name,
+      search: entity.name.toLowerCase(),
       website: entity.website ?? null,
       industry: entity.industry ?? null,
       sizeRange: entity.sizeRange ?? null,

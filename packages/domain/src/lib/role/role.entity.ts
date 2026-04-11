@@ -9,6 +9,7 @@ export interface RoleEntity {
   companyId?: string | null;
 
   title: string;
+  search: string;
   jobPostingUrl?: string;
   location?: string;
   level?: string;

@@ -10,6 +10,7 @@ export interface RoleDocument {
   companyId?: string | null;
 
   title: string;
+  search: string;
   jobPostingUrl?: string | null;
   location?: string | null;
   level?: string | null;

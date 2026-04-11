@@ -15,6 +15,7 @@ export class ContactMapper {
 
       firstName: doc.firstName,
       lastName: doc.lastName,
+      search: doc.search,
       title: doc.title ?? undefined,
       email: doc.email ?? undefined,
       phoneNumber: doc.phoneNumber ?? undefined,
@@ -36,6 +37,7 @@ export class ContactMapper {
 
       firstName: doc.firstName,
       lastName: doc.lastName,
+      search: doc.search,
       title: doc.title,
       email: doc.email,
       phoneNumber: doc.phoneNumber,
@@ -60,6 +62,7 @@ export class ContactMapper {
 
       firstName: entity.firstName,
       lastName: entity.lastName,
+      search: `${entity.firstName} ${entity.lastName}`.toLowerCase(),
       title: entity.title ?? null,
       email: entity.email ?? null,
       phoneNumber: entity.phoneNumber ?? null,

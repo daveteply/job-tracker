@@ -58,6 +58,7 @@ export const ContactDTOSchema = z.object({
 
   firstName: z.string(),
   lastName: z.string(),
+  search: z.string(),
   title: z.string().nullable().optional(),
   email: z.string().nullable().optional(),
   phoneNumber: z.string().nullable().optional(),

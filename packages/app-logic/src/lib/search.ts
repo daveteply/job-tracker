@@ -14,7 +14,7 @@ export function normalizeSearchInput(
   if (!trimmedQuery) return null;
 
   return {
-    pattern: escapeRegex(trimmedQuery),
+    pattern: escapeRegex(trimmedQuery).toLowerCase(),
     limit: clampSearchLimit(limit),
   };
 }

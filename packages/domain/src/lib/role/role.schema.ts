@@ -17,6 +17,7 @@ export const RoleSchema: RxJsonSchema<RoleEntity> = {
     companyId: { type: 'string', maxLength: 36, ref: 'companies', default: '' },
 
     title: { type: 'string', maxLength: 255 },
+    search: { type: 'string', maxLength: 255 },
     jobPostingUrl: { type: ['string', 'null'], maxLength: 2048 },
     location: { type: ['string', 'null'], maxLength: 255 },
     level: { type: ['string', 'null'], maxLength: 100 },
@@ -27,6 +28,6 @@ export const RoleSchema: RxJsonSchema<RoleEntity> = {
     updatedAt: { type: 'string', format: 'date-time', maxLength: 30 },
     createdAt: { type: 'string', format: 'date-time', maxLength: 30 },
   },
-  required: ['id', 'title', 'companyId'],
-  indexes: ['companyId'],
+  required: ['id', 'title', 'companyId', 'search'],
+  indexes: ['companyId', 'search'],
 };

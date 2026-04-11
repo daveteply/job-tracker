@@ -84,7 +84,7 @@ export class CompanyRepository {
     const docs = await this.db.companies
       .find({
         selector: {
-          name: {
+          search: {
             $regex: normalizedInput.pattern,
           },
         },

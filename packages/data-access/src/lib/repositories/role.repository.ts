@@ -81,7 +81,7 @@ export class RoleRepository {
     const docs = await this.db.roles
       .find({
         selector: {
-          title: {
+          search: {
             $regex: normalizedInput.pattern,
           },
         },

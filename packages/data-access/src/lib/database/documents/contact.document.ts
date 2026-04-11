@@ -9,6 +9,7 @@ export interface ContactDocument {
 
   firstName: string;
   lastName: string;
+  search: string;
   title: string | null;
   email: string | null;
   phoneNumber: string | null;

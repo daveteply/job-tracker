@@ -4,6 +4,7 @@ export interface CompanyEntity {
   version: number;
 
   name: string;
+  search: string;
   website?: string;
   industry?: string;
   sizeRange?: string;

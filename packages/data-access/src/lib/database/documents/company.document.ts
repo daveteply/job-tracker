@@ -6,6 +6,7 @@ export interface CompanyDocument {
   createdAt?: string;
 
   name: string;
+  search: string;
   website: string | null;
   industry: string | null;
   sizeRange: string | null;

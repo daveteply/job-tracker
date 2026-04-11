@@ -35,6 +35,7 @@ export const CompanyDTOSchema = z.object({
   createdAt: z.string().optional(),
 
   name: z.string(),
+  search: z.string(),
   website: z.string().nullable().optional(),
   industry: z.string().nullable().optional(),
   sizeRange: z.string().nullable().optional(),

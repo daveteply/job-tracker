@@ -9,6 +9,7 @@ export interface ContactEntity {
 
   firstName: string;
   lastName: string;
+  search: string;
   title?: string;
   email?: string;
   phoneNumber?: string;

@@ -50,6 +50,7 @@ export const RoleDTOSchema = z.object({
   companyId: z.string().nullable().optional(),
 
   title: z.string(),
+  search: z.string(),
   jobPostingUrl: z.string().nullable().optional(),
   location: z.string().nullable().optional(),
   level: z.string().nullable().optional(),

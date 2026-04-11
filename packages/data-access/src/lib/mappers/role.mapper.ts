@@ -14,6 +14,7 @@ export class RoleMapper {
       companyId: doc.companyId || undefined,
 
       title: doc.title,
+      search: doc.search,
       jobPostingUrl: doc.jobPostingUrl ?? undefined,
       location: doc.location ?? undefined,
       level: doc.level ?? undefined,
@@ -34,6 +35,7 @@ export class RoleMapper {
       companyId: doc.companyId || null,
 
       title: doc.title,
+      search: doc.search,
       jobPostingUrl: doc.jobPostingUrl ?? undefined,
       location: doc.location ?? undefined,
       level: doc.level ?? undefined,
@@ -55,6 +57,7 @@ export class RoleMapper {
       companyId: entity.companyId ?? '',
 
       title: entity.title,
+      search: entity.title.toLowerCase(),
       jobPostingUrl: entity.jobPostingUrl ?? null,
       location: entity.location ?? null,
       level: entity.level ?? null,

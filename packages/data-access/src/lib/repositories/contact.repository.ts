@@ -89,10 +89,9 @@ export class ContactRepository {
     const docs = await this.db.contacts
       .find({
         selector: {
-          $or: [
-            { firstName: { $regex: normalizedInput.pattern } },
-            { lastName: { $regex: normalizedInput.pattern } },
-          ],
+          search: {
+            $regex: normalizedInput.pattern,
+          },
         },
         sort: [{ lastName: 'asc' }, { firstName: 'asc' }],
         limit: normalizedInput.limit,

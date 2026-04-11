@@ -17,6 +17,7 @@ export const ContactSchema: RxJsonSchema<ContactEntity> = {
 
     firstName: { type: 'string', maxLength: 100 },
     lastName: { type: 'string', maxLength: 100 },
+    search: { type: 'string', maxLength: 200 },
     title: { type: ['string', 'null'], maxLength: 100 },
     email: { type: ['string', 'null'], maxLength: 2048 },
     phoneNumber: { type: ['string', 'null'], maxLength: 30 },
@@ -27,6 +28,6 @@ export const ContactSchema: RxJsonSchema<ContactEntity> = {
     updatedAt: { type: 'string', format: 'date-time', maxLength: 30 },
     createdAt: { type: 'string', format: 'date-time', maxLength: 30 },
   },
-  required: ['id', 'firstName', 'lastName', 'companyId'],
-  indexes: ['companyId'],
+  required: ['id', 'firstName', 'lastName', 'companyId', 'search'],
+  indexes: ['companyId', 'search'],
 };
