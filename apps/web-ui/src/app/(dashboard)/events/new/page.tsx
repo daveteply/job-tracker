@@ -38,11 +38,14 @@ export default function EventsNewPage() {
       eventTypeId: '',
       direction: DirectionType.Inbound,
       source: SourceType.Email,
-      occurredAt: new Date(),
+      occurredAt: new Date().toISOString().split('T')[0] as any,
       summary: '',
       details: '',
+      company: null,
+      contact: null,
+      role: null,
       hasReminder: false,
-      remindAt: undefined,
+      remindAt: new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().split('T')[0] as any,
     },
   });
 
@@ -52,18 +55,30 @@ export default function EventsNewPage() {
     setValue,
     control,
     register,
-    formState: { isValid, isSubmitting, errors },
+    trigger,
+    formState: { isSubmitting, errors },
   } = methods;
 
-  const nextStep = () => setStep((s) => Math.min(s + 1, 4));
-  const prevStep = () => setStep((s) => Math.max(s - 1, 1));
+  // Watch all fields to ensure the component re-renders and canGoNext is reactive
+  const formValues = watch();
 
-  const selectedTypeId = watch('eventTypeId');
+  const nextStep = async () => {
+    let fieldsToValidate: any[] = [];
+    if (step === 1) fieldsToValidate = ['eventTypeId'];
+    if (step === 2) fieldsToValidate = ['company', 'contact', 'role'];
+    if (step === 3) fieldsToValidate = ['direction', 'source', 'occurredAt'];
+
+    const isStepValid = await trigger(fieldsToValidate);
+    if (isStepValid) {
+      setStep((s) => Math.min(s + 1, 4));
+    }
+  };
+  const prevStep = () => setStep((s) => Math.max(s - 1, 1));
 
   const onSubmit = async (data: EventCreateWithReminder) => {
     // Prevent submission if not on the final step
     if (step < 4) {
-      nextStep();
+      await nextStep();
       return;
     }
 
@@ -78,7 +93,17 @@ export default function EventsNewPage() {
   };
 
   const canGoNext = () => {
-    if (step === 1) return !!selectedTypeId;
+    if (step === 1) return !!formValues.eventTypeId;
+    if (step === 2) return true;
+    if (step === 3) {
+      return !!formValues.occurredAt && !!formValues.source && !!formValues.direction;
+    }
+    if (step === 4) {
+      if (formValues.hasReminder) {
+        return !!formValues.remindAt;
+      }
+      return true;
+    }
     return true;
   };
 
@@ -96,13 +121,13 @@ export default function EventsNewPage() {
 
         <div className="card bg-base-100 shadow-xl border border-base-200 mt-4">
           <div className="card-body min-h-[400px]">
-            <form onSubmit={handleSubmit(onSubmit)} className="h-full flex flex-col">
+            <form onSubmit={(e) => e.preventDefault()} className="h-full flex flex-col">
               <div className="flex-grow">
                 {step === 1 && (
                   <EventStepType
                     eventTypes={eventTypes}
                     loading={eventTypesLoading}
-                    selectedTypeId={selectedTypeId}
+                    selectedTypeId={formValues.eventTypeId}
                     onSelect={(id) => {
                       setValue('eventTypeId', id, { shouldValidate: true });
                     }}
@@ -117,7 +142,9 @@ export default function EventsNewPage() {
                     onSearchRole={searchRoles}
                   />
                 )}
-                {step === 3 && <EventStepDetails register={register} />}
+                {step === 3 && (
+                  <EventStepDetails register={register} watch={watch} setValue={setValue} />
+                )}
                 {step === 4 && (
                   <EventStepReminder
                     register={register}
@@ -151,9 +178,9 @@ export default function EventsNewPage() {
                       key="next-step-btn"
                       type="button"
                       className="btn btn-primary px-8"
-                      onClick={(e) => {
+                      onClick={async (e) => {
                         e.preventDefault();
-                        nextStep();
+                        await nextStep();
                       }}
                       disabled={!canGoNext()}
                     >
@@ -163,9 +190,15 @@ export default function EventsNewPage() {
                   {step === 4 && (
                     <button
                       key="submit-event-btn"
-                      type="submit"
+                      type="button"
                       className="btn btn-success px-8"
-                      disabled={!isValid || isSubmitting}
+                      disabled={!canGoNext() || isSubmitting}
+                      onClick={async () => {
+                        const isFormValid = await trigger();
+                        if (isFormValid) {
+                          await handleSubmit(onSubmit)();
+                        }
+                      }}
                     >
                       {isSubmitting ? 'Creating...' : 'Create Event'}
                     </button>

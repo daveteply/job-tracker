@@ -1,16 +1,22 @@
 'use client';
 
-import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
+import { FieldValues, Path, UseFormRegister, UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import { DirectionType, SourceType } from '@job-tracker/domain';
-import { EnumSelector } from '../../common/enum-selector';
 
 export interface EventStepDetailsProps<T extends FieldValues = FieldValues> {
   register: UseFormRegister<T>;
+  watch: UseFormWatch<T>;
+  setValue: UseFormSetValue<T>;
 }
 
 export function EventStepDetails<T extends FieldValues = FieldValues>({
   register,
+  watch,
+  setValue,
 }: EventStepDetailsProps<T>) {
+  const currentSource = watch('source' as Path<T>);
+  const currentDirection = watch('direction' as Path<T>);
+
   return (
     <div className="space-y-6">
       <h2 className="text-lg font-semibold text-base-content">Event Details</h2>
@@ -20,18 +26,38 @@ export function EventStepDetails<T extends FieldValues = FieldValues>({
           <label className="label">
             <span className="label-text font-medium text-base-content">Direction</span>
           </label>
-          <EnumSelector
-            register={register('direction' as Path<T>)}
-            enumObject={DirectionType}
-            useButtons={true}
-          />
+          <div className="flex flex-wrap gap-2">
+            {Object.entries(DirectionType).map(([key, value]) => (
+              <button
+                key={key}
+                type="button"
+                onClick={() =>
+                  setValue('direction' as Path<T>, value as any, { shouldValidate: true })
+                }
+                className={`badge ${currentDirection === value ? 'badge-primary' : 'badge-ghost'}`}
+              >
+                {key}
+              </button>
+            ))}
+          </div>
         </div>
 
         <div className="form-control">
           <label className="label">
             <span className="label-text font-medium text-base-content">Source</span>
           </label>
-          <EnumSelector register={register('source' as Path<T>)} enumObject={SourceType} />
+          <div className="flex flex-wrap gap-2">
+            {Object.entries(SourceType).map(([key, value]) => (
+              <button
+                key={key}
+                type="button"
+                onClick={() => setValue('source' as Path<T>, value as any, { shouldValidate: true })}
+                className={`badge ${currentSource === value ? 'badge-primary' : 'badge-ghost'}`}
+              >
+                {key}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -42,13 +68,13 @@ export function EventStepDetails<T extends FieldValues = FieldValues>({
         <input
           type="date"
           className="input input-bordered w-full"
-          {...register('occurredAt' as Path<T>, { valueAsDate: true })}
+          {...register('occurredAt' as Path<T>)}
         />
       </div>
 
       <div className="form-control">
         <label className="label">
-          <span className="label-text font-medium text-base-content">Summary</span>
+          <span className="label-text font-medium text-base-content">Summary (Optional)</span>
         </label>
         <input
           className="input input-bordered w-full"

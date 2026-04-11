@@ -8,8 +8,8 @@ import {
   Control,
   UseFormSetValue,
   FieldErrors,
-  RegisterOptions,
 } from 'react-hook-form';
+import { useEffect } from 'react';
 
 export interface EventStepReminderProps<T extends FieldValues = FieldValues> {
   register: UseFormRegister<T>;
@@ -30,6 +30,25 @@ export function EventStepReminder<T extends FieldValues = FieldValues>({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     defaultValue: false as any,
   });
+
+  const remindAt = useWatch({
+    control,
+    name: 'remindAt' as Path<T>,
+  });
+
+  useEffect(() => {
+    if (hasReminder && !remindAt) {
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      const year = tomorrow.getFullYear();
+      const month = String(tomorrow.getMonth() + 1).padStart(2, '0');
+      const dayOfMonth = String(tomorrow.getDate()).padStart(2, '0');
+      const formattedDate = `${year}-${month}-${dayOfMonth}`;
+      setValue('remindAt' as Path<T>, formattedDate as any, {
+        shouldValidate: true,
+      });
+    }
+  }, [hasReminder, remindAt, setValue]);
 
   const setReminderDate = (days: number, isBusinessDays = false) => {
     const date = new Date();
@@ -83,10 +102,7 @@ export function EventStepReminder<T extends FieldValues = FieldValues>({
           <input
             type="date"
             className={`input input-bordered w-full ${errors?.remindAt ? 'input-error' : ''}`}
-            {...register(
-              'remindAt' as Path<T>,
-              { valueAsDate: true } as unknown as RegisterOptions<T, Path<T>>,
-            )}
+            {...register('remindAt' as Path<T>)}
           />
           <div className="flex flex-wrap gap-2 mt-3">
             <button
