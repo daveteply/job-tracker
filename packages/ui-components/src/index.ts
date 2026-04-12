@@ -1,4 +1,5 @@
 export * from './lib/common/header';
+export * from './lib/common/auth-menu';
 export * from './lib/common/bread-crumbs';
 export * from './lib/common/page-loading';
 export * from './lib/common/external-link';

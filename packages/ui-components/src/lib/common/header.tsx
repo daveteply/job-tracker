@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { SyncIndicator } from './sync-indicator';
+import { AuthMenu } from './auth-menu';
 
 export interface HeaderProps {
   title: string;
@@ -32,7 +32,7 @@ export function Header({ title, iconSrc, homeHref = '/home' }: HeaderProps) {
           {iconSrc && <img src={iconSrc} alt="App Icon" className="w-8 h-8 rounded" />}
           <h1 className="text-2xl font-bold">{title}</h1>
         </Link>
-        <SyncIndicator />
+        <AuthMenu />
       </div>
     </header>
   );
