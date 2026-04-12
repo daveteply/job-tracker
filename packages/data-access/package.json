@@ -9,6 +9,7 @@
     "rxdb": "^17.1.0",
     "rxjs": "^7.8.2",
     "react": "^19.0.0",
+    "next-auth": "^5.0.0-beta.30",
     "@job-tracker/validation": "0.0.1"
   }
 }
