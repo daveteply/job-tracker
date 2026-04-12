@@ -11,6 +11,14 @@ declare module 'next-auth' {
       id: string;
     } & DefaultSession['user'];
   }
+
+  interface User {
+    id?: string;
+  }
+
+  interface JWT {
+    id?: string;
+  }
 }
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
@@ -25,9 +33,18 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       // Add logic here if you want to redirect unauthenticated users later
       return true;
     },
+    jwt({ token, user, account }) {
+      if (account) {
+        token.id = account.providerAccountId;
+      } else if (user && !token.id) {
+        token.id = user.id;
+      }
+      return token;
+    },
     session({ session, token }) {
-      if (token?.sub && session.user) {
-        session.user.id = token.sub;
+      const userId = (token.id || token.sub) as string;
+      if (userId && session.user) {
+        session.user.id = userId;
       }
       return session;
     },
