@@ -1,5 +1,6 @@
 import NextAuth, { DefaultSession } from 'next-auth';
 import Google from 'next-auth/providers/google';
+import Facebook from 'next-auth/providers/facebook';
 
 declare module 'next-auth' {
   /**
@@ -27,7 +28,14 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       clientId: process.env.AUTH_GOOGLE_ID || '',
       clientSecret: process.env.AUTH_GOOGLE_SECRET || '',
     }),
+    Facebook({
+      clientId: process.env.AUTH_FACEBOOK_ID || '',
+      clientSecret: process.env.AUTH_FACEBOOK_SECRET || '',
+    }),
   ],
+  pages: {
+    signIn: '/auth/signin',
+  },
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
       // Add logic here if you want to redirect unauthenticated users later

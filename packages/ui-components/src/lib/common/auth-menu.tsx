@@ -1,10 +1,13 @@
 'use client';
 
-import { useSession, signIn, signOut } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { SyncIndicator } from './sync-indicator';
 
 export function AuthMenu() {
   const { data: session, status } = useSession();
+  const pathname = usePathname();
 
   if (status === 'loading') {
     return (
@@ -55,12 +58,12 @@ export function AuthMenu() {
 
   return (
     <div className="flex gap-2">
-      <button
+      <Link
+        href={`/auth/signin?callbackUrl=${encodeURIComponent(pathname || '/')}`}
         className="btn btn-ghost btn-sm text-white border-white"
-        onClick={() => signIn('google')}
       >
         Sign In
-      </button>
+      </Link>
     </div>
   );
 }
