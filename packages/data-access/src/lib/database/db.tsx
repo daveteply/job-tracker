@@ -75,25 +75,38 @@ export const DatabaseProvider = ({ children }: { children: React.ReactNode }) =>
   const { data: session, status } = useSession();
   const [db, setDb] = useState<TrackerDatabase | null>(null);
   const [syncStatus, setSyncStatus] = useState<SyncStatus>('offline');
-  const isInitializing = useRef(false);
+  const currentDbName = useRef<string | null>(null);
 
-  // Initialize DB (once per mount)
+  // Initialize DB based on auth status
   useEffect(() => {
-    // Ensure this only runs in the browser and hasn't been initialized
-    if (typeof window === 'undefined' || db || isInitializing.current) {
+    // Wait for session to be determined
+    if (status === 'loading' || typeof window === 'undefined') {
       return;
     }
 
-    isInitializing.current = true;
+    const userId = session?.user?.id;
+    const dbName = userId ? `job_tracker_db_${userId}` : 'job_tracker_db_guest';
+
+    // If the database is already initialized with the correct name, do nothing
+    if (db && currentDbName.current === dbName) {
+      return;
+    }
 
     const initDB = async () => {
+      // If a database is already open with a different name, close it first
+      if (db) {
+        await db.close();
+        setDb(null);
+      }
+
       try {
+        currentDbName.current = dbName;
         const _db = await createRxDatabase<TrackerCollections>({
-          name: 'job_tracker_db',
+          name: dbName,
           storage: wrappedValidateAjvStorage({
             storage: getRxStorageDexie(),
           }),
-          ignoreDuplicate: true, // Useful for Hot Module Replacement in monorepos
+          ignoreDuplicate: true,
         });
 
         await _db.addCollections({
@@ -112,12 +125,19 @@ export const DatabaseProvider = ({ children }: { children: React.ReactNode }) =>
 
         setDb(_db);
       } catch (error) {
-        console.error('Failed to initialize RxDB:', error);
-        isInitializing.current = false;
+        console.error(`Failed to initialize RxDB (${dbName}):`, error);
+        currentDbName.current = null;
       }
     };
+
     initDB();
-  }, [db]);
+
+    // Cleanup: close the database when the component unmounts
+    return () => {
+      // We don't close here to avoid flicker during re-renders,
+      // the 'db' check above handles the 'name change' case.
+    };
+  }, [db, status, session?.user?.id]);
 
   // Handle replication separately based on auth status
   useEffect(() => {
