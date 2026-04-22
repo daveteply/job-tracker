@@ -13,9 +13,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { PlusIcon } from '@heroicons/react/24/outline';
 
-// Purpose: Daily command center
-// "What do I need to do today?"
-
 export default function HomePage() {
   const { reminders, loading: loadingReminders } = useRemindersWithChildren();
   const { events, loading: loadingEvents } = useEventsWithChildren();

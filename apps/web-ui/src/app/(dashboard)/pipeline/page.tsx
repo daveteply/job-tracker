@@ -3,8 +3,6 @@
 import { useRolesWithCompany } from '@job-tracker/hooks';
 import { Pipeline } from '@job-tracker/ui-components';
 
-// Purpose: Track job progress
-
 export default function PipelinePage() {
   const { roles, loading: loadingRoles } = useRolesWithCompany();
 

@@ -13,9 +13,6 @@ export default function CompanyDetailPage({ params }: { params: Promise<{ id: st
   if (loading) return <PageLoading entityName="company" />;
   if (!company) return <div>Company not found</div>;
 
-  // TODO: Tabs inside company:
-  //  Overview | Contacts | Roles | Activity
-
   return (
     <>
       <div className="mb-3 flex">

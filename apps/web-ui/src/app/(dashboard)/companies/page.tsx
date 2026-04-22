@@ -10,8 +10,6 @@ export default function CompaniesListPage() {
 
   if (loading) return <PageLoading entityName="companies" />;
 
-  // TODO: make list filterable
-
   return (
     <>
       <div className="mb-3 flex justify-between">
