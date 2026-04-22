@@ -26,7 +26,11 @@ export function AuthMenu() {
           <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar border-white">
             <div className="w-10 rounded-full">
               {session.user?.image ? (
-                <img alt={session.user.name ?? 'User'} src={session.user.image} />
+                <img
+                  alt={session.user.name ?? 'User'}
+                  src={session.user.image}
+                  referrerPolicy="no-referrer"
+                />
               ) : (
                 <div className="flex h-full w-full items-center justify-center bg-blue-500 text-white font-bold">
                   {session.user?.name?.[0] ?? '?'}

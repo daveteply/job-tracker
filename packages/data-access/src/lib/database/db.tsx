@@ -2,64 +2,11 @@
 
 import { createContext, useContext, useEffect, useRef, useState } from 'react';
 import { useSession } from 'next-auth/react';
-import { addRxPlugin, createRxDatabase, RxCollection, RxDatabase } from 'rxdb';
-import { disableWarnings, RxDBDevModePlugin } from 'rxdb/plugins/dev-mode';
-import { getRxStorageDexie } from 'rxdb/plugins/storage-dexie';
-import { wrappedValidateAjvStorage } from 'rxdb/plugins/validate-ajv';
-import { RxDBLeaderElectionPlugin } from 'rxdb/plugins/leader-election';
-import { replicateRxCollection, RxReplicationState } from 'rxdb/plugins/replication';
+import { TrackerDatabase, initRxDatabase } from './rx-database';
+import { promoteGuestToUser, GUEST_DB_NAME } from './promotion';
+import { useReplication, SyncStatus } from './replication';
 
-import {
-  EventSchema,
-  EventTypeSchema,
-  RoleSchema,
-  ReminderSchema,
-  CompanySchema,
-  ContactSchema,
-} from '@job-tracker/domain';
-import { CompanyDocument } from './documents/company.document';
-import { ContactDocument } from './documents/contact.document';
-import { RoleDocument } from './documents/role.document';
-import { EventDocument } from './documents/event.document';
-import { EventTypeDocument } from './documents/event-type.document';
-import { ReminderDocument } from './documents/reminder.document';
-import { seedEventTypes } from './seed-data';
-
-// Add plugins
-addRxPlugin(RxDBLeaderElectionPlugin);
-
-// Add dev mode in development
-if (process.env['NODE_ENV'] === 'development') {
-  disableWarnings();
-  addRxPlugin(RxDBDevModePlugin);
-}
-
-const SYNC_URL = process.env['NEXT_PUBLIC_SYNC_URL'] || 'http://localhost:8080/sync';
-
-export type CompanyCollection = RxCollection<CompanyDocument>;
-export type ContactCollection = RxCollection<ContactDocument>;
-export type RoleCollection = RxCollection<RoleDocument>;
-export type EventCollection = RxCollection<EventDocument>;
-export type EventTypeCollection = RxCollection<EventTypeDocument>;
-export type ReminderCollection = RxCollection<ReminderDocument>;
-
-export interface TrackerCollections {
-  companies: CompanyCollection;
-  contacts: ContactCollection;
-  roles: RoleCollection;
-  events: EventCollection;
-  eventTypes: EventTypeCollection;
-  reminders: ReminderCollection;
-}
-
-export type TrackerDatabase = RxDatabase<TrackerCollections>;
-
-export type SyncStatus = 'synced' | 'syncing' | 'error' | 'offline';
-
-export interface Checkpoint {
-  serverTimestamp: number;
-  id: string;
-}
+const PREV_DB_NAME_KEY = 'job_tracker_prev_db_name';
 
 interface DatabaseContextValue {
   db: TrackerDatabase | null;
@@ -74,8 +21,10 @@ const DatabaseContext = createContext<DatabaseContextValue>({
 export const DatabaseProvider = ({ children }: { children: React.ReactNode }) => {
   const { data: session, status } = useSession();
   const [db, setDb] = useState<TrackerDatabase | null>(null);
-  const [syncStatus, setSyncStatus] = useState<SyncStatus>('offline');
-  const currentDbName = useRef<string | null>(null);
+  const isInitializing = useRef(false);
+
+  // Use the extracted replication hook
+  const syncStatus = useReplication(db, session?.user?.id);
 
   // Initialize DB based on auth status
   useEffect(() => {
@@ -85,142 +34,50 @@ export const DatabaseProvider = ({ children }: { children: React.ReactNode }) =>
     }
 
     const userId = session?.user?.id;
-    const dbName = userId ? `job_tracker_db_${userId}` : 'job_tracker_db_guest';
+    const dbName = userId ? `job_tracker_db_${userId}` : GUEST_DB_NAME;
+
+    // Get previous DB name from localStorage (persists across login reloads)
+    const prevDbName = localStorage.getItem(PREV_DB_NAME_KEY);
 
     // If the database is already initialized with the correct name, do nothing
-    if (db && currentDbName.current === dbName) {
+    if (db && prevDbName === dbName) {
       return;
     }
 
-    const initDB = async () => {
-      // If a database is already open with a different name, close it first
-      if (db) {
-        await db.close();
-        setDb(null);
-      }
+    // Prevent concurrent initializations
+    if (isInitializing.current) return;
+    isInitializing.current = true;
 
+    const setupDB = async () => {
       try {
-        currentDbName.current = dbName;
-        const _db = await createRxDatabase<TrackerCollections>({
-          name: dbName,
-          storage: wrappedValidateAjvStorage({
-            storage: getRxStorageDexie(),
-          }),
-          ignoreDuplicate: true,
-        });
-
-        await _db.addCollections({
-          companies: { schema: CompanySchema },
-          contacts: { schema: ContactSchema },
-          roles: { schema: RoleSchema },
-          events: { schema: EventSchema },
-          eventTypes: { schema: EventTypeSchema },
-          reminders: { schema: ReminderSchema },
-        });
-
-        const eventTypeCount = await _db.eventTypes.count().exec();
-        if (eventTypeCount === 0) {
-          await _db.eventTypes.bulkInsert(seedEventTypes);
+        // 1. Close previous database instance if it exists in state
+        if (db) {
+          await db.close();
+          setDb(null);
         }
 
+        // 2. Detect if we are transitioning from guest to user
+        const isLoggingIn = userId && prevDbName === GUEST_DB_NAME;
+
+        // 3. Initialize new database
+        const _db = await initRxDatabase(dbName);
+
+        // 4. Handle migration if logging in
+        if (isLoggingIn) {
+          await promoteGuestToUser(_db);
+        }
+
+        // 5. Update state and localStorage
+        localStorage.setItem(PREV_DB_NAME_KEY, dbName);
         setDb(_db);
       } catch (error) {
-        console.error(`Failed to initialize RxDB (${dbName}):`, error);
-        currentDbName.current = null;
+        console.error(`[DB] Failed to setup RxDB (${dbName}):`, error);
+      } finally {
+        isInitializing.current = false;
       }
     };
 
-    initDB();
-
-    // Cleanup: close the database when the component unmounts
-    return () => {
-      // We don't close here to avoid flicker during re-renders,
-      // the 'db' check above handles the 'name change' case.
-    };
-  }, [db, status, session?.user?.id]);
-
-  // Handle replication separately based on auth status
-  useEffect(() => {
-    if (!db || status !== 'authenticated' || !session?.user?.id) {
-      setSyncStatus('offline');
-      return;
-    }
-
-    const userId = session.user.id;
-    const replicationStates: RxReplicationState<unknown, Checkpoint>[] = [];
-
-    const startReplication = () => {
-      Object.values(db.collections).forEach((collection) => {
-        // Don't sync eventTypes as they are seeded and fixed
-        if (collection.name === 'eventTypes') return;
-
-        const replicationState = replicateRxCollection<unknown, Checkpoint>({
-          collection,
-          replicationIdentifier: `sync-${collection.name}`,
-          live: true,
-          retryTime: 5000,
-          pull: {
-            handler: async (lastCheckpoint, batchSize) => {
-              try {
-                const response = await fetch(`${SYNC_URL}/pull`, {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json',
-                    'X-User-Id': userId,
-                  },
-                  body: JSON.stringify({
-                    collection: collection.name,
-                    checkpoint: lastCheckpoint,
-                    limit: batchSize,
-                  }),
-                });
-                return (await response.json()) as any;
-              } catch (err) {
-                setSyncStatus('offline');
-                throw err;
-              }
-            },
-          },
-          push: {
-            handler: async (rows) => {
-              try {
-                const response = await fetch(`${SYNC_URL}/push?collection=${collection.name}`, {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json',
-                    'X-User-Id': userId,
-                  },
-                  body: JSON.stringify(rows),
-                });
-                return (await response.json()) as any;
-              } catch (err) {
-                setSyncStatus('offline');
-                throw err;
-              }
-            },
-          },
-        });
-
-        replicationStates.push(replicationState);
-
-        // Update sync status based on replication state
-        replicationState.active$.subscribe((active) => {
-          if (active) setSyncStatus('syncing');
-          else setSyncStatus('synced');
-        });
-
-        replicationState.error$.subscribe((err) => {
-          console.error(`Replication error in ${collection.name}:`, err);
-          setSyncStatus('error');
-        });
-      });
-    };
-
-    startReplication();
-
-    return () => {
-      replicationStates.forEach((state) => state.cancel());
-    };
+    setupDB();
   }, [db, status, session?.user?.id]);
 
   if (!db) {
@@ -246,3 +103,6 @@ export const useSyncStatus = () => {
   const context = useContext(DatabaseContext);
   return context.syncStatus;
 };
+
+export type { TrackerDatabase, TrackerCollections } from './rx-database';
+export type { SyncStatus } from './replication';
