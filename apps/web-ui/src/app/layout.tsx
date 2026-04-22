@@ -5,6 +5,7 @@ import { Providers } from './providers';
 export const metadata: Metadata = {
   title: 'Job Tracker',
   description: 'Track your career journey',
+  manifest: '/site.webmanifest',
 };
 
 export const viewport: Viewport = {
