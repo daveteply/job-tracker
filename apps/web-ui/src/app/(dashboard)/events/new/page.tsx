@@ -20,6 +20,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { EventCreateWithReminderSchema, EventCreateWithReminder } from '@job-tracker/validation';
 import { DirectionType, SourceType } from '@job-tracker/domain';
 import { useRouter } from 'next/navigation';
+import { inferDirectionFromEventType } from '@job-tracker/app-logic';
 
 export default function EventsNewPage() {
   const router = useRouter();
@@ -130,6 +131,13 @@ export default function EventsNewPage() {
                     selectedTypeId={formValues.eventTypeId}
                     onSelect={(id) => {
                       setValue('eventTypeId', id, { shouldValidate: true });
+                      const selectedType = eventTypes.find((t) => t.id === id);
+                      if (selectedType) {
+                        const inferredDirection = inferDirectionFromEventType(selectedType.name);
+                        if (inferredDirection) {
+                          setValue('direction', inferredDirection, { shouldValidate: true });
+                        }
+                      }
                     }}
                   />
                 )}

@@ -22,6 +22,7 @@ import Link from 'next/link';
 import EventTypeSelect from '../event-type/event-type-select';
 import { DirectionType, SourceType } from '@job-tracker/domain';
 import { FloatingButtonContainer } from '../common/floating-button-container';
+import { inferDirectionFromEventType } from '@job-tracker/app-logic';
 
 interface EventFormValues extends FieldValues {
   occurredAt?: Date | string | null;
@@ -83,6 +84,7 @@ export function EventForm<T extends EventFormValues>({
     handleSubmit,
     reset,
     control,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<T>({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -142,7 +144,18 @@ export function EventForm<T extends EventFormValues>({
           render={({ field, fieldState }) => (
             <EventTypeSelect
               value={field.value}
-              onChange={field.onChange}
+              onChange={(val) => {
+                field.onChange(val);
+                const selectedType = eventTypes.find((t) => t.id === val);
+                if (selectedType) {
+                  const inferredDirection = inferDirectionFromEventType(selectedType.name);
+                  if (inferredDirection) {
+                    setValue('direction' as Path<T>, inferredDirection as any, {
+                      shouldValidate: true,
+                    });
+                  }
+                }
+              }}
               options={eventTypes}
               isLoading={eventTypesLoading}
               error={fieldState.error?.message} // fieldState automatically finds the error for this name

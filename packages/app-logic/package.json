@@ -5,5 +5,7 @@
   "type": "module",
   "main": "./src/index.js",
   "types": "./src/index.d.ts",
-  "dependencies": {}
+  "dependencies": {
+    "@job-tracker/domain": "0.0.1"
+  }
 }
