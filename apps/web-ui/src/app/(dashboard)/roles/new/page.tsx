@@ -10,7 +10,6 @@ export default function CreateRolePage() {
   return (
     <>
       <h1 className="mb-5 text-xl">Roles - new Role</h1>
-      <p className="mb-5 italic"></p>
 
       <RoleForm
         onSubmitAction={upsertRole}

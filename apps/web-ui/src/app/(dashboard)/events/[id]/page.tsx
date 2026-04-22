@@ -60,7 +60,6 @@ export default function EventDetailsPage({ params }: { params: Promise<{ id: str
             {event.details && <span>Details: </span>}
             {event.details}
           </li>
-          <li></li>
         </ul>
       </div>
 

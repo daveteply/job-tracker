@@ -9,7 +9,6 @@ export default function CreateCompanyPage() {
   return (
     <>
       <h1 className="mb-5 text-xl">Companies - new Company</h1>
-      <p className="mb-5 italic"></p>
 
       <CompanyForm onSubmitAction={upsertCompany} postActionRoute={'/companies'} />
     </>
