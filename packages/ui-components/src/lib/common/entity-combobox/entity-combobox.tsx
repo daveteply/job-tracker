@@ -204,13 +204,13 @@ export function EntityCombobox<TEntity extends { id: string }, T extends FieldVa
       </div>
 
       {showSpinner && (
-        <div className="absolute right-10 top-1/2 -translate-y-1/2">
+        <div className="absolute top-1/2 right-10 -translate-y-1/2">
           <span className="loading loading-bars loading-xs text-primary"></span>
         </div>
       )}
 
       {isOpen && query.length > 0 && (
-        <ul className="menu bg-base-200 w-full rounded-box absolute z-50 shadow-lg mt-1 max-h-60 overflow-auto">
+        <ul className="menu bg-base-200 rounded-box absolute z-50 mt-1 max-h-60 w-full overflow-auto shadow-lg">
           {/* Show create new option */}
           {showCreateNew && (
             <li className="text-primary italic">

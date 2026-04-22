@@ -19,7 +19,7 @@ export default function EditCompanyPage({ params }: { params: Promise<{ id: stri
 
   return (
     <>
-      <h1 className="text-xl mb-5">Companies - Edit {company.name}</h1>
+      <h1 className="mb-5 text-xl">Companies - Edit {company.name}</h1>
       <CompanyForm
         onSubmitAction={handleUpdate}
         initialData={company}

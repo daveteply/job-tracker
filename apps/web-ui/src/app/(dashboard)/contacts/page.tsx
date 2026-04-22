@@ -12,8 +12,8 @@ export default function ContactsListPage() {
 
   return (
     <>
-      <div className="flex mb-3 justify-between">
-        <h1 className="text-xl pr-1">Contacts</h1>
+      <div className="mb-3 flex justify-between">
+        <h1 className="pr-1 text-xl">Contacts</h1>
         <Link className="btn btn-sm text-primary" href="contacts/new" title="Add Contact">
           <PlusCircleIcon className="size-5" />
           Add Contact

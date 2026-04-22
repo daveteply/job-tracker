@@ -19,12 +19,12 @@ export function EventStepDetails<T extends FieldValues = FieldValues>({
 
   return (
     <div className="space-y-6">
-      <h2 className="text-lg font-semibold text-base-content">Event Details</h2>
+      <h2 className="text-base-content text-lg font-semibold">Event Details</h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <div className="form-control">
           <label className="label">
-            <span className="label-text font-medium text-base-content">Direction</span>
+            <span className="label-text text-base-content font-medium">Direction</span>
           </label>
           <div className="flex flex-wrap gap-2">
             {Object.entries(DirectionType).map(([key, value]) => (
@@ -44,14 +44,16 @@ export function EventStepDetails<T extends FieldValues = FieldValues>({
 
         <div className="form-control">
           <label className="label">
-            <span className="label-text font-medium text-base-content">Source</span>
+            <span className="label-text text-base-content font-medium">Source</span>
           </label>
           <div className="flex flex-wrap gap-2">
             {Object.entries(SourceType).map(([key, value]) => (
               <button
                 key={key}
                 type="button"
-                onClick={() => setValue('source' as Path<T>, value as any, { shouldValidate: true })}
+                onClick={() =>
+                  setValue('source' as Path<T>, value as any, { shouldValidate: true })
+                }
                 className={`badge ${currentSource === value ? 'badge-primary' : 'badge-ghost'}`}
               >
                 {key}
@@ -63,7 +65,7 @@ export function EventStepDetails<T extends FieldValues = FieldValues>({
 
       <div className="form-control max-w-xs">
         <label className="label">
-          <span className="label-text font-medium text-base-content">Date</span>
+          <span className="label-text text-base-content font-medium">Date</span>
         </label>
         <input
           type="date"
@@ -74,7 +76,7 @@ export function EventStepDetails<T extends FieldValues = FieldValues>({
 
       <div className="form-control">
         <label className="label">
-          <span className="label-text font-medium text-base-content">Summary (Optional)</span>
+          <span className="label-text text-base-content font-medium">Summary (Optional)</span>
         </label>
         <input
           className="input input-bordered w-full"
@@ -85,7 +87,7 @@ export function EventStepDetails<T extends FieldValues = FieldValues>({
 
       <div className="form-control">
         <label className="label">
-          <span className="label-text font-medium text-base-content">Notes (Optional)</span>
+          <span className="label-text text-base-content font-medium">Notes (Optional)</span>
         </label>
         <textarea
           className="textarea textarea-bordered h-32 w-full"

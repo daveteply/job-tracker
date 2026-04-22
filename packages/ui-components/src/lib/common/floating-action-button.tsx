@@ -17,7 +17,7 @@ export function FloatingActionButton() {
   }
 
   return (
-    <div className="fixed bottom-15 right-5 flex flex-col items-end gap-4 z-50">
+    <div className="fixed right-5 bottom-15 z-50 flex flex-col items-end gap-4">
       {/* Speed Dial Menu Items */}
       {isOpen && (
         <div className="flex flex-col items-end gap-2">
@@ -31,12 +31,12 @@ export function FloatingActionButton() {
       {/* Main Trigger Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`flex items-center justify-center w-12 h-11 rounded-full shadow-xl transition-all duration-300 ${
-          isOpen ? 'bg-gray-800 rotate-45' : 'bg-blue-600 hover:bg-blue-700'
+        className={`flex h-11 w-12 items-center justify-center rounded-full shadow-xl transition-all duration-300 ${
+          isOpen ? 'rotate-45 bg-gray-800' : 'bg-blue-600 hover:bg-blue-700'
         } text-white`}
         aria-label="Toggle menu"
       >
-        <PlusIcon className="w-6 h-6" />
+        <PlusIcon className="h-6 w-6" />
       </button>
 
       {isOpen && (

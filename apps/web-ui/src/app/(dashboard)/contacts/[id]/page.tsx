@@ -15,8 +15,8 @@ export default function ContactDetailsPage({ params }: { params: Promise<{ id: s
 
   return (
     <>
-      <div className="flex mb-3">
-        <h1 className="text-xl pr-2">Contact Details</h1>
+      <div className="mb-3 flex">
+        <h1 className="pr-2 text-xl">Contact Details</h1>
         <Link
           className="btn btn-circle btn-sm text-primary"
           href={`${id}/edit`}

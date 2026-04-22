@@ -89,7 +89,7 @@ export default function EventUpdatePage({ params }: { params: Promise<{ id: stri
 
   return (
     <>
-      <h1 className="text-xl mb-5">Edit Event</h1>
+      <h1 className="mb-5 text-xl">Edit Event</h1>
       <EventForm
         isEdit={true}
         initialData={initialData}

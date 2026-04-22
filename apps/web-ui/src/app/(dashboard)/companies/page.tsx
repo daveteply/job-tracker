@@ -14,8 +14,8 @@ export default function CompaniesListPage() {
 
   return (
     <>
-      <div className="flex mb-3 justify-between">
-        <h1 className="text-xl pr-1">Companies</h1>
+      <div className="mb-3 flex justify-between">
+        <h1 className="pr-1 text-xl">Companies</h1>
         <Link className="btn btn-sm text-primary" href="companies/new" title="Add Company">
           <PlusCircleIcon className="size-5" />
           Add Company

@@ -70,7 +70,7 @@ export function CompanyForm<T extends FieldValues>({
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="px-12pt-6 pb-8 mb-4 max-w-md mx-auto">
+    <form onSubmit={handleSubmit(onSubmit)} className="px-12pt-6 mx-auto mb-4 max-w-md pb-8">
       <fieldset className="fieldset">
         <legend className="fieldset-legend">Company Name</legend>
         <input className="input" {...register('name' as Path<T>)} />

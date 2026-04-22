@@ -17,7 +17,7 @@ export default function DeleteContactPage({ params }: { params: Promise<{ id: st
 
   return (
     <div className="flex flex-col gap-4">
-      <h1 className="text-xl pr-1">Contact - Delete</h1>
+      <h1 className="pr-1 text-xl">Contact - Delete</h1>
 
       <>
         <ContactInfoCard contact={contact} showControls={false} />

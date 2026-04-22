@@ -23,13 +23,13 @@ export function Header({ title, iconSrc, homeHref = '/home' }: HeaderProps) {
 
   return (
     <header
-      className={`sticky top-0 z-50 bg-blue-600 text-white p-4 transition-shadow duration-300 ${
+      className={`sticky top-0 z-50 bg-blue-600 p-4 text-white transition-shadow duration-300 ${
         scrolled ? 'shadow-lg' : 'shadow-none'
       }`}
     >
-      <div className="container mx-auto flex justify-between items-center">
+      <div className="container mx-auto flex items-center justify-between">
         <Link href={homeHref} className="flex items-center gap-2">
-          {iconSrc && <img src={iconSrc} alt="App Icon" className="w-8 h-8 rounded" />}
+          {iconSrc && <img src={iconSrc} alt="App Icon" className="h-8 w-8 rounded" />}
           <h1 className="text-2xl font-bold">{title}</h1>
         </Link>
         <AuthMenu />

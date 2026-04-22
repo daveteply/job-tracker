@@ -62,8 +62,8 @@ export default function HomePage() {
 
   if (isEmpty) {
     return (
-      <div className="flex flex-col items-center justify-center p-12 bg-base-200/30 rounded-2xl border-2 border-dashed border-base-300 min-h-[400px]">
-        <div className="relative w-20 h-20 mb-6 grayscale opacity-20">
+      <div className="bg-base-200/30 border-base-300 flex min-h-[400px] flex-col items-center justify-center rounded-2xl border-2 border-dashed p-12">
+        <div className="relative mb-6 h-20 w-20 opacity-20 grayscale">
           <Image
             src="/android-chrome-192x192.png"
             alt="Job Tracker Logo"
@@ -71,8 +71,8 @@ export default function HomePage() {
             className="object-contain"
           />
         </div>
-        <h2 className="text-2xl font-bold opacity-60 text-center">Welcome to Job Tracker!</h2>
-        <p className="text-sm opacity-40 text-center mt-2 max-w-xs mb-8">
+        <h2 className="text-center text-2xl font-bold opacity-60">Welcome to Job Tracker!</h2>
+        <p className="mt-2 mb-8 max-w-xs text-center text-sm opacity-40">
           Your command center is currently empty. Add your first event to start tracking your job
           search journey.
         </p>
@@ -87,7 +87,7 @@ export default function HomePage() {
   return (
     <div className="space-y-8 pb-8">
       <section>
-        <h2 className="text-xl font-bold mb-4 px-1">Reminders</h2>
+        <h2 className="mb-4 px-1 text-xl font-bold">Reminders</h2>
         {loadingReminders ? (
           <div className="flex justify-center p-4">
             <span className="loading loading-spinner loading-md"></span>
@@ -98,7 +98,7 @@ export default function HomePage() {
       </section>
 
       <section>
-        <h2 className="text-xl font-bold mb-4 px-1">Recent Activity</h2>
+        <h2 className="mb-4 px-1 text-xl font-bold">Recent Activity</h2>
         {loadingEvents ? (
           <div className="flex justify-center p-4">
             <span className="loading loading-spinner loading-md"></span>
@@ -109,19 +109,19 @@ export default function HomePage() {
       </section>
 
       <section>
-        <h2 className="text-xl font-bold mb-4 px-1">Active Roles</h2>
+        <h2 className="mb-4 px-1 text-xl font-bold">Active Roles</h2>
         {loadingRoles ? (
           <div className="flex justify-center p-4">
             <span className="loading loading-spinner loading-md"></span>
           </div>
         ) : activeRoles.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             {activeRoles.map((role) => (
               <RoleInfoCard key={role.id} role={role} renderFull={false} />
             ))}
           </div>
         ) : (
-          <p className="text-sm opacity-50 italic px-1">No active roles</p>
+          <p className="px-1 text-sm italic opacity-50">No active roles</p>
         )}
       </section>
     </div>

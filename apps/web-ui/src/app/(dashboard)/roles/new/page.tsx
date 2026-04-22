@@ -9,7 +9,7 @@ export default function CreateRolePage() {
 
   return (
     <>
-      <h1 className="text-xl mb-5">Roles - new Role</h1>
+      <h1 className="mb-5 text-xl">Roles - new Role</h1>
       <p className="mb-5 italic"></p>
 
       <RoleForm

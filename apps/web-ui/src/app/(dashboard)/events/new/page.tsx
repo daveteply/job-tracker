@@ -46,7 +46,9 @@ export default function EventsNewPage() {
       contact: null,
       role: null,
       hasReminder: false,
-      remindAt: new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().split('T')[0] as any,
+      remindAt: new Date(new Date().setDate(new Date().getDate() + 1))
+        .toISOString()
+        .split('T')[0] as any,
     },
   });
 
@@ -110,8 +112,8 @@ export default function EventsNewPage() {
 
   return (
     <FormProvider {...methods}>
-      <div className="max-w-2xl mx-auto pb-32">
-        <h1 className="text-3xl font-bold mb-4 text-base-content">New Event</h1>
+      <div className="mx-auto max-w-2xl pb-32">
+        <h1 className="text-base-content mb-4 text-3xl font-bold">New Event</h1>
 
         <ul className="steps w-full">
           <li className={`step ${step >= 1 ? 'step-info' : ''}`}>Type</li>
@@ -120,9 +122,9 @@ export default function EventsNewPage() {
           <li className={`step ${step >= 4 ? 'step-info' : ''}`}>Reminder</li>
         </ul>
 
-        <div className="card bg-base-100 shadow-xl border border-base-200 mt-4">
+        <div className="card bg-base-100 border-base-200 mt-4 border shadow-xl">
           <div className="card-body min-h-[400px]">
-            <form onSubmit={(e) => e.preventDefault()} className="h-full flex flex-col">
+            <form onSubmit={(e) => e.preventDefault()} className="flex h-full flex-col">
               <div className="flex-grow">
                 {step === 1 && (
                   <EventStepType

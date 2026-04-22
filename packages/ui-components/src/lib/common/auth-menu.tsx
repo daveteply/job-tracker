@@ -32,7 +32,7 @@ export function AuthMenu() {
                   referrerPolicy="no-referrer"
                 />
               ) : (
-                <div className="flex h-full w-full items-center justify-center bg-blue-500 text-white font-bold">
+                <div className="flex h-full w-full items-center justify-center bg-blue-500 font-bold text-white">
                   {session.user?.name?.[0] ?? '?'}
                 </div>
               )}
@@ -40,7 +40,7 @@ export function AuthMenu() {
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow text-base-content"
+            className="menu menu-sm dropdown-content bg-base-100 rounded-box text-base-content z-[1] mt-3 w-52 p-2 shadow"
           >
             <li>
               <div className="flex flex-col items-start px-2 py-1">
@@ -64,7 +64,7 @@ export function AuthMenu() {
     <div className="flex gap-2">
       <Link
         href={`/auth/signin?callbackUrl=${encodeURIComponent(pathname || '/')}`}
-        className="btn btn-ghost btn-sm text-white border-white"
+        className="btn btn-ghost btn-sm border-white text-white"
       >
         Sign In
       </Link>

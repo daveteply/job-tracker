@@ -22,8 +22,8 @@ export default function EventDetailsPage({ params }: { params: Promise<{ id: str
 
   return (
     <>
-      <div className="flex mb-3">
-        <h1 className="text-xl pr-2">Event Details</h1>
+      <div className="mb-3 flex">
+        <h1 className="pr-2 text-xl">Event Details</h1>
         <Link className="btn btn-circle btn-sm text-primary" href={`${id}/edit`} title="Edit Event">
           <PencilIcon className="size-5" />
         </Link>

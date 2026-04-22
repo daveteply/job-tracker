@@ -17,7 +17,7 @@ export function RoleList({ roles }: RoleListProps) {
           ))}
         </>
       ) : (
-        <p className="text-sm opacity-50 italic px-1">No Roles found</p>
+        <p className="px-1 text-sm italic opacity-50">No Roles found</p>
       )}
     </div>
   );

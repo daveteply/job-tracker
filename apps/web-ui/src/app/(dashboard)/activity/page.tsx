@@ -10,16 +10,16 @@ export default function ActivityPage() {
 
   return (
     <>
-      <div className="flex mb-3 justify-between items-center">
-        <h1 className="text-xl pr-1">Activity</h1>
+      <div className="mb-3 flex items-center justify-between">
+        <h1 className="pr-1 text-xl">Activity</h1>
         {loading && <span className="loading loading-spinner loading-sm opacity-20"></span>}
       </div>
 
       {!loading && events.length === 0 ? (
-        <div className="flex flex-col items-center justify-center p-12 bg-base-200/30 rounded-2xl border-2 border-dashed border-base-300 min-h-[400px]">
-          <ArchiveBoxIcon className="h-16 w-16 opacity-10 mb-4" />
+        <div className="bg-base-200/30 border-base-300 flex min-h-[400px] flex-col items-center justify-center rounded-2xl border-2 border-dashed p-12">
+          <ArchiveBoxIcon className="mb-4 h-16 w-16 opacity-10" />
           <h2 className="text-2xl font-bold opacity-60">No activity yet</h2>
-          <p className="text-sm opacity-40 text-center mt-2 max-w-xs mb-8">
+          <p className="mt-2 mb-8 max-w-xs text-center text-sm opacity-40">
             Your activity feed is empty. Start by logging an event like an application, an
             interview, or a networking call.
           </p>

@@ -9,7 +9,7 @@ export default function CreateContactPage() {
 
   return (
     <>
-      <h1 className="text-xl mb-5">Companies - new Contact</h1>
+      <h1 className="mb-5 text-xl">Companies - new Contact</h1>
       <p className="mb-5 italic"></p>
 
       <ContactForm

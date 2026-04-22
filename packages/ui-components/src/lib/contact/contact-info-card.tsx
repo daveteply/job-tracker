@@ -22,7 +22,7 @@ export function ContactInfoCard({
         {renderFull ? (
           <>
             <div className="flex justify-between">
-              <div className="flex justify-center items-center">
+              <div className="flex items-center justify-center">
                 <h2 className="card-title mr-2">
                   {contact.firstName} {contact.lastName}
                 </h2>
@@ -57,7 +57,7 @@ export function ContactInfoCard({
           </>
         ) : (
           <div className="flex">
-            <h2 className="card-title  pr-1">
+            <h2 className="card-title pr-1">
               {contact.firstName} {contact.lastName}
             </h2>
             <ExternalLink url={contact.email} linkType={ExternalLinkType.Email} />

@@ -14,13 +14,13 @@ export const SyncIndicator = () => {
   const getIcon = () => {
     switch (status) {
       case 'syncing':
-        return <CloudArrowUpIcon className="w-5 h-5 text-blue-200 animate-pulse" />;
+        return <CloudArrowUpIcon className="h-5 w-5 animate-pulse text-blue-200" />;
       case 'synced':
-        return <CloudIcon className="w-5 h-5 text-green-300" />;
+        return <CloudIcon className="h-5 w-5 text-green-300" />;
       case 'error':
-        return <ExclamationCircleIcon className="w-5 h-5 text-red-400" />;
+        return <ExclamationCircleIcon className="h-5 w-5 text-red-400" />;
       case 'offline':
-        return <SignalSlashIcon className="w-5 h-5 text-gray-400" />;
+        return <SignalSlashIcon className="h-5 w-5 text-gray-400" />;
       default:
         return null;
     }
@@ -42,9 +42,9 @@ export const SyncIndicator = () => {
   };
 
   return (
-    <div className="flex items-center gap-2 px-2 py-1 rounded-md bg-white/10" title={getTooltip()}>
+    <div className="flex items-center gap-2 rounded-md bg-white/10 px-2 py-1" title={getTooltip()}>
       {getIcon()}
-      <span className="text-xs font-medium uppercase tracking-wider opacity-80">{status}</span>
+      <span className="text-xs font-medium tracking-wider uppercase opacity-80">{status}</span>
     </div>
   );
 };

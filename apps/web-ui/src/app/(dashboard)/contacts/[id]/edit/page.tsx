@@ -41,7 +41,7 @@ export default function EditContactPage({ params }: { params: Promise<{ id: stri
 
   return (
     <>
-      <h1 className="text-xl mb-5">
+      <h1 className="mb-5 text-xl">
         Contacts - Edit {contact.firstName} {contact.lastName}
       </h1>
       {

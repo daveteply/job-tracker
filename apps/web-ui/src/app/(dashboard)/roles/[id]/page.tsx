@@ -17,8 +17,8 @@ export default function RoleDetailsPage({ params }: { params: Promise<{ id: stri
 
   return (
     <>
-      <div className="flex mb-3">
-        <h1 className="text-xl pr-2">Role Details</h1>
+      <div className="mb-3 flex">
+        <h1 className="pr-2 text-xl">Role Details</h1>
         <Link className="btn btn-circle btn-sm text-primary" href={`${id}/edit`} title="Edit Role">
           <PencilIcon className="size-5" />
         </Link>

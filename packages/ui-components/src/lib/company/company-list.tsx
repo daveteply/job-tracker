@@ -17,7 +17,7 @@ export function CompanyList({ companies }: CompanyListProps) {
           ))}
         </>
       ) : (
-        <p className="text-sm opacity-50 italic px-1">No Companies found</p>
+        <p className="px-1 text-sm italic opacity-50">No Companies found</p>
       )}
     </div>
   );

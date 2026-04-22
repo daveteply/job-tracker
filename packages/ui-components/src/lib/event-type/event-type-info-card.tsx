@@ -21,7 +21,7 @@ export function EventTypeInfoCard({ eventType, renderFull = true }: EventTypeCar
           </>
         ) : (
           <div className="flex">
-            <h2 className="card-title  pr-1">{eventType.name} </h2>
+            <h2 className="card-title pr-1">{eventType.name} </h2>
           </div>
         )}
       </div>

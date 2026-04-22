@@ -76,6 +76,7 @@
     "nx": "^22.6.3",
     "postcss": "8.4.38",
     "prettier": "~3.6.2",
+    "prettier-plugin-tailwindcss": "^0.7.2",
     "tailwindcss": "^4.2.1",
     "ts-jest": "^29.4.0",
     "ts-node": "10.9.1",

@@ -55,11 +55,11 @@ export function PipelineColumn({ status, roles, loading }: PipelineColumnProps) 
   const Icon = config.icon;
 
   return (
-    <div className="flex flex-col gap-4 bg-base-200/40 p-4 rounded-2xl h-full border border-base-300/30 shadow-sm transition-colors hover:bg-base-200/60">
-      <div className="flex justify-between items-center px-1">
+    <div className="bg-base-200/40 border-base-300/30 hover:bg-base-200/60 flex h-full flex-col gap-4 rounded-2xl border p-4 shadow-sm transition-colors">
+      <div className="flex items-center justify-between px-1">
         <div className="flex items-center gap-2">
           <Icon className={`h-5 w-5 ${config.color}`} />
-          <h2 className="font-bold text-lg tracking-tight">{config.title}</h2>
+          <h2 className="text-lg font-bold tracking-tight">{config.title}</h2>
         </div>
         <span className="badge badge-ghost badge-sm font-mono opacity-60">{roles.length}</span>
       </div>
@@ -76,8 +76,8 @@ export function PipelineColumn({ status, roles, loading }: PipelineColumnProps) 
             </div>
           ))
         ) : (
-          <div className="flex flex-col items-center justify-center py-10 bg-base-100/20 rounded-xl border border-dashed border-base-300/40">
-            <p className="text-[10px] uppercase tracking-widest opacity-30 font-bold">Empty</p>
+          <div className="bg-base-100/20 border-base-300/40 flex flex-col items-center justify-center rounded-xl border border-dashed py-10">
+            <p className="text-[10px] font-bold tracking-widest uppercase opacity-30">Empty</p>
           </div>
         )}
       </div>
@@ -107,9 +107,9 @@ export function Pipeline({ roles, loading, columns }: PipelineProps) {
   const groupedRoles = (status: RoleStatus) => roles.filter((role) => role.status === status);
 
   return (
-    <div className="flex flex-col sm:flex-row gap-6 sm:overflow-x-auto pb-8 items-start sm:snap-x sm:snap-mandatory sm:scroll-smooth -mx-1 px-1">
+    <div className="-mx-1 flex flex-col items-start gap-6 px-1 pb-8 sm:snap-x sm:snap-mandatory sm:flex-row sm:overflow-x-auto sm:scroll-smooth">
       {activeColumns.map((column: { title: string; status: RoleStatus }) => (
-        <div key={column.status} className="w-full sm:w-72 md:w-80 shrink-0 sm:snap-center">
+        <div key={column.status} className="w-full shrink-0 sm:w-72 sm:snap-center md:w-80">
           <PipelineColumn
             status={column.status}
             roles={groupedRoles(column.status)}
@@ -119,10 +119,10 @@ export function Pipeline({ roles, loading, columns }: PipelineProps) {
       ))}
 
       {activeColumns.length === 0 && !loading && (
-        <div className="flex-grow flex flex-col items-center justify-center p-12 bg-base-200/30 rounded-2xl border-2 border-dashed border-base-300 min-h-[300px] w-full">
-          <ArchiveBoxIcon className="h-12 w-12 opacity-10 mb-4" />
+        <div className="bg-base-200/30 border-base-300 flex min-h-[300px] w-full flex-grow flex-col items-center justify-center rounded-2xl border-2 border-dashed p-12">
+          <ArchiveBoxIcon className="mb-4 h-12 w-12 opacity-10" />
           <p className="text-lg font-bold opacity-60">Your pipeline is empty</p>
-          <p className="text-sm opacity-40 text-center mt-2 max-w-xs">
+          <p className="mt-2 max-w-xs text-center text-sm opacity-40">
             Add a new job lead to begin tracking your progress.
           </p>
         </div>

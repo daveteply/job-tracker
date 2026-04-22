@@ -17,7 +17,7 @@ export function Breadcrumbs() {
           return (
             <li key={index}>
               {isLast ? (
-                <span className="cursor-default hover:no-underline text-base-content/60">
+                <span className="text-base-content/60 cursor-default hover:no-underline">
                   {decodedSeg}
                 </span>
               ) : (

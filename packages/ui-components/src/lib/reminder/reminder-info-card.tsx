@@ -21,16 +21,16 @@ export function ReminderInfoCard({ reminder, showControls = true, onComplete }: 
 
   return (
     <div className="card bg-base-300 card-sm shadow-sm">
-      <div className="card-body py-3 px-4">
-        <div className="flex justify-between items-start gap-2">
-          <div className="flex-1 min-w-0">
-            <h3 className="card-title text-sm truncate">{title}</h3>
+      <div className="card-body px-4 py-3">
+        <div className="flex items-start justify-between gap-2">
+          <div className="min-w-0 flex-1">
+            <h3 className="card-title truncate text-sm">{title}</h3>
             {(contactName || companyName) && (
-              <p className="text-xs opacity-70 truncate">
+              <p className="truncate text-xs opacity-70">
                 {contactName} {companyName ? `@ ${companyName}` : ''}
               </p>
             )}
-            <p className="text-[10px] font-medium mt-1 uppercase opacity-50">
+            <p className="mt-1 text-[10px] font-medium uppercase opacity-50">
               <FormattedDate dateValue={reminder.remindAt}></FormattedDate>
             </p>
           </div>

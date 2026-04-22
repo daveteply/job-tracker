@@ -15,7 +15,7 @@ export default function DeleteEventPage({ params }: { params: Promise<{ id: stri
 
   return (
     <div className="flex flex-col gap-4">
-      <h1 className="text-xl pr-1">Event - Delete</h1>
+      <h1 className="pr-1 text-xl">Event - Delete</h1>
 
       <>
         <EventInfoCard event={event} showControls={false}></EventInfoCard>

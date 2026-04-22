@@ -17,7 +17,7 @@ export function ContactList({ contacts }: ContactListProps) {
           ))}
         </>
       ) : (
-        <p className="text-sm opacity-50 italic px-1">No Contacts found</p>
+        <p className="px-1 text-sm italic opacity-50">No Contacts found</p>
       )}
     </div>
   );

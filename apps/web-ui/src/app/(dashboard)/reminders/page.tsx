@@ -13,8 +13,8 @@ export default function ReminderListPage() {
 
   return (
     <>
-      <div className="flex mb-3 justify-between">
-        <h1 className="text-xl pr-1">Reminders</h1>
+      <div className="mb-3 flex justify-between">
+        <h1 className="pr-1 text-xl">Reminders</h1>
         <Link className="btn btn-sm text-primary" href="roles/new" title="Add Reminder">
           <PlusCircleIcon className="size-5" />
           Add Reminder

@@ -18,7 +18,7 @@ export function ReminderList({ reminders, onComplete }: ReminderListProps) {
           ))}
         </>
       ) : (
-        <p className="text-sm opacity-50 italic">No reminders found</p>
+        <p className="text-sm italic opacity-50">No reminders found</p>
       )}
     </div>
   );

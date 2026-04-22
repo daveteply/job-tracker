@@ -29,8 +29,7 @@ export function EventInfoCard({ event, showControls = true }: EventInfoCardProps
     EVENT_CATEGORY_COLOR_MAP[event.eventType?.category || ''] || EVENT_CATEGORY_COLOR_MAP.default;
   return (
     <div
-      className={`relative w-full mb-3 card bg-base-300 shadow-sm rounded-xl active:scale-[0.99] transition-transform border-l-5 hover:shadow-md
- ${borderClass}`}
+      className={`card bg-base-300 relative mb-3 w-full rounded-xl border-l-5 shadow-sm transition-transform hover:shadow-md active:scale-[0.99] ${borderClass}`}
     >
       {/* The invisible primary link */}
       <Link
@@ -39,15 +38,15 @@ export function EventInfoCard({ event, showControls = true }: EventInfoCardProps
         aria-label="Go to Event Details page"
       />
 
-      <div className="card-body p-4 space-y-2">
-        <div className="absolute right-3 top-1/2 -translate-y-1/2 opacity-40">
-          <ChevronRightIcon className="w-5 h-5" />
+      <div className="card-body space-y-2 p-4">
+        <div className="absolute top-1/2 right-3 -translate-y-1/2 opacity-40">
+          <ChevronRightIcon className="h-5 w-5" />
         </div>
 
         {/* Top Row: Status + Timestamp  */}
         <div className="flex items-center justify-between">
           <div className="flex">
-            <span className="badge badge-info text-xs truncate mr-1">{event.eventType?.name}</span>
+            <span className="badge badge-info mr-1 truncate text-xs">{event.eventType?.name}</span>
             <span className="tooltip z-10" data-tip={event.direction}>
               {event.direction === DirectionType.Inbound ? (
                 <div className="flex items-center">
@@ -63,7 +62,7 @@ export function EventInfoCard({ event, showControls = true }: EventInfoCardProps
             </span>
           </div>
           <div className="flex items-center">
-            <span className="text-xs text-neutral-content">
+            <span className="text-neutral-content text-xs">
               <FormattedDate dateValue={event.occurredAt} />
             </span>
             {showControls && (
@@ -78,15 +77,15 @@ export function EventInfoCard({ event, showControls = true }: EventInfoCardProps
         {(event.company || event.role) && (
           <div className="space-y-1">
             {event.company && (
-              <p className="font-semibold text-sm truncate">{event.company?.name}</p>
+              <p className="truncate text-sm font-semibold">{event.company?.name}</p>
             )}
-            {event.role && <p className="text-sm truncate">{event.role?.title}</p>}
+            {event.role && <p className="truncate text-sm">{event.role?.title}</p>}
           </div>
         )}
 
         {/* Metadata Row */}
         {(event.role || event.company || event.contact) && (
-          <div className="flex items-center justify-between text-xs text-neutral-content">
+          <div className="text-neutral-content flex items-center justify-between text-xs">
             {(event.role || event.company) && (
               <span className="flex items-center gap-1">
                 <ExternalLink url={event.role?.jobPostingUrl ?? event.company?.website ?? ''} />

@@ -70,7 +70,7 @@ export function EventStepType({
     <div className="space-y-4">
       {loading && <PageLoading entityName={'Event Types'}></PageLoading>}
 
-      <h2 className="text-lg font-semibold text-base-content">What kind of event is this?</h2>
+      <h2 className="text-base-content text-lg font-semibold">What kind of event is this?</h2>
 
       {categoryKeys.length > 0 && (
         <div className="flex flex-wrap gap-2">
@@ -87,21 +87,21 @@ export function EventStepType({
         </div>
       )}
 
-      <h2 className="text-lg font-semibold text-base-content">Select an event type</h2>
+      <h2 className="text-base-content text-lg font-semibold">Select an event type</h2>
 
-      <div className="grid grid-cols-2 gap-3 w-full">
+      <div className="grid w-full grid-cols-2 gap-3">
         {groupedCategories[activeCategory]?.map((eventType) => (
           <button
             type="button"
             key={eventType.id}
             onClick={() => onSelect(eventType.id)}
-            className={`h-16 leading-tight btn btn-small btn-soft ${selectedTypeId === eventType.id ? 'btn-secondary' : 'btn-ghost'}`}
+            className={`btn btn-small btn-soft h-16 leading-tight ${selectedTypeId === eventType.id ? 'btn-secondary' : 'btn-ghost'}`}
           >
             {eventType.name}
           </button>
         ))}
         {!loading && categoryKeys.length === 0 && (
-          <p className="text-sm opacity-50 italic px-1">No Event Types found</p>
+          <p className="px-1 text-sm italic opacity-50">No Event Types found</p>
         )}
       </div>
     </div>

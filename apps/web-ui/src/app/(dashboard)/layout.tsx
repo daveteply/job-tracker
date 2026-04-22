@@ -2,12 +2,12 @@ import { BottomNav, Breadcrumbs, FloatingActionButton, Header } from '@job-track
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="pb-14 flex flex-col min-h-screen">
+    <div className="flex min-h-screen flex-col pb-14">
       <Header title="Job Tracker" iconSrc="/favicon-32x32.png" />
-      <nav className="pl-3 bg-accent-content">
+      <nav className="bg-accent-content pl-3">
         <Breadcrumbs />
       </nav>
-      <main className="container mx-auto p-4 grow">{children}</main>
+      <main className="container mx-auto grow p-4">{children}</main>
       <BottomNav />
       <FloatingActionButton />
     </div>

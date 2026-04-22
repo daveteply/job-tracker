@@ -16,7 +16,7 @@ export default function DeleteCompanyPage({ params }: { params: Promise<{ id: st
 
   return (
     <div className="flex flex-col gap-4">
-      <h1 className="text-xl pr-1">Company - Delete</h1>
+      <h1 className="pr-1 text-xl">Company - Delete</h1>
 
       <>
         <CompanyInfoCard company={company} showControls={false} />

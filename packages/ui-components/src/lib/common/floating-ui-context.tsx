@@ -23,7 +23,7 @@ export function FloatingUIProvider({ children }: { children: ReactNode }) {
       isContainerActive,
       setIsContainerActive,
     }),
-    [isContainerActive, setIsContainerActive]
+    [isContainerActive, setIsContainerActive],
   );
 
   return <FloatingUIContext.Provider value={value}>{children}</FloatingUIContext.Provider>;

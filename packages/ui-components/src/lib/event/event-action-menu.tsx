@@ -50,16 +50,16 @@ export function EventActionMenu({ id }: EventActionMenuProps) {
           }
         }}
       >
-        <span className="w-10 h-10 flex items-center justify-center active:bg-base-200 rounded-full transition">
+        <span className="active:bg-base-200 flex h-10 w-10 items-center justify-center rounded-full transition">
           <EllipsisVerticalIcon className="size-5" />
         </span>
       </summary>
 
-      <ul className="menu dropdown-content bg-base-100 rounded-box z-1 w-40 p-2 shadow-lg border border-base-200">
+      <ul className="menu dropdown-content bg-base-100 rounded-box border-base-200 z-1 w-40 border p-2 shadow-lg">
         <li>
           <Link
             href={`/events/${id}/edit`}
-            className="flex items-center gap-2 hover:bg-base-200"
+            className="hover:bg-base-200 flex items-center gap-2"
             onClick={() => setIsOpen(false)} // Close menu after clicking action
           >
             <PencilIcon className="size-5" />
@@ -69,7 +69,7 @@ export function EventActionMenu({ id }: EventActionMenuProps) {
         <li>
           <Link
             href={`/events/${id}/delete`}
-            className="flex items-center gap-2 text-error hover:bg-error/10"
+            className="text-error hover:bg-error/10 flex items-center gap-2"
             onClick={() => setIsOpen(false)} // Close menu after clicking link
           >
             <TrashIcon className="size-5" />

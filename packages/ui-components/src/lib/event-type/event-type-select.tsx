@@ -41,11 +41,11 @@ export function EventTypeSelect({
       </select>
 
       {isLoading && (
-        <div className="absolute right-10 top-1/2 -translate-y-1/2">
+        <div className="absolute top-1/2 right-10 -translate-y-1/2">
           <span className="loading loading-bars loading-xs text-primary"></span>
         </div>
       )}
-      {error && <p className="text-red-600 text-sm mt-1">{error}</p>}
+      {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
     </div>
   );
 }

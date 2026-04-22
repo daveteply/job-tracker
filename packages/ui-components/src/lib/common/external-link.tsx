@@ -50,7 +50,7 @@ export function ExternalLink({
     url &&
     url !== '' && (
       <a
-        className="link flex link-info"
+        className="link link-info flex"
         href={urlScheme(url, linkType)}
         target={linkType === ExternalLinkType.Link ? '_blank' : '_self'}
         rel={linkType === ExternalLinkType.Link ? 'noopener noreferrer' : ''}

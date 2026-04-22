@@ -79,7 +79,7 @@ export function EventStepReminder<T extends FieldValues = FieldValues>({
 
   return (
     <div className="space-y-6">
-      <h2 className="text-lg font-semibold text-base-content">Follow-up Reminder</h2>
+      <h2 className="text-base-content text-lg font-semibold">Follow-up Reminder</h2>
 
       <div className="form-control">
         <label className="label cursor-pointer justify-start gap-4">
@@ -88,23 +88,23 @@ export function EventStepReminder<T extends FieldValues = FieldValues>({
             className="checkbox checkbox-primary"
             {...register('hasReminder' as Path<T>)}
           />
-          <span className="label-text font-medium text-base-content">
+          <span className="label-text text-base-content font-medium">
             Create a follow-up reminder?
           </span>
         </label>
       </div>
 
       {hasReminder && (
-        <div className="form-control max-w-sm animate-in fade-in slide-in-from-top-2 duration-300">
+        <div className="form-control animate-in fade-in slide-in-from-top-2 max-w-sm duration-300">
           <label className="label">
-            <span className="label-text font-medium text-base-content">Remind me on</span>
+            <span className="label-text text-base-content font-medium">Remind me on</span>
           </label>
           <input
             type="date"
             className={`input input-bordered w-full ${errors?.remindAt ? 'input-error' : ''}`}
             {...register('remindAt' as Path<T>)}
           />
-          <div className="flex flex-wrap gap-2 mt-3">
+          <div className="mt-3 flex flex-wrap gap-2">
             <button
               type="button"
               className="btn btn-sm btn-outline btn-primary"

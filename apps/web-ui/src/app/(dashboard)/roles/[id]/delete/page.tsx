@@ -17,7 +17,7 @@ export default function DeleteRolePage({ params }: { params: Promise<{ id: strin
 
   return (
     <div className="flex flex-col gap-4">
-      <h1 className="text-xl pr-1">Role - Delete</h1>
+      <h1 className="pr-1 text-xl">Role - Delete</h1>
 
       <>
         <RoleInfoCard role={role} showControls={false} />

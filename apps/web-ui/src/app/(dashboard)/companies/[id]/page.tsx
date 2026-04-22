@@ -18,8 +18,8 @@ export default function CompanyDetailPage({ params }: { params: Promise<{ id: st
 
   return (
     <>
-      <div className="flex mb-3">
-        <h1 className="text-xl pr-2">Company Details</h1>
+      <div className="mb-3 flex">
+        <h1 className="pr-2 text-xl">Company Details</h1>
         <Link
           className="btn btn-circle btn-sm text-primary"
           href={`${id}/edit`}
