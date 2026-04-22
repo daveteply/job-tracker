@@ -34,10 +34,13 @@ export const DatabaseProvider = ({ children }: { children: React.ReactNode }) =>
     }
 
     const userId = session?.user?.id;
-    const dbName = userId ? `job_tracker_db_${userId}` : GUEST_DB_NAME;
-
-    // Get previous DB name from localStorage (persists across login reloads)
     const prevDbName = localStorage.getItem(PREV_DB_NAME_KEY);
+
+    // Determine the intended database name. 
+    // If logged in, use the user-specific database.
+    // If logged out, default to the most recent database used on this device.
+    // This allows users to continue working locally after signing out.
+    const dbName = userId ? `job_tracker_db_${userId}` : (prevDbName || GUEST_DB_NAME);
 
     // If the database is already initialized with the correct name, do nothing
     if (db && prevDbName === dbName) {
