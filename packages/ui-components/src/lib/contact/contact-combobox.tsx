@@ -10,6 +10,7 @@ interface ContactComboboxProps<T extends FieldValues> {
   name: Path<T>;
   onSearch: (query: string) => Promise<ContactDTO[]>;
   required?: boolean;
+  placeholder?: string;
 }
 
 export function ContactCombobox<T extends FieldValues>({
@@ -17,6 +18,7 @@ export function ContactCombobox<T extends FieldValues>({
   name,
   onSearch,
   required = false,
+  placeholder,
 }: ContactComboboxProps<T>) {
   return (
     <EntityCombobox
@@ -25,6 +27,7 @@ export function ContactCombobox<T extends FieldValues>({
       onSearch={onSearch}
       config={contactComboboxConfig}
       required={required}
+      placeholder={placeholder}
     />
   );
 }

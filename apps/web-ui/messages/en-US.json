@@ -43,7 +43,8 @@
     "deleteBlocker": "This Role is associated with {events} Event(s), {roles} Role(s) or {roles2} Role(s) and cannot be deleted",
     "backToEvents": "Back to Events",
     "roleEntityName": "role",
-    "rolesEntityName": "roles"
+    "rolesEntityName": "roles",
+    "formPlaceholder": "Search or type new role title"
   },
   "Companies": {
     "listTitle": "Companies",
@@ -67,7 +68,8 @@
     "formNotes": "Notes",
     "required": "Required",
     "create": "Create",
-    "update": "Update"
+    "update": "Update",
+    "formPlaceholder": "Search or type new company name"
   },
   "Contacts": {
     "listTitle": "Contacts",
@@ -96,7 +98,8 @@
     "formNotes": "Notes",
     "required": "Required",
     "create": "Create",
-    "update": "Update"
+    "update": "Update",
+    "formPlaceholder": "Search or type first and last name"
   },
   "Events": {
     "listTitle": "Events",
@@ -130,6 +133,9 @@
     "formContactOptional": "Contact (Optional)",
     "formRole": "Role",
     "formRoleOptional": "Role (Optional)",
+    "formCompanyPlaceholder": "Search or type new company name",
+    "formContactPlaceholder": "Search or type first and last name",
+    "formRolePlaceholder": "Search or type new role title",
     "formDateOccurred": "Date Occurred",
     "formSummary": "Summary (optional)",
     "formSummaryPlaceholder": "e.g. Phone screen with Recruiter",

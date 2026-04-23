@@ -37,8 +37,6 @@ export const companyComboboxConfig: EntityComboboxConfig<CompanyDTO, CompanyForm
     displayValue: input,
   }),
 
-  placeholder: 'Search or type new company name',
-
   createNewLabel: (input) => `Create new company: "${input}"`,
 };
 
@@ -86,8 +84,6 @@ export const contactComboboxConfig: EntityComboboxConfig<ContactDTO, ContactForm
     return null;
   },
 
-  placeholder: 'Search or type first and last name',
-
   createNewLabel: (input) => {
     const trimmed = input.trim();
     const parts = trimmed.split(/\s+/);
@@ -108,8 +104,6 @@ export const roleComboboxConfig: EntityComboboxConfig<RoleDTO, RoleFormValue> = 
     isNew: true,
     displayValue: input,
   }),
-
-  placeholder: 'Search or type new role title',
 
   createNewLabel: (input) => `Create new role: "${input}"`,
 };

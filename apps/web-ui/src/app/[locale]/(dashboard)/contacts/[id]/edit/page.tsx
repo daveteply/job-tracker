@@ -53,6 +53,7 @@ export default function EditContactPage({ params }: { params: Promise<{ id: stri
           initialData={initialData}
           isEdit={true}
           postActionRoute={'/contacts'}
+          companyPlaceholder={t('formPlaceholder')}
         />
       }
     </>

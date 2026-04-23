@@ -43,7 +43,8 @@
     "deleteBlocker": "Este Rol está asociado con {events} Evento(s), {roles} Rol(es) o {roles2} Rol(es) y no se puede eliminar",
     "backToEvents": "Volver a Eventos",
     "roleEntityName": "rol",
-    "rolesEntityName": "roles"
+    "rolesEntityName": "roles",
+    "formPlaceholder": "Buscar o escribir el título del nuevo rol"
   },
   "Companies": {
     "listTitle": "Compañías",
@@ -67,7 +68,8 @@
     "formNotes": "Notas",
     "required": "Requerido",
     "create": "Crear",
-    "update": "Actualizar"
+    "update": "Actualizar",
+    "formPlaceholder": "Buscar o escribir el nombre de la nueva compañía"
   },
   "Contacts": {
     "listTitle": "Contactos",
@@ -96,7 +98,8 @@
     "formNotes": "Notas",
     "required": "Requerido",
     "create": "Crear",
-    "update": "Actualizar"
+    "update": "Actualizar",
+    "formPlaceholder": "Buscar o escribir nombre y apellido"
   },
   "Events": {
     "listTitle": "Eventos",
@@ -130,6 +133,9 @@
     "formContactOptional": "Contacto (opcional)",
     "formRole": "Rol",
     "formRoleOptional": "Rol (opcional)",
+    "formCompanyPlaceholder": "Buscar o escribir el nombre de la nueva compañía",
+    "formContactPlaceholder": "Buscar o escribir nombre y apellido",
+    "formRolePlaceholder": "Buscar o escribir el título del nuevo rol",
     "formDateOccurred": "Fecha del evento",
     "formSummary": "Resumen (opcional)",
     "formSummaryPlaceholder": "ej. Entrevista telefónica con reclutador",

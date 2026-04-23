@@ -12,6 +12,9 @@ export interface EventStepContextProps<T extends FieldValues = FieldValues> {
   onSearchCompany: (query: string) => Promise<CompanyDTO[]>;
   onSearchContact: (query: string) => Promise<ContactDTO[]>;
   onSearchRole: (query: string) => Promise<RoleDTO[]>;
+  companyPlaceholder?: string;
+  contactPlaceholder?: string;
+  rolePlaceholder?: string;
 }
 
 export function EventStepContext<T extends FieldValues = FieldValues>({
@@ -19,6 +22,9 @@ export function EventStepContext<T extends FieldValues = FieldValues>({
   onSearchCompany,
   onSearchContact,
   onSearchRole,
+  companyPlaceholder,
+  contactPlaceholder,
+  rolePlaceholder,
 }: EventStepContextProps<T>) {
   const t = useTranslations('Events');
 
@@ -32,7 +38,12 @@ export function EventStepContext<T extends FieldValues = FieldValues>({
             {t('formCompanyOptional')}
           </span>
         </label>
-        <CompanyCombobox control={control} name={'company' as Path<T>} onSearch={onSearchCompany} />
+        <CompanyCombobox
+          control={control}
+          name={'company' as Path<T>}
+          onSearch={onSearchCompany}
+          placeholder={companyPlaceholder}
+        />
       </div>
 
       <div className="form-control w-full">
@@ -41,14 +52,24 @@ export function EventStepContext<T extends FieldValues = FieldValues>({
             {t('formContactOptional')}
           </span>
         </label>
-        <ContactCombobox control={control} name={'contact' as Path<T>} onSearch={onSearchContact} />
+        <ContactCombobox
+          control={control}
+          name={'contact' as Path<T>}
+          onSearch={onSearchContact}
+          placeholder={contactPlaceholder}
+        />
       </div>
 
       <div className="form-control w-full">
         <label className="label">
           <span className="label-text text-base-content font-medium">{t('formRoleOptional')}</span>
         </label>
-        <RoleCombobox control={control} name={'role' as Path<T>} onSearch={onSearchRole} />
+        <RoleCombobox
+          control={control}
+          name={'role' as Path<T>}
+          onSearch={onSearchRole}
+          placeholder={rolePlaceholder}
+        />
       </div>
     </div>
   );

@@ -17,6 +17,7 @@ export default function CreateContactPage() {
         onSubmitAction={upsertContact}
         onSearchCompany={searchCompanies}
         postActionRoute={'/contacts'}
+        companyPlaceholder={t('formPlaceholder')}
       />
     </>
   );

@@ -152,6 +152,9 @@ export default function EventsNewPage() {
                     onSearchCompany={searchCompanies}
                     onSearchContact={searchContacts}
                     onSearchRole={searchRoles}
+                    companyPlaceholder={t('formCompanyPlaceholder')}
+                    contactPlaceholder={t('formContactPlaceholder')}
+                    rolePlaceholder={t('formRolePlaceholder')}
                   />
                 )}
                 {step === 3 && (

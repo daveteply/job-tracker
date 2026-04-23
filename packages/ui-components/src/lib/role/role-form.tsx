@@ -19,6 +19,7 @@ interface RoleFormProps<T extends FieldValues> {
   initialData?: DefaultValues<T>;
   isEdit?: boolean;
   postActionRoute: string;
+  companyPlaceholder?: string;
 }
 
 export function RoleForm<T extends FieldValues>({
@@ -27,6 +28,7 @@ export function RoleForm<T extends FieldValues>({
   initialData,
   isEdit = false,
   postActionRoute,
+  companyPlaceholder,
 }: RoleFormProps<T>) {
   const t = useTranslations('Roles');
   const router = useRouter();
@@ -96,7 +98,12 @@ export function RoleForm<T extends FieldValues>({
 
       <fieldset className="fieldset">
         <legend className="fieldset-legend">{t('formCompany')}</legend>
-        <CompanyCombobox control={control} name={'company' as Path<T>} onSearch={onSearchCompany} />
+        <CompanyCombobox
+          control={control}
+          name={'company' as Path<T>}
+          onSearch={onSearchCompany}
+          placeholder={companyPlaceholder}
+        />
         <ErrorMsg name={'company' as Path<T>} />
       </fieldset>
 

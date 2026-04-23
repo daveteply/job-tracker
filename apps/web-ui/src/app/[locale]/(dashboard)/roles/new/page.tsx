@@ -17,6 +17,7 @@ export default function CreateRolePage() {
         onSubmitAction={upsertRole}
         postActionRoute={'/roles'}
         onSearchCompany={searchCompanies}
+        companyPlaceholder={t('formPlaceholder')}
       />
     </>
   );

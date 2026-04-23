@@ -51,6 +51,7 @@ export default function EditRolePage({ params }: { params: Promise<{ id: string 
           isEdit={true}
           postActionRoute={'/roles'}
           onSearchCompany={searchCompanies}
+          companyPlaceholder={t('formPlaceholder')}
         />
       }
     </>

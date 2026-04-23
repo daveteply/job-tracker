@@ -39,6 +39,9 @@ interface EventFormProps<T extends EventFormValues> {
   initialData?: DefaultValues<T>;
   isEdit?: boolean;
   postActionRoute: string;
+  companyPlaceholder?: string;
+  contactPlaceholder?: string;
+  rolePlaceholder?: string;
 }
 
 export function EventForm<T extends EventFormValues>({
@@ -51,6 +54,9 @@ export function EventForm<T extends EventFormValues>({
   initialData,
   isEdit = false,
   postActionRoute,
+  companyPlaceholder,
+  contactPlaceholder,
+  rolePlaceholder,
 }: EventFormProps<T>) {
   const t = useTranslations('Events');
   const router = useRouter();
@@ -189,20 +195,35 @@ export function EventForm<T extends EventFormValues>({
 
       <fieldset className="fieldset">
         <legend className="fieldset-legend">{t('formCompany')}</legend>
-        <CompanyCombobox control={control} name={'company' as Path<T>} onSearch={onSearchCompany} />
+        <CompanyCombobox
+          control={control}
+          name={'company' as Path<T>}
+          onSearch={onSearchCompany}
+          placeholder={companyPlaceholder}
+        />
         <ErrorMsg name={'company' as Path<T>} />
       </fieldset>
 
       <fieldset className="fieldset">
         <legend className="fieldset-legend">{t('formContact')}</legend>
-        <ContactCombobox control={control} name={'contact' as Path<T>} onSearch={onSearchContact} />
+        <ContactCombobox
+          control={control}
+          name={'contact' as Path<T>}
+          onSearch={onSearchContact}
+          placeholder={contactPlaceholder}
+        />
         <ErrorMsg name={'contact.firstName' as Path<T>} />
         <ErrorMsg name={'contact.lastName' as Path<T>} />
       </fieldset>
 
       <fieldset className="fieldset">
         <legend className="fieldset-legend">{t('formRole')}</legend>
-        <RoleCombobox control={control} name={'role' as Path<T>} onSearch={onSearchRole} />
+        <RoleCombobox
+          control={control}
+          name={'role' as Path<T>}
+          onSearch={onSearchRole}
+          placeholder={rolePlaceholder}
+        />
         <ErrorMsg name={'title' as Path<T>} />
       </fieldset>
 

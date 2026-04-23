@@ -21,7 +21,7 @@ export interface EntityComboboxConfig<TEntity, TFormValue> {
   validateNewEntity?: (input: string) => string | null;
 
   // Placeholder text for the input field
-  placeholder: string;
+  placeholder?: string;
 
   // Label for the "create new" option (e.g., "Create new company: {input}")
   createNewLabel?: (input: string) => string;
@@ -33,6 +33,7 @@ interface EntityComboboxProps<TEntity, T extends FieldValues, TFormValue> {
   onSearch: (query: string) => Promise<TEntity[]>;
   config: EntityComboboxConfig<TEntity, TFormValue>;
   required?: boolean;
+  placeholder?: string;
 }
 
 export function EntityCombobox<TEntity extends { id: string }, T extends FieldValues, TFormValue>({
@@ -41,6 +42,7 @@ export function EntityCombobox<TEntity extends { id: string }, T extends FieldVa
   onSearch,
   config,
   required = false,
+  placeholder,
 }: EntityComboboxProps<TEntity, T, TFormValue>) {
   const {
     field: { value, onChange, ref },
@@ -197,7 +199,7 @@ export function EntityCombobox<TEntity extends { id: string }, T extends FieldVa
           type="text"
           value={query}
           onChange={handleInputChange}
-          placeholder={config.placeholder}
+          placeholder={placeholder || config.placeholder}
           aria-busy={isLoading}
           required={required}
         />

@@ -10,6 +10,7 @@ interface CompanyComboboxProps<T extends FieldValues> {
   name: Path<T>;
   onSearch: (query: string) => Promise<CompanyDTO[]>;
   required?: boolean;
+  placeholder?: string;
 }
 
 export function CompanyCombobox<T extends FieldValues>({
@@ -17,6 +18,7 @@ export function CompanyCombobox<T extends FieldValues>({
   name,
   onSearch,
   required = false,
+  placeholder,
 }: CompanyComboboxProps<T>) {
   return (
     <EntityCombobox
@@ -25,6 +27,7 @@ export function CompanyCombobox<T extends FieldValues>({
       onSearch={onSearch}
       config={companyComboboxConfig}
       required={required}
+      placeholder={placeholder}
     />
   );
 }

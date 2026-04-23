@@ -11,6 +11,7 @@ import {
 } from '@job-tracker/hooks';
 import { EventForm, PageLoading } from '@job-tracker/ui-components';
 import { EventDTO } from '@job-tracker/validation';
+import { useTranslations } from 'next-intl';
 
 type EventEditFormData = EventDTO & {
   company?: {
@@ -44,6 +45,7 @@ type EventEditFormData = EventDTO & {
 
 export default function EventUpdatePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
+  const t = useTranslations('Events');
   const { event, loading } = useEventWithChildren(id);
 
   const { upsertEvent } = useEventActions();
@@ -100,6 +102,9 @@ export default function EventUpdatePage({ params }: { params: Promise<{ id: stri
         eventTypes={eventTypes}
         eventTypesLoading={eventTypesLoading}
         postActionRoute={`/events/${id}`}
+        companyPlaceholder={t('formCompanyPlaceholder')}
+        contactPlaceholder={t('formContactPlaceholder')}
+        rolePlaceholder={t('formRolePlaceholder')}
       ></EventForm>
     </>
   );
