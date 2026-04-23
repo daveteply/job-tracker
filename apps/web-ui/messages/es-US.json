@@ -1,6 +1,10 @@
 {
   "Common": {
-    "title": "Job Tracker"
+    "title": "Job Tracker",
+    "cancel": "Cancelar",
+    "create": "Crear",
+    "update": "Actualizar",
+    "required": "Requerido"
   },
   "IndexPage": {
     "title": "Job Tracker",
@@ -68,9 +72,6 @@
     "formIndustry": "Industria",
     "formSizeRange": "Tamaño",
     "formNotes": "Notas",
-    "required": "Requerido",
-    "create": "Crear",
-    "update": "Actualizar",
     "formPlaceholder": "Buscar o escribir el nombre de la nueva compañía",
     "formCreate": "Crear nueva compañía: \"{name}\""
   },
@@ -99,9 +100,6 @@
     "formIsRecruiter": "¿Es este un reclutador de la compañía?",
     "formIsRecruiterCheckbox": "Sí, este es el reclutador principal",
     "formNotes": "Notas",
-    "required": "Requerido",
-    "create": "Crear",
-    "update": "Actualizar",
     "formPlaceholder": "Buscar o escribir nombre y apellido",
     "formCreate": "Crear nuevo contacto: \"{name}\"",
     "formCreateCompany": "Crear nueva compañía: \"{name}\"",
@@ -125,7 +123,6 @@
     "stepReminder": "Recordatorio",
     "previous": "Anterior",
     "next": "Siguiente",
-    "cancel": "Cancelar",
     "creating": "Creando...",
     "createEvent": "Crear Evento",
     "editEvent": "Editar Evento",
@@ -145,14 +142,11 @@
     "formCreateCompany": "Crear nueva compañía: \"{name}\"",
     "formCreateContact": "Crear nuevo contacto: \"{firstNameLastName}\"",
     "formCreateRole": "Crear nuevo rol: \"{title}\"",
-    "formContactValidation": "Por favor, ingresa tanto el nombre como el apellido (ej. \"John Doe\")",
     "formDateOccurred": "Fecha del evento",
     "formSummary": "Resumen (opcional)",
     "formSummaryPlaceholder": "ej. Entrevista telefónica con reclutador",
     "formDetails": "Detalles (opcional)",
     "formDetailsPlaceholder": "Agrega detalles adicionales...",
-    "create": "Crear",
-    "update": "Actualizar",
     "whatKindEvent": "¿Qué tipo de evento es este?",
     "contextTitle": "¿De qué trata esto y con quién?",
     "selectEventType": "Selecciona un tipo de evento",
@@ -255,6 +249,23 @@
     "Offer Accepted": "Oferta aceptada",
     "Rejected": "Rechazado",
     "Withdrew Application": "Postulación retirada"
+  },
+  "Validation": {
+    "required": "Requerido",
+    "invalidUrl": "Debe ser una URL válida",
+    "invalidEmail": "Debe ser un correo electrónico válido",
+    "invalidPhone": "Debe ser un número de teléfono válido",
+    "invalidDate": "Debe ser una fecha válida",
+    "companyNameRequired": "El nombre de la compañía es requerido",
+    "contactNameRequired": "El nombre y apellido del contacto son requeridos",
+    "roleTitleRequired": "El título del rol es requerido",
+    "firstNameRequired": "El nombre es requerido",
+    "lastNameRequired": "El apellido es requerido",
+    "selectEventType": "Selecciona un tipo de evento",
+    "selectSource": "Selecciona una fuente",
+    "selectDirection": "Selecciona una dirección",
+    "selectStatus": "Selecciona un estado",
+    "reminderDateRequired": "La fecha del recordatorio es requerida"
   },
   "EventInfoCard": {
     "from": "de",

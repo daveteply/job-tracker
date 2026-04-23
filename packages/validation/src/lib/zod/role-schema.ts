@@ -11,25 +11,25 @@ import { RoleStatus } from '@job-tracker/domain';
 import { RoleStatusSchema } from './enum-schema';
 
 const roleCreateBase = {
-  jobPostingUrl: emptyToUndefined(z.url('Must be a valid URL').max(2048).optional()),
+  jobPostingUrl: emptyToUndefined(z.url('invalidUrl').max(2048).optional()),
   location: z.string().max(255).optional(),
   level: z.string().max(100).optional(),
   salaryRange: z.string().max(100).optional(),
   notes: z.string().max(2048).optional(),
   company: CompanySelectionSchema.or(z.null()).optional(),
   status: RoleStatusSchema.nullable().refine((val) => val !== null, {
-    message: 'Select a status',
+    message: 'selectStatus',
   }),
 };
 
 export const RoleCreateSchema = z.object({
-  title: z.string().min(1, 'Title is required').max(255),
+  title: z.string().min(1, 'roleTitleRequired').max(255),
   ...roleCreateBase,
 });
 
 export const RoleUpdateSchema = z
   .object({
-    title: updateRequiredString(255, 'Title is required'),
+    title: updateRequiredString(255, 'roleTitleRequired'),
     jobPostingUrl: updateOptionalUrl(2048),
     location: updateOptionalString(255),
     level: updateOptionalString(100),

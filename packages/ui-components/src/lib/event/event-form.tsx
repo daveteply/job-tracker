@@ -67,6 +67,8 @@ export function EventForm<T extends EventFormValues>({
   validateContact,
 }: EventFormProps<T>) {
   const t = useTranslations('Events');
+  const tCommon = useTranslations('Common');
+  const tValidation = useTranslations('Validation');
   const router = useRouter();
   const { showToast } = useToast();
   const schema = isEdit ? EventUpdateSchema : EventCreateSchema;
@@ -146,7 +148,7 @@ export function EventForm<T extends EventFormValues>({
     return (
       <p className="text-red-600">
         {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-        <span>{t(error.message.toString() as any)}</span>
+        <span>{tValidation(error.message.toString() as any)}</span>
       </p>
     );
   };
@@ -264,10 +266,10 @@ export function EventForm<T extends EventFormValues>({
 
       <FloatingButtonContainer>
         <Link href={postActionRoute} className="btn btn-ghost">
-          {t('cancel')}
+          {tCommon('cancel')}
         </Link>
         <button className="btn btn-primary px-8" type="submit" disabled={isSubmitting}>
-          {isEdit ? t('update') : t('create')}
+          {isEdit ? tCommon('update') : tCommon('create')}
         </button>
       </FloatingButtonContainer>
     </form>

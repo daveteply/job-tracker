@@ -24,6 +24,8 @@ export function CompanyForm<T extends FieldValues>({
   postActionRoute,
 }: CompanyFormProps<T>) {
   const t = useTranslations('Companies');
+  const tCommon = useTranslations('Common');
+  const tValidation = useTranslations('Validation');
   const router = useRouter();
   const { showToast } = useToast();
   const schema = isEdit ? CompanyUpdateSchema : CompanyCreateSchema;
@@ -63,10 +65,11 @@ export function CompanyForm<T extends FieldValues>({
   // Helper to render error messages cleanly
   const ErrorMsg = ({ name }: { name: Path<T> }) => {
     const error = errors[name];
-    if (!error) return null;
+    if (!error || !error.message) return null;
     return (
       <p className="text-red-600">
-        <span>{error.message?.toString()}</span>
+        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+        <span>{tValidation(error.message.toString() as any)}</span>
       </p>
     );
   };
@@ -76,7 +79,7 @@ export function CompanyForm<T extends FieldValues>({
       <fieldset className="fieldset">
         <legend className="fieldset-legend">{t('formName')}</legend>
         <input className="input" {...register('name' as Path<T>)} />
-        <p className="label">{t('required')}</p>
+        <p className="label">{tCommon('required')}</p>
         <ErrorMsg name={'name' as Path<T>} />
       </fieldset>
 
@@ -106,10 +109,10 @@ export function CompanyForm<T extends FieldValues>({
 
       <FloatingButtonContainer>
         <Link href={postActionRoute} className="btn btn-ghost">
-          {t('cancel')}
+          {tCommon('cancel')}
         </Link>
         <button className="btn btn-primary px-8" type="submit" disabled={isSubmitting}>
-          {isEdit ? t('update') : t('create')}
+          {isEdit ? tCommon('update') : tCommon('create')}
         </button>
       </FloatingButtonContainer>
     </form>

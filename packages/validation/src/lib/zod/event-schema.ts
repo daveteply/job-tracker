@@ -28,7 +28,7 @@ export const EventCreateSchema = z.object({
       message: 'selectEventType',
     }),
 
-  occurredAt: z.coerce.date({ message: 'Must be a valid date' }),
+  occurredAt: z.coerce.date({ message: 'invalidDate' }),
 
   // Text fields aligned with RxDB schema
   summary: emptyToUndefined(z.string().max(500).optional()),

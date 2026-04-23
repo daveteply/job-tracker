@@ -15,7 +15,7 @@ export const updateOptionalUrl = (maxLength: number) =>
   z
     .preprocess(
       (val) => val,
-      z.literal('').or(z.url('Must be a valid URL').max(maxLength)).or(z.null()),
+      z.literal('').or(z.url('invalidUrl').max(maxLength)).or(z.null()),
     )
     .optional()
     .transform((val) => (val === null ? undefined : val));
@@ -24,7 +24,7 @@ export const updateOptionalEmail = (maxLength: number) =>
   z
     .preprocess(
       (val) => val,
-      z.literal('').or(z.email('Must be a valid email').max(maxLength)).or(z.null()),
+      z.literal('').or(z.email('invalidEmail').max(maxLength)).or(z.null()),
     )
     .optional()
     .transform((val) => (val === null ? undefined : val));
@@ -36,7 +36,7 @@ export const updateOptionalPhone = (maxLength: number) =>
       (val) => val,
       z
         .literal('')
-        .or(z.string().max(maxLength).regex(phoneRegex, 'Must be a valid phone number'))
+        .or(z.string().max(maxLength).regex(phoneRegex, 'invalidPhone'))
         .or(z.null()),
     )
     .optional()
@@ -58,7 +58,7 @@ export const EntitySelectionSchema = z.object({
 export const CompanySelectionSchema = EntitySelectionSchema.extend({
   name: z.string().optional(),
 }).refine((data) => data.shouldRemove || (data.name && data.name.length > 0), {
-  message: 'Company name is required',
+  message: 'companyNameRequired',
   path: ['name'],
 });
 
@@ -70,7 +70,7 @@ export const ContactSelectionSchema = EntitySelectionSchema.extend({
     data.shouldRemove ||
     (data.firstName && data.firstName.length > 0 && data.lastName && data.lastName.length > 0),
   {
-    message: 'Contact first & last name are required',
+    message: 'contactNameRequired',
     path: ['firstName', 'lastName'],
   },
 );
@@ -78,7 +78,7 @@ export const ContactSelectionSchema = EntitySelectionSchema.extend({
 export const RoleSelectionSchema = EntitySelectionSchema.extend({
   title: z.string().optional(),
 }).refine((data) => data.shouldRemove || (data.title && data.title.length > 0), {
-  message: 'Role title is required',
+  message: 'roleTitleRequired',
   path: ['title'],
 });
 

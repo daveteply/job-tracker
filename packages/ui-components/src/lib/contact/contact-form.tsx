@@ -31,6 +31,8 @@ export function ContactForm<T extends FieldValues>({
   createCompanyLabel,
 }: ContactFormProps<T>) {
   const t = useTranslations('Contacts');
+  const tCommon = useTranslations('Common');
+  const tValidation = useTranslations('Validation');
   const router = useRouter();
   const { showToast } = useToast();
   const schema = isEdit ? ContactUpdateSchema : ContactCreateSchema;
@@ -82,7 +84,8 @@ export function ContactForm<T extends FieldValues>({
     if (!error || !error.message) return null;
     return (
       <p className="text-red-600">
-        <span>{error.message.toString()}</span>
+        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+        <span>{tValidation(error.message.toString() as any)}</span>
       </p>
     );
   };
@@ -92,14 +95,14 @@ export function ContactForm<T extends FieldValues>({
       <fieldset className="fieldset">
         <legend className="fieldset-legend">{t('formFirstName')}</legend>
         <input className="input" {...register('firstName' as Path<T>)} />
-        <p className="label">{t('required')}</p>
+        <p className="label">{tCommon('required')}</p>
         <ErrorMsg name={'firstName' as Path<T>} />
       </fieldset>
 
       <fieldset className="fieldset">
         <legend className="fieldset-legend">{t('formLastName')}</legend>
         <input className="input" {...register('lastName' as Path<T>)} />
-        <p className="label">{t('required')}</p>
+        <p className="label">{tCommon('required')}</p>
         <ErrorMsg name={'lastName' as Path<T>} />
       </fieldset>
 
@@ -160,10 +163,10 @@ export function ContactForm<T extends FieldValues>({
 
       <FloatingButtonContainer>
         <Link href={postActionRoute} className="btn btn-ghost">
-          {t('cancel')}
+          {tCommon('cancel')}
         </Link>
         <button className="btn btn-primary px-8" type="submit" disabled={isSubmitting}>
-          {isEdit ? t('update') : t('create')}
+          {isEdit ? tCommon('update') : tCommon('create')}
         </button>
       </FloatingButtonContainer>
     </form>

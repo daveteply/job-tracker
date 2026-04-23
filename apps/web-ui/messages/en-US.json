@@ -1,6 +1,10 @@
 {
   "Common": {
-    "title": "Job Tracker"
+    "title": "Job Tracker",
+    "cancel": "Cancel",
+    "create": "Create",
+    "update": "Update",
+    "required": "Required"
   },
   "IndexPage": {
     "title": "Job Tracker",
@@ -68,9 +72,6 @@
     "formIndustry": "Industry",
     "formSizeRange": "Size Range",
     "formNotes": "Notes",
-    "required": "Required",
-    "create": "Create",
-    "update": "Update",
     "formPlaceholder": "Search or type new company name",
     "formCreate": "Create new company: \"{name}\""
   },
@@ -99,9 +100,6 @@
     "formIsRecruiter": "Is this a recruiter from the Company?",
     "formIsRecruiterCheckbox": "Yes, this is the primary recruiter",
     "formNotes": "Notes",
-    "required": "Required",
-    "create": "Create",
-    "update": "Update",
     "formPlaceholder": "Search or type first and last name",
     "formCreate": "Create new contact: \"{name}\"",
     "formCreateCompany": "Create new company: \"{name}\"",
@@ -125,7 +123,6 @@
     "stepReminder": "Reminder",
     "previous": "Previous",
     "next": "Next",
-    "cancel": "Cancel",
     "creating": "Creating...",
     "createEvent": "Create Event",
     "editEvent": "Edit Event",
@@ -145,14 +142,11 @@
     "formCreateCompany": "Create new company: \"{name}\"",
     "formCreateContact": "Create new contact: \"{firstNameLastName}\"",
     "formCreateRole": "Create new role: \"{title}\"",
-    "formContactValidation": "Please enter both first and last name (e.g., \"John Doe\")",
     "formDateOccurred": "Date Occurred",
     "formSummary": "Summary (optional)",
     "formSummaryPlaceholder": "e.g. Phone screen with Recruiter",
     "formDetails": "Details (optional)",
     "formDetailsPlaceholder": "Add any extra details...",
-    "create": "Create",
-    "update": "Update",
     "whatKindEvent": "What kind of event is this?",
     "contextTitle": "Who and what is this about?",
     "selectEventType": "Select an event type",
@@ -255,6 +249,23 @@
     "Offer Accepted": "Offer Accepted",
     "Rejected": "Rejected",
     "Withdrew Application": "Withdrew Application"
+  },
+  "Validation": {
+    "required": "Required",
+    "invalidUrl": "Must be a valid URL",
+    "invalidEmail": "Must be a valid email",
+    "invalidPhone": "Must be a valid phone number",
+    "invalidDate": "Must be a valid date",
+    "companyNameRequired": "Company name is required",
+    "contactNameRequired": "Contact first and last name are required",
+    "roleTitleRequired": "Role title is required",
+    "firstNameRequired": "First name is required",
+    "lastNameRequired": "Last name is required",
+    "selectEventType": "Select an event type",
+    "selectSource": "Select a source",
+    "selectDirection": "Select a direction",
+    "selectStatus": "Select a status",
+    "reminderDateRequired": "Reminder date is required"
   },
   "EventInfoCard": {
     "from": "from",

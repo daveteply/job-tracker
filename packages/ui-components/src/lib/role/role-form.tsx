@@ -33,6 +33,8 @@ export function RoleForm<T extends FieldValues>({
   createCompanyLabel,
 }: RoleFormProps<T>) {
   const t = useTranslations('Roles');
+  const tCommon = useTranslations('Common');
+  const tValidation = useTranslations('Validation');
   const router = useRouter();
   const { showToast } = useToast();
   const schema = isEdit ? RoleUpdateSchema : RoleCreateSchema;
@@ -84,7 +86,8 @@ export function RoleForm<T extends FieldValues>({
     if (!error || !error.message) return null;
     return (
       <p className="text-red-600">
-        <span>{error.message.toString()}</span>
+        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+        <span>{tValidation(error.message.toString() as any)}</span>
       </p>
     );
   };
@@ -94,7 +97,7 @@ export function RoleForm<T extends FieldValues>({
       <fieldset className="fieldset">
         <legend className="fieldset-legend">{t('formTitle')}</legend>
         <input className="input" {...register('title' as Path<T>)} />
-        <p className="label">{t('required')}</p>
+        <p className="label">{tCommon('required')}</p>
         <ErrorMsg name={'title' as Path<T>} />
       </fieldset>
 
@@ -146,10 +149,10 @@ export function RoleForm<T extends FieldValues>({
 
       <FloatingButtonContainer>
         <Link href={postActionRoute} className="btn btn-ghost">
-          {t('cancel')}
+          {tCommon('cancel')}
         </Link>
         <button className="btn btn-primary px-8" type="submit" disabled={isSubmitting}>
-          {isEdit ? t('update') : t('create')}
+          {isEdit ? tCommon('update') : tCommon('create')}
         </button>
       </FloatingButtonContainer>
     </form>

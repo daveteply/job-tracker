@@ -14,11 +14,11 @@ import { CompanyDTO } from './company-schema';
 
 const contactCreateBase = {
   title: emptyToUndefined(z.string().max(100).optional()),
-  email: emptyToUndefined(z.email('Must be a valid email').max(254).optional()),
+  email: emptyToUndefined(z.email('invalidEmail').max(254).optional()),
   phoneNumber: emptyToUndefined(
-    z.string().max(30).regex(phoneRegex, 'Must be a valid phone number').optional(),
+    z.string().max(30).regex(phoneRegex, 'invalidPhone').optional(),
   ),
-  linkedInUrl: emptyToUndefined(z.url('Must be a valid URL').max(2048).optional()),
+  linkedInUrl: emptyToUndefined(z.url('invalidUrl').max(2048).optional()),
   isPrimaryRecruiter: z
     .boolean()
     .or(z.null())
@@ -29,15 +29,15 @@ const contactCreateBase = {
 };
 
 export const ContactCreateSchema = z.object({
-  firstName: z.string().min(1, 'First name is required').max(100),
-  lastName: z.string().min(1, 'Last name is required').max(100),
+  firstName: z.string().min(1, 'firstNameRequired').max(100),
+  lastName: z.string().min(1, 'lastNameRequired').max(100),
   ...contactCreateBase,
 });
 
 export const ContactUpdateSchema = z
   .object({
-    firstName: updateRequiredString(100, 'First name is required'),
-    lastName: updateRequiredString(100, 'Last name is required'),
+    firstName: updateRequiredString(100, 'firstNameRequired'),
+    lastName: updateRequiredString(100, 'lastNameRequired'),
     title: updateOptionalString(100),
     email: updateOptionalEmail(254),
     phoneNumber: updateOptionalPhone(30),
