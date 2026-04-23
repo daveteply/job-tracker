@@ -11,6 +11,7 @@ import ExternalLink from '../common/external-link';
 import { EventWithChildrenDTO } from '@job-tracker/validation';
 import { DirectionType } from '@job-tracker/domain';
 import EventActionMenu from './event-action-menu';
+import { useTranslations } from 'next-intl';
 
 export interface EventInfoCardProps {
   event: EventWithChildrenDTO;
@@ -25,8 +26,17 @@ const EVENT_CATEGORY_COLOR_MAP: Record<string, string> = {
 };
 
 export function EventInfoCard({ event, showControls = true }: EventInfoCardProps) {
+  const tEnum = useTranslations('Enums');
+  const tEvent = useTranslations('SystemEventTypes');
+  const tCard = useTranslations('EventInfoCard');
+
   const borderClass =
     EVENT_CATEGORY_COLOR_MAP[event.eventType?.category || ''] || EVENT_CATEGORY_COLOR_MAP.default;
+
+  const eventName = event.eventType?.isSystemDefined
+    ? tEvent(event.eventType.name)
+    : event.eventType?.name;
+
   return (
     <div
       className={`card bg-base-300 relative mb-3 w-full rounded-xl border-l-5 shadow-sm transition-transform hover:shadow-md active:scale-[0.99] ${borderClass}`}
@@ -35,7 +45,7 @@ export function EventInfoCard({ event, showControls = true }: EventInfoCardProps
       <Link
         href={`/events/${event.id}`}
         className="absolute inset-0 z-10"
-        aria-label="Go to Event Details page"
+        aria-label={tCard('detailsAriaLabel')}
       />
 
       <div className="card-body space-y-2 p-4">
@@ -46,17 +56,17 @@ export function EventInfoCard({ event, showControls = true }: EventInfoCardProps
         {/* Top Row: Status + Timestamp  */}
         <div className="flex items-center justify-between">
           <div className="flex">
-            <span className="badge badge-info mr-1 truncate text-xs">{event.eventType?.name}</span>
-            <span className="tooltip z-10" data-tip={event.direction}>
+            <span className="badge badge-info mr-1 truncate text-xs">{eventName}</span>
+            <span className="tooltip z-10" data-tip={tEnum(`DirectionType.${event.direction}`)}>
               {event.direction === DirectionType.Inbound ? (
                 <div className="flex items-center">
                   <ChevronDoubleRightIcon className="size-5" />
-                  <span className="text-xs">Inbound</span>
+                  <span className="text-xs">{tEnum('DirectionType.Inbound')}</span>
                 </div>
               ) : (
                 <div className="flex items-center">
                   <ChevronDoubleLeftIcon className="size-5" />
-                  <span className="text-xs">Outbound</span>
+                  <span className="text-xs">{tEnum('DirectionType.Outbound')}</span>
                 </div>
               )}
             </span>
@@ -93,7 +103,9 @@ export function EventInfoCard({ event, showControls = true }: EventInfoCardProps
             )}
             {event.contact && (
               <span className="flex items-center gap-1">
-                <span>{event.direction === DirectionType.Inbound ? 'from' : 'to'}</span>
+                <span>
+                  {event.direction === DirectionType.Inbound ? tCard('from') : tCard('to')}
+                </span>
                 <span>
                   {event.contact.firstName} {event.contact.lastName}
                 </span>

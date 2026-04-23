@@ -23,6 +23,7 @@ import EventTypeSelect from '../event-type/event-type-select';
 import { DirectionType, SourceType } from '@job-tracker/domain';
 import { FloatingButtonContainer } from '../common/floating-button-container';
 import { inferDirectionFromEventType } from '@job-tracker/app-logic';
+import { useTranslations } from 'next-intl';
 
 interface EventFormValues extends FieldValues {
   occurredAt?: Date | string | null;
@@ -51,6 +52,7 @@ export function EventForm<T extends EventFormValues>({
   isEdit = false,
   postActionRoute,
 }: EventFormProps<T>) {
+  const t = useTranslations('Events');
   const router = useRouter();
   const { showToast } = useToast();
   const schema = isEdit ? EventUpdateSchema : EventCreateSchema;
@@ -137,7 +139,7 @@ export function EventForm<T extends EventFormValues>({
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="px-12pt-6 mx-auto mb-4 max-w-md pb-8">
       <fieldset className="fieldset">
-        <legend className="fieldset-legend">Event Type</legend>
+        <legend className="fieldset-legend">{t('formEventType')}</legend>
         <Controller
           name={'eventTypeId' as Path<T>}
           control={control}
@@ -165,42 +167,47 @@ export function EventForm<T extends EventFormValues>({
       </fieldset>
 
       <fieldset className="fieldset">
-        <legend className="fieldset-legend">Direction</legend>
+        <legend className="fieldset-legend">{t('formDirection')}</legend>
         <EnumSelector
           register={register('direction' as Path<T>)}
           enumObject={DirectionType}
           useButtons={true}
+          translationNamespace="DirectionType"
         />
         <ErrorMsg name={'direction' as Path<T>} />
       </fieldset>
 
       <fieldset className="fieldset w-full">
-        <legend className="fieldset-legend">Source</legend>
-        <EnumSelector register={register('source' as Path<T>)} enumObject={SourceType} />
+        <legend className="fieldset-legend">{t('formSource')}</legend>
+        <EnumSelector
+          register={register('source' as Path<T>)}
+          enumObject={SourceType}
+          translationNamespace="SourceType"
+        />
         <ErrorMsg name={'source' as Path<T>} />
       </fieldset>
 
       <fieldset className="fieldset">
-        <legend className="fieldset-legend">Company</legend>
+        <legend className="fieldset-legend">{t('formCompany')}</legend>
         <CompanyCombobox control={control} name={'company' as Path<T>} onSearch={onSearchCompany} />
         <ErrorMsg name={'company' as Path<T>} />
       </fieldset>
 
       <fieldset className="fieldset">
-        <legend className="fieldset-legend">Contact</legend>
+        <legend className="fieldset-legend">{t('formContact')}</legend>
         <ContactCombobox control={control} name={'contact' as Path<T>} onSearch={onSearchContact} />
         <ErrorMsg name={'contact.firstName' as Path<T>} />
         <ErrorMsg name={'contact.lastName' as Path<T>} />
       </fieldset>
 
       <fieldset className="fieldset">
-        <legend className="fieldset-legend">Role</legend>
+        <legend className="fieldset-legend">{t('formRole')}</legend>
         <RoleCombobox control={control} name={'role' as Path<T>} onSearch={onSearchRole} />
         <ErrorMsg name={'title' as Path<T>} />
       </fieldset>
 
       <fieldset className="fieldset">
-        <legend className="fieldset-legend">Date Occurred</legend>
+        <legend className="fieldset-legend">{t('formDateOccurred')}</legend>
         <input
           type="date"
           className="input"
@@ -210,23 +217,23 @@ export function EventForm<T extends EventFormValues>({
       </fieldset>
 
       <fieldset className="fieldset">
-        <legend className="fieldset-legend">Summary (optional)</legend>
+        <legend className="fieldset-legend">{t('formSummary')}</legend>
         <input className="input" {...register('summary' as Path<T>)} />
         <ErrorMsg name={'summary' as Path<T>} />
       </fieldset>
 
       <fieldset className="fieldset">
-        <legend className="fieldset-legend">Details (optional)</legend>
+        <legend className="fieldset-legend">{t('formDetails')}</legend>
         <textarea className="textarea" {...register('details' as Path<T>)} />
         <ErrorMsg name={'details' as Path<T>} />
       </fieldset>
 
       <FloatingButtonContainer>
         <Link href={postActionRoute} className="btn btn-ghost">
-          Cancel
+          {t('cancel')}
         </Link>
         <button className="btn btn-primary px-8" type="submit" disabled={isSubmitting}>
-          {isEdit ? 'Update' : 'Create'}
+          {isEdit ? t('update') : t('create')}
         </button>
       </FloatingButtonContainer>
     </form>

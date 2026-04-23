@@ -9,6 +9,7 @@ import { CompanyDTO, ContactCreateSchema, ContactUpdateSchema } from '@job-track
 import CompanyCombobox from '../company/company-combobox';
 import Link from 'next/link';
 import { FloatingButtonContainer } from '../common/floating-button-container';
+import { useTranslations } from 'next-intl';
 
 interface ContactFormProps<T extends FieldValues> {
   onSubmitAction: (data: T) => Promise<{ success: boolean; message: string }>;
@@ -25,6 +26,7 @@ export function ContactForm<T extends FieldValues>({
   isEdit = false,
   postActionRoute,
 }: ContactFormProps<T>) {
+  const t = useTranslations('Contacts');
   const router = useRouter();
   const { showToast } = useToast();
   const schema = isEdit ? ContactUpdateSchema : ContactCreateSchema;
@@ -84,74 +86,74 @@ export function ContactForm<T extends FieldValues>({
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="px-12pt-6 mx-auto mb-4 max-w-md pb-8">
       <fieldset className="fieldset">
-        <legend className="fieldset-legend">First Name</legend>
+        <legend className="fieldset-legend">{t('formFirstName')}</legend>
         <input className="input" {...register('firstName' as Path<T>)} />
-        <p className="label">Required</p>
+        <p className="label">{t('required')}</p>
         <ErrorMsg name={'firstName' as Path<T>} />
       </fieldset>
 
       <fieldset className="fieldset">
-        <legend className="fieldset-legend">Last Name</legend>
+        <legend className="fieldset-legend">{t('formLastName')}</legend>
         <input className="input" {...register('lastName' as Path<T>)} />
-        <p className="label">Required</p>
+        <p className="label">{t('required')}</p>
         <ErrorMsg name={'lastName' as Path<T>} />
       </fieldset>
 
       <fieldset className="fieldset">
-        <legend className="fieldset-legend">Title</legend>
+        <legend className="fieldset-legend">{t('formTitle')}</legend>
         <input className="input" {...register('title' as Path<T>)} />
         <ErrorMsg name={'title' as Path<T>} />
       </fieldset>
 
       <fieldset className="fieldset">
-        <legend className="fieldset-legend">Company</legend>
+        <legend className="fieldset-legend">{t('formCompany')}</legend>
         <CompanyCombobox control={control} name={'company' as Path<T>} onSearch={onSearchCompany} />
         <ErrorMsg name={'company' as Path<T>} />
       </fieldset>
 
       <fieldset className="fieldset">
-        <legend className="fieldset-legend">Email</legend>
+        <legend className="fieldset-legend">{t('formEmail')}</legend>
         <input className="input" {...register('email' as Path<T>)} />
         <ErrorMsg name={'email' as Path<T>} />
       </fieldset>
 
       <fieldset className="fieldset">
-        <legend className="fieldset-legend">Phone</legend>
+        <legend className="fieldset-legend">{t('formPhone')}</legend>
         <input className="input" {...register('phoneNumber' as Path<T>)} />
         <ErrorMsg name={'phoneNumber' as Path<T>} />
       </fieldset>
 
       <fieldset className="fieldset">
-        <legend className="fieldset-legend">LinkedIn URL</legend>
+        <legend className="fieldset-legend">{t('formLinkedInUrl')}</legend>
         <input className="input" {...register('linkedInUrl' as Path<T>)} />
         <ErrorMsg name={'linkedInUrl' as Path<T>} />
       </fieldset>
 
       <fieldset className="fieldset">
-        <legend className="fieldset-legend">Is this a recruiter from the Company?</legend>
+        <legend className="fieldset-legend">{t('formIsRecruiter')}</legend>
         <label className="label cursor-pointer justify-start gap-4">
           <input
             type="checkbox"
             className={`checkbox ${errors.isPrimaryRecruiter ? 'checkbox-error' : 'checkbox-primary'}`}
             {...register('isPrimaryRecruiter' as Path<T>)}
           />
-          <span className="label-text">Yes, this is the primary recruiter</span>
+          <span className="label-text">{t('formIsRecruiterCheckbox')}</span>
         </label>
         <ErrorMsg name={'isPrimaryRecruiter' as Path<T>} />
       </fieldset>
 
       <fieldset className="fieldset">
-        <legend className="fieldset-legend">Notes</legend>
+        <legend className="fieldset-legend">{t('formNotes')}</legend>
         <textarea className="textarea" {...register('notes' as Path<T>)} />
         <ErrorMsg name={'notes' as Path<T>} />
       </fieldset>
 
       <FloatingButtonContainer>
         <Link href={postActionRoute} className="btn btn-ghost">
-          Cancel
+          {t('cancel')}
         </Link>
         <button className="btn btn-primary px-8" type="submit" disabled={isSubmitting}>
-          {isEdit ? 'Update' : 'Create'}
+          {isEdit ? t('update') : t('create')}
         </button>
       </FloatingButtonContainer>
     </form>

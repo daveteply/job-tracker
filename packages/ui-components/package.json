@@ -6,6 +6,7 @@
   "dependencies": {
     "@job-tracker/domain": "workspace:*",
     "@job-tracker/data-access": "workspace:*",
-    "@job-tracker/hooks": "workspace:*"
+    "@job-tracker/hooks": "workspace:*",
+    "next-intl": "^4.9.1"
   }
 }

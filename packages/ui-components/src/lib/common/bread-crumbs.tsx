@@ -9,6 +9,7 @@ import {
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React from 'react';
+import { useTranslations } from 'next-intl';
 
 const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
@@ -36,8 +37,14 @@ function RoleLabel({ id, fallback }: { id: string; fallback: React.ReactNode }) 
 
 function EventLabel({ id, fallback }: { id: string; fallback: React.ReactNode }) {
   const { event, loading } = useEventWithChildren(id);
+  const tEvent = useTranslations('SystemEventTypes');
   if (loading || !event || !event.eventType) return fallback;
-  return `${event.eventType.name} (${event.source}, ${event.occurredAt.toDateString()})`;
+
+  const eventName = event.eventType.isSystemDefined
+    ? tEvent(event.eventType.name)
+    : event.eventType.name;
+
+  return `${eventName} (${event.source}, ${event.occurredAt.toLocaleDateString()})`;
 }
 
 const ENTITY_LABEL_MAP: Record<
@@ -65,15 +72,23 @@ function EntityLabel({
 }
 
 export function Breadcrumbs() {
+  const t = useTranslations('Navigation');
   const pathname = usePathname();
-  const pathSegments = pathname.split('/').filter(Boolean);
+  // Identify if the first segment is a locale
+  const allSegments = pathname.split('/').filter(Boolean);
+  const firstSegmentLower = allSegments[0]?.toLowerCase();
+  const hasLocalePrefix =
+    allSegments.length > 0 && (firstSegmentLower === 'en-us' || firstSegmentLower === 'es-us');
+
+  const displaySegments = hasLocalePrefix ? allSegments.slice(1) : allSegments;
+  const localePrefix = hasLocalePrefix ? allSegments[0] : '';
 
   const renderSegment = (segment: string, index: number) => {
     const decodedSeg = decodeURIComponent(segment);
     const isUUID = UUID_REGEX.test(decodedSeg);
 
     if (isUUID) {
-      const prevSegment = index > 0 ? pathSegments[index - 1] : '';
+      const prevSegment = displaySegments[index - 1] || '';
       const fallback = (
         <span className="tooltip tooltip-bottom" data-tip={decodedSeg}>
           <span className="inline-block max-w-[8ch] truncate align-bottom">{decodedSeg}</span>
@@ -83,15 +98,26 @@ export function Breadcrumbs() {
       return <EntityLabel id={decodedSeg} type={prevSegment} fallback={fallback} />;
     }
 
-    return <span className="capitalize">{decodedSeg}</span>;
+    const translationKey = decodedSeg.toLowerCase();
+    try {
+      // Use fallback to avoid runtime error if key is missing
+      return t(translationKey as any, {
+        defaultValue: decodedSeg.charAt(0).toUpperCase() + decodedSeg.slice(1),
+      });
+    } catch (e) {
+      return <span className="capitalize">{decodedSeg}</span>;
+    }
   };
 
   return (
     <div className="breadcrumbs text-sm">
       <ul>
-        {pathSegments.map((segment, index) => {
-          const href = `/${pathSegments.slice(0, index + 1).join('/')}`;
-          const isLast = index === pathSegments.length - 1;
+        {displaySegments.map((segment, index) => {
+          const hrefSegments = displaySegments.slice(0, index + 1);
+          const href = localePrefix
+            ? `/${localePrefix}/${hrefSegments.join('/')}`
+            : `/${hrefSegments.join('/')}`;
+          const isLast = index === displaySegments.length - 1;
 
           return (
             <li key={index}>

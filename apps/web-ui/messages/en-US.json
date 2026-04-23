@@ -59,7 +59,15 @@
     "deleteCompanyTitle": "Company - Delete",
     "deleteBlocker": "This Company is associated with {events} Event(s), {contacts} Contact(s) or {roles} Role(s) and cannot be deleted",
     "companyEntityName": "company",
-    "companiesEntityName": "companies"
+    "companiesEntityName": "companies",
+    "formName": "Company Name",
+    "formWebsite": "Website",
+    "formIndustry": "Industry",
+    "formSizeRange": "Size Range",
+    "formNotes": "Notes",
+    "required": "Required",
+    "create": "Create",
+    "update": "Update"
   },
   "Contacts": {
     "listTitle": "Contacts",
@@ -75,7 +83,20 @@
     "deleteContactTitle": "Contact - Delete",
     "deleteBlocker": "This Contact is associated with {events} Event(s), {contacts} Contact(s) or {roles} Role(s) and cannot be deleted",
     "contactEntityName": "contact",
-    "contactsEntityName": "contacts"
+    "contactsEntityName": "contacts",
+    "formFirstName": "First Name",
+    "formLastName": "Last Name",
+    "formTitle": "Title",
+    "formCompany": "Company",
+    "formEmail": "Email",
+    "formPhone": "Phone",
+    "formLinkedInUrl": "LinkedIn URL",
+    "formIsRecruiter": "Is this a recruiter from the Company?",
+    "formIsRecruiterCheckbox": "Yes, this is the primary recruiter",
+    "formNotes": "Notes",
+    "required": "Required",
+    "create": "Create",
+    "update": "Update"
   },
   "Events": {
     "listTitle": "Events",
@@ -99,7 +120,34 @@
     "creating": "Creating...",
     "createEvent": "Create Event",
     "editEvent": "Edit Event",
-    "deleteEvent": "Delete Event"
+    "deleteEvent": "Delete Event",
+    "formEventType": "Event Type",
+    "formDirection": "Direction",
+    "formSource": "Source",
+    "formCompany": "Company",
+    "formCompanyOptional": "Company (Optional)",
+    "formContact": "Contact",
+    "formContactOptional": "Contact (Optional)",
+    "formRole": "Role",
+    "formRoleOptional": "Role (Optional)",
+    "formDateOccurred": "Date Occurred",
+    "formSummary": "Summary (optional)",
+    "formSummaryPlaceholder": "e.g. Phone screen with Recruiter",
+    "formDetails": "Details (optional)",
+    "formDetailsPlaceholder": "Add any extra details...",
+    "create": "Create",
+    "update": "Update",
+    "whatKindEvent": "What kind of event is this?",
+    "contextTitle": "Who and what is this about?",
+    "selectEventType": "Select an event type",
+    "noEventTypesFound": "No Event Types found",
+    "reminderTitle": "Follow-up Reminder",
+    "createReminder": "Create a follow-up reminder?",
+    "remindMeOn": "Remind me on",
+    "fiveBusinessDays": "5 Business Days",
+    "tenBusinessDays": "10 Business Days",
+    "reminderTasksNote": "We'll add this to your tasks.",
+    "noReminderNote": "No reminder will be created. You can always add one later."
   },
   "Reminders": {
     "listTitle": "Reminders",
@@ -115,6 +163,82 @@
     "addFirstEvent": "Add First Event"
   },
   "Pipeline": {
-    "listTitle": "Pipeline"
+    "listTitle": "Pipeline",
+    "emptyTitle": "Your pipeline is empty",
+    "emptyDescription": "Add a new job lead to begin tracking your progress."
+  },
+  "Navigation": {
+    "home": "Home",
+    "pipeline": "Pipeline",
+    "activity": "Activity",
+    "companies": "Companies",
+    "roles": "Roles",
+    "events": "Events",
+    "contacts": "Contacts",
+    "new": "New",
+    "edit": "Edit",
+    "delete": "Delete",
+    "newEvent": "New Event",
+    "toggleMenu": "Toggle menu"
+  },
+  "Enums": {
+    "all": "All",
+    "selectOption": "Select an option",
+    "RoleStatus": {
+      "Lead": "Lead",
+      "Applied": "Applied",
+      "Interviewing": "Interviewing",
+      "Offer": "Offer",
+      "Accepted": "Accepted",
+      "Rejected": "Rejected",
+      "Withdrawn": "Withdrawn",
+      "Ghosted": "Ghosted"
+    },
+    "EventCategoryType": {
+      "Discovery": "Discovery",
+      "Networking": "Networking",
+      "Application": "Application",
+      "Communication": "Communication",
+      "Assessment": "Assessment",
+      "Interview": "Interview",
+      "Offer": "Offer",
+      "Outcome": "Outcome"
+    },
+    "SourceType": {
+      "Email": "Email",
+      "LinkedIn": "LinkedIn",
+      "Website": "Website",
+      "Recruiter": "Recruiter",
+      "Referral": "Referral"
+    },
+    "DirectionType": {
+      "Inbound": "Inbound",
+      "Outbound": "Outbound"
+    }
+  },
+  "SystemEventTypes": {
+    "Job Lead": "Job Lead",
+    "Applied": "Applied",
+    "Application Viewed": "Application Viewed",
+    "Recruiter Screening Scheduled": "Recruiter Screening Scheduled",
+    "Recruiter Outreach": "Recruiter Outreach",
+    "Networking/Coffee Chat": "Networking/Coffee Chat",
+    "Follow-up Sent": "Follow-up Sent",
+    "Email Received": "Email Received",
+    "Email Sent": "Email Sent",
+    "Phone Call": "Phone Call",
+    "Technical Assessment": "Technical Assessment",
+    "Screening Call": "Screening Call",
+    "Technical Interview": "Technical Interview",
+    "Onsite Interview": "Onsite Interview",
+    "Offer Received": "Offer Received",
+    "Offer Accepted": "Offer Accepted",
+    "Rejected": "Rejected",
+    "Withdrew Application": "Withdrew Application"
+  },
+  "EventInfoCard": {
+    "from": "from",
+    "to": "to",
+    "detailsAriaLabel": "Go to Event Details page"
   }
 }

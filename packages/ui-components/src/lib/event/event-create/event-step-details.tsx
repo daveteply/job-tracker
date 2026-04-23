@@ -2,6 +2,7 @@
 
 import { FieldValues, Path, UseFormRegister, UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import { DirectionType, SourceType } from '@job-tracker/domain';
+import { useTranslations } from 'next-intl';
 
 export interface EventStepDetailsProps<T extends FieldValues = FieldValues> {
   register: UseFormRegister<T>;
@@ -14,17 +15,20 @@ export function EventStepDetails<T extends FieldValues = FieldValues>({
   watch,
   setValue,
 }: EventStepDetailsProps<T>) {
+  const t = useTranslations('Events');
+  const tEnum = useTranslations('Enums');
+
   const currentSource = watch('source' as Path<T>);
   const currentDirection = watch('direction' as Path<T>);
 
   return (
     <div className="space-y-6">
-      <h2 className="text-base-content text-lg font-semibold">Event Details</h2>
+      <h2 className="text-base-content text-lg font-semibold">{t('detailsTitle')}</h2>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <div className="form-control">
           <label className="label">
-            <span className="label-text text-base-content font-medium">Direction</span>
+            <span className="label-text text-base-content font-medium">{t('formDirection')}</span>
           </label>
           <div className="flex flex-wrap gap-2">
             {Object.entries(DirectionType).map(([key, value]) => (
@@ -36,7 +40,7 @@ export function EventStepDetails<T extends FieldValues = FieldValues>({
                 }
                 className={`badge ${currentDirection === value ? 'badge-primary' : 'badge-ghost'}`}
               >
-                {key}
+                {tEnum(`DirectionType.${key}`)}
               </button>
             ))}
           </div>
@@ -44,7 +48,7 @@ export function EventStepDetails<T extends FieldValues = FieldValues>({
 
         <div className="form-control">
           <label className="label">
-            <span className="label-text text-base-content font-medium">Source</span>
+            <span className="label-text text-base-content font-medium">{t('formSource')}</span>
           </label>
           <div className="flex flex-wrap gap-2">
             {Object.entries(SourceType).map(([key, value]) => (
@@ -56,7 +60,7 @@ export function EventStepDetails<T extends FieldValues = FieldValues>({
                 }
                 className={`badge ${currentSource === value ? 'badge-primary' : 'badge-ghost'}`}
               >
-                {key}
+                {tEnum(`SourceType.${key}`)}
               </button>
             ))}
           </div>
@@ -65,7 +69,7 @@ export function EventStepDetails<T extends FieldValues = FieldValues>({
 
       <div className="form-control max-w-xs">
         <label className="label">
-          <span className="label-text text-base-content font-medium">Date</span>
+          <span className="label-text text-base-content font-medium">{t('formDateOccurred')}</span>
         </label>
         <input
           type="date"
@@ -76,23 +80,23 @@ export function EventStepDetails<T extends FieldValues = FieldValues>({
 
       <div className="form-control">
         <label className="label">
-          <span className="label-text text-base-content font-medium">Summary (Optional)</span>
+          <span className="label-text text-base-content font-medium">{t('formSummary')}</span>
         </label>
         <input
           className="input input-bordered w-full"
           {...register('summary' as Path<T>)}
-          placeholder="e.g. Phone screen with Recruiter"
+          placeholder={t('formSummaryPlaceholder', { defaultValue: 'e.g. Phone screen with Recruiter' })}
         />
       </div>
 
       <div className="form-control">
         <label className="label">
-          <span className="label-text text-base-content font-medium">Notes (Optional)</span>
+          <span className="label-text text-base-content font-medium">{t('formDetails')}</span>
         </label>
         <textarea
           className="textarea textarea-bordered h-32 w-full"
           {...register('details' as Path<T>)}
-          placeholder="Add any extra details..."
+          placeholder={t('formDetailsPlaceholder', { defaultValue: 'Add any extra details...' })}
         />
       </div>
     </div>

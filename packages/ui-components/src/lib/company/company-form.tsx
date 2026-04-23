@@ -8,6 +8,7 @@ import { CompanyCreateSchema, CompanyUpdateSchema } from '@job-tracker/validatio
 import { useToast } from '../common/toast-context';
 import Link from 'next/link';
 import { FloatingButtonContainer } from '../common/floating-button-container';
+import { useTranslations } from 'next-intl';
 
 interface CompanyFormProps<T extends FieldValues> {
   onSubmitAction: (data: T) => Promise<{ success: boolean; message: string }>;
@@ -22,6 +23,7 @@ export function CompanyForm<T extends FieldValues>({
   isEdit = false,
   postActionRoute,
 }: CompanyFormProps<T>) {
+  const t = useTranslations('Companies');
   const router = useRouter();
   const { showToast } = useToast();
   const schema = isEdit ? CompanyUpdateSchema : CompanyCreateSchema;
@@ -72,42 +74,42 @@ export function CompanyForm<T extends FieldValues>({
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="px-12pt-6 mx-auto mb-4 max-w-md pb-8">
       <fieldset className="fieldset">
-        <legend className="fieldset-legend">Company Name</legend>
+        <legend className="fieldset-legend">{t('formName')}</legend>
         <input className="input" {...register('name' as Path<T>)} />
-        <p className="label">Required</p>
+        <p className="label">{t('required')}</p>
         <ErrorMsg name={'name' as Path<T>} />
       </fieldset>
 
       <fieldset className="fieldset">
-        <legend className="fieldset-legend">Website</legend>
+        <legend className="fieldset-legend">{t('formWebsite')}</legend>
         <input className="input" {...register('website' as Path<T>)} />
         <ErrorMsg name={'website' as Path<T>} />
       </fieldset>
 
       <fieldset className="fieldset">
-        <legend className="fieldset-legend">Industry</legend>
+        <legend className="fieldset-legend">{t('formIndustry')}</legend>
         <input className="input" {...register('industry' as Path<T>)} />
         <ErrorMsg name={'industry' as Path<T>} />
       </fieldset>
 
       <fieldset className="fieldset">
-        <legend className="fieldset-legend">Size Range</legend>
+        <legend className="fieldset-legend">{t('formSizeRange')}</legend>
         <input className="input" {...register('sizeRange' as Path<T>)} />
         <ErrorMsg name={'sizeRange' as Path<T>} />
       </fieldset>
 
       <fieldset className="fieldset">
-        <legend className="fieldset-legend">Notes</legend>
+        <legend className="fieldset-legend">{t('formNotes')}</legend>
         <textarea className="textarea" {...register('notes' as Path<T>)} />
         <ErrorMsg name={'notes' as Path<T>} />
       </fieldset>
 
       <FloatingButtonContainer>
         <Link href={postActionRoute} className="btn btn-ghost">
-          Cancel
+          {t('cancel')}
         </Link>
         <button className="btn btn-primary px-8" type="submit" disabled={isSubmitting}>
-          {isEdit ? 'Update' : 'Create'}
+          {isEdit ? t('update') : t('create')}
         </button>
       </FloatingButtonContainer>
     </form>

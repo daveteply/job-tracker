@@ -59,7 +59,15 @@
     "deleteCompanyTitle": "Compañía - Eliminar",
     "deleteBlocker": "Esta Compañía está asociada con {events} Evento(s), {contacts} Contacto(s) o {roles} Rol(es) y no se puede eliminar",
     "companyEntityName": "compañía",
-    "companiesEntityName": "compañías"
+    "companiesEntityName": "compañías",
+    "formName": "Nombre de la compañía",
+    "formWebsite": "Sitio web",
+    "formIndustry": "Industria",
+    "formSizeRange": "Tamaño",
+    "formNotes": "Notas",
+    "required": "Requerido",
+    "create": "Crear",
+    "update": "Actualizar"
   },
   "Contacts": {
     "listTitle": "Contactos",
@@ -75,7 +83,20 @@
     "deleteContactTitle": "Contacto - Eliminar",
     "deleteBlocker": "Este Contacto está asociado con {events} Evento(s), {contacts} Contacto(s) o {roles} Rol(es) y no se puede eliminar",
     "contactEntityName": "contacto",
-    "contactsEntityName": "contactos"
+    "contactsEntityName": "contactos",
+    "formFirstName": "Nombre",
+    "formLastName": "Apellido",
+    "formTitle": "Cargo",
+    "formCompany": "Compañía",
+    "formEmail": "Correo electrónico",
+    "formPhone": "Teléfono",
+    "formLinkedInUrl": "URL de LinkedIn",
+    "formIsRecruiter": "¿Es este un reclutador de la compañía?",
+    "formIsRecruiterCheckbox": "Sí, este es el reclutador principal",
+    "formNotes": "Notas",
+    "required": "Requerido",
+    "create": "Crear",
+    "update": "Actualizar"
   },
   "Events": {
     "listTitle": "Eventos",
@@ -99,7 +120,34 @@
     "creating": "Creando...",
     "createEvent": "Crear Evento",
     "editEvent": "Editar Evento",
-    "deleteEvent": "Eliminar Evento"
+    "deleteEvent": "Eliminar Evento",
+    "formEventType": "Tipo de Evento",
+    "formDirection": "Dirección",
+    "formSource": "Fuente",
+    "formCompany": "Compañía",
+    "formCompanyOptional": "Compañía (opcional)",
+    "formContact": "Contacto",
+    "formContactOptional": "Contacto (opcional)",
+    "formRole": "Rol",
+    "formRoleOptional": "Rol (opcional)",
+    "formDateOccurred": "Fecha del evento",
+    "formSummary": "Resumen (opcional)",
+    "formSummaryPlaceholder": "ej. Entrevista telefónica con reclutador",
+    "formDetails": "Detalles (opcional)",
+    "formDetailsPlaceholder": "Agrega detalles adicionales...",
+    "create": "Crear",
+    "update": "Actualizar",
+    "whatKindEvent": "¿Qué tipo de evento es este?",
+    "contextTitle": "¿De qué trata esto y con quién?",
+    "selectEventType": "Selecciona un tipo de evento",
+    "noEventTypesFound": "No se encontraron tipos de evento",
+    "reminderTitle": "Recordatorio de seguimiento",
+    "createReminder": "¿Crear un recordatorio de seguimiento?",
+    "remindMeOn": "Recordarme el",
+    "fiveBusinessDays": "5 días hábiles",
+    "tenBusinessDays": "10 días hábiles",
+    "reminderTasksNote": "Agregaremos esto a tus tareas.",
+    "noReminderNote": "No se creará ningún recordatorio. Siempre puedes agregar uno más tarde."
   },
   "Reminders": {
     "listTitle": "Recordatorios",
@@ -115,6 +163,82 @@
     "addFirstEvent": "Agregar Primer Evento"
   },
   "Pipeline": {
-    "listTitle": "Pipeline"
+    "listTitle": "Pipeline",
+    "emptyTitle": "Tu pipeline está vacío",
+    "emptyDescription": "Agrega un nuevo prospecto de empleo para comenzar a seguir tu progreso."
+  },
+  "Navigation": {
+    "home": "Inicio",
+    "pipeline": "Pipeline",
+    "activity": "Actividad",
+    "companies": "Compañías",
+    "roles": "Roles",
+    "events": "Eventos",
+    "contacts": "Contactos",
+    "new": "Nuevo",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "newEvent": "Nuevo evento",
+    "toggleMenu": "Alternar menú"
+  },
+  "Enums": {
+    "all": "Todos",
+    "selectOption": "Selecciona una opción",
+    "RoleStatus": {
+      "Lead": "Prospecto",
+      "Applied": "Postulado",
+      "Interviewing": "En entrevista",
+      "Offer": "Oferta",
+      "Accepted": "Aceptado",
+      "Rejected": "Rechazado",
+      "Withdrawn": "Retirado",
+      "Ghosted": "Ghosted"
+    },
+    "EventCategoryType": {
+      "Discovery": "Descubrimiento",
+      "Networking": "Red de contactos",
+      "Application": "Postulación",
+      "Communication": "Comunicación",
+      "Assessment": "Evaluación",
+      "Interview": "Entrevista",
+      "Offer": "Oferta",
+      "Outcome": "Resultado"
+    },
+    "SourceType": {
+      "Email": "Correo electrónico",
+      "LinkedIn": "LinkedIn",
+      "Website": "Sitio web",
+      "Recruiter": "Reclutador",
+      "Referral": "Referencia"
+    },
+    "DirectionType": {
+      "Inbound": "Entrante",
+      "Outbound": "Saliente"
+    }
+  },
+  "SystemEventTypes": {
+    "Job Lead": "Prospecto de empleo",
+    "Applied": "Postulado",
+    "Application Viewed": "Postulación vista",
+    "Recruiter Screening Scheduled": "Entrevista con reclutador programada",
+    "Recruiter Outreach": "Contacto de reclutador",
+    "Networking/Coffee Chat": "Networking / Café virtual",
+    "Follow-up Sent": "Seguimiento enviado",
+    "Email Received": "Correo recibido",
+    "Email Sent": "Correo enviado",
+    "Phone Call": "Llamada telefónica",
+    "Technical Assessment": "Evaluación técnica",
+    "Screening Call": "Llamada de preselección",
+    "Technical Interview": "Entrevista técnica",
+    "Onsite Interview": "Entrevista presencial",
+    "Offer Received": "Oferta recibida",
+    "Offer Accepted": "Oferta aceptada",
+    "Rejected": "Rechazado",
+    "Withdrew Application": "Postulación retirada"
+  },
+  "EventInfoCard": {
+    "from": "de",
+    "to": "a",
+    "detailsAriaLabel": "Ir a la página de detalles del evento"
   }
 }

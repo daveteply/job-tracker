@@ -1,6 +1,7 @@
 'use client';
 
 import { EventTypeDTO } from '@job-tracker/validation';
+import { useTranslations } from 'next-intl';
 
 interface EventTypeSelectProps {
   value?: string;
@@ -19,6 +20,20 @@ export function EventTypeSelect({
   required = false,
   isLoading = false,
 }: EventTypeSelectProps) {
+  const t = useTranslations('SystemEventTypes');
+  const tCommon = useTranslations('Enums'); // Reusing for 'Select an event type' logic if needed, but let's see
+
+  const getLabel = (type: EventTypeDTO) => {
+    if (type.isSystemDefined) {
+      try {
+        return t(type.name);
+      } catch (e) {
+        return type.name;
+      }
+    }
+    return type.name;
+  };
+
   return (
     <div className="relative w-full">
       <select
@@ -31,11 +46,13 @@ export function EventTypeSelect({
           onChange(val === '' ? undefined : val);
         }}
       >
-        <option value="">{isLoading ? 'Loading event types...' : 'Select an event type'}</option>
+        <option value="">
+          {isLoading ? t('loading', { defaultValue: 'Loading...' }) : tCommon('selectOption')}
+        </option>
 
         {options.map((type) => (
           <option key={type.id} value={type.id}>
-            {type.name}
+            {getLabel(type)}
           </option>
         ))}
       </select>

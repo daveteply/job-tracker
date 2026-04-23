@@ -11,6 +11,7 @@ import EnumSelector from '../common/enum-selector';
 import { RoleStatus } from '@job-tracker/domain';
 import { FloatingButtonContainer } from '../common/floating-button-container';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
 interface RoleFormProps<T extends FieldValues> {
   onSubmitAction: (data: T) => Promise<{ success: boolean; message: string }>;
@@ -27,6 +28,7 @@ export function RoleForm<T extends FieldValues>({
   isEdit = false,
   postActionRoute,
 }: RoleFormProps<T>) {
+  const t = useTranslations('Roles');
   const router = useRouter();
   const { showToast } = useToast();
   const schema = isEdit ? RoleUpdateSchema : RoleCreateSchema;
@@ -86,54 +88,58 @@ export function RoleForm<T extends FieldValues>({
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="px-12pt-6 mx-auto mb-4 max-w-md pb-8">
       <fieldset className="fieldset">
-        <legend className="fieldset-legend">Title</legend>
+        <legend className="fieldset-legend">{t('formTitle')}</legend>
         <input className="input" {...register('title' as Path<T>)} />
-        <p className="label">Required</p>
+        <p className="label">{t('required')}</p>
         <ErrorMsg name={'title' as Path<T>} />
       </fieldset>
 
       <fieldset className="fieldset">
-        <legend className="fieldset-legend">Company</legend>
+        <legend className="fieldset-legend">{t('formCompany')}</legend>
         <CompanyCombobox control={control} name={'company' as Path<T>} onSearch={onSearchCompany} />
         <ErrorMsg name={'company' as Path<T>} />
       </fieldset>
 
       <fieldset className="fieldset w-full">
-        <legend className="fieldset-legend">Status</legend>
-        <EnumSelector register={register('status' as Path<T>)} enumObject={RoleStatus} />
+        <legend className="fieldset-legend">{t('formStatus')}</legend>
+        <EnumSelector
+          register={register('status' as Path<T>)}
+          enumObject={RoleStatus}
+          translationNamespace="RoleStatus"
+        />
         <ErrorMsg name={'status' as Path<T>} />
       </fieldset>
 
       <fieldset className="fieldset">
-        <legend className="fieldset-legend">Job Posting URL</legend>
+        <legend className="fieldset-legend">{t('formJobPostingUrl')}</legend>
         <input className="input" {...register('jobPostingUrl' as Path<T>)} />
         <ErrorMsg name={'jobPostingUrl' as Path<T>} />
       </fieldset>
 
       <fieldset className="fieldset">
-        <legend className="fieldset-legend">Location</legend>
+        <legend className="fieldset-legend">{t('formLocation')}</legend>
         <input className="input" {...register('location' as Path<T>)} />
         <ErrorMsg name={'location' as Path<T>} />
       </fieldset>
 
       <fieldset className="fieldset">
-        <legend className="fieldset-legend">Level</legend>
+        <legend className="fieldset-legend">{t('formLevel')}</legend>
         <input className="input" {...register('level' as Path<T>)} />
         <ErrorMsg name={'level' as Path<T>} />
       </fieldset>
 
       <fieldset className="fieldset">
-        <legend className="fieldset-legend">Salary Range</legend>
+        <legend className="fieldset-legend">{t('formSalaryRange')}</legend>
         <input className="input" {...register('salaryRange' as Path<T>)} />
         <ErrorMsg name={'salaryRange' as Path<T>} />
       </fieldset>
 
       <FloatingButtonContainer>
         <Link href={postActionRoute} className="btn btn-ghost">
-          Cancel
+          {t('cancel')}
         </Link>
         <button className="btn btn-primary px-8" type="submit" disabled={isSubmitting}>
-          {isEdit ? 'Update' : 'Create'}
+          {isEdit ? t('update') : t('create')}
         </button>
       </FloatingButtonContainer>
     </form>

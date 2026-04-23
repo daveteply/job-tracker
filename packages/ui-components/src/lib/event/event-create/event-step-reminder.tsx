@@ -10,6 +10,7 @@ import {
   FieldErrors,
 } from 'react-hook-form';
 import { useEffect } from 'react';
+import { useTranslations } from 'next-intl';
 
 export interface EventStepReminderProps<T extends FieldValues = FieldValues> {
   register: UseFormRegister<T>;
@@ -24,6 +25,7 @@ export function EventStepReminder<T extends FieldValues = FieldValues>({
   setValue,
   errors,
 }: EventStepReminderProps<T>) {
+  const t = useTranslations('Events');
   const hasReminder = useWatch({
     control,
     name: 'hasReminder' as Path<T>,
@@ -79,7 +81,7 @@ export function EventStepReminder<T extends FieldValues = FieldValues>({
 
   return (
     <div className="space-y-6">
-      <h2 className="text-base-content text-lg font-semibold">Follow-up Reminder</h2>
+      <h2 className="text-base-content text-lg font-semibold">{t('reminderTitle')}</h2>
 
       <div className="form-control">
         <label className="label cursor-pointer justify-start gap-4">
@@ -89,7 +91,7 @@ export function EventStepReminder<T extends FieldValues = FieldValues>({
             {...register('hasReminder' as Path<T>)}
           />
           <span className="label-text text-base-content font-medium">
-            Create a follow-up reminder?
+            {t('createReminder')}
           </span>
         </label>
       </div>
@@ -97,7 +99,7 @@ export function EventStepReminder<T extends FieldValues = FieldValues>({
       {hasReminder && (
         <div className="form-control animate-in fade-in slide-in-from-top-2 max-w-sm duration-300">
           <label className="label">
-            <span className="label-text text-base-content font-medium">Remind me on</span>
+            <span className="label-text text-base-content font-medium">{t('remindMeOn')}</span>
           </label>
           <input
             type="date"
@@ -110,14 +112,14 @@ export function EventStepReminder<T extends FieldValues = FieldValues>({
               className="btn btn-sm btn-outline btn-primary"
               onClick={() => setReminderDate(5, true)}
             >
-              5 Business Days
+              {t('fiveBusinessDays')}
             </button>
             <button
               type="button"
               className="btn btn-sm btn-outline btn-primary"
               onClick={() => setReminderDate(10, true)}
             >
-              10 Business Days
+              {t('tenBusinessDays')}
             </button>
           </div>
           {errors?.remindAt && (
@@ -127,7 +129,7 @@ export function EventStepReminder<T extends FieldValues = FieldValues>({
           )}
           <label className="label">
             <span className="label-text-alt text-base-content/60">
-              We'll add this to your tasks.
+              {t('reminderTasksNote')}
             </span>
           </label>
         </div>
@@ -135,7 +137,7 @@ export function EventStepReminder<T extends FieldValues = FieldValues>({
 
       {!hasReminder && (
         <div className="text-base-content/50 italic">
-          No reminder will be created. You can always add one later.
+          {t('noReminderNote')}
         </div>
       )}
     </div>

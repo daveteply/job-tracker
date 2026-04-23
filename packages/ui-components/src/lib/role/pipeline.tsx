@@ -2,6 +2,7 @@ import { RoleStatus } from '@job-tracker/domain';
 import { RoleDTO } from '@job-tracker/validation';
 import RoleInfoCard from './role-info-card';
 import { useMemo } from 'react';
+import { useTranslations } from 'next-intl';
 import {
   BriefcaseIcon,
   CheckCircleIcon,
@@ -24,25 +25,22 @@ const STATUS_ORDER = [
   RoleStatus.Ghosted,
 ];
 
-const STATUS_CONFIG: Record<RoleStatus, { title: string; icon: React.ElementType; color: string }> =
-  {
-    [RoleStatus.Lead]: { title: 'Leads', icon: UserGroupIcon, color: 'text-info' },
-    [RoleStatus.Applied]: { title: 'Applied', icon: RocketLaunchIcon, color: 'text-primary' },
-    [RoleStatus.Interviewing]: {
-      title: 'Interviewing',
-      icon: ChatBubbleLeftRightIcon,
-      color: 'text-warning',
-    },
-    [RoleStatus.Offer]: { title: 'Offers', icon: CheckCircleIcon, color: 'text-success' },
-    [RoleStatus.Accepted]: { title: 'Accepted', icon: BriefcaseIcon, color: 'text-success' },
-    [RoleStatus.Rejected]: { title: 'Rejected', icon: XCircleIcon, color: 'text-error' },
-    [RoleStatus.Withdrawn]: {
-      title: 'Withdrawn',
-      icon: ArchiveBoxIcon,
-      color: 'text-base-content/50',
-    },
-    [RoleStatus.Ghosted]: { title: 'Ghosted', icon: EyeSlashIcon, color: 'text-base-content/30' },
-  };
+const STATUS_CONFIG: Record<RoleStatus, { icon: React.ElementType; color: string }> = {
+  [RoleStatus.Lead]: { icon: UserGroupIcon, color: 'text-info' },
+  [RoleStatus.Applied]: { icon: RocketLaunchIcon, color: 'text-primary' },
+  [RoleStatus.Interviewing]: {
+    icon: ChatBubbleLeftRightIcon,
+    color: 'text-warning',
+  },
+  [RoleStatus.Offer]: { icon: CheckCircleIcon, color: 'text-success' },
+  [RoleStatus.Accepted]: { icon: BriefcaseIcon, color: 'text-success' },
+  [RoleStatus.Rejected]: { icon: XCircleIcon, color: 'text-error' },
+  [RoleStatus.Withdrawn]: {
+    icon: ArchiveBoxIcon,
+    color: 'text-base-content/50',
+  },
+  [RoleStatus.Ghosted]: { icon: EyeSlashIcon, color: 'text-base-content/30' },
+};
 
 export interface PipelineColumnProps {
   status: RoleStatus;
@@ -51,6 +49,8 @@ export interface PipelineColumnProps {
 }
 
 export function PipelineColumn({ status, roles, loading }: PipelineColumnProps) {
+  const t = useTranslations('Enums.RoleStatus');
+  const tCommon = useTranslations('Common');
   const config = STATUS_CONFIG[status];
   const Icon = config.icon;
 
@@ -59,7 +59,7 @@ export function PipelineColumn({ status, roles, loading }: PipelineColumnProps) 
       <div className="flex items-center justify-between px-1">
         <div className="flex items-center gap-2">
           <Icon className={`h-5 w-5 ${config.color}`} />
-          <h2 className="text-lg font-bold tracking-tight">{config.title}</h2>
+          <h2 className="text-lg font-bold tracking-tight">{t(status)}</h2>
         </div>
         <span className="badge badge-ghost badge-sm font-mono opacity-60">{roles.length}</span>
       </div>
@@ -77,7 +77,9 @@ export function PipelineColumn({ status, roles, loading }: PipelineColumnProps) 
           ))
         ) : (
           <div className="bg-base-100/20 border-base-300/40 flex flex-col items-center justify-center rounded-xl border border-dashed py-10">
-            <p className="text-[10px] font-bold tracking-widest uppercase opacity-30">Empty</p>
+            <p className="text-[10px] font-bold tracking-widest uppercase opacity-30">
+              {tCommon('empty')}
+            </p>
           </div>
         )}
       </div>
@@ -92,6 +94,9 @@ export interface PipelineProps {
 }
 
 export function Pipeline({ roles, loading, columns }: PipelineProps) {
+  const t = useTranslations('Enums.RoleStatus');
+  const tPipeline = useTranslations('Pipeline');
+
   const activeColumns = useMemo(() => {
     if (columns) return columns;
 
@@ -99,10 +104,10 @@ export function Pipeline({ roles, loading, columns }: PipelineProps) {
 
     // Only show statuses that have data
     return STATUS_ORDER.filter((status) => statusesInData.has(status)).map((status) => ({
-      title: STATUS_CONFIG[status].title,
+      title: t(status),
       status,
     }));
-  }, [roles, columns]);
+  }, [roles, columns, t]);
 
   const groupedRoles = (status: RoleStatus) => roles.filter((role) => role.status === status);
 
@@ -121,9 +126,9 @@ export function Pipeline({ roles, loading, columns }: PipelineProps) {
       {activeColumns.length === 0 && !loading && (
         <div className="bg-base-200/30 border-base-300 flex min-h-[300px] w-full flex-grow flex-col items-center justify-center rounded-2xl border-2 border-dashed p-12">
           <ArchiveBoxIcon className="mb-4 h-12 w-12 opacity-10" />
-          <p className="text-lg font-bold opacity-60">Your pipeline is empty</p>
+          <p className="text-lg font-bold opacity-60">{tPipeline('emptyTitle')}</p>
           <p className="mt-2 max-w-xs text-center text-sm opacity-40">
-            Add a new job lead to begin tracking your progress.
+            {tPipeline('emptyDescription')}
           </p>
         </div>
       )}

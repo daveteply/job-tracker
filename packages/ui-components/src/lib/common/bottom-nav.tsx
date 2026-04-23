@@ -8,13 +8,15 @@ import {
 } from '@heroicons/react/16/solid';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 export function BottomNav() {
+  const t = useTranslations('Navigation');
   const navItems = [
-    { name: 'Home', href: '/home', icon: HomeIcon },
-    { name: 'Pipeline', href: '/pipeline', icon: QueueListIcon },
-    { name: 'Activity', href: '/activity', icon: ChartBarIcon },
-    { name: 'Companies', href: '/companies', icon: BuildingOfficeIcon },
+    { name: t('home'), href: '/home', icon: HomeIcon },
+    { name: t('pipeline'), href: '/pipeline', icon: QueueListIcon },
+    { name: t('activity'), href: '/activity', icon: ChartBarIcon },
+    { name: t('companies'), href: '/companies', icon: BuildingOfficeIcon },
   ];
 
   const pathname = usePathname();

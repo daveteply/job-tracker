@@ -4,8 +4,10 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { PlusIcon } from '@heroicons/react/24/outline';
 import { useFloatingUI } from './floating-ui-context';
+import { useTranslations } from 'next-intl';
 
 export function FloatingActionButton() {
+  const t = useTranslations('Navigation');
   const { isContainerActive } = useFloatingUI();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -22,7 +24,7 @@ export function FloatingActionButton() {
       {isOpen && (
         <div className="flex flex-col items-end gap-2">
           <Link href="/events/new" onClick={handleLinkClick} className="btn btn-primary">
-            New Event
+            {t('newEvent')}
           </Link>
           {/* Add more links here */}
         </div>
@@ -34,7 +36,7 @@ export function FloatingActionButton() {
         className={`flex h-11 w-12 items-center justify-center rounded-full shadow-xl transition-all duration-300 ${
           isOpen ? 'rotate-45 bg-gray-800' : 'bg-blue-600 hover:bg-blue-700'
         } text-white`}
-        aria-label="Toggle menu"
+        aria-label={t('toggleMenu')}
       >
         <PlusIcon className="h-6 w-6" />
       </button>

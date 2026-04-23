@@ -3,6 +3,7 @@
 import { EventTypeDTO } from '@job-tracker/validation';
 import { useState, useMemo } from 'react';
 import PageLoading from '../../common/page-loading';
+import { useTranslations } from 'next-intl';
 
 export interface EventStepTypesProps {
   eventTypes: EventTypeDTO[];
@@ -17,6 +18,10 @@ export function EventStepType({
   selectedTypeId,
   onSelect,
 }: EventStepTypesProps) {
+  const t = useTranslations('Events');
+  const tEnum = useTranslations('Enums');
+  const tEvent = useTranslations('SystemEventTypes');
+
   const ALL_KEY = 'All';
 
   // Group the data
@@ -66,11 +71,27 @@ export function EventStepType({
     return categoryKeys[0] || ALL_KEY;
   }, [selectedCategory, groupedCategories, categoryKeys]);
 
+  const getCategoryLabel = (cat: string) => {
+    if (cat === ALL_KEY) return tEnum('all');
+    return tEnum(`EventCategoryType.${cat}`);
+  };
+
+  const getEventName = (type: EventTypeDTO) => {
+    if (type.isSystemDefined) {
+      try {
+        return tEvent(type.name);
+      } catch (e) {
+        return type.name;
+      }
+    }
+    return type.name;
+  };
+
   return (
     <div className="space-y-4">
-      {loading && <PageLoading entityName={'Event Types'}></PageLoading>}
+      {loading && <PageLoading entityName={t('formEventType')}></PageLoading>}
 
-      <h2 className="text-base-content text-lg font-semibold">What kind of event is this?</h2>
+      <h2 className="text-base-content text-lg font-semibold">{t('whatKindEvent')}</h2>
 
       {categoryKeys.length > 0 && (
         <div className="flex flex-wrap gap-2">
@@ -81,13 +102,13 @@ export function EventStepType({
               onClick={() => setSelectedCategory(cat)}
               className={`badge ${activeCategory === cat ? 'badge-primary' : 'badge-ghost'}`}
             >
-              {cat}
+              {getCategoryLabel(cat)}
             </button>
           ))}
         </div>
       )}
 
-      <h2 className="text-base-content text-lg font-semibold">Select an event type</h2>
+      <h2 className="text-base-content text-lg font-semibold">{t('selectEventType')}</h2>
 
       <div className="grid w-full grid-cols-2 gap-3">
         {groupedCategories[activeCategory]?.map((eventType) => (
@@ -97,11 +118,11 @@ export function EventStepType({
             onClick={() => onSelect(eventType.id)}
             className={`btn btn-small btn-soft h-16 leading-tight ${selectedTypeId === eventType.id ? 'btn-secondary' : 'btn-ghost'}`}
           >
-            {eventType.name}
+            {getEventName(eventType)}
           </button>
         ))}
         {!loading && categoryKeys.length === 0 && (
-          <p className="px-1 text-sm italic opacity-50">No Event Types found</p>
+          <p className="px-1 text-sm italic opacity-50">{t('noEventTypesFound')}</p>
         )}
       </div>
     </div>
