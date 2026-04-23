@@ -3,12 +3,14 @@
 import { EllipsisVerticalIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
+import { useTranslations } from 'next-intl';
 
 interface EventActionMenuProps {
   id: string;
 }
 
 export function EventActionMenu({ id }: EventActionMenuProps) {
+  const t = useTranslations('Navigation');
   const containerRef = useRef<HTMLDetailsElement>(null);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -63,7 +65,7 @@ export function EventActionMenu({ id }: EventActionMenuProps) {
             onClick={() => setIsOpen(false)} // Close menu after clicking action
           >
             <PencilIcon className="size-5" />
-            Edit
+            {t('edit')}
           </Link>
         </li>
         <li>
@@ -73,7 +75,7 @@ export function EventActionMenu({ id }: EventActionMenuProps) {
             onClick={() => setIsOpen(false)} // Close menu after clicking link
           >
             <TrashIcon className="size-5" />
-            Delete
+            {t('delete')}
           </Link>
         </li>
       </ul>

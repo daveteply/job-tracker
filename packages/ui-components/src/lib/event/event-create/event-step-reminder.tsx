@@ -8,6 +8,7 @@ import {
   Control,
   UseFormSetValue,
   FieldErrors,
+  PathValue,
 } from 'react-hook-form';
 import { useEffect } from 'react';
 import { useTranslations } from 'next-intl';
@@ -29,8 +30,7 @@ export function EventStepReminder<T extends FieldValues = FieldValues>({
   const hasReminder = useWatch({
     control,
     name: 'hasReminder' as Path<T>,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    defaultValue: false as any,
+    defaultValue: false as PathValue<T, Path<T>>,
   });
 
   const remindAt = useWatch({
@@ -46,7 +46,7 @@ export function EventStepReminder<T extends FieldValues = FieldValues>({
       const month = String(tomorrow.getMonth() + 1).padStart(2, '0');
       const dayOfMonth = String(tomorrow.getDate()).padStart(2, '0');
       const formattedDate = `${year}-${month}-${dayOfMonth}`;
-      setValue('remindAt' as Path<T>, formattedDate as any, {
+      setValue('remindAt' as Path<T>, formattedDate as PathValue<T, Path<T>>, {
         shouldValidate: true,
       });
     }
@@ -72,8 +72,7 @@ export function EventStepReminder<T extends FieldValues = FieldValues>({
     const dayOfMonth = String(date.getDate()).padStart(2, '0');
     const formattedDate = `${year}-${month}-${dayOfMonth}`;
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    setValue('remindAt' as Path<T>, formattedDate as any, {
+    setValue('remindAt' as Path<T>, formattedDate as PathValue<T, Path<T>>, {
       shouldValidate: true,
       shouldDirty: true,
     });
@@ -124,7 +123,9 @@ export function EventStepReminder<T extends FieldValues = FieldValues>({
           </div>
           {errors?.remindAt && (
             <label className="label">
-              <span className="label-text-alt text-error">{errors.remindAt.message as string}</span>
+              <span className="label-text-alt text-error">
+                {t(errors.remindAt.message as Parameters<typeof t>[0])}
+              </span>
             </label>
           )}
           <label className="label">

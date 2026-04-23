@@ -145,7 +145,8 @@ export function EventForm<T extends EventFormValues>({
     if (!error || !error.message) return null;
     return (
       <p className="text-red-600">
-        <span>{error.message.toString()}</span>
+        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+        <span>{t(error.message.toString() as any)}</span>
       </p>
     );
   };

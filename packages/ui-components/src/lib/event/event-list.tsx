@@ -1,5 +1,6 @@
 import { EventWithChildrenDTO } from '@job-tracker/validation';
 import EventInfoCard from './event-info-card';
+import { useTranslations } from 'next-intl';
 
 export interface EventListProps {
   events: EventWithChildrenDTO[];
@@ -7,6 +8,8 @@ export interface EventListProps {
 }
 
 export function EventList(props: EventListProps) {
+  const t = useTranslations('Events');
+
   return (
     <div className="flex flex-wrap">
       {props.events && props.events.length ? (
@@ -16,7 +19,7 @@ export function EventList(props: EventListProps) {
           ))}
         </>
       ) : (
-        <p className="px-1 text-sm italic opacity-50">No Events found</p>
+        <p className="px-1 text-sm italic opacity-50">{t('noEventsFound')}</p>
       )}
     </div>
   );

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useLocale } from 'next-intl';
 
 export interface FormattedDateProps {
   dateValue?: Date;
@@ -9,6 +10,7 @@ export interface FormattedDateProps {
 
 export function FormattedDate({ dateValue, useRelativeTime = true }: FormattedDateProps) {
   const [mounted, setMounted] = useState(false);
+  const locale = useLocale();
 
   useEffect(() => {
     setMounted(true);
@@ -30,7 +32,7 @@ export function FormattedDate({ dateValue, useRelativeTime = true }: FormattedDa
       (eventMidnight.getTime() - currentMidnight.getTime()) / 86400000,
     );
 
-    const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
+    const rtf = new Intl.RelativeTimeFormat(locale, { numeric: 'auto' });
     const formattedTime = rtf.format(differenceInDays, 'day');
     return <span>{formattedTime}</span>;
   }
@@ -38,7 +40,7 @@ export function FormattedDate({ dateValue, useRelativeTime = true }: FormattedDa
   return (
     <span>
       {
-        eventDate.toLocaleDateString() // Date only (e.g., "1/23/2026")
+        eventDate.toLocaleDateString(locale) // Date only (e.g., "1/23/2026")
       }
     </span>
   );

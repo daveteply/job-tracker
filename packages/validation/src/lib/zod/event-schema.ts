@@ -22,10 +22,10 @@ export const EventCreateSchema = z.object({
 
   // Event specifics
   eventTypeId: z
-    .string({ message: 'Select an event type' })
+    .string({ message: 'selectEventType' })
     .nullable()
     .refine((val) => val !== null && val.length > 0, {
-      message: 'Select an event type',
+      message: 'selectEventType',
     }),
 
   occurredAt: z.coerce.date({ message: 'Must be a valid date' }),
@@ -36,10 +36,10 @@ export const EventCreateSchema = z.object({
 
   // Enums
   source: SourceTypeSchema.nullable().refine((val) => val !== null, {
-    message: 'Select a source',
+    message: 'selectSource',
   }),
   direction: DirectionTypeSchema.nullable().refine((val) => val !== null, {
-    message: 'Select a direction',
+    message: 'selectDirection',
   }),
 });
 
@@ -54,7 +54,7 @@ export const EventCreateWithReminderSchema = EventCreateSchema.extend({
     return true;
   },
   {
-    message: 'Reminder date is required',
+    message: 'reminderDateRequired',
     path: ['remindAt'],
   },
 );
