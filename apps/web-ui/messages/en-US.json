@@ -45,7 +45,8 @@
     "roleEntityName": "role",
     "rolesEntityName": "roles",
     "formPlaceholder": "Search or type new role title",
-    "formCreate": "Create new role: \"{name}\""
+    "formCreate": "Create new role: \"{name}\"",
+    "formCreateCompany": "Create new company: \"{name}\""
   },
   "Companies": {
     "listTitle": "Companies",
@@ -103,6 +104,7 @@
     "update": "Update",
     "formPlaceholder": "Search or type first and last name",
     "formCreate": "Create new contact: \"{name}\"",
+    "formCreateCompany": "Create new company: \"{name}\"",
     "formValidation": "Please enter both first and last name (e.g., \"John Doe\")"
   },
   "Events": {
@@ -141,8 +143,8 @@
     "formContactPlaceholder": "Search or type first and last name",
     "formRolePlaceholder": "Search or type new role title",
     "formCreateCompany": "Create new company: \"{name}\"",
-    "formCreateContact": "Create new contact: \"{name}\"",
-    "formCreateRole": "Create new role: \"{name}\"",
+    "formCreateContact": "Create new contact: \"{firstNameLastName}\"",
+    "formCreateRole": "Create new role: \"{title}\"",
     "formContactValidation": "Please enter both first and last name (e.g., \"John Doe\")",
     "formDateOccurred": "Date Occurred",
     "formSummary": "Summary (optional)",

@@ -45,7 +45,8 @@
     "roleEntityName": "rol",
     "rolesEntityName": "roles",
     "formPlaceholder": "Buscar o escribir el título del nuevo rol",
-    "formCreate": "Crear nuevo rol: \"{name}\""
+    "formCreate": "Crear nuevo rol: \"{name}\"",
+    "formCreateCompany": "Crear nueva compañía: \"{name}\""
   },
   "Companies": {
     "listTitle": "Compañías",
@@ -103,6 +104,7 @@
     "update": "Actualizar",
     "formPlaceholder": "Buscar o escribir nombre y apellido",
     "formCreate": "Crear nuevo contacto: \"{name}\"",
+    "formCreateCompany": "Crear nueva compañía: \"{name}\"",
     "formValidation": "Por favor, ingresa tanto el nombre como el apellido (ej. \"John Doe\")"
   },
   "Events": {
@@ -141,8 +143,8 @@
     "formContactPlaceholder": "Buscar o escribir nombre y apellido",
     "formRolePlaceholder": "Buscar o escribir el título del nuevo rol",
     "formCreateCompany": "Crear nueva compañía: \"{name}\"",
-    "formCreateContact": "Crear nuevo contacto: \"{name}\"",
-    "formCreateRole": "Crear nuevo rol: \"{name}\"",
+    "formCreateContact": "Crear nuevo contacto: \"{firstNameLastName}\"",
+    "formCreateRole": "Crear nuevo rol: \"{title}\"",
     "formContactValidation": "Por favor, ingresa tanto el nombre como el apellido (ej. \"John Doe\")",
     "formDateOccurred": "Fecha del evento",
     "formSummary": "Resumen (opcional)",

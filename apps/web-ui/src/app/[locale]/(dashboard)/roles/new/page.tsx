@@ -18,7 +18,7 @@ export default function CreateRolePage() {
         postActionRoute={'/roles'}
         onSearchCompany={searchCompanies}
         companyPlaceholder={t('formPlaceholder')}
-        createCompanyLabel={(name) => t('formCreate', { name })}
+        createCompanyLabel={(name) => t('formCreateCompany', { name })}
       />
     </>
   );

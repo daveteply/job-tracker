@@ -52,7 +52,7 @@ export default function EditRolePage({ params }: { params: Promise<{ id: string 
           postActionRoute={'/roles'}
           onSearchCompany={searchCompanies}
           companyPlaceholder={t('formPlaceholder')}
-          createCompanyLabel={(name) => t('formCreate', { name })}
+          createCompanyLabel={(name) => t('formCreateCompany', { name })}
         />
       }
     </>

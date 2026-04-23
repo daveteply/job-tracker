@@ -54,7 +54,7 @@ export default function EditContactPage({ params }: { params: Promise<{ id: stri
           isEdit={true}
           postActionRoute={'/contacts'}
           companyPlaceholder={t('formPlaceholder')}
-          createCompanyLabel={(name) => t('formCreate', { name })}
+          createCompanyLabel={(name) => t('formCreateCompany', { name })}
         />
       }
     </>
