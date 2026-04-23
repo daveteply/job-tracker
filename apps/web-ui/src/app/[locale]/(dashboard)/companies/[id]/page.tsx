@@ -3,31 +3,33 @@
 import { use } from 'react';
 import { useCompany } from '@job-tracker/hooks';
 import { CompanyInfoCard, PageLoading } from '@job-tracker/ui-components';
-import Link from 'next/link';
+import { Link } from '../../../../../i18n/routing';
 import { PencilIcon, TrashIcon } from '@heroicons/react/16/solid';
+import { useTranslations } from 'next-intl';
 
 export default function CompanyDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const t = useTranslations('Companies');
   const { id } = use(params);
   const { company, loading } = useCompany(id);
 
-  if (loading) return <PageLoading entityName="company" />;
-  if (!company) return <div>Company not found</div>;
+  if (loading) return <PageLoading entityName={t('companyEntityName')} />;
+  if (!company) return <div>{t('companyNotFound')}</div>;
 
   return (
     <>
       <div className="mb-3 flex">
-        <h1 className="pr-2 text-xl">Company Details</h1>
+        <h1 className="pr-2 text-xl">{t('companyDetails')}</h1>
         <Link
           className="btn btn-circle btn-sm text-primary"
           href={`${id}/edit`}
-          title="Edit Company"
+          title={t('editCompany')}
         >
           <PencilIcon className="size-5" />
         </Link>
         <Link
           className="btn btn-circle btn-sm text-error"
           href={`${id}/delete`}
-          title="Delete Company"
+          title={t('deleteCompany')}
         >
           <TrashIcon className="size-5" />
         </Link>
@@ -37,10 +39,10 @@ export default function CompanyDetailPage({ params }: { params: Promise<{ id: st
 
       <div className="mt-5">
         <Link className="btn mr-3" href="/companies">
-          Back to Companies
+          {t('backToCompanies')}
         </Link>
         <Link className="btn" href="/activity">
-          Back to Events
+          {t('backToEvents')}
         </Link>
       </div>
     </>

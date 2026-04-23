@@ -3,21 +3,23 @@
 import { use } from 'react';
 import { useCanDeleteRole, useRoleActions, useRoleWithCompany } from '@job-tracker/hooks';
 import { RoleInfoCard, EntityDelete, PageLoading } from '@job-tracker/ui-components';
-import Link from 'next/link';
+import { Link } from '../../../../../../i18n/routing';
+import { useTranslations } from 'next-intl';
 
 export default function DeleteRolePage({ params }: { params: Promise<{ id: string }> }) {
+  const t = useTranslations('Roles');
   const { id } = use(params);
   const { role, loading } = useRoleWithCompany(id);
 
   const { removeRole } = useRoleActions();
   const { canDelete, blockers, loading: deleteCheckLoading } = useCanDeleteRole(id);
 
-  if (loading || deleteCheckLoading) return <PageLoading entityName="role" />;
+  if (loading || deleteCheckLoading) return <PageLoading entityName={t('roleEntityName')} />;
   if (!role) return null;
 
   return (
     <div className="flex flex-col gap-4">
-      <h1 className="pr-1 text-xl">Role - Delete</h1>
+      <h1 className="pr-1 text-xl">{t('deleteRoleTitle')}</h1>
 
       <>
         <RoleInfoCard role={role} showControls={false} />
@@ -25,21 +27,24 @@ export default function DeleteRolePage({ params }: { params: Promise<{ id: strin
           <EntityDelete
             id={id}
             onDeleteAction={removeRole}
-            entityName="Role"
+            entityName={t('roleEntityName')}
             postActionRoute="/roles"
           />
         ) : (
           <>
-            <p>{`This Role is associated with
-                 ${blockers.events} Event(s), 
-                 ${blockers.roles} Role(s) or 
-                 ${blockers.roles} Role(s) and cannot be deleted`}</p>
+            <p>
+              {t('deleteBlocker', {
+                events: blockers.events,
+                roles: blockers.roles,
+                roles2: blockers.roles,
+              })}
+            </p>
             <div className="flex">
               <Link className="btn btn-info mr-3" href="/roles">
-                Back to Roles
+                {t('backToRoles')}
               </Link>
               <Link className="btn btn-info" href="/activity">
-                Back to Events
+                {t('backToEvents')}
               </Link>
             </div>
           </>

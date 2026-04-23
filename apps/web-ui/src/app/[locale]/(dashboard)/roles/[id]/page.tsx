@@ -3,29 +3,31 @@
 import { use } from 'react';
 import { useRoleWithCompany } from '@job-tracker/hooks';
 import { RoleInfoCard, PageLoading } from '@job-tracker/ui-components';
-import Link from 'next/link';
+import { Link } from '../../../../../i18n/routing';
 import { PencilIcon, TrashIcon } from '@heroicons/react/16/solid';
+import { useTranslations } from 'next-intl';
 
 // buttons [View Job Posting], [Log Event]
 
 export default function RoleDetailsPage({ params }: { params: Promise<{ id: string }> }) {
+  const t = useTranslations('Roles');
   const { id } = use(params);
   const { role, loading } = useRoleWithCompany(id);
 
-  if (loading) return <PageLoading entityName="role" />;
-  if (!role) return <div>Role not found</div>;
+  if (loading) return <PageLoading entityName={t('roleEntityName')} />;
+  if (!role) return <div>{t('roleNotFound')}</div>;
 
   return (
     <>
       <div className="mb-3 flex">
-        <h1 className="pr-2 text-xl">Role Details</h1>
-        <Link className="btn btn-circle btn-sm text-primary" href={`${id}/edit`} title="Edit Role">
+        <h1 className="pr-2 text-xl">{t('roleDetails')}</h1>
+        <Link className="btn btn-circle btn-sm text-primary" href={`${id}/edit`} title={t('editRole')}>
           <PencilIcon className="size-5" />
         </Link>
         <Link
           className="btn btn-circle btn-sm text-error"
           href={`${id}/delete`}
-          title="Delete Role"
+          title={t('deleteRole')}
         >
           <TrashIcon className="size-5" />
         </Link>
@@ -35,7 +37,7 @@ export default function RoleDetailsPage({ params }: { params: Promise<{ id: stri
 
       <div className="mt-5">
         <Link className="btn" href="/roles">
-          Back to Roles
+          {t('backToRoles')}
         </Link>
       </div>
     </>

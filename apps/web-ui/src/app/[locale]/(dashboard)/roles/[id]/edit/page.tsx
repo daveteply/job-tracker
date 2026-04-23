@@ -4,6 +4,7 @@ import { use } from 'react';
 import { useCompanySearch, useRoleActions, useRoleWithCompany } from '@job-tracker/hooks';
 import { RoleForm, PageLoading } from '@job-tracker/ui-components';
 import { RoleDTO } from '@job-tracker/validation';
+import { useTranslations } from 'next-intl';
 
 type RoleEditFormData = RoleDTO & {
   company?: {
@@ -16,13 +17,14 @@ type RoleEditFormData = RoleDTO & {
 };
 
 export default function EditRolePage({ params }: { params: Promise<{ id: string }> }) {
+  const t = useTranslations('Roles');
   const { id } = use(params);
   const { role, loading } = useRoleWithCompany(id);
   const { upsertRole } = useRoleActions();
   const { searchCompanies } = useCompanySearch();
 
-  if (loading) return <PageLoading entityName="role" />;
-  if (!role) return <div>Role not found</div>;
+  if (loading) return <PageLoading entityName={t('roleEntityName')} />;
+  if (!role) return <div>{t('roleNotFound')}</div>;
 
   const handleUpdate = async (data: RoleEditFormData) => {
     return upsertRole({ ...data, id });
@@ -41,7 +43,7 @@ export default function EditRolePage({ params }: { params: Promise<{ id: string 
 
   return (
     <>
-      <h1 className="mb-5 text-xl">Roles - Edit {role.title}</h1>
+      <h1 className="mb-5 text-xl">{t('editRoleTitle', { title: role.title })}</h1>
       {
         <RoleForm
           onSubmitAction={handleUpdate}

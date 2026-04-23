@@ -4,6 +4,7 @@ import { use } from 'react';
 import { useCompanySearch, useContactActions, useContactWithCompany } from '@job-tracker/hooks';
 import { ContactForm, PageLoading } from '@job-tracker/ui-components';
 import { ContactDTO } from '@job-tracker/validation';
+import { useTranslations } from 'next-intl';
 
 type ContactEditFormData = ContactDTO & {
   company?: {
@@ -16,13 +17,14 @@ type ContactEditFormData = ContactDTO & {
 };
 
 export default function EditContactPage({ params }: { params: Promise<{ id: string }> }) {
+  const t = useTranslations('Contacts');
   const { id } = use(params);
   const { contact, loading } = useContactWithCompany(id);
   const { upsertContact } = useContactActions();
   const { searchCompanies } = useCompanySearch();
 
-  if (loading) return <PageLoading entityName="contact" />;
-  if (!contact) return <div>Contact not found</div>;
+  if (loading) return <PageLoading entityName={t('contactEntityName')} />;
+  if (!contact) return <div>{t('contactNotFound')}</div>;
 
   const handleUpdate = async (data: ContactEditFormData) => {
     return upsertContact({ ...data, id });
@@ -42,7 +44,7 @@ export default function EditContactPage({ params }: { params: Promise<{ id: stri
   return (
     <>
       <h1 className="mb-5 text-xl">
-        Contacts - Edit {contact.firstName} {contact.lastName}
+        {t('editContactTitle', { firstName: contact.firstName, lastName: contact.lastName })}
       </h1>
       {
         <ContactForm

@@ -28,5 +28,93 @@
   },
   "DashboardLayout": {
     "title": "Job Tracker"
+  },
+  "Roles": {
+    "listTitle": "Roles",
+    "addRole": "Add Role",
+    "roleDetails": "Role Details",
+    "editRole": "Edit Role",
+    "deleteRole": "Delete Role",
+    "backToRoles": "Back to Roles",
+    "newRoleTitle": "Roles - new Role",
+    "editRoleTitle": "Roles - Edit {title}",
+    "deleteRoleTitle": "Role - Delete",
+    "roleNotFound": "Role not found",
+    "deleteBlocker": "This Role is associated with {events} Event(s), {roles} Role(s) or {roles2} Role(s) and cannot be deleted",
+    "backToEvents": "Back to Events",
+    "roleEntityName": "role",
+    "rolesEntityName": "roles"
+  },
+  "Companies": {
+    "listTitle": "Companies",
+    "addCompany": "Add Company",
+    "newCompanyTitle": "Companies - new Company",
+    "companyDetails": "Company Details",
+    "editCompany": "Edit Company",
+    "deleteCompany": "Delete Company",
+    "backToCompanies": "Back to Companies",
+    "backToEvents": "Back to Events",
+    "companyNotFound": "Company not found",
+    "editCompanyTitle": "Companies - Edit {name}",
+    "deleteCompanyTitle": "Company - Delete",
+    "deleteBlocker": "This Company is associated with {events} Event(s), {contacts} Contact(s) or {roles} Role(s) and cannot be deleted",
+    "companyEntityName": "company",
+    "companiesEntityName": "companies"
+  },
+  "Contacts": {
+    "listTitle": "Contacts",
+    "addContact": "Add Contact",
+    "newContactTitle": "Contacts - new Contact",
+    "contactDetails": "Contact Details",
+    "editContact": "Edit Contact",
+    "deleteContact": "Delete Contact",
+    "backToContacts": "Back to Contacts",
+    "backToEvents": "Back to Events",
+    "contactNotFound": "Contact not found",
+    "editContactTitle": "Contacts - Edit {firstName} {lastName}",
+    "deleteContactTitle": "Contact - Delete",
+    "deleteBlocker": "This Contact is associated with {events} Event(s), {contacts} Contact(s) or {roles} Role(s) and cannot be deleted",
+    "contactEntityName": "contact",
+    "contactsEntityName": "contacts"
+  },
+  "Events": {
+    "listTitle": "Events",
+    "newTitle": "New Event",
+    "detailsTitle": "Event Details",
+    "editTitle": "Edit Event",
+    "deleteTitle": "Event - Delete",
+    "notFound": "Event not found",
+    "on": "on",
+    "sourceLabel": "Source: ",
+    "summaryLabel": "Summary: ",
+    "detailsLabel": "Details: ",
+    "backToActivity": "Back to Activity",
+    "stepType": "Type",
+    "stepContext": "Context",
+    "stepDetails": "Details",
+    "stepReminder": "Reminder",
+    "previous": "Previous",
+    "next": "Next",
+    "cancel": "Cancel",
+    "creating": "Creating...",
+    "createEvent": "Create Event",
+    "editEvent": "Edit Event",
+    "deleteEvent": "Delete Event"
+  },
+  "Reminders": {
+    "listTitle": "Reminders",
+    "addReminder": "Add Reminder",
+    "noPendingReminders": "No pending reminders",
+    "emptyStateDescription": "You're all caught up! When you log events, you can set reminders to follow up or perform next steps.",
+    "newEventWithReminder": "New Event with Reminder"
+  },
+  "Activity": {
+    "listTitle": "Activity",
+    "noActivityYet": "No activity yet",
+    "emptyStateDescription": "Your activity feed is empty. Start by logging an event like an application, an interview, or a networking call.",
+    "addFirstEvent": "Add First Event"
+  },
+  "Pipeline": {
+    "listTitle": "Pipeline"
   }
 }

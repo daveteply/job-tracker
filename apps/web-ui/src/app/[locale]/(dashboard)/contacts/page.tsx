@@ -3,20 +3,22 @@
 import { PlusCircleIcon } from '@heroicons/react/16/solid';
 import { useContactsWithCompany } from '@job-tracker/hooks';
 import { ContactList, PageLoading } from '@job-tracker/ui-components';
-import Link from 'next/link';
+import { Link } from '../../../../i18n/routing';
+import { useTranslations } from 'next-intl';
 
 export default function ContactsListPage() {
+  const t = useTranslations('Contacts');
   const { contacts, loading } = useContactsWithCompany();
 
-  if (loading) return <PageLoading entityName="contacts" />;
+  if (loading) return <PageLoading entityName={t('contactsEntityName')} />;
 
   return (
     <>
       <div className="mb-3 flex justify-between">
-        <h1 className="pr-1 text-xl">Contacts</h1>
-        <Link className="btn btn-sm text-primary" href="contacts/new" title="Add Contact">
+        <h1 className="pr-1 text-xl">{t('listTitle')}</h1>
+        <Link className="btn btn-sm text-primary" href="contacts/new" title={t('addContact')}>
           <PlusCircleIcon className="size-5" />
-          Add Contact
+          {t('addContact')}
         </Link>
       </div>
 

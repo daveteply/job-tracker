@@ -4,14 +4,16 @@ import { use } from 'react';
 import { useCompany, useCompanyActions } from '@job-tracker/hooks';
 import { CompanyForm, PageLoading } from '@job-tracker/ui-components';
 import { CompanyDocument } from '@job-tracker/data-access';
+import { useTranslations } from 'next-intl';
 
 export default function EditCompanyPage({ params }: { params: Promise<{ id: string }> }) {
+  const t = useTranslations('Companies');
   const { id } = use(params);
   const { company, loading } = useCompany(id);
   const { upsertCompany } = useCompanyActions();
 
-  if (loading) return <PageLoading entityName="company" />;
-  if (!company) return <div>Company not found</div>;
+  if (loading) return <PageLoading entityName={t('companyEntityName')} />;
+  if (!company) return <div>{t('companyNotFound')}</div>;
 
   const handleUpdate = async (data: CompanyDocument) => {
     return upsertCompany({ ...data, id });
@@ -19,7 +21,7 @@ export default function EditCompanyPage({ params }: { params: Promise<{ id: stri
 
   return (
     <>
-      <h1 className="mb-5 text-xl">Companies - Edit {company.name}</h1>
+      <h1 className="mb-5 text-xl">{t('editCompanyTitle', { name: company.name })}</h1>
       <CompanyForm
         onSubmitAction={handleUpdate}
         initialData={company}

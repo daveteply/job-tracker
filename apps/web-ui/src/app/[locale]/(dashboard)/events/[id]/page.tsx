@@ -10,27 +10,29 @@ import {
   PageLoading,
   RoleInfoCard,
 } from '@job-tracker/ui-components';
-import Link from 'next/link';
+import { Link } from '../../../../../i18n/routing';
+import { useTranslations } from 'next-intl';
 import { PencilIcon, TrashIcon } from '@heroicons/react/16/solid';
 
 export default function EventDetailsPage({ params }: { params: Promise<{ id: string }> }) {
+  const t = useTranslations('Events');
   const { id } = use(params);
   const { event, loading } = useEventWithChildren(id);
 
-  if (loading) return <PageLoading entityName="contact" />;
-  if (!event) return <div>Event not found</div>;
+  if (loading) return <PageLoading entityName="event" />;
+  if (!event) return <div>{t('notFound')}</div>;
 
   return (
     <>
       <div className="mb-3 flex">
-        <h1 className="pr-2 text-xl">Event Details</h1>
-        <Link className="btn btn-circle btn-sm text-primary" href={`${id}/edit`} title="Edit Event">
+        <h1 className="pr-2 text-xl">{t('detailsTitle')}</h1>
+        <Link className="btn btn-circle btn-sm text-primary" href={`${id}/edit`} title={t('editEvent')}>
           <PencilIcon className="size-5" />
         </Link>
         <Link
           className="btn btn-circle btn-sm text-error"
           href={`${id}/delete`}
-          title="Delete Event"
+          title={t('deleteEvent')}
         >
           <TrashIcon className="size-6" />
         </Link>
@@ -39,11 +41,11 @@ export default function EventDetailsPage({ params }: { params: Promise<{ id: str
       <div className="flex flex-col gap-3">
         <div className="flex gap-1">
           {event.direction}
-          <span>on</span>
+          <span>{t('on')}</span>
           <FormattedDate dateValue={event.occurredAt} useRelativeTime={false} />
         </div>
         <p>
-          {event.source && <span>Source: </span>}
+          {event.source && <span>{t('sourceLabel')}</span>}
           {event.source}
         </p>
 
@@ -53,11 +55,11 @@ export default function EventDetailsPage({ params }: { params: Promise<{ id: str
         {event.eventType && <EventTypeInfoCard eventType={event.eventType} />}
         <ul>
           <li>
-            {event.summary && <span>Summary: </span>}
+            {event.summary && <span>{t('summaryLabel')}</span>}
             {event.summary}
           </li>
           <li>
-            {event.details && <span>Details: </span>}
+            {event.details && <span>{t('detailsLabel')}</span>}
             {event.details}
           </li>
         </ul>
@@ -65,7 +67,7 @@ export default function EventDetailsPage({ params }: { params: Promise<{ id: str
 
       <div className="mt-5">
         <Link className="btn" href="/activity">
-          Back to Activity
+          {t('backToActivity')}
         </Link>
       </div>
     </>

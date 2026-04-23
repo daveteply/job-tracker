@@ -19,10 +19,12 @@ import { useForm, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { EventCreateWithReminderSchema, EventCreateWithReminder } from '@job-tracker/validation';
 import { DirectionType, SourceType } from '@job-tracker/domain';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '../../../../../i18n/routing';
+import { useTranslations } from 'next-intl';
 import { inferDirectionFromEventType } from '@job-tracker/app-logic';
 
 export default function EventsNewPage() {
+  const t = useTranslations('Events');
   const router = useRouter();
   const { eventTypes, loading: eventTypesLoading } = useEventTypes();
   const { searchCompanies } = useCompanySearch();
@@ -113,13 +115,13 @@ export default function EventsNewPage() {
   return (
     <FormProvider {...methods}>
       <div className="mx-auto max-w-2xl pb-32">
-        <h1 className="text-base-content mb-4 text-3xl font-bold">New Event</h1>
+        <h1 className="text-base-content mb-4 text-3xl font-bold">{t('newTitle')}</h1>
 
         <ul className="steps w-full">
-          <li className={`step ${step >= 1 ? 'step-info' : ''}`}>Type</li>
-          <li className={`step ${step >= 2 ? 'step-info' : ''}`}>Context</li>
-          <li className={`step ${step >= 3 ? 'step-info' : ''}`}>Details</li>
-          <li className={`step ${step >= 4 ? 'step-info' : ''}`}>Reminder</li>
+          <li className={`step ${step >= 1 ? 'step-info' : ''}`}>{t('stepType')}</li>
+          <li className={`step ${step >= 2 ? 'step-info' : ''}`}>{t('stepContext')}</li>
+          <li className={`step ${step >= 3 ? 'step-info' : ''}`}>{t('stepDetails')}</li>
+          <li className={`step ${step >= 4 ? 'step-info' : ''}`}>{t('stepReminder')}</li>
         </ul>
 
         <div className="card bg-base-100 border-base-200 mt-4 border shadow-xl">
@@ -172,7 +174,7 @@ export default function EventsNewPage() {
                   onClick={prevStep}
                   disabled={step === 1}
                 >
-                  Previous
+                  {t('previous')}
                 </button>
 
                 <div className="flex gap-2">
@@ -181,7 +183,7 @@ export default function EventsNewPage() {
                     className="btn btn-ghost"
                     onClick={() => router.push('/activity')}
                   >
-                    Cancel
+                    {t('cancel')}
                   </button>
                   {step < 4 && (
                     <button
@@ -194,7 +196,7 @@ export default function EventsNewPage() {
                       }}
                       disabled={!canGoNext()}
                     >
-                      Next
+                      {t('next')}
                     </button>
                   )}
                   {step === 4 && (
@@ -210,7 +212,7 @@ export default function EventsNewPage() {
                         }
                       }}
                     >
-                      {isSubmitting ? 'Creating...' : 'Create Event'}
+                      {isSubmitting ? t('creating') : t('createEvent')}
                     </button>
                   )}
                 </div>

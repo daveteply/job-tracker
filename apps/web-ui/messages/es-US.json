@@ -28,5 +28,93 @@
   },
   "DashboardLayout": {
     "title": "Job Tracker"
+  },
+  "Roles": {
+    "listTitle": "Roles",
+    "addRole": "Agregar Rol",
+    "roleDetails": "Detalles del Rol",
+    "editRole": "Editar Rol",
+    "deleteRole": "Eliminar Rol",
+    "backToRoles": "Volver a Roles",
+    "newRoleTitle": "Roles - nuevo Rol",
+    "editRoleTitle": "Roles - Editar {title}",
+    "deleteRoleTitle": "Rol - Eliminar",
+    "roleNotFound": "Rol no encontrado",
+    "deleteBlocker": "Este Rol está asociado con {events} Evento(s), {roles} Rol(es) o {roles2} Rol(es) y no se puede eliminar",
+    "backToEvents": "Volver a Eventos",
+    "roleEntityName": "rol",
+    "rolesEntityName": "roles"
+  },
+  "Companies": {
+    "listTitle": "Compañías",
+    "addCompany": "Agregar Compañía",
+    "newCompanyTitle": "Compañías - nueva Compañía",
+    "companyDetails": "Detalles de la Compañía",
+    "editCompany": "Editar Compañía",
+    "deleteCompany": "Eliminar Compañía",
+    "backToCompanies": "Volver a Compañías",
+    "backToEvents": "Volver a Eventos",
+    "companyNotFound": "Compañía no encontrada",
+    "editCompanyTitle": "Compañías - Editar {name}",
+    "deleteCompanyTitle": "Compañía - Eliminar",
+    "deleteBlocker": "Esta Compañía está asociada con {events} Evento(s), {contacts} Contacto(s) o {roles} Rol(es) y no se puede eliminar",
+    "companyEntityName": "compañía",
+    "companiesEntityName": "compañías"
+  },
+  "Contacts": {
+    "listTitle": "Contactos",
+    "addContact": "Agregar Contacto",
+    "newContactTitle": "Contactos - nuevo Contacto",
+    "contactDetails": "Detalles del Contacto",
+    "editContact": "Editar Contacto",
+    "deleteContact": "Eliminar Contacto",
+    "backToContacts": "Volver a Contactos",
+    "backToEvents": "Volver a Eventos",
+    "contactNotFound": "Contacto no encontrado",
+    "editContactTitle": "Contactos - Editar {firstName} {lastName}",
+    "deleteContactTitle": "Contacto - Eliminar",
+    "deleteBlocker": "Este Contacto está asociado con {events} Evento(s), {contacts} Contacto(s) o {roles} Rol(es) y no se puede eliminar",
+    "contactEntityName": "contacto",
+    "contactsEntityName": "contactos"
+  },
+  "Events": {
+    "listTitle": "Eventos",
+    "newTitle": "Nuevo Evento",
+    "detailsTitle": "Detalles del Evento",
+    "editTitle": "Editar Evento",
+    "deleteTitle": "Evento - Eliminar",
+    "notFound": "Evento no encontrado",
+    "on": "el",
+    "sourceLabel": "Fuente: ",
+    "summaryLabel": "Resumen: ",
+    "detailsLabel": "Detalles: ",
+    "backToActivity": "Volver a Actividad",
+    "stepType": "Tipo",
+    "stepContext": "Contexto",
+    "stepDetails": "Detalles",
+    "stepReminder": "Recordatorio",
+    "previous": "Anterior",
+    "next": "Siguiente",
+    "cancel": "Cancelar",
+    "creating": "Creando...",
+    "createEvent": "Crear Evento",
+    "editEvent": "Editar Evento",
+    "deleteEvent": "Eliminar Evento"
+  },
+  "Reminders": {
+    "listTitle": "Recordatorios",
+    "addReminder": "Agregar Recordatorio",
+    "noPendingReminders": "No hay recordatorios pendientes",
+    "emptyStateDescription": "¡Estás al día! Cuando registres eventos, puedes configurar recordatorios para dar seguimiento o realizar los siguientes pasos.",
+    "newEventWithReminder": "Nuevo Evento con Recordatorio"
+  },
+  "Activity": {
+    "listTitle": "Actividad",
+    "noActivityYet": "Aún no hay actividad",
+    "emptyStateDescription": "Tu feed de actividad está vacío. Comienza registrando un evento como una postulación, una entrevista o una llamada de networking.",
+    "addFirstEvent": "Agregar Primer Evento"
+  },
+  "Pipeline": {
+    "listTitle": "Pipeline"
   }
 }

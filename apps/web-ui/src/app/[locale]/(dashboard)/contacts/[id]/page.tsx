@@ -3,31 +3,33 @@
 import { use } from 'react';
 import { useContactWithCompany } from '@job-tracker/hooks';
 import { ContactInfoCard, PageLoading } from '@job-tracker/ui-components';
-import Link from 'next/link';
+import { Link } from '../../../../../i18n/routing';
 import { PencilIcon, TrashIcon } from '@heroicons/react/16/solid';
+import { useTranslations } from 'next-intl';
 
 export default function ContactDetailsPage({ params }: { params: Promise<{ id: string }> }) {
+  const t = useTranslations('Contacts');
   const { id } = use(params);
   const { contact, loading } = useContactWithCompany(id);
 
-  if (loading) return <PageLoading entityName="contact" />;
-  if (!contact) return <div>Contact not found</div>;
+  if (loading) return <PageLoading entityName={t('contactEntityName')} />;
+  if (!contact) return <div>{t('contactNotFound')}</div>;
 
   return (
     <>
       <div className="mb-3 flex">
-        <h1 className="pr-2 text-xl">Contact Details</h1>
+        <h1 className="pr-2 text-xl">{t('contactDetails')}</h1>
         <Link
           className="btn btn-circle btn-sm text-primary"
           href={`${id}/edit`}
-          title="Edit Contact"
+          title={t('editContact')}
         >
           <PencilIcon className="size-5" />
         </Link>
         <Link
           className="btn btn-circle btn-sm text-error"
           href={`${id}/delete`}
-          title="Delete Contact"
+          title={t('deleteContact')}
         >
           <TrashIcon className="size-5" />
         </Link>
@@ -37,7 +39,7 @@ export default function ContactDetailsPage({ params }: { params: Promise<{ id: s
 
       <div className="mt-5">
         <Link className="btn" href="/contacts">
-          Back to Contacts
+          {t('backToContacts')}
         </Link>
       </div>
     </>
