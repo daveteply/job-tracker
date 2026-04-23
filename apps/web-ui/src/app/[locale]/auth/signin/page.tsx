@@ -3,8 +3,10 @@
 import { signIn } from 'next-auth/react';
 import { useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
+import { useTranslations } from 'next-intl';
 
 function SignInContent() {
+  const t = useTranslations('SignInPage');
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get('callbackUrl') || '/';
   const error = searchParams.get('error');
@@ -13,9 +15,9 @@ function SignInContent() {
     <div className="bg-base-200 flex min-h-screen items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
       <div className="bg-base-100 border-base-300 w-full max-w-md space-y-8 rounded-xl border p-8 shadow-lg">
         <div className="text-center">
-          <h2 className="text-base-content mt-6 text-3xl font-extrabold">Welcome Back</h2>
+          <h2 className="text-base-content mt-6 text-3xl font-extrabold">{t('welcomeBack')}</h2>
           <p className="text-base-content/60 mt-2 text-sm">
-            Sign in to your account to continue tracking your jobs.
+            {t('signInDescription')}
           </p>
         </div>
 
@@ -26,8 +28,8 @@ function SignInContent() {
           >
             <span className="block sm:inline">
               {error === 'OAuthAccountNotLinked'
-                ? 'To confirm your identity, sign in with the same account you used originally.'
-                : 'An error occurred during sign in. Please try again.'}
+                ? t('oauthAccountNotLinked')
+                : t('signInError')}
             </span>
           </div>
         )}
@@ -40,7 +42,7 @@ function SignInContent() {
             <div className="absolute left-4 flex items-center">
               <img src="/auth/google.svg" alt="Google Logo" className="h-5 w-5" />
             </div>
-            Sign in with Google
+            {t('signInWithGoogle')}
           </button>
 
           <button
@@ -50,7 +52,7 @@ function SignInContent() {
             <div className="absolute left-4 flex items-center">
               <img src="/auth/facebook.svg" alt="Facebook Logo" className="h-5 w-5" />
             </div>
-            Sign in with Facebook
+            {t('signInWithFacebook')}
           </button>
         </div>
 
@@ -60,13 +62,13 @@ function SignInContent() {
               <div className="border-base-300 w-full border-t"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="bg-base-100 text-base-content/60 px-2">Secure Authentication</span>
+              <span className="bg-base-100 text-base-content/60 px-2">{t('secureAuthentication')}</span>
             </div>
           </div>
         </div>
 
         <div className="text-base-content/60 mt-6 text-center text-xs">
-          By continuing, you agree to our Terms of Service and Privacy Policy.
+          {t('termsAndPrivacy')}
         </div>
       </div>
     </div>

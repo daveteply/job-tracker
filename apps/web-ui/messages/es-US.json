@@ -1,0 +1,32 @@
+{
+  "Common": {
+    "title": "Job Tracker"
+  },
+  "IndexPage": {
+    "title": "Job Tracker",
+    "description": "Job Tracker es una herramienta de seguimiento para quienes buscan empleo. ¡Ponte en camino hacia tu próximo trabajo ideal!",
+    "dashboardButton": "Ir a mi Panel de Empleos"
+  },
+  "HomePage": {
+    "welcome": "¡Bienvenido a Job Tracker!",
+    "emptyStateDescription": "Tu centro de mando está vacío actualmente. Agrega tu primer evento para comenzar a seguir tu búsqueda de empleo.",
+    "addFirstEvent": "Agregar Primer Evento",
+    "reminders": "Recordatorios",
+    "recentActivity": "Actividad Reciente",
+    "activeRoles": "Roles Activos",
+    "noActiveRoles": "No hay roles activos"
+  },
+  "SignInPage": {
+    "welcomeBack": "Bienvenido de nuevo",
+    "signInDescription": "Inicia sesión en tu cuenta para continuar el seguimiento de tus empleos.",
+    "oauthAccountNotLinked": "Para confirmar tu identidad, inicia sesión con la misma cuenta que usaste originalmente.",
+    "signInError": "Ocurrió un error al iniciar sesión. Por favor, inténtalo de nuevo.",
+    "signInWithGoogle": "Iniciar sesión con Google",
+    "signInWithFacebook": "Iniciar sesión con Facebook",
+    "secureAuthentication": "Autenticación Segura",
+    "termsAndPrivacy": "Al continuar, aceptas nuestros Términos de Servicio y Política de Privacidad."
+  },
+  "DashboardLayout": {
+    "title": "Job Tracker"
+  }
+}

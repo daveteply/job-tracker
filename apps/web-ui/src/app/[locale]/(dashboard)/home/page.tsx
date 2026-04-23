@@ -9,11 +9,13 @@ import {
 import { ReminderList, EventList, RoleInfoCard } from '@job-tracker/ui-components';
 import { RoleStatus } from '@job-tracker/domain';
 import { useMemo } from 'react';
-import Link from 'next/link';
+import { Link } from '../../../../i18n/routing';
 import Image from 'next/image';
 import { PlusIcon } from '@heroicons/react/24/outline';
+import { useTranslations } from 'next-intl';
 
 export default function HomePage() {
+  const t = useTranslations('HomePage');
   const { reminders, loading: loadingReminders } = useRemindersWithChildren();
   const { events, loading: loadingEvents } = useEventsWithChildren();
   const { roles, loading: loadingRoles } = useRolesWithCompany();
@@ -68,14 +70,13 @@ export default function HomePage() {
             className="object-contain"
           />
         </div>
-        <h2 className="text-center text-2xl font-bold opacity-60">Welcome to Job Tracker!</h2>
+        <h2 className="text-center text-2xl font-bold opacity-60">{t('welcome')}</h2>
         <p className="mt-2 mb-8 max-w-xs text-center text-sm opacity-40">
-          Your command center is currently empty. Add your first event to start tracking your job
-          search journey.
+          {t('emptyStateDescription')}
         </p>
         <Link href="/events/new" className="btn btn-primary gap-2">
           <PlusIcon className="h-5 w-5" />
-          Add First Event
+          {t('addFirstEvent')}
         </Link>
       </div>
     );
@@ -84,7 +85,7 @@ export default function HomePage() {
   return (
     <div className="space-y-8 pb-8">
       <section>
-        <h2 className="mb-4 px-1 text-xl font-bold">Reminders</h2>
+        <h2 className="mb-4 px-1 text-xl font-bold">{t('reminders')}</h2>
         {loadingReminders ? (
           <div className="flex justify-center p-4">
             <span className="loading loading-spinner loading-md"></span>
@@ -95,7 +96,7 @@ export default function HomePage() {
       </section>
 
       <section>
-        <h2 className="mb-4 px-1 text-xl font-bold">Recent Activity</h2>
+        <h2 className="mb-4 px-1 text-xl font-bold">{t('recentActivity')}</h2>
         {loadingEvents ? (
           <div className="flex justify-center p-4">
             <span className="loading loading-spinner loading-md"></span>
@@ -106,7 +107,7 @@ export default function HomePage() {
       </section>
 
       <section>
-        <h2 className="mb-4 px-1 text-xl font-bold">Active Roles</h2>
+        <h2 className="mb-4 px-1 text-xl font-bold">{t('activeRoles')}</h2>
         {loadingRoles ? (
           <div className="flex justify-center p-4">
             <span className="loading loading-spinner loading-md"></span>
@@ -118,7 +119,7 @@ export default function HomePage() {
             ))}
           </div>
         ) : (
-          <p className="px-1 text-sm italic opacity-50">No active roles</p>
+          <p className="px-1 text-sm italic opacity-50">{t('noActiveRoles')}</p>
         )}
       </section>
     </div>

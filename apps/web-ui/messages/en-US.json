@@ -1,0 +1,32 @@
+{
+  "Common": {
+    "title": "Job Tracker"
+  },
+  "IndexPage": {
+    "title": "Job Tracker",
+    "description": "Job Tracker is a job seeker's tracking tool. Let's get you on your way to your next dream gig!",
+    "dashboardButton": "Go to my Jobs Dashboard"
+  },
+  "HomePage": {
+    "welcome": "Welcome to Job Tracker!",
+    "emptyStateDescription": "Your command center is currently empty. Add your first event to start tracking your job search journey.",
+    "addFirstEvent": "Add First Event",
+    "reminders": "Reminders",
+    "recentActivity": "Recent Activity",
+    "activeRoles": "Active Roles",
+    "noActiveRoles": "No active roles"
+  },
+  "SignInPage": {
+    "welcomeBack": "Welcome Back",
+    "signInDescription": "Sign in to your account to continue tracking your jobs.",
+    "oauthAccountNotLinked": "To confirm your identity, sign in with the same account you used originally.",
+    "signInError": "An error occurred during sign in. Please try again.",
+    "signInWithGoogle": "Sign in with Google",
+    "signInWithFacebook": "Sign in with Facebook",
+    "secureAuthentication": "Secure Authentication",
+    "termsAndPrivacy": "By continuing, you agree to our Terms of Service and Privacy Policy."
+  },
+  "DashboardLayout": {
+    "title": "Job Tracker"
+  }
+}
