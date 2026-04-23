@@ -12,6 +12,7 @@
     "incremental": false,
     "strict": true,
     "target": "es2022",
+    "ignoreDeprecations": "6.0",
     "paths": {
       "@job-tracker/ui-components": ["./packages/ui-components/src/index.ts"],
       "@job-tracker/domain": ["./packages/domain/src/index.ts"],

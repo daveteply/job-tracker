@@ -12,7 +12,7 @@ describe('DTO Schemas version property', () => {
   };
 
   it('CompanyDTOSchema should require version', () => {
-    const data = { ...validBase, name: 'Test' };
+    const data = { ...validBase, name: 'Test', search: 'test' };
     expect(CompanyDTOSchema.safeParse(data).success).toBe(true);
 
     const { version, ...withoutVersion } = data;
@@ -20,7 +20,7 @@ describe('DTO Schemas version property', () => {
   });
 
   it('ContactDTOSchema should require version', () => {
-    const data = { ...validBase, firstName: 'John', lastName: 'Doe' };
+    const data = { ...validBase, firstName: 'John', lastName: 'Doe', search: 'john doe' };
     expect(ContactDTOSchema.safeParse(data).success).toBe(true);
 
     const { version, ...withoutVersion } = data;
@@ -58,6 +58,7 @@ describe('DTO Schemas version property', () => {
       ...validBase,
       title: 'Engineer',
       status: RoleStatus.Applied,
+      search: 'engineer',
     };
     expect(RoleDTOSchema.safeParse(data).success).toBe(true);
 
