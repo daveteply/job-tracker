@@ -11,6 +11,8 @@ interface ContactComboboxProps<T extends FieldValues> {
   onSearch: (query: string) => Promise<ContactDTO[]>;
   required?: boolean;
   placeholder?: string;
+  createNewLabel?: (input: string) => string;
+  validateNewEntity?: (input: string) => string | null;
 }
 
 export function ContactCombobox<T extends FieldValues>({
@@ -19,6 +21,8 @@ export function ContactCombobox<T extends FieldValues>({
   onSearch,
   required = false,
   placeholder,
+  createNewLabel,
+  validateNewEntity,
 }: ContactComboboxProps<T>) {
   return (
     <EntityCombobox
@@ -28,6 +32,8 @@ export function ContactCombobox<T extends FieldValues>({
       config={contactComboboxConfig}
       required={required}
       placeholder={placeholder}
+      createNewLabel={createNewLabel}
+      validateNewEntity={validateNewEntity}
     />
   );
 }

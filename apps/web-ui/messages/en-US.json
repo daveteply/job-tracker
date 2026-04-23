@@ -44,7 +44,8 @@
     "backToEvents": "Back to Events",
     "roleEntityName": "role",
     "rolesEntityName": "roles",
-    "formPlaceholder": "Search or type new role title"
+    "formPlaceholder": "Search or type new role title",
+    "formCreate": "Create new role: \"{name}\""
   },
   "Companies": {
     "listTitle": "Companies",
@@ -69,7 +70,8 @@
     "required": "Required",
     "create": "Create",
     "update": "Update",
-    "formPlaceholder": "Search or type new company name"
+    "formPlaceholder": "Search or type new company name",
+    "formCreate": "Create new company: \"{name}\""
   },
   "Contacts": {
     "listTitle": "Contacts",
@@ -99,7 +101,9 @@
     "required": "Required",
     "create": "Create",
     "update": "Update",
-    "formPlaceholder": "Search or type first and last name"
+    "formPlaceholder": "Search or type first and last name",
+    "formCreate": "Create new contact: \"{name}\"",
+    "formValidation": "Please enter both first and last name (e.g., \"John Doe\")"
   },
   "Events": {
     "listTitle": "Events",
@@ -136,6 +140,10 @@
     "formCompanyPlaceholder": "Search or type new company name",
     "formContactPlaceholder": "Search or type first and last name",
     "formRolePlaceholder": "Search or type new role title",
+    "formCreateCompany": "Create new company: \"{name}\"",
+    "formCreateContact": "Create new contact: \"{name}\"",
+    "formCreateRole": "Create new role: \"{name}\"",
+    "formContactValidation": "Please enter both first and last name (e.g., \"John Doe\")",
     "formDateOccurred": "Date Occurred",
     "formSummary": "Summary (optional)",
     "formSummaryPlaceholder": "e.g. Phone screen with Recruiter",

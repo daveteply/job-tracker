@@ -155,6 +155,18 @@ export default function EventsNewPage() {
                     companyPlaceholder={t('formCompanyPlaceholder')}
                     contactPlaceholder={t('formContactPlaceholder')}
                     rolePlaceholder={t('formRolePlaceholder')}
+                    createCompanyLabel={(name) => t('formCreateCompany', { name })}
+                    createContactLabel={(firstNameLastName) =>
+                      t('formCreateContact', { firstNameLastName })
+                    }
+                    createRoleLabel={(title) => t('formCreateRole', { title })}
+                    validateContact={(input) => {
+                      const trimmed = input.trim();
+                      if (!trimmed) return null;
+                      const parts = trimmed.split(/\s+/);
+                      if (parts.length < 2) return t('formContactValidation');
+                      return null;
+                    }}
                   />
                 )}
                 {step === 3 && (

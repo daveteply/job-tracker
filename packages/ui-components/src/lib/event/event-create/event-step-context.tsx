@@ -15,6 +15,10 @@ export interface EventStepContextProps<T extends FieldValues = FieldValues> {
   companyPlaceholder?: string;
   contactPlaceholder?: string;
   rolePlaceholder?: string;
+  createCompanyLabel?: (input: string) => string;
+  createContactLabel?: (input: string) => string;
+  createRoleLabel?: (input: string) => string;
+  validateContact?: (input: string) => string | null;
 }
 
 export function EventStepContext<T extends FieldValues = FieldValues>({
@@ -25,6 +29,10 @@ export function EventStepContext<T extends FieldValues = FieldValues>({
   companyPlaceholder,
   contactPlaceholder,
   rolePlaceholder,
+  createCompanyLabel,
+  createContactLabel,
+  createRoleLabel,
+  validateContact,
 }: EventStepContextProps<T>) {
   const t = useTranslations('Events');
 
@@ -43,6 +51,7 @@ export function EventStepContext<T extends FieldValues = FieldValues>({
           name={'company' as Path<T>}
           onSearch={onSearchCompany}
           placeholder={companyPlaceholder}
+          createNewLabel={createCompanyLabel}
         />
       </div>
 
@@ -57,6 +66,8 @@ export function EventStepContext<T extends FieldValues = FieldValues>({
           name={'contact' as Path<T>}
           onSearch={onSearchContact}
           placeholder={contactPlaceholder}
+          createNewLabel={createContactLabel}
+          validateNewEntity={validateContact}
         />
       </div>
 
@@ -69,6 +80,7 @@ export function EventStepContext<T extends FieldValues = FieldValues>({
           name={'role' as Path<T>}
           onSearch={onSearchRole}
           placeholder={rolePlaceholder}
+          createNewLabel={createRoleLabel}
         />
       </div>
     </div>

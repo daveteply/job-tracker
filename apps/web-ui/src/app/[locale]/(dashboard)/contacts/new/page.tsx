@@ -18,6 +18,7 @@ export default function CreateContactPage() {
         onSearchCompany={searchCompanies}
         postActionRoute={'/contacts'}
         companyPlaceholder={t('formPlaceholder')}
+        createCompanyLabel={(name) => t('formCreate', { name })}
       />
     </>
   );

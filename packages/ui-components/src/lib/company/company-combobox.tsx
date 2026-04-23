@@ -11,6 +11,8 @@ interface CompanyComboboxProps<T extends FieldValues> {
   onSearch: (query: string) => Promise<CompanyDTO[]>;
   required?: boolean;
   placeholder?: string;
+  createNewLabel?: (input: string) => string;
+  validateNewEntity?: (input: string) => string | null;
 }
 
 export function CompanyCombobox<T extends FieldValues>({
@@ -19,6 +21,8 @@ export function CompanyCombobox<T extends FieldValues>({
   onSearch,
   required = false,
   placeholder,
+  createNewLabel,
+  validateNewEntity,
 }: CompanyComboboxProps<T>) {
   return (
     <EntityCombobox
@@ -28,6 +32,8 @@ export function CompanyCombobox<T extends FieldValues>({
       config={companyComboboxConfig}
       required={required}
       placeholder={placeholder}
+      createNewLabel={createNewLabel}
+      validateNewEntity={validateNewEntity}
     />
   );
 }

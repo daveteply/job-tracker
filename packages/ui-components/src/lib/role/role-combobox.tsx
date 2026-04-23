@@ -11,6 +11,8 @@ interface RoleComboboxProps<T extends FieldValues> {
   onSearch: (query: string) => Promise<RoleDTO[]>;
   required?: boolean;
   placeholder?: string;
+  createNewLabel?: (input: string) => string;
+  validateNewEntity?: (input: string) => string | null;
 }
 
 export function RoleCombobox<T extends FieldValues>({
@@ -19,6 +21,8 @@ export function RoleCombobox<T extends FieldValues>({
   onSearch,
   required = false,
   placeholder,
+  createNewLabel,
+  validateNewEntity,
 }: RoleComboboxProps<T>) {
   return (
     <EntityCombobox
@@ -28,6 +32,8 @@ export function RoleCombobox<T extends FieldValues>({
       config={roleComboboxConfig}
       required={required}
       placeholder={placeholder}
+      createNewLabel={createNewLabel}
+      validateNewEntity={validateNewEntity}
     />
   );
 }

@@ -34,6 +34,8 @@ interface EntityComboboxProps<TEntity, T extends FieldValues, TFormValue> {
   config: EntityComboboxConfig<TEntity, TFormValue>;
   required?: boolean;
   placeholder?: string;
+  createNewLabel?: (input: string) => string;
+  validateNewEntity?: (input: string) => string | null;
 }
 
 export function EntityCombobox<TEntity extends { id: string }, T extends FieldValues, TFormValue>({
@@ -43,6 +45,8 @@ export function EntityCombobox<TEntity extends { id: string }, T extends FieldVa
   config,
   required = false,
   placeholder,
+  createNewLabel: createNewLabelProp,
+  validateNewEntity: validateNewEntityProp,
 }: EntityComboboxProps<TEntity, T, TFormValue>) {
   const {
     field: { value, onChange, ref },
@@ -164,7 +168,8 @@ export function EntityCombobox<TEntity extends { id: string }, T extends FieldVa
     }
 
     // Otherwise, proceed with existing logic for new entity creation
-    const validationErr = config.validateNewEntity?.(val) || null;
+    const validateFn = validateNewEntityProp || config.validateNewEntity;
+    const validationErr = validateFn?.(val) || null;
     setValidationError(validationErr);
 
     const parsed = config.parseNewEntity(val);
@@ -184,9 +189,8 @@ export function EntityCombobox<TEntity extends { id: string }, T extends FieldVa
   // Determine if we should show the "create new" option
   const showCreateNew = query.length > 0 && !hasExactMatch && !validationError;
 
-  const createNewLabel = config.createNewLabel
-    ? config.createNewLabel(query)
-    : `Create new: "${query}"`;
+  const createLabelFn = createNewLabelProp || config.createNewLabel;
+  const createNewLabel = createLabelFn ? createLabelFn(query) : `Create new: "${query}"`;
 
   return (
     <div className="relative w-full" ref={containerRef}>

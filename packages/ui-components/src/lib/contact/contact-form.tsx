@@ -18,6 +18,7 @@ interface ContactFormProps<T extends FieldValues> {
   isEdit?: boolean;
   postActionRoute: string;
   companyPlaceholder?: string;
+  createCompanyLabel?: (input: string) => string;
 }
 
 export function ContactForm<T extends FieldValues>({
@@ -27,6 +28,7 @@ export function ContactForm<T extends FieldValues>({
   isEdit = false,
   postActionRoute,
   companyPlaceholder,
+  createCompanyLabel,
 }: ContactFormProps<T>) {
   const t = useTranslations('Contacts');
   const router = useRouter();
@@ -114,6 +116,7 @@ export function ContactForm<T extends FieldValues>({
           name={'company' as Path<T>}
           onSearch={onSearchCompany}
           placeholder={companyPlaceholder}
+          createNewLabel={createCompanyLabel}
         />
         <ErrorMsg name={'company' as Path<T>} />
       </fieldset>

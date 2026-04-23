@@ -42,6 +42,10 @@ interface EventFormProps<T extends EventFormValues> {
   companyPlaceholder?: string;
   contactPlaceholder?: string;
   rolePlaceholder?: string;
+  createCompanyLabel?: (input: string) => string;
+  createContactLabel?: (input: string) => string;
+  createRoleLabel?: (input: string) => string;
+  validateContact?: (input: string) => string | null;
 }
 
 export function EventForm<T extends EventFormValues>({
@@ -57,6 +61,10 @@ export function EventForm<T extends EventFormValues>({
   companyPlaceholder,
   contactPlaceholder,
   rolePlaceholder,
+  createCompanyLabel,
+  createContactLabel,
+  createRoleLabel,
+  validateContact,
 }: EventFormProps<T>) {
   const t = useTranslations('Events');
   const router = useRouter();
@@ -200,6 +208,7 @@ export function EventForm<T extends EventFormValues>({
           name={'company' as Path<T>}
           onSearch={onSearchCompany}
           placeholder={companyPlaceholder}
+          createNewLabel={createCompanyLabel}
         />
         <ErrorMsg name={'company' as Path<T>} />
       </fieldset>
@@ -211,6 +220,8 @@ export function EventForm<T extends EventFormValues>({
           name={'contact' as Path<T>}
           onSearch={onSearchContact}
           placeholder={contactPlaceholder}
+          createNewLabel={createContactLabel}
+          validateNewEntity={validateContact}
         />
         <ErrorMsg name={'contact.firstName' as Path<T>} />
         <ErrorMsg name={'contact.lastName' as Path<T>} />
@@ -223,6 +234,7 @@ export function EventForm<T extends EventFormValues>({
           name={'role' as Path<T>}
           onSearch={onSearchRole}
           placeholder={rolePlaceholder}
+          createNewLabel={createRoleLabel}
         />
         <ErrorMsg name={'title' as Path<T>} />
       </fieldset>

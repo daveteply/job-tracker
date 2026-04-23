@@ -44,7 +44,8 @@
     "backToEvents": "Volver a Eventos",
     "roleEntityName": "rol",
     "rolesEntityName": "roles",
-    "formPlaceholder": "Buscar o escribir el título del nuevo rol"
+    "formPlaceholder": "Buscar o escribir el título del nuevo rol",
+    "formCreate": "Crear nuevo rol: \"{name}\""
   },
   "Companies": {
     "listTitle": "Compañías",
@@ -69,7 +70,8 @@
     "required": "Requerido",
     "create": "Crear",
     "update": "Actualizar",
-    "formPlaceholder": "Buscar o escribir el nombre de la nueva compañía"
+    "formPlaceholder": "Buscar o escribir el nombre de la nueva compañía",
+    "formCreate": "Crear nueva compañía: \"{name}\""
   },
   "Contacts": {
     "listTitle": "Contactos",
@@ -99,7 +101,9 @@
     "required": "Requerido",
     "create": "Crear",
     "update": "Actualizar",
-    "formPlaceholder": "Buscar o escribir nombre y apellido"
+    "formPlaceholder": "Buscar o escribir nombre y apellido",
+    "formCreate": "Crear nuevo contacto: \"{name}\"",
+    "formValidation": "Por favor, ingresa tanto el nombre como el apellido (ej. \"John Doe\")"
   },
   "Events": {
     "listTitle": "Eventos",
@@ -136,6 +140,10 @@
     "formCompanyPlaceholder": "Buscar o escribir el nombre de la nueva compañía",
     "formContactPlaceholder": "Buscar o escribir nombre y apellido",
     "formRolePlaceholder": "Buscar o escribir el título del nuevo rol",
+    "formCreateCompany": "Crear nueva compañía: \"{name}\"",
+    "formCreateContact": "Crear nuevo contacto: \"{name}\"",
+    "formCreateRole": "Crear nuevo rol: \"{name}\"",
+    "formContactValidation": "Por favor, ingresa tanto el nombre como el apellido (ej. \"John Doe\")",
     "formDateOccurred": "Fecha del evento",
     "formSummary": "Resumen (opcional)",
     "formSummaryPlaceholder": "ej. Entrevista telefónica con reclutador",

@@ -36,8 +36,6 @@ export const companyComboboxConfig: EntityComboboxConfig<CompanyDTO, CompanyForm
     isNew: true,
     displayValue: input,
   }),
-
-  createNewLabel: (input) => `Create new company: "${input}"`,
 };
 
 // Contact configuration
@@ -69,29 +67,6 @@ export const contactComboboxConfig: EntityComboboxConfig<ContactDTO, ContactForm
       displayValue: input,
     };
   },
-
-  validateNewEntity: (input) => {
-    const trimmed = input.trim();
-    if (!trimmed) {
-      return null;
-    }
-
-    const parts = trimmed.split(/\s+/);
-    if (parts.length < 2) {
-      return 'Please enter both first and last name (e.g., "John Doe")';
-    }
-
-    return null;
-  },
-
-  createNewLabel: (input) => {
-    const trimmed = input.trim();
-    const parts = trimmed.split(/\s+/);
-    if (parts.length >= 2) {
-      return `Create new contact: "${input}"`;
-    }
-    return 'Enter first and last name to create';
-  },
 };
 
 // Role configuration
@@ -104,6 +79,4 @@ export const roleComboboxConfig: EntityComboboxConfig<RoleDTO, RoleFormValue> = 
     isNew: true,
     displayValue: input,
   }),
-
-  createNewLabel: (input) => `Create new role: "${input}"`,
 };
