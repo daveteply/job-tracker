@@ -4,30 +4,24 @@ This project manages the database and shared infrastructure for the JobTracker m
 
 ## 🐘 Database Migrations
 
-Database migrations are defined as plain SQL files in the `sql/` directory.
+JobTracker uses **Flyway** for database migrations. These are managed within the `apps/sync-backend` project to ensure the schema is always in sync with the backend application.
+
+### Location
+
+Migrations are defined as SQL files located in:
+`apps/sync-backend/src/main/resources/db/migration`
 
 ### Running Migrations
 
-You can run these migrations manually using Nx from the root of the workspace:
+Migrations are automatically applied when the `sync-backend` application starts.
 
-```bash
-npx nx run infrastructure:migrate
-```
-
-**How it works:**
-1.  **Script:** `scripts/migrate.ts` connects to the PostgreSQL `db` service.
-2.  **Configuration:** Uses settings from your `.env` file (User, Password, Database).
-3.  **Tracking:** Creates a `_migrations` table to track which files have already been applied to avoid re-runs.
-4.  **Transaction:** Each migration file is executed within its own SQL transaction (BEGIN/COMMIT).
-
-### Sync Backend Integration
-
-The `apps/sync-backend` Quarkus service also contains Flyway migrations in `src/main/resources/db/migration`. 
-**Important:** Ensure any new tables or schema changes added to `infrastructure/sql` are also reflected in the `sync-backend` Flyway migrations if you want the Java app to manage them during deployment.
+- **Development:** Running `npx nx dev sync-backend` or `npm run start` will trigger migrations on startup.
+- **First-time Setup:** The `npm run setup` command in the root directory clears build artifacts and builds the backend, which is a good way to ensure everything is clean before starting.
 
 ### 🛠️ Troubleshooting
 
-If you cannot connect to the database:
+If you cannot connect to the database or migrations are failing:
 1.  Verify the `db` service is running: `docker compose ps`.
 2.  Check your `.env` settings against the defaults in `docker-compose.yml`.
-3.  Ensure you are running the command from **within the dev container**.
+3.  Ensure you are running commands from **within the dev container**.
+4.  Check the `sync-backend` logs for Flyway output to identify specific SQL errors.

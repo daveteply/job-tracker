@@ -2,7 +2,7 @@
 
 [![Nx](https://img.shields.io/badge/Nx-Workspace-blue?logo=nx)](https://nx.dev)
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)](https://nextjs.org)
-[![Quarkus](https://img.shields.io/badge/Quarkus-3.15-red?logo=quarkus)](https://quarkus.io)
+[![Quarkus](https://img.shields.io/badge/Quarkus-3.34-red?logo=quarkus)](https://quarkus.io)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **JobTracker** is a high-performance, offline-first monorepo application designed to streamline the job search process. Built with modern web technologies and a robust Java backend, it provides a seamless experience for tracking companies, contacts, roles, and interview events.
@@ -38,6 +38,23 @@ graph TD
         J[pgAdmin] -.-> E
     end
 ```
+
+## 📁 Project Structure
+
+### 📱 Applications
+- [**web-ui**](./apps/web-ui/README.md): Next.js frontend with RxDB for offline-first data management.
+- [**sync-backend**](./apps/sync-backend/README.md): Quarkus-based synchronization server and API.
+
+### 📦 Shared Libraries
+- [**domain**](./packages/domain/README.md): Core entities, TypeScript types, and RxDB schemas.
+- [**validation**](./packages/validation/README.md): Shared Zod validation schemas.
+- [**ui-components**](./packages/ui-components/README.md): Reusable React components styled with Tailwind & daisyUI.
+- [**hooks**](./packages/hooks/README.md): Shared React hooks for data access and application state.
+- [**app-logic**](./packages/app-logic/README.md): Core business logic and process coordination.
+- [**data-access**](./packages/data-access/README.md): Shared data fetching and persistence logic.
+
+### 🐳 Infrastructure
+- [**infrastructure**](./infrastructure/README.md): Database migrations (Flyway), PGAdmin configuration, and environment setup.
 
 ---
 

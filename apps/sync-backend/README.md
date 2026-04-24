@@ -11,8 +11,19 @@ The high-performance Java backend for JobTracker, responsible for real-time data
 
 ## 🏃 Getting Started
 
+### Local Development
+
 Run the development server (requires Docker for PostgreSQL):
 
 ```bash
 npx nx dev sync-backend
 ```
+
+### Workspace Commands
+
+You can also manage the backend from the root directory:
+
+- `npm run setup`: Clears build artifacts and performs a fresh build.
+- `npm run start`: Starts both the backend and frontend.
+- `npm run start:backend`: Starts only the backend.
+

@@ -11,8 +11,19 @@ The frontend application for JobTracker, providing a modern, responsive interfac
 
 ## 🏃 Getting Started
 
+### Local Development
+
 Run the development server:
 
 ```bash
 npx nx dev web-ui
 ```
+
+### Workspace Commands
+
+You can also manage the frontend from the root directory:
+
+- `npm run start`: Starts both the frontend and backend.
+- `npx nx test web-ui`: Runs unit tests.
+- `npx nx e2e web-ui-e2e`: Runs E2E tests.
+
