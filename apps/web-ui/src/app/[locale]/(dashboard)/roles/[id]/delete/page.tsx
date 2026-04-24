@@ -43,8 +43,6 @@ export default function DeleteRolePage({ params }: { params: Promise<{ id: strin
             <p>
               {t('deleteBlocker', {
                 events: blockers.events,
-                roles: blockers.roles,
-                roles2: blockers.roles,
               })}
             </p>
             <div className="flex">

@@ -43,8 +43,6 @@ export default function DeleteContactPage({ params }: { params: Promise<{ id: st
             <p>
               {t('deleteBlocker', {
                 events: blockers.events,
-                contacts: blockers.contacts,
-                roles: blockers.roles,
               })}
             </p>
             <div className="flex">
