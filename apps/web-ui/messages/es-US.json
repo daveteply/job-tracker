@@ -5,7 +5,11 @@
     "create": "Crear",
     "update": "Actualizar",
     "required": "Requerido",
-    "database": "Base de datos"
+    "database": "Base de datos",
+    "deleteReminder": "Recordatorio: Esta acción no se puede deshacer",
+    "deleteAction": "Eliminar {name}",
+    "deleteSuccess": "¡{name} se eliminó correctamente!",
+    "deleteError": "No se pudo eliminar {name}"
   },
   "IndexPage": {
     "title": "Job Tracker",

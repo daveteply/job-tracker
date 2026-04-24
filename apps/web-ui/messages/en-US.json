@@ -5,7 +5,11 @@
     "create": "Create",
     "update": "Update",
     "required": "Required",
-    "database": "Database"
+    "database": "Database",
+    "deleteReminder": "Reminder: This action cannot be undone",
+    "deleteAction": "Delete {name}",
+    "deleteSuccess": "{name} deleted successfully!",
+    "deleteError": "Could not delete {name}"
   },
   "IndexPage": {
     "title": "Job Tracker",

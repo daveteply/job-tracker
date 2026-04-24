@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl';
 
 export default function DeleteEventPage({ params }: { params: Promise<{ id: string }> }) {
   const t = useTranslations('Events');
+  const tCommon = useTranslations('Common');
   const { id } = use(params);
   const { event, loading } = useEventWithChildren(id);
 
@@ -23,9 +24,16 @@ export default function DeleteEventPage({ params }: { params: Promise<{ id: stri
         <EventInfoCard event={event} showControls={false}></EventInfoCard>
         <EntityDelete
           id={event.id}
-          entityName="event"
+          entityName={t('eventEntityName')}
           postActionRoute="/activity"
           onDeleteAction={removeEvent}
+          translations={{
+            reminder: tCommon('deleteReminder'),
+            confirm: tCommon('deleteAction', { name: t('eventEntityName') }),
+            cancel: tCommon('cancel'),
+            success: tCommon('deleteSuccess', { name: t('eventEntityName') }),
+            error: tCommon('deleteError', { name: t('eventEntityName') }),
+          }}
         />
       </>
     </div>

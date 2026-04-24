@@ -8,6 +8,7 @@ import { useTranslations } from 'next-intl';
 
 export default function DeleteContactPage({ params }: { params: Promise<{ id: string }> }) {
   const t = useTranslations('Contacts');
+  const tCommon = useTranslations('Common');
   const { id } = use(params);
   const { contact, loading } = useContactWithCompany(id);
 
@@ -29,6 +30,13 @@ export default function DeleteContactPage({ params }: { params: Promise<{ id: st
             onDeleteAction={removeContact}
             entityName={t('contactEntityName')}
             postActionRoute="/contacts"
+            translations={{
+              reminder: tCommon('deleteReminder'),
+              confirm: tCommon('deleteAction', { name: t('contactEntityName') }),
+              cancel: tCommon('cancel'),
+              success: tCommon('deleteSuccess', { name: t('contactEntityName') }),
+              error: tCommon('deleteError', { name: t('contactEntityName') }),
+            }}
           />
         ) : (
           <>

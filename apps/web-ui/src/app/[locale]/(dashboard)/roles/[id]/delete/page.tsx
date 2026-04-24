@@ -8,6 +8,7 @@ import { useTranslations } from 'next-intl';
 
 export default function DeleteRolePage({ params }: { params: Promise<{ id: string }> }) {
   const t = useTranslations('Roles');
+  const tCommon = useTranslations('Common');
   const { id } = use(params);
   const { role, loading } = useRoleWithCompany(id);
 
@@ -29,6 +30,13 @@ export default function DeleteRolePage({ params }: { params: Promise<{ id: strin
             onDeleteAction={removeRole}
             entityName={t('roleEntityName')}
             postActionRoute="/roles"
+            translations={{
+              reminder: tCommon('deleteReminder'),
+              confirm: tCommon('deleteAction', { name: t('roleEntityName') }),
+              cancel: tCommon('cancel'),
+              success: tCommon('deleteSuccess', { name: t('roleEntityName') }),
+              error: tCommon('deleteError', { name: t('roleEntityName') }),
+            }}
           />
         ) : (
           <>

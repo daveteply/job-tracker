@@ -8,8 +8,10 @@ import { useTranslations } from 'next-intl';
 
 export default function DeleteCompanyPage({ params }: { params: Promise<{ id: string }> }) {
   const t = useTranslations('Companies');
+  const tCommon = useTranslations('Common');
   const { id } = use(params);
   const { company, loading } = useCompany(id);
+
   const { removeCompany } = useCompanyActions();
   const { canDelete, blockers, loading: deleteCheckLoading } = useCanDeleteCompany(id);
 
@@ -28,6 +30,13 @@ export default function DeleteCompanyPage({ params }: { params: Promise<{ id: st
             onDeleteAction={removeCompany}
             entityName={t('companyEntityName')}
             postActionRoute="/companies"
+            translations={{
+              reminder: tCommon('deleteReminder'),
+              confirm: tCommon('deleteAction', { name: t('companyEntityName') }),
+              cancel: tCommon('cancel'),
+              success: tCommon('deleteSuccess', { name: t('companyEntityName') }),
+              error: tCommon('deleteError', { name: t('companyEntityName') }),
+            }}
           />
         ) : (
           <>
