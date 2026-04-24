@@ -39,7 +39,7 @@ export function EventInfoCard({ event, showControls = true }: EventInfoCardProps
 
   return (
     <div
-      className={`card bg-base-300 relative mb-3 w-full rounded-xl border-l-5 shadow-sm transition-transform hover:shadow-md active:scale-[0.99] ${borderClass}`}
+      className={`card bg-base-300 relative w-full rounded-xl border-l-5 shadow-sm transition-transform hover:shadow-md active:scale-[0.99] ${borderClass}`}
     >
       {/* The invisible primary link */}
       <Link

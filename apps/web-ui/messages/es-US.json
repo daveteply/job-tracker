@@ -64,7 +64,8 @@
     "rolesEntityName": "roles",
     "formPlaceholder": "Buscar o escribir el título del nuevo rol",
     "formCreate": "Crear nuevo rol: \"{name}\"",
-    "formCreateCompany": "Crear nueva compañía: \"{name}\""
+    "formCreateCompany": "Crear nueva compañía: \"{name}\"",
+    "noRolesFound": "No se encontraron roles"
   },
   "Companies": {
     "listTitle": "Compañías",
@@ -87,7 +88,8 @@
     "formSizeRange": "Tamaño",
     "formNotes": "Notas",
     "formPlaceholder": "Buscar o escribir el nombre de la nueva compañía",
-    "formCreate": "Crear nueva compañía: \"{name}\""
+    "formCreate": "Crear nueva compañía: \"{name}\"",
+    "noCompaniesFound": "No se encontraron compañías"
   },
   "Contacts": {
     "listTitle": "Contactos",
@@ -117,7 +119,8 @@
     "formPlaceholder": "Buscar o escribir nombre y apellido",
     "formCreate": "Crear nuevo contacto: \"{name}\"",
     "formCreateCompany": "Crear nueva compañía: \"{name}\"",
-    "formValidation": "Por favor, ingresa tanto el nombre como el apellido (ej. \"John Doe\")"
+    "formValidation": "Por favor, ingresa tanto el nombre como el apellido (ej. \"John Doe\")",
+    "noContactsFound": "No se encontraron contactos"
   },
   "Events": {
     "listTitle": "Eventos",
@@ -164,6 +167,7 @@
     "formSummaryPlaceholder": "ej. Entrevista telefónica con reclutador",
     "formDetails": "Detalles (opcional)",
     "formDetailsPlaceholder": "Agrega detalles adicionales...",
+    "formContactValidation": "Por favor, ingresa tanto el nombre como el apellido (ej. \"John Doe\")",
     "whatKindEvent": "¿Qué tipo de evento es este?",
     "contextTitle": "¿De qué trata esto y con quién?",
     "selectEventType": "Selecciona un tipo de evento",
@@ -185,7 +189,8 @@
     "addReminder": "Agregar Recordatorio",
     "noPendingReminders": "No hay recordatorios pendientes",
     "emptyStateDescription": "¡Estás al día! Cuando registres eventos, puedes configurar recordatorios para dar seguimiento o realizar los siguientes pasos.",
-    "newEventWithReminder": "Nuevo Evento con Recordatorio"
+    "newEventWithReminder": "Nuevo Evento con Recordatorio",
+    "noRemindersFound": "No se encontraron recordatorios"
   },
   "Activity": {
     "listTitle": "Actividad",

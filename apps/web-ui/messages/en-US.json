@@ -64,7 +64,8 @@
     "rolesEntityName": "roles",
     "formPlaceholder": "Search or type new role title",
     "formCreate": "Create new role: \"{name}\"",
-    "formCreateCompany": "Create new company: \"{name}\""
+    "formCreateCompany": "Create new company: \"{name}\"",
+    "noRolesFound": "No roles found"
   },
   "Companies": {
     "listTitle": "Companies",
@@ -87,7 +88,8 @@
     "formSizeRange": "Size Range",
     "formNotes": "Notes",
     "formPlaceholder": "Search or type new company name",
-    "formCreate": "Create new company: \"{name}\""
+    "formCreate": "Create new company: \"{name}\"",
+    "noCompaniesFound": "No companies found"
   },
   "Contacts": {
     "listTitle": "Contacts",
@@ -117,7 +119,8 @@
     "formPlaceholder": "Search or type first and last name",
     "formCreate": "Create new contact: \"{name}\"",
     "formCreateCompany": "Create new company: \"{name}\"",
-    "formValidation": "Please enter both first and last name (e.g., \"John Doe\")"
+    "formValidation": "Please enter both first and last name (e.g., \"John Doe\")",
+    "noContactsFound": "No contacts found"
   },
   "Events": {
     "listTitle": "Events",
@@ -164,6 +167,7 @@
     "formSummaryPlaceholder": "e.g. Phone screen with Recruiter",
     "formDetails": "Details (optional)",
     "formDetailsPlaceholder": "Add any extra details...",
+    "formContactValidation": "Please enter both first and last name (e.g., \"John Doe\")",
     "whatKindEvent": "What kind of event is this?",
     "contextTitle": "Who and what is this about?",
     "selectEventType": "Select an event type",
@@ -185,7 +189,8 @@
     "addReminder": "Add Reminder",
     "noPendingReminders": "No pending reminders",
     "emptyStateDescription": "You're all caught up! When you log events, you can set reminders to follow up or perform next steps.",
-    "newEventWithReminder": "New Event with Reminder"
+    "newEventWithReminder": "New Event with Reminder",
+    "noRemindersFound": "No reminders found"
   },
   "Activity": {
     "listTitle": "Activity",

@@ -7,21 +7,23 @@ import { useTranslations } from 'next-intl';
 export interface EventListProps {
   events: EventWithChildrenDTO[];
   showControls?: boolean;
+  noEventsMessage?: string;
 }
 
-export function EventList(props: EventListProps) {
+export function EventList({ events, showControls, noEventsMessage }: EventListProps) {
   const t = useTranslations('Events');
+  const message = noEventsMessage || t('noEventsFound');
 
   return (
-    <div className="flex flex-wrap">
-      {props.events && props.events.length ? (
+    <div className="flex flex-col gap-3">
+      {events && events.length ? (
         <>
-          {props.events.map((event: EventWithChildrenDTO) => (
-            <EventInfoCard key={event.id} event={event} showControls={props.showControls} />
+          {events.map((event: EventWithChildrenDTO) => (
+            <EventInfoCard key={event.id} event={event} showControls={showControls} />
           ))}
         </>
       ) : (
-        <p className="px-1 text-sm italic opacity-50">{t('noEventsFound')}</p>
+        <p className="px-1 text-sm italic opacity-50">{message}</p>
       )}
     </div>
   );

@@ -6,7 +6,7 @@ import {
   useReminderActions,
   useRolesWithCompany,
 } from '@job-tracker/hooks';
-import { ReminderList, EventList, RoleInfoCard } from '@job-tracker/ui-components';
+import { ReminderList, EventList, RoleList } from '@job-tracker/ui-components';
 import { RoleStatus } from '@job-tracker/domain';
 import { useMemo } from 'react';
 import { Link } from '../../../../i18n/routing';
@@ -113,14 +113,12 @@ export default function HomePage() {
           <div className="flex justify-center p-4">
             <span className="loading loading-spinner loading-md"></span>
           </div>
-        ) : activeRoles.length > 0 ? (
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            {activeRoles.map((role) => (
-              <RoleInfoCard key={role.id} role={role} renderFull={false} />
-            ))}
-          </div>
         ) : (
-          <p className="px-1 text-sm italic opacity-50">{t('noActiveRoles')}</p>
+          <RoleList
+            roles={activeRoles}
+            renderFull={false}
+            noRolesMessage={t('noActiveRoles')}
+          />
         )}
       </section>
     </div>

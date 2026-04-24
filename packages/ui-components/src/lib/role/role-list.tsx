@@ -2,22 +2,32 @@
 
 import { RoleDTO } from '@job-tracker/validation';
 import RoleInfoCard from './role-info-card';
+import { useTranslations } from 'next-intl';
 
 export interface RoleListProps {
   roles: RoleDTO[];
+  renderFull?: boolean;
+  noRolesMessage?: string;
 }
 
-export function RoleList({ roles }: RoleListProps) {
+export function RoleList({
+  roles,
+  renderFull = true,
+  noRolesMessage,
+}: RoleListProps) {
+  const t = useTranslations('Roles');
+  const message = noRolesMessage || t('noRolesFound');
+
   return (
     <div className="flex flex-col gap-3">
       {roles && roles.length ? (
         <>
-          {roles.map((Role: RoleDTO) => (
-            <RoleInfoCard key={Role.id} role={Role} />
+          {roles.map((role: RoleDTO) => (
+            <RoleInfoCard key={role.id} role={role} renderFull={renderFull} />
           ))}
         </>
       ) : (
-        <p className="px-1 text-sm italic opacity-50">No Roles found</p>
+        <p className="px-1 text-sm italic opacity-50">{message}</p>
       )}
     </div>
   );

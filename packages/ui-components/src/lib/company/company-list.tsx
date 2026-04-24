@@ -2,12 +2,17 @@
 
 import CompanyInfoCard from './company-info-card';
 import { CompanyDTO } from '@job-tracker/validation';
+import { useTranslations } from 'next-intl';
 
 export interface CompanyListProps {
   companies: CompanyDTO[];
+  noCompaniesMessage?: string;
 }
 
-export function CompanyList({ companies }: CompanyListProps) {
+export function CompanyList({ companies, noCompaniesMessage }: CompanyListProps) {
+  const t = useTranslations('Companies');
+  const message = noCompaniesMessage || t('noCompaniesFound');
+
   return (
     <div className="flex flex-col gap-3">
       {companies && companies.length ? (
@@ -17,7 +22,7 @@ export function CompanyList({ companies }: CompanyListProps) {
           ))}
         </>
       ) : (
-        <p className="px-1 text-sm italic opacity-50">No Companies found</p>
+        <p className="px-1 text-sm italic opacity-50">{message}</p>
       )}
     </div>
   );
