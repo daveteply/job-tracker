@@ -2,6 +2,7 @@
 
 import ReminderInfoCard from './reminder-info-card';
 import { ReminderWithChildrenDTO } from '@job-tracker/validation';
+import { AnimatedList } from '../common/animated-list';
 
 export interface ReminderListProps {
   reminders: ReminderWithChildrenDTO[];
@@ -9,18 +10,18 @@ export interface ReminderListProps {
 }
 
 export function ReminderList({ reminders, onComplete }: ReminderListProps) {
+  if (!reminders || !reminders.length) {
+    return <p className="text-sm italic opacity-50">No reminders found</p>;
+  }
+
   return (
-    <div className="flex flex-col gap-3">
-      {reminders && reminders.length ? (
-        <>
-          {reminders.map((reminder) => (
-            <ReminderInfoCard key={reminder.id} reminder={reminder} onComplete={onComplete} />
-          ))}
-        </>
-      ) : (
-        <p className="text-sm italic opacity-50">No reminders found</p>
+    <AnimatedList
+      items={reminders}
+      getItemId={(reminder) => reminder.id}
+      renderItem={(reminder) => (
+        <ReminderInfoCard reminder={reminder} onComplete={onComplete} />
       )}
-    </div>
+    />
   );
 }
 

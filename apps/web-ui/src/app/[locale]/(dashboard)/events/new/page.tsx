@@ -25,6 +25,7 @@ import { inferDirectionFromEventType } from '@job-tracker/app-logic';
 
 export default function EventsNewPage() {
   const t = useTranslations('Events');
+  const tCommon = useTranslations('Common');
   const router = useRouter();
   const { eventTypes, loading: eventTypesLoading } = useEventTypes();
   const { searchCompanies } = useCompanySearch();
@@ -198,7 +199,7 @@ export default function EventsNewPage() {
                     className="btn btn-ghost"
                     onClick={() => router.push('/activity')}
                   >
-                    {t('cancel')}
+                    {tCommon('cancel')}
                   </button>
                   {step < 4 && (
                     <button

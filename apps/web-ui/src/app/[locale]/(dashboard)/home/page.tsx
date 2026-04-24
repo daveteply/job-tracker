@@ -67,6 +67,7 @@ export default function HomePage() {
             src="/android-chrome-192x192.png"
             alt="Job Tracker Logo"
             fill
+            sizes="80px"
             className="object-contain"
           />
         </div>

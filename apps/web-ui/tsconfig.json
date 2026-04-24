@@ -21,7 +21,7 @@
         "name": "next"
       }
     ],
-    "types": ["jest", "node"]
+    "types": ["jest", "node", "react/canary"]
   },
   "include": [
     "**/*.ts",

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { startTransition, useEffect, useState } from 'react';
 import { Observable } from 'rxjs';
 
 export function useObservable<T>(
@@ -11,7 +11,11 @@ export function useObservable<T>(
     if (!observable$) return;
 
     const subscription = observable$.subscribe({
-      next: (val) => setValue(val),
+      next: (val) => {
+        startTransition(() => {
+          setValue(val);
+        });
+      },
       error: (err) => console.error('useObservable error:', err),
     });
 
