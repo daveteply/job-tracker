@@ -83,18 +83,15 @@ export const DatabaseProvider = ({ children }: { children: React.ReactNode }) =>
     setupDB();
   }, [db, status, session?.user?.id]);
 
-  if (!db) {
-    return (
-      <div className="absolute inset-0 flex items-center justify-center bg-base-100/50 backdrop-blur-none z-50">
-        <div>
-          <span className="mr-2 capitalize">Loading Database...</span>
-          <span className="loading loading-bars loading-xs text-primary"></span>
-        </div>
-      </div>
-    );
-  }
-
   return <DatabaseContext.Provider value={{ db, syncStatus }}>{children}</DatabaseContext.Provider>;
+};
+
+export const DatabaseGate = ({ children, fallback }: { children: React.ReactNode; fallback: React.ReactNode }) => {
+  const db = useDb();
+  if (!db) {
+    return <>{fallback}</>;
+  }
+  return <>{children}</>;
 };
 
 export const useDb = () => {

@@ -4,7 +4,8 @@
     "cancel": "Cancel",
     "create": "Create",
     "update": "Update",
-    "required": "Required"
+    "required": "Required",
+    "database": "Database"
   },
   "IndexPage": {
     "title": "Job Tracker",
