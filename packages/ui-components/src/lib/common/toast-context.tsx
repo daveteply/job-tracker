@@ -1,6 +1,7 @@
 'use client';
 
-import { createContext, useContext, useState, useCallback, ReactNode } from 'react';
+import { createContext, useContext, useState, useCallback, ReactNode, useEffect } from 'react';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 
 type ToastType = 'info' | 'success' | 'warning' | 'error';
 
@@ -27,19 +28,57 @@ const ToastContext = createContext<ToastContextType | undefined>(undefined);
 
 export const ToastProvider = ({ children }: { children: ReactNode }) => {
   const [toast, setToast] = useState<Toast | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    if (!toast) return;
+
+    setIsVisible(true);
+    const timer = setTimeout(() => {
+      setIsVisible(false);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [toast]);
+
+  useEffect(() => {
+    if (isVisible || !toast) return;
+
+    const timer = setTimeout(() => {
+      setToast(null);
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [isVisible, toast]);
 
   const showToast = useCallback((message: string, type: ToastType = 'info') => {
     setToast({ message, type });
-    setTimeout(() => setToast(null), 3000);
   }, []);
+
+  const handleManualClose = () => {
+    setIsVisible(false);
+    setToast(null);
+  };
 
   return (
     <ToastContext.Provider value={{ showToast }}>
       {children}
       {toast && (
-        <div className="toast toast-top toast-end z-100">
-          <div className={`alert ${alertStyleMap[toast.type]} shadow-lg`}>
+        <div
+          className={`toast toast-top toast-end z-100 transition-opacity duration-500 ${
+            isVisible ? 'opacity-100' : 'opacity-0'
+          }`}
+        >
+          <div
+            role="alert"
+            className={`alert ${alertStyleMap[toast.type]} flex items-center justify-between gap-2 shadow-lg`}
+          >
             <span>{toast.message}</span>
+            <button
+              onClick={handleManualClose}
+              className="btn btn-ghost btn-circle btn-xs"
+              aria-label="Close"
+            >
+              <XMarkIcon className="h-4 w-4" />
+            </button>
           </div>
         </div>
       )}
