@@ -1,6 +1,6 @@
 {
   "Common": {
-    "title": "Job Tracker",
+    "title": "Rastreador de Empleo",
     "cancel": "Cancelar",
     "create": "Crear",
     "update": "Actualizar",
@@ -8,8 +8,17 @@
     "database": "Base de datos",
     "deleteReminder": "Recordatorio: Esta acción no se puede deshacer",
     "deleteAction": "Eliminar {name}",
-    "deleteSuccess": "¡{name} se eliminó correctamente!",
-    "deleteError": "No se pudo eliminar {name}"
+    "deleteSuccess": "¡{name} eliminado con éxito!",
+    "deleteError": "No se pudo eliminar {name}",
+    "Loading": {
+      "0": "Cargando {entityName}",
+      "1": "Redirigiendo satélites para {entityName}",
+      "2": "Preparando café para {entityName}",
+      "3": "Persiguiendo a {entityName} por la manzana",
+      "4": "Puliendo los píxeles de {entityName}",
+      "5": "Enseñando a {entityName} a traer la pelota",
+      "count": "6"
+    }
   },
   "IndexPage": {
     "title": "Job Tracker",

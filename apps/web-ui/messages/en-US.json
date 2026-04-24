@@ -9,7 +9,16 @@
     "deleteReminder": "Reminder: This action cannot be undone",
     "deleteAction": "Delete {name}",
     "deleteSuccess": "{name} deleted successfully!",
-    "deleteError": "Could not delete {name}"
+    "deleteError": "Could not delete {name}",
+    "Loading": {
+      "0": "Loading {entityName}",
+      "1": "Rerouting satellites for {entityName}",
+      "2": "Brewing coffee for {entityName}",
+      "3": "Chasing {entityName} around the block",
+      "4": "Polishing {entityName} pixels",
+      "5": "Teaching {entityName} to fetch",
+      "count": "6"
+    }
   },
   "IndexPage": {
     "title": "Job Tracker",
