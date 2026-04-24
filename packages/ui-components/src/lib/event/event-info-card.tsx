@@ -57,7 +57,7 @@ export function EventInfoCard({ event, showControls = true }: EventInfoCardProps
         <div className="flex items-center justify-between">
           <div className="flex">
             <span className="badge badge-info mr-1 truncate text-xs">{eventName}</span>
-            <span className="tooltip z-10" data-tip={tEnum(`DirectionType.${event.direction}`)}>
+            <span className="tooltip" data-tip={tEnum(`DirectionType.${event.direction}`)}>
               {event.direction === DirectionType.Inbound ? (
                 <div className="flex items-center">
                   <ChevronDoubleRightIcon className="size-5" />

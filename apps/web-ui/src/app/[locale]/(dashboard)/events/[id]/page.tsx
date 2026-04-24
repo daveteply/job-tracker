@@ -19,7 +19,7 @@ export default function EventDetailsPage({ params }: { params: Promise<{ id: str
   const { id } = use(params);
   const { event, loading } = useEventWithChildren(id);
 
-  if (loading) return <PageLoading entityName="event" />;
+  if (loading) return <PageLoading entityName={t('eventEntityName')} />;
   if (!event) return <div>{t('notFound')}</div>;
 
   return (

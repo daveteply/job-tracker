@@ -54,8 +54,8 @@ export default function EventUpdatePage({ params }: { params: Promise<{ id: stri
   const { searchRoles } = useRoleSearch();
   const { eventTypes, loading: eventTypesLoading } = useEventTypes();
 
-  if (loading || eventTypesLoading) return <PageLoading entityName="event" />;
-  if (!event) return <div>Event not found</div>;
+  if (loading || eventTypesLoading) return <PageLoading entityName={t('eventEntityName')} />;
+  if (!event) return <div>{t('notFound')}</div>;
 
   const handleUpdate = async (data: EventEditFormData) => {
     return upsertEvent({ ...data, id });
@@ -91,7 +91,7 @@ export default function EventUpdatePage({ params }: { params: Promise<{ id: stri
 
   return (
     <>
-      <h1 className="mb-5 text-xl">Edit Event</h1>
+      <h1 className="mb-5 text-xl">{t('editTitle')}</h1>
       <EventForm
         isEdit={true}
         initialData={initialData}
