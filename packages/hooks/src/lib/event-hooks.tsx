@@ -331,7 +331,7 @@ export function useEventActions() {
           }
         }
 
-        return { success: true, message: 'Event saved successfully' };
+        return { success: true, message: 'Event saved successfully', id };
       } catch (error) {
         console.error('Failed to upsert Event:', error);
         return { success: false, message: 'Failed to save Event' };
@@ -350,7 +350,7 @@ export function useEventActions() {
           }
         }
 
-        await repository.remove(id);
+        await repository.deleteById(id);
         return { success: true, message: 'Event removed successfully' };
       } catch (error) {
         console.error('Failed to remove Event:', error);

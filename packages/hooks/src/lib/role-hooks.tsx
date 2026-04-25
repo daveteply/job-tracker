@@ -6,6 +6,7 @@ import { resolveCompanyId, type EntitySelection } from '@job-tracker/app-logic';
 import { RoleDTO, RoleWithCompanyDTO } from '@job-tracker/validation';
 import { combineLatest, map } from 'rxjs';
 import { useObservable } from './use-observable';
+import { EMPTY_DELETION_BLOCKERS } from '@job-tracker/app-logic';
 
 export function useRoleRepository() {
   const db = useDb();
@@ -89,11 +90,7 @@ export function useRolesWithCompany() {
 export function useCanDeleteRole(roleId: string): DeletionCheck {
   const repository = useRoleRepository();
   const [canDelete, setCanDelete] = useState(false);
-  const [blockers, setBlockers] = useState({
-    events: 0,
-    contacts: 0,
-    roles: 0,
-  });
+  const [blockers, setBlockers] = useState(EMPTY_DELETION_BLOCKERS);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -175,7 +172,7 @@ export function useRoleActions() {
           title,
         });
 
-        return { success: true, message: 'Role saved successfully' };
+        return { success: true, message: 'Role saved successfully', id };
       } catch (error) {
         console.error('Failed to upsert Role:', error);
         return { success: false, message: 'Failed to save Role' };
@@ -187,7 +184,7 @@ export function useRoleActions() {
       }
 
       try {
-        await repository.remove(id);
+        await repository.deleteById(id);
         return { success: true, message: 'Role removed successfully' };
       } catch (error) {
         console.error('Failed to remove Role:', error);

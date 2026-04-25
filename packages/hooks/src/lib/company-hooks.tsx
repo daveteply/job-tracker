@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { CompanyRepository, DeletionCheck, useDb } from '@job-tracker/data-access';
 import { CompanyDTO } from '@job-tracker/validation';
 import { useObservable } from './use-observable';
+import { EMPTY_DELETION_BLOCKERS } from '@job-tracker/app-logic';
 
 export function useCompanyRepository() {
   const db = useDb();
@@ -36,7 +37,7 @@ export function useCompanies() {
   const repository = useCompanyRepository();
 
   const companies$ = useMemo(() => {
-    return repository?.getAll$();
+    return repository?.list$();
   }, [repository]);
 
   const companies = useObservable<CompanyDTO[]>(companies$, []);
@@ -51,11 +52,7 @@ export function useCompanies() {
 export function useCanDeleteCompany(companyId: string): DeletionCheck {
   const repository = useCompanyRepository();
   const [canDelete, setCanDelete] = useState(false);
-  const [blockers, setBlockers] = useState({
-    events: 0,
-    contacts: 0,
-    roles: 0,
-  });
+  const [blockers, setBlockers] = useState(EMPTY_DELETION_BLOCKERS);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -119,7 +116,7 @@ export function useCompanyActions() {
           name,
         });
 
-        return { success: true, message: 'Company saved successfully' };
+        return { success: true, message: 'Company saved successfully', id };
       } catch (error) {
         console.error('Failed to upsert company:', error);
         return { success: false, message: 'Failed to save company' };
@@ -131,7 +128,7 @@ export function useCompanyActions() {
       }
 
       try {
-        await repository.remove(id);
+        await repository.deleteById(id);
         return { success: true, message: 'Company removed successfully' };
       } catch (error) {
         console.error('Failed to remove company:', error);

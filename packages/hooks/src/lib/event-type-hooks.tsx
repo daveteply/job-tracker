@@ -72,7 +72,7 @@ export function useEventTypeActions() {
           name,
         });
 
-        return { success: true, message: 'Event Type saved successfully' };
+        return { success: true, message: 'Event Type saved successfully', id };
       } catch (error) {
         console.error('Failed to upsert Event Type:', error);
         return { success: false, message: 'Failed to save Event Type' };
@@ -84,7 +84,7 @@ export function useEventTypeActions() {
       }
 
       try {
-        await repository.remove(id);
+        await repository.deleteById(id);
         return { success: true, message: 'Event Type removed successfully' };
       } catch (error) {
         console.error('Failed to remove Event Type:', error);

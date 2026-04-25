@@ -11,6 +11,7 @@ import { resolveCompanyId, type EntitySelection } from '@job-tracker/app-logic';
 import { ContactDTO, ContactWithCompanyDTO } from '@job-tracker/validation';
 import { combineLatest, map } from 'rxjs';
 import { useObservable } from './use-observable';
+import { EMPTY_DELETION_BLOCKERS } from '@job-tracker/app-logic';
 
 export function useContactRepository() {
   const db = useDb();
@@ -96,11 +97,7 @@ export function useContactsWithCompany() {
 export function useCanDeleteContact(contactId: string): DeletionCheck {
   const repository = useContactRepository();
   const [canDelete, setCanDelete] = useState(false);
-  const [blockers, setBlockers] = useState({
-    events: 0,
-    contacts: 0,
-    roles: 0,
-  });
+  const [blockers, setBlockers] = useState(EMPTY_DELETION_BLOCKERS);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -184,7 +181,7 @@ export function useContactActions() {
           lastName,
         });
 
-        return { success: true, message: 'Contact saved successfully' };
+        return { success: true, message: 'Contact saved successfully', id };
       } catch (error) {
         console.error('Failed to upsert Contact:', error);
         return { success: false, message: 'Failed to save Contact' };
@@ -196,7 +193,7 @@ export function useContactActions() {
       }
 
       try {
-        await repository.remove(id);
+        await repository.deleteById(id);
         return { success: true, message: 'Contact removed successfully' };
       } catch (error) {
         console.error('Failed to remove Contact:', error);
