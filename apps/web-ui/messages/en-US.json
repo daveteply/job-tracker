@@ -198,6 +198,8 @@
     "reminderNotFound": "Reminder not found",
     "reminderEntityName": "reminder",
     "remindersEntityName": "reminders",
+    "markAsComplete": "Mark as Complete",
+    "markAsCompletedLabel": "Mark reminder as completed",
     "formRemindAt": "Remind At",
     "formCompletedAt": "Completed At",
     "formEvent": "Event"

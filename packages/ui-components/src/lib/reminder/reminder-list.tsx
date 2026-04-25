@@ -6,13 +6,11 @@ import { useTranslations } from 'next-intl';
 
 export interface ReminderListProps {
   reminders: ReminderWithChildrenDTO[];
-  onComplete?: (id: string) => void;
   noRemindersMessage?: string;
 }
 
 export function ReminderList({
   reminders,
-  onComplete,
   noRemindersMessage,
 }: ReminderListProps) {
   const t = useTranslations('Reminders');
@@ -28,7 +26,6 @@ export function ReminderList({
         <ReminderInfoCard
           key={reminder.id}
           reminder={reminder}
-          onComplete={onComplete}
         />
       ))}
     </div>

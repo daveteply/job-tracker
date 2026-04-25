@@ -3,7 +3,6 @@
 import {
   useEventsWithChildren,
   useRemindersWithChildren,
-  useReminderActions,
   useRolesWithCompany,
 } from '@job-tracker/hooks';
 import { ReminderList, EventList, RoleList } from '@job-tracker/ui-components';
@@ -19,7 +18,6 @@ export default function HomePage() {
   const { reminders, loading: loadingReminders } = useRemindersWithChildren();
   const { events, loading: loadingEvents } = useEventsWithChildren();
   const { roles, loading: loadingRoles } = useRolesWithCompany();
-  const { completeReminder } = useReminderActions();
 
   const activeReminders = useMemo(() => {
     return reminders
@@ -92,7 +90,7 @@ export default function HomePage() {
             <span className="loading loading-spinner loading-md"></span>
           </div>
         ) : (
-          <ReminderList reminders={activeReminders} onComplete={completeReminder} />
+          <ReminderList reminders={activeReminders} />
         )}
       </section>
 

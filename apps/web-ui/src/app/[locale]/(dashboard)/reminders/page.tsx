@@ -1,7 +1,7 @@
 'use client';
 
 import { PlusCircleIcon } from '@heroicons/react/16/solid';
-import { useReminderActions, useRemindersWithChildren } from '@job-tracker/hooks';
+import { useRemindersWithChildren } from '@job-tracker/hooks';
 import { PageLoading, ReminderList } from '@job-tracker/ui-components';
 import { useMemo } from 'react';
 import { BellIcon, PlusIcon } from '@heroicons/react/24/outline';
@@ -11,7 +11,6 @@ import { useTranslations } from 'next-intl';
 export default function ReminderListPage() {
   const t = useTranslations('Reminders');
   const { reminders, loading } = useRemindersWithChildren();
-  const { completeReminder } = useReminderActions();
 
   const activeReminders = useMemo(() => {
     return reminders
@@ -31,7 +30,6 @@ export default function ReminderListPage() {
         </Link>
       </div>
 
-
       {activeReminders.length === 0 ? (
         <div className="bg-base-200/30 border-base-300 flex min-h-[400px] flex-col items-center justify-center rounded-2xl border-2 border-dashed p-12">
           <BellIcon className="mb-4 h-16 w-16 opacity-10" />
@@ -45,7 +43,7 @@ export default function ReminderListPage() {
           </Link>
         </div>
       ) : (
-        <ReminderList reminders={activeReminders} onComplete={completeReminder} />
+        <ReminderList reminders={activeReminders} />
       )}
     </>
   );

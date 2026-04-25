@@ -1,22 +1,16 @@
 'use client';
 
-import Link from 'next/link';
-import { PencilIcon, CheckCircleIcon, TrashIcon } from '@heroicons/react/24/solid';
 import { ReminderWithChildrenDTO } from '@job-tracker/validation';
 import FormattedDate from '../common/formatted-date';
 import BaseInfoCard from '../common/base-info-card';
 
 export interface ReminderCardProps {
   reminder: ReminderWithChildrenDTO;
-  showControls?: boolean;
-  onComplete?: (id: string) => void;
   showChevron?: boolean;
 }
 
 export function ReminderInfoCard({
   reminder,
-  showControls = true,
-  onComplete,
   showChevron = true,
 }: ReminderCardProps) {
   const event = reminder.event;
@@ -40,33 +34,9 @@ export function ReminderInfoCard({
     </div>
   );
 
-  const controls = showControls && (
-    <div className="flex gap-1">
-      {onComplete && !reminder.completedAt && (
-        <button
-          onClick={() => onComplete(reminder.id)}
-          className="btn btn-ghost btn-xs btn-circle text-success"
-          title="Mark as complete"
-        >
-          <CheckCircleIcon className="size-5" />
-        </button>
-      )}
-      <Link href={`/reminders/${reminder.id}/edit`} className="btn btn-ghost btn-xs btn-circle">
-        <PencilIcon className="size-4" />
-      </Link>
-      <Link
-        href={`/reminders/${reminder.id}/delete`}
-        className="btn btn-ghost btn-xs btn-circle text-error"
-      >
-        <TrashIcon className="size-4" />
-      </Link>
-    </div>
-  );
-
   return (
     <BaseInfoCard
       title={title}
-      controls={controls}
       showChevron={showChevron}
       detailsUrl={`/reminders/${reminder.id}`}
     />

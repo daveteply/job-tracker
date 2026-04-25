@@ -198,6 +198,8 @@
     "reminderNotFound": "Recordatorio no encontrado",
     "reminderEntityName": "recordatorio",
     "remindersEntityName": "recordatorios",
+    "markAsComplete": "Marcar como Completado",
+    "markAsCompletedLabel": "Marcar recordatorio como completado",
     "formRemindAt": "Recordar el",
     "formCompletedAt": "Completado el",
     "formEvent": "Evento"
