@@ -3,9 +3,9 @@
 import { PlusCircleIcon } from '@heroicons/react/16/solid';
 import { useReminderActions, useRemindersWithChildren } from '@job-tracker/hooks';
 import { PageLoading, ReminderList } from '@job-tracker/ui-components';
-import Link from 'next/link';
 import { useMemo } from 'react';
 import { BellIcon, PlusIcon } from '@heroicons/react/24/outline';
+import { Link } from '../../../../i18n/routing';
 import { useTranslations } from 'next-intl';
 
 export default function ReminderListPage() {
@@ -25,11 +25,12 @@ export default function ReminderListPage() {
     <>
       <div className="mb-3 flex justify-between">
         <h1 className="pr-1 text-xl">{t('listTitle')}</h1>
-        <Link className="btn btn-sm text-primary" href="/events/new" title={t('addReminder')}>
+        <Link className="btn btn-sm text-primary" href="reminders/new" title={t('addReminder')}>
           <PlusCircleIcon className="size-5" />
           {t('addReminder')}
         </Link>
       </div>
+
 
       {activeReminders.length === 0 ? (
         <div className="bg-base-200/30 border-base-300 flex min-h-[400px] flex-col items-center justify-center rounded-2xl border-2 border-dashed p-12">

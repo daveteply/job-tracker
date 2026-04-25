@@ -41,3 +41,4 @@ export * from './lib/event-type/event-type-select';
 
 export * from './lib/reminder/reminder-info-card';
 export * from './lib/reminder/reminder-list';
+export * from './lib/reminder/reminder-form';

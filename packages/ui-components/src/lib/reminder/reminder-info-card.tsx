@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { PencilIcon, CheckCircleIcon } from '@heroicons/react/24/solid';
+import { PencilIcon, CheckCircleIcon, TrashIcon } from '@heroicons/react/24/solid';
 import { ReminderWithChildrenDTO } from '@job-tracker/validation';
 import FormattedDate from '../common/formatted-date';
 import BaseInfoCard from '../common/base-info-card';
@@ -51,8 +51,14 @@ export function ReminderInfoCard({
           <CheckCircleIcon className="size-5" />
         </button>
       )}
-      <Link href={`/events/${event?.id}/edit`} className="btn btn-ghost btn-xs btn-circle">
+      <Link href={`/reminders/${reminder.id}/edit`} className="btn btn-ghost btn-xs btn-circle">
         <PencilIcon className="size-4" />
+      </Link>
+      <Link
+        href={`/reminders/${reminder.id}/delete`}
+        className="btn btn-ghost btn-xs btn-circle text-error"
+      >
+        <TrashIcon className="size-4" />
       </Link>
     </div>
   );
@@ -62,8 +68,7 @@ export function ReminderInfoCard({
       title={title}
       controls={controls}
       showChevron={showChevron}
-      // No detailsUrl for now as there's no [id] page for reminders yet.
-      // Could potentially link to the associated event if desired.
+      detailsUrl={`/reminders/${reminder.id}`}
     />
   );
 }

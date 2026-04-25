@@ -190,7 +190,17 @@
     "noPendingReminders": "No pending reminders",
     "emptyStateDescription": "You're all caught up! When you log events, you can set reminders to follow up or perform next steps.",
     "newEventWithReminder": "New Event with Reminder",
-    "noRemindersFound": "No reminders found"
+    "noRemindersFound": "No reminders found",
+    "reminderDetails": "Reminder Details",
+    "editReminder": "Edit Reminder",
+    "deleteReminder": "Delete Reminder",
+    "backToReminders": "Back to Reminders",
+    "reminderNotFound": "Reminder not found",
+    "reminderEntityName": "reminder",
+    "remindersEntityName": "reminders",
+    "formRemindAt": "Remind At",
+    "formCompletedAt": "Completed At",
+    "formEvent": "Event"
   },
   "Activity": {
     "listTitle": "Activity",

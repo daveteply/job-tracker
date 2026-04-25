@@ -14,7 +14,7 @@ import {
   ReminderDTO,
   ReminderWithChildrenDTO,
 } from '@job-tracker/validation';
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { combineLatest, map } from 'rxjs';
 import { useObservable } from './use-observable';
 
@@ -25,6 +25,24 @@ export function useReminderRepository() {
     if (!db) return null;
     return new ReminderRepository(db);
   }, [db]);
+}
+
+export function useReminder(id: string) {
+  const repository = useReminderRepository();
+  const [data, setData] = useState<ReminderDTO | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (repository && id) {
+      setLoading(true);
+      repository.getById(id).then((res) => {
+        setData(res);
+        setLoading(false);
+      });
+    }
+  }, [repository, id]);
+
+  return { reminder: data, loading };
 }
 
 export function useReminders() {
@@ -137,14 +155,20 @@ export function useReminderActions() {
   const repository = useReminderRepository();
 
   return {
-    upsertReminder: async (reminder: Partial<ReminderDTO> & { id: string }) => {
+    upsertReminder: async (reminder: Partial<ReminderDTO>) => {
       if (!repository) {
         return { success: false, message: 'Database not initialized' };
       }
 
       try {
-        await repository.upsert(reminder);
-        return { success: true, message: 'Reminder saved successfully' };
+        const id = reminder.id || crypto.randomUUID();
+
+        await repository.upsert({
+          ...reminder,
+          id,
+        });
+
+        return { success: true, message: 'Reminder saved successfully', id };
       } catch (error) {
         console.error('Failed to upsert Reminder:', error);
         return { success: false, message: 'Failed to save Reminder' };

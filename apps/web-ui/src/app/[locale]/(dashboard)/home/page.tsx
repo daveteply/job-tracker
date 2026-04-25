@@ -114,11 +114,7 @@ export default function HomePage() {
             <span className="loading loading-spinner loading-md"></span>
           </div>
         ) : (
-          <RoleList
-            roles={activeRoles}
-            renderFull={false}
-            noRolesMessage={t('noActiveRoles')}
-          />
+          <RoleList roles={activeRoles} renderFull={false} noRolesMessage={t('noActiveRoles')} />
         )}
       </section>
     </div>
