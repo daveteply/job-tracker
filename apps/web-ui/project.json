@@ -4,8 +4,12 @@
   "sourceRoot": "apps/web-ui",
   "projectType": "application",
   "tags": [],
-  "implicitDependencies": ["ui-components", "hooks", "validation"],
-  "targets": {},
+  "targets": {
+    "typecheck": {
+      "command": "tsc -p tsconfig.json --noEmit",
+      "cache": true
+    }
+  },
   "overrides": {
     "baseline-browser-mapping": "latest"
   }

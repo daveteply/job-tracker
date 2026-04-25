@@ -10,6 +10,9 @@ const nextConfig = {
   // Use this to set Nx-specific options
   // See: https://nx.dev/recipes/next/next-config-setup
   nx: {},
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   experimental: {},
   images: {
     remotePatterns: [
@@ -27,7 +30,14 @@ const nextConfig = {
       },
     ],
   },
-  transpilePackages: ['@job-tracker/ui-components', '@job-tracker/ui-components'],
+  transpilePackages: [
+    '@job-tracker/ui-components',
+    '@job-tracker/hooks',
+    '@job-tracker/data-access',
+    '@job-tracker/validation',
+    '@job-tracker/domain',
+    '@job-tracker/app-logic',
+  ],
 };
 
 const plugins = [

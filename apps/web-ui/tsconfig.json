@@ -28,10 +28,8 @@
     "**/*.tsx",
     "**/*.js",
     "**/*.jsx",
-    "../../apps/web-ui/.next/types/**/*.ts",
-    "../../dist/apps/web-ui/.next/types/**/*.ts",
-    "next-env.d.ts",
-    "src/app/providers.tsx"
+    ".next/types/**/*.ts",
+    "next-env.d.ts"
   ],
   "exclude": [
     "node_modules",
