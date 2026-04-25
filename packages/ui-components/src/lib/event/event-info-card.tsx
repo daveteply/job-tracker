@@ -15,6 +15,7 @@ import BaseInfoCard from '../common/base-info-card';
 export interface EventInfoCardProps {
   event: EventWithChildrenDTO;
   showControls?: boolean;
+  showChevron?: boolean;
 }
 
 const EVENT_CATEGORY_COLOR_MAP: Record<string, string> = {
@@ -24,7 +25,11 @@ const EVENT_CATEGORY_COLOR_MAP: Record<string, string> = {
   Outcome: 'border-l-accent',
 };
 
-export function EventInfoCard({ event, showControls = true }: EventInfoCardProps) {
+export function EventInfoCard({
+  event,
+  showControls = true,
+  showChevron = true,
+}: EventInfoCardProps) {
   const tEnum = useTranslations('Enums');
   const tEvent = useTranslations('SystemEventTypes');
   const tCard = useTranslations('EventInfoCard');
@@ -69,6 +74,7 @@ export function EventInfoCard({ event, showControls = true }: EventInfoCardProps
       title={title}
       controls={controls}
       detailsUrl={`/events/${event.id}`}
+      showChevron={showChevron}
       className={`card bg-base-300 w-full rounded-xl border-l-5 shadow-sm transition-transform hover:shadow-md active:scale-[0.99] ${borderClass}`}
     >
       <div className="space-y-2">

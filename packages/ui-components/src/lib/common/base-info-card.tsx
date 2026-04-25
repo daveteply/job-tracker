@@ -10,6 +10,7 @@ export interface BaseInfoCardProps {
   controls?: ReactNode;
   children?: ReactNode;
   detailsUrl?: string;
+  showChevron?: boolean;
   className?: string;
   showFull?: boolean;
 }
@@ -20,6 +21,7 @@ export function BaseInfoCard({
   controls,
   children,
   detailsUrl,
+  showChevron = true,
   className = '',
   showFull = true,
 }: BaseInfoCardProps) {
@@ -39,7 +41,7 @@ export function BaseInfoCard({
           </div>
           <div className="flex items-center gap-1 shrink-0">
             {controls}
-            {detailsUrl && (
+            {detailsUrl && showChevron && (
               <Link
                 href={detailsUrl}
                 className="btn btn-ghost btn-xs btn-circle"

@@ -10,9 +10,15 @@ export interface RoleCardProps {
   role: RoleDTO & { company?: CompanyDTO | null };
   renderFull?: boolean;
   showControls?: boolean;
+  showChevron?: boolean;
 }
 
-export function RoleInfoCard({ role, renderFull = true, showControls = true }: RoleCardProps) {
+export function RoleInfoCard({
+  role,
+  renderFull = true,
+  showControls = true,
+  showChevron = true,
+}: RoleCardProps) {
   const controls = showControls && renderFull && (
     <div className="flex gap-1">
       <Link href={`/roles/${role.id}/edit`}>
@@ -29,7 +35,8 @@ export function RoleInfoCard({ role, renderFull = true, showControls = true }: R
       title={role.title}
       header={!renderFull && <ExternalLink url={role.jobPostingUrl} />}
       controls={controls}
-      detailsUrl={renderFull ? `/roles/${role.id}` : undefined}
+      detailsUrl={`/roles/${role.id}`}
+      showChevron={showChevron}
       showFull={renderFull}
     >
       <ul>

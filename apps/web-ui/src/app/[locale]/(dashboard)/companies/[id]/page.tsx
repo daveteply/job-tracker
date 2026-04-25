@@ -35,7 +35,7 @@ export default function CompanyDetailPage({ params }: { params: Promise<{ id: st
         </Link>
       </div>
 
-      <CompanyInfoCard company={company} showControls={false} />
+      <CompanyInfoCard company={company} showControls={false} showChevron={false} />
 
       <div className="mt-5">
         <Link className="btn mr-3" href="/companies">

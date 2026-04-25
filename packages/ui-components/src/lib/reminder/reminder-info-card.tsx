@@ -10,9 +10,15 @@ export interface ReminderCardProps {
   reminder: ReminderWithChildrenDTO;
   showControls?: boolean;
   onComplete?: (id: string) => void;
+  showChevron?: boolean;
 }
 
-export function ReminderInfoCard({ reminder, showControls = true, onComplete }: ReminderCardProps) {
+export function ReminderInfoCard({
+  reminder,
+  showControls = true,
+  onComplete,
+  showChevron = true,
+}: ReminderCardProps) {
   const event = reminder.event;
   const titleText = event?.summary || 'Follow up';
   const contactName = event?.contact
@@ -55,6 +61,7 @@ export function ReminderInfoCard({ reminder, showControls = true, onComplete }: 
     <BaseInfoCard
       title={title}
       controls={controls}
+      showChevron={showChevron}
       // No detailsUrl for now as there's no [id] page for reminders yet.
       // Could potentially link to the associated event if desired.
     />

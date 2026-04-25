@@ -35,7 +35,7 @@ export default function ContactDetailsPage({ params }: { params: Promise<{ id: s
         </Link>
       </div>
 
-      <ContactInfoCard contact={contact} showControls={false} />
+      <ContactInfoCard contact={contact} showControls={false} showChevron={false} />
 
       <div className="mt-5">
         <Link className="btn" href="/contacts">

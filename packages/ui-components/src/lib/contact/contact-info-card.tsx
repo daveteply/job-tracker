@@ -10,12 +10,14 @@ export interface ContactCardProps {
   contact: ContactDTO & { company?: CompanyDTO | null };
   renderFull?: boolean;
   showControls?: boolean;
+  showChevron?: boolean;
 }
 
 export function ContactInfoCard({
   contact,
   renderFull = true,
   showControls = true,
+  showChevron = true,
 }: ContactCardProps) {
   const controls = showControls && renderFull && (
     <div className="flex gap-1">
@@ -46,7 +48,8 @@ export function ContactInfoCard({
       title={`${contact.firstName} ${contact.lastName}`}
       header={header}
       controls={controls}
-      detailsUrl={renderFull ? `/contacts/${contact.id}` : undefined}
+      detailsUrl={`/contacts/${contact.id}`}
+      showChevron={showChevron}
       showFull={renderFull}
     >
       <h2>{contact.title}</h2>

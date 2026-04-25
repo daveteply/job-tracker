@@ -7,8 +7,6 @@ import { Link } from '../../../../../i18n/routing';
 import { PencilIcon, TrashIcon } from '@heroicons/react/16/solid';
 import { useTranslations } from 'next-intl';
 
-// buttons [View Job Posting], [Log Event]
-
 export default function RoleDetailsPage({ params }: { params: Promise<{ id: string }> }) {
   const t = useTranslations('Roles');
   const { id } = use(params);
@@ -21,7 +19,11 @@ export default function RoleDetailsPage({ params }: { params: Promise<{ id: stri
     <>
       <div className="mb-3 flex">
         <h1 className="pr-2 text-xl">{t('roleDetails')}</h1>
-        <Link className="btn btn-circle btn-sm text-primary" href={`${id}/edit`} title={t('editRole')}>
+        <Link
+          className="btn btn-circle btn-sm text-primary"
+          href={`${id}/edit`}
+          title={t('editRole')}
+        >
           <PencilIcon className="size-5" />
         </Link>
         <Link
@@ -33,7 +35,7 @@ export default function RoleDetailsPage({ params }: { params: Promise<{ id: stri
         </Link>
       </div>
 
-      <RoleInfoCard role={role} showControls={false} />
+      <RoleInfoCard role={role} showControls={false} showChevron={false} />
 
       <div className="mt-5">
         <Link className="btn" href="/roles">

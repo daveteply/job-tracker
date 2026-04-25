@@ -10,12 +10,14 @@ export interface CompanyCardProps {
   company: CompanyDTO;
   showFull?: boolean;
   showControls?: boolean;
+  showChevron?: boolean;
 }
 
 export function CompanyInfoCard({
   company,
   showFull = true,
   showControls = true,
+  showChevron = true,
 }: CompanyCardProps) {
   const controls = showControls && showFull && (
     <div className="flex gap-1">
@@ -33,7 +35,8 @@ export function CompanyInfoCard({
       title={company.name}
       header={!showFull && <ExternalLink url={company.website || ''} />}
       controls={controls}
-      detailsUrl={showFull ? `/companies/${company.id}` : undefined}
+      detailsUrl={`/companies/${company.id}`}
+      showChevron={showChevron}
       showFull={showFull}
     >
       <ul>
