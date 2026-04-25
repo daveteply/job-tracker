@@ -2,7 +2,6 @@ export * from './lib/common/header';
 export * from './lib/common/auth-menu';
 export * from './lib/common/bread-crumbs';
 export * from './lib/common/page-loading';
-export * from './lib/common/animated-list';
 export * from './lib/common/external-link';
 export * from './lib/common/formatted-date';
 export * from './lib/common/entity-delete';

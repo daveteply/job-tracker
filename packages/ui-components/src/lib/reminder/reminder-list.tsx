@@ -2,7 +2,6 @@
 
 import ReminderInfoCard from './reminder-info-card';
 import { ReminderWithChildrenDTO } from '@job-tracker/validation';
-import { AnimatedList } from '../common/animated-list';
 import { useTranslations } from 'next-intl';
 
 export interface ReminderListProps {
@@ -25,13 +24,13 @@ export function ReminderList({
 
   return (
     <div className="flex flex-col gap-3">
-      <AnimatedList
-        items={reminders}
-        getItemId={(reminder) => reminder.id}
-        renderItem={(reminder) => (
-          <ReminderInfoCard reminder={reminder} onComplete={onComplete} />
-        )}
-      />
+      {reminders.map((reminder) => (
+        <ReminderInfoCard
+          key={reminder.id}
+          reminder={reminder}
+          onComplete={onComplete}
+        />
+      ))}
     </div>
   );
 }
