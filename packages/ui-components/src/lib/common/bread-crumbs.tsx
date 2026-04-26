@@ -101,7 +101,7 @@ export function Breadcrumbs() {
     const translationKey = decodedSeg.toLowerCase();
     try {
       // Use fallback to avoid runtime error if key is missing
-      return t(translationKey as any, {
+      return t(translationKey as Parameters<typeof t>[0], {
         defaultValue: decodedSeg.charAt(0).toUpperCase() + decodedSeg.slice(1),
       });
     } catch (e) {

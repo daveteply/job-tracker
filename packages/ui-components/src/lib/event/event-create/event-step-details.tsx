@@ -1,6 +1,6 @@
 'use client';
 
-import { FieldValues, Path, UseFormRegister, UseFormSetValue, UseFormWatch } from 'react-hook-form';
+import { FieldValues, Path, PathValue, UseFormRegister, UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import { DirectionType, SourceType } from '@job-tracker/domain';
 import { useTranslations } from 'next-intl';
 
@@ -36,7 +36,7 @@ export function EventStepDetails<T extends FieldValues = FieldValues>({
                 key={key}
                 type="button"
                 onClick={() =>
-                  setValue('direction' as Path<T>, value as any, { shouldValidate: true })
+                  setValue('direction' as Path<T>, value as PathValue<T, Path<T>>, { shouldValidate: true })
                 }
                 className={`badge ${currentDirection === value ? 'badge-primary' : 'badge-ghost'}`}
               >
@@ -56,7 +56,7 @@ export function EventStepDetails<T extends FieldValues = FieldValues>({
                 key={key}
                 type="button"
                 onClick={() =>
-                  setValue('source' as Path<T>, value as any, { shouldValidate: true })
+                  setValue('source' as Path<T>, value as PathValue<T, Path<T>>, { shouldValidate: true })
                 }
                 className={`badge ${currentSource === value ? 'badge-primary' : 'badge-ghost'}`}
               >

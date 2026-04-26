@@ -36,13 +36,13 @@ export default function EventsNewPage() {
   const [step, setStep] = useState(1);
 
   const methods = useForm<EventCreateWithReminder>({
-    resolver: zodResolver(EventCreateWithReminderSchema) as any,
+    resolver: zodResolver(EventCreateWithReminderSchema),
     mode: 'onChange',
     defaultValues: {
       eventTypeId: '',
       direction: DirectionType.Inbound,
       source: SourceType.Email,
-      occurredAt: new Date().toISOString().split('T')[0] as any,
+      occurredAt: new Date().toISOString().split('T')[0] as unknown as Date,
       summary: '',
       details: '',
       company: null,
@@ -51,7 +51,7 @@ export default function EventsNewPage() {
       hasReminder: false,
       remindAt: new Date(new Date().setDate(new Date().getDate() + 1))
         .toISOString()
-        .split('T')[0] as any,
+        .split('T')[0] as unknown as Date,
     },
   });
 
@@ -69,12 +69,12 @@ export default function EventsNewPage() {
   const formValues = watch();
 
   const nextStep = async () => {
-    let fieldsToValidate: any[] = [];
+    let fieldsToValidate: (keyof EventCreateWithReminder)[] = [];
     if (step === 1) fieldsToValidate = ['eventTypeId'];
     if (step === 2) fieldsToValidate = ['company', 'contact', 'role'];
     if (step === 3) fieldsToValidate = ['direction', 'source', 'occurredAt'];
 
-    const isStepValid = await trigger(fieldsToValidate);
+    const isStepValid = await trigger(fieldsToValidate as Path<EventCreateWithReminder>[]);
     if (isStepValid) {
       setStep((s) => Math.min(s + 1, 4));
     }

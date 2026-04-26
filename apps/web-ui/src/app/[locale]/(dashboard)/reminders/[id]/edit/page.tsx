@@ -3,6 +3,7 @@
 import { use } from 'react';
 import { useReminder, useReminderActions } from '@job-tracker/hooks';
 import { PageLoading, ReminderForm } from '@job-tracker/ui-components';
+import { ReminderInput } from '@job-tracker/validation';
 import { useTranslations } from 'next-intl';
 import { CheckCircleIcon, TrashIcon } from '@heroicons/react/24/solid';
 import { Link, useRouter } from '../../../../../../i18n/routing';
@@ -49,14 +50,14 @@ export default function ReminderEditPage({ params }: { params: Promise<{ id: str
         </div>
       )}
 
-      <ReminderForm
+      <ReminderForm<ReminderInput>
         isEdit={true}
         initialData={{
           ...reminder,
-          remindAt: reminder.remindAt.toISOString().split('T')[0],
-          completedAt: reminder.completedAt ? reminder.completedAt.toISOString().split('T')[0] : undefined,
-        } as any}
-        onSubmitAction={upsertReminder as any}
+          remindAt: reminder.remindAt.toISOString().split('T')[0] as unknown as Date,
+          completedAt: (reminder.completedAt ? reminder.completedAt.toISOString().split('T')[0] : undefined) as unknown as Date,
+        }}
+        onSubmitAction={upsertReminder as unknown as (data: ReminderInput) => Promise<{ success: boolean; message: string }>}
         postActionRoute={`/reminders/${id}`}
       />
     </>

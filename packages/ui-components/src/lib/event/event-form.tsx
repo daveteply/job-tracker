@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useMemo } from 'react';
-import { Controller, DefaultValues, FieldValues, Path, useForm } from 'react-hook-form';
+import { Controller, DefaultValues, FieldValues, Path, PathValue, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   CompanyDTO,
@@ -169,7 +169,7 @@ export function EventForm<T extends EventFormValues>({
                 if (selectedType) {
                   const inferredDirection = inferDirectionFromEventType(selectedType.name);
                   if (inferredDirection) {
-                    setValue('direction' as Path<T>, inferredDirection as any, {
+                    setValue('direction' as Path<T>, inferredDirection as PathValue<T, Path<T>>, {
                       shouldValidate: true,
                     });
                   }
