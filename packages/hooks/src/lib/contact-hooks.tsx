@@ -1,17 +1,20 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
+
+import { combineLatest, map } from 'rxjs';
+
+import { type EntitySelection,resolveCompanyId } from '@job-tracker/app-logic';
+import { EMPTY_DELETION_BLOCKERS } from '@job-tracker/app-logic';
 import {
   CompanyRepository,
   ContactRepository,
   DeletionCheck,
   useDb,
 } from '@job-tracker/data-access';
-import { resolveCompanyId, type EntitySelection } from '@job-tracker/app-logic';
 import { ContactDTO, ContactWithCompanyDTO } from '@job-tracker/validation';
-import { combineLatest, map } from 'rxjs';
+
 import { useObservable } from './use-observable';
-import { EMPTY_DELETION_BLOCKERS } from '@job-tracker/app-logic';
 
 export function useContactRepository() {
   const db = useDb();

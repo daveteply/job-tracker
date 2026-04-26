@@ -1,16 +1,19 @@
 'use client';
 
-import FormattedDate from '../common/formatted-date';
 import {
   ChevronDoubleLeftIcon,
   ChevronDoubleRightIcon,
 } from '@heroicons/react/24/solid';
-import ExternalLink from '../common/external-link';
-import { EventWithChildrenDTO } from '@job-tracker/validation';
-import { DirectionType } from '@job-tracker/domain';
-import EventActionMenu from './event-action-menu';
 import { useTranslations } from 'next-intl';
+
+import { DirectionType } from '@job-tracker/domain';
+import { EventWithChildrenDTO } from '@job-tracker/validation';
+
 import BaseInfoCard from '../common/base-info-card';
+import ExternalLink from '../common/external-link';
+import FormattedDate from '../common/formatted-date';
+
+import EventActionMenu from './event-action-menu';
 
 export interface EventInfoCardProps {
   event: EventWithChildrenDTO;

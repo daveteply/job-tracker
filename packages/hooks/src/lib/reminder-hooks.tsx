@@ -1,5 +1,9 @@
 'use client';
 
+import { useEffect, useMemo, useState } from 'react';
+
+import { combineLatest, map } from 'rxjs';
+
 import {
   CompanyRepository,
   ContactRepository,
@@ -14,8 +18,7 @@ import {
   ReminderDTO,
   ReminderWithChildrenDTO,
 } from '@job-tracker/validation';
-import { useEffect, useMemo, useState } from 'react';
-import { combineLatest, map } from 'rxjs';
+
 import { useObservable } from './use-observable';
 
 export function useReminderRepository() {

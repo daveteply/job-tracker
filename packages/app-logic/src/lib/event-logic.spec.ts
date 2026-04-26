@@ -1,4 +1,5 @@
 import { DirectionType } from '@job-tracker/domain';
+
 import { inferDirectionFromEventType } from './event-logic';
 
 describe('inferDirectionFromEventType', () => {

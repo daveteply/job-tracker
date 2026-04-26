@@ -1,8 +1,10 @@
 'use client';
 
-import ReminderInfoCard from './reminder-info-card';
-import { ReminderWithChildrenDTO } from '@job-tracker/validation';
 import { useTranslations } from 'next-intl';
+
+import { ReminderWithChildrenDTO } from '@job-tracker/validation';
+
+import ReminderInfoCard from './reminder-info-card';
 
 export interface ReminderListProps {
   reminders: ReminderWithChildrenDTO[];

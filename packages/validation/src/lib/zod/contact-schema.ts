@@ -1,4 +1,5 @@
 import { z } from 'zod';
+
 import {
   CompanySelectionSchema,
   emptyToUndefined,
@@ -10,6 +11,7 @@ import {
   updateOptionalUrl,
   updateRequiredString,
 } from '../helpers/schema-helpers';
+
 import { CompanyDTO } from './company-schema';
 
 const contactCreateBase = {

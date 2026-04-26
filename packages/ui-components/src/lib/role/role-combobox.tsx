@@ -1,7 +1,9 @@
 'use client';
 
-import { RoleDTO } from '@job-tracker/validation';
 import { Control, FieldValues, Path } from 'react-hook-form';
+
+import { RoleDTO } from '@job-tracker/validation';
+
 import EntityCombobox from '../common/entity-combobox/entity-combobox';
 import { roleComboboxConfig } from '../common/entity-combobox/entity-combobox-config';
 

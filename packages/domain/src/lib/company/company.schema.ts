@@ -1,4 +1,5 @@
 import { RxJsonSchema } from 'rxdb';
+
 import { CompanyEntity } from './company.entity';
 
 const COMPANY_SCHEMA_VERSION = 0;

@@ -1,10 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
+
 import { PlusIcon } from '@heroicons/react/24/outline';
-import { useFloatingUI } from './floating-ui-context';
+import Link from 'next/link';
 import { useTranslations } from 'next-intl';
+
+import { useFloatingUI } from './floating-ui-context';
 
 export function FloatingActionButton() {
   const t = useTranslations('Navigation');

@@ -1,6 +1,7 @@
 'use client';
 
 import { UseFormRegisterReturn } from 'react-hook-form';
+
 import { useTranslations } from 'next-intl';
 
 interface EnumSelectorProps<T extends Record<string, string | number>> {

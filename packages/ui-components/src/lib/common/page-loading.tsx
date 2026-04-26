@@ -1,7 +1,8 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
+
+import { useTranslations } from 'next-intl';
 
 export function PageLoading({ entityName }: { entityName: string }) {
   const t = useTranslations('Common.Loading');

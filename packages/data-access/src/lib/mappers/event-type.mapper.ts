@@ -1,5 +1,6 @@
 import { EventCategoryType, EventTypeEntity } from '@job-tracker/domain';
 import { EventTypeDTO } from '@job-tracker/validation';
+
 import { EventTypeDocument } from '../database/documents/event-type.document';
 
 export class EventTypeMapper {

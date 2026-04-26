@@ -2,7 +2,14 @@
 
 import { useEffect, useMemo } from 'react';
 import { Controller, DefaultValues, FieldValues, Path, PathValue, useForm } from 'react-hook-form';
+
 import { zodResolver } from '@hookform/resolvers/zod';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+
+import { inferDirectionFromEventType } from '@job-tracker/app-logic';
+import { DirectionType, SourceType } from '@job-tracker/domain';
 import {
   CompanyDTO,
   ContactDTO,
@@ -11,19 +18,14 @@ import {
   EventUpdateSchema,
   RoleDTO,
 } from '@job-tracker/validation';
-import { useToast } from '../common/toast-context';
-import { useRouter } from 'next/navigation';
 
-import ContactCombobox from '../contact/contact-combobox';
-import RoleCombobox from '../role/role-combobox';
 import { EnumSelector } from '../common/enum-selector';
-import CompanyCombobox from '../company/company-combobox';
-import Link from 'next/link';
-import EventTypeSelect from '../event-type/event-type-select';
-import { DirectionType, SourceType } from '@job-tracker/domain';
 import { FloatingButtonContainer } from '../common/floating-button-container';
-import { inferDirectionFromEventType } from '@job-tracker/app-logic';
-import { useTranslations } from 'next-intl';
+import { useToast } from '../common/toast-context';
+import CompanyCombobox from '../company/company-combobox';
+import ContactCombobox from '../contact/contact-combobox';
+import EventTypeSelect from '../event-type/event-type-select';
+import RoleCombobox from '../role/role-combobox';
 
 interface EventFormValues extends FieldValues {
   occurredAt?: Date | string | null;

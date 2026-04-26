@@ -1,5 +1,6 @@
 import { ContactEntity } from '@job-tracker/domain';
 import { ContactDTO } from '@job-tracker/validation';
+
 import { ContactDocument } from '../database/documents/contact.document';
 
 export class ContactMapper {

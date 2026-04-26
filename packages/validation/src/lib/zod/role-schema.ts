@@ -1,13 +1,16 @@
 import { z } from 'zod';
-import {
-  emptyToUndefined,
-  CompanySelectionSchema,
-  updateRequiredString,
-  updateOptionalUrl,
-  updateOptionalString,
-} from '../helpers/schema-helpers';
-import { CompanyDTO } from './company-schema';
+
 import { RoleStatus } from '@job-tracker/domain';
+
+import {
+  CompanySelectionSchema,
+  emptyToUndefined,
+  updateOptionalString,
+  updateOptionalUrl,
+  updateRequiredString,
+} from '../helpers/schema-helpers';
+
+import { CompanyDTO } from './company-schema';
 import { RoleStatusSchema } from './enum-schema';
 
 const roleCreateBase = {

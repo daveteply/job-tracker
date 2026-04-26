@@ -1,6 +1,8 @@
 import { RxJsonSchema } from 'rxdb';
+
 import { EventCategoryType } from '../common/event-category-type';
 import { RoleStatus } from '../common/role-status-type';
+
 import { EventTypeEntity } from './event-type.entity';
 
 const EVENTTYPE_SCHEMA_VERSION = 0;

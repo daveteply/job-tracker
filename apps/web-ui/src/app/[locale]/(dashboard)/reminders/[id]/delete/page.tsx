@@ -1,9 +1,11 @@
 'use client';
 
 import { use } from 'react';
+
+import { useTranslations } from 'next-intl';
+
 import { useReminder, useReminderActions } from '@job-tracker/hooks';
 import { EntityDelete, PageLoading } from '@job-tracker/ui-components';
-import { useTranslations } from 'next-intl';
 
 export default function ReminderDeletePage({ params }: { params: Promise<{ id: string }> }) {
   const t = useTranslations('Reminders');

@@ -1,9 +1,10 @@
+import { DirectionType, RoleStatus,SourceType } from '@job-tracker/domain';
+
 import { CompanyDTOSchema } from './company-schema';
 import { ContactDTOSchema } from './contact-schema';
 import { EventDTOSchema } from './event-schema';
 import { ReminderDTOSchema } from './reminder-schema';
 import { RoleDTOSchema } from './role-schema';
-import { DirectionType, SourceType, RoleStatus } from '@job-tracker/domain';
 
 describe('DTO Schemas version property', () => {
   const validBase = {

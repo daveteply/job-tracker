@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+
 import { useLocale } from 'next-intl';
 
 export interface FormattedDateProps {

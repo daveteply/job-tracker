@@ -1,10 +1,12 @@
 'use client';
 
 import { use } from 'react';
+
+import { useTranslations } from 'next-intl';
+
+import { CompanyDocument } from '@job-tracker/data-access';
 import { useCompany, useCompanyActions } from '@job-tracker/hooks';
 import { CompanyForm, PageLoading } from '@job-tracker/ui-components';
-import { CompanyDocument } from '@job-tracker/data-access';
-import { useTranslations } from 'next-intl';
 
 export default function EditCompanyPage({ params }: { params: Promise<{ id: string }> }) {
   const t = useTranslations('Companies');

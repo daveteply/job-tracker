@@ -1,8 +1,9 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
+
 import { useCompanyActions } from '@job-tracker/hooks';
 import { CompanyForm } from '@job-tracker/ui-components';
-import { useTranslations } from 'next-intl';
 
 export default function CreateCompanyPage() {
   const t = useTranslations('Companies');

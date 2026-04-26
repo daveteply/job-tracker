@@ -1,16 +1,17 @@
 'use client';
 
+import { useEffect } from 'react';
 import {
-  useWatch,
+  Control,
+  FieldErrors,
   FieldValues,
   Path,
-  UseFormRegister,
-  Control,
-  UseFormSetValue,
-  FieldErrors,
   PathValue,
+  UseFormRegister,
+  UseFormSetValue,
+  useWatch,
 } from 'react-hook-form';
-import { useEffect } from 'react';
+
 import { useTranslations } from 'next-intl';
 
 export interface EventStepReminderProps<T extends FieldValues = FieldValues> {

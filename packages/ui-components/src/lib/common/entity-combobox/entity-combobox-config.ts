@@ -1,4 +1,5 @@
 import { CompanyDTO, ContactDTO, RoleDTO } from '@job-tracker/validation';
+
 import { EntityComboboxConfig } from './entity-combobox';
 
 // Form value shapes for new entities

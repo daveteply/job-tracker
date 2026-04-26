@@ -1,10 +1,12 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
+
+import { EMPTY_DELETION_BLOCKERS } from '@job-tracker/app-logic';
 import { CompanyRepository, DeletionCheck, useDb } from '@job-tracker/data-access';
 import { CompanyDTO } from '@job-tracker/validation';
+
 import { useObservable } from './use-observable';
-import { EMPTY_DELETION_BLOCKERS } from '@job-tracker/app-logic';
 
 export function useCompanyRepository() {
   const db = useDb();

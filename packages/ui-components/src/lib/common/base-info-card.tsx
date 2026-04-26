@@ -1,8 +1,9 @@
 'use client';
 
 import { ReactNode } from 'react';
-import Link from 'next/link';
+
 import { ChevronRightIcon } from '@heroicons/react/24/solid';
+import Link from 'next/link';
 
 export interface BaseInfoCardProps {
   title: ReactNode;

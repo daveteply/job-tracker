@@ -1,8 +1,10 @@
 'use client';
 
-import { ContactDTO } from '@job-tracker/validation';
-import ContactInfoCard from './contact-info-card';
 import { useTranslations } from 'next-intl';
+
+import { ContactDTO } from '@job-tracker/validation';
+
+import ContactInfoCard from './contact-info-card';
 
 export interface ContactListProps {
   contacts: ContactDTO[];

@@ -1,10 +1,12 @@
 'use client';
 
 import { createContext, useContext, useEffect, useRef, useState } from 'react';
+
 import { useSession } from 'next-auth/react';
-import { TrackerDatabase, initRxDatabase } from './rx-database';
-import { promoteGuestToUser, GUEST_DB_NAME } from './promotion';
-import { useReplication, SyncStatus } from './replication';
+
+import { GUEST_DB_NAME,promoteGuestToUser } from './promotion';
+import { SyncStatus,useReplication } from './replication';
+import { initRxDatabase,TrackerDatabase } from './rx-database';
 
 const PREV_DB_NAME_KEY = 'job_tracker_prev_db_name';
 
@@ -104,5 +106,5 @@ export const useSyncStatus = () => {
   return context.syncStatus;
 };
 
-export type { TrackerDatabase, TrackerCollections } from './rx-database';
 export type { SyncStatus } from './replication';
+export type { TrackerCollections,TrackerDatabase } from './rx-database';

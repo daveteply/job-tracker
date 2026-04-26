@@ -1,6 +1,7 @@
 'use client';
 
 import { EventTypeDTO } from '@job-tracker/validation';
+
 import BaseInfoCard from '../common/base-info-card';
 
 export interface EventTypeCardProps {

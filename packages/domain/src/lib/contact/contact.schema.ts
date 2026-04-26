@@ -1,4 +1,5 @@
 import { RxJsonSchema } from 'rxdb';
+
 import { ContactEntity } from './contact.entity';
 
 const CONTACT_SCHEMA_VERSION = 0;

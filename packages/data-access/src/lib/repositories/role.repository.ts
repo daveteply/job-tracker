@@ -1,18 +1,20 @@
 import { map, Observable } from 'rxjs';
-import { TrackerDatabase } from '../database/db';
-import { RoleDTO } from '@job-tracker/validation';
+
 import {
   canDeleteEntity,
   createAuditTimestamps,
   createUpdatedAt,
   DEFAULT_SEARCH_LIMIT,
+  type DeletionBlockers,
   EMPTY_DELETION_BLOCKERS,
   normalizeSearchInput,
   upsertEntity,
-  type DeletionBlockers,
 } from '@job-tracker/app-logic';
-import { RoleMapper } from '../mappers/role.mapper';
+import { RoleDTO } from '@job-tracker/validation';
+
+import { TrackerDatabase } from '../database/db';
 import { RoleDocument } from '../database/documents/role.document';
+import { RoleMapper } from '../mappers/role.mapper';
 
 export class RoleRepository {
   constructor(private readonly db: TrackerDatabase) {}

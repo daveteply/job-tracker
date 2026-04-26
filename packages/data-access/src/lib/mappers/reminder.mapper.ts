@@ -1,5 +1,6 @@
 import { ReminderEntity } from '@job-tracker/domain';
 import { ReminderDTO } from '@job-tracker/validation';
+
 import { ReminderDocument } from '../database/documents/reminder.document';
 
 export class ReminderMapper {

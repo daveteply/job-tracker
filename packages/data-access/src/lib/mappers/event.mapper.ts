@@ -1,5 +1,6 @@
 import { DirectionType, EventEntity, SourceType } from '@job-tracker/domain';
 import { EventDTO } from '@job-tracker/validation';
+
 import { EventDocument } from '../database/documents/event.document';
 
 export class EventMapper {

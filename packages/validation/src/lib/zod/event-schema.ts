@@ -1,6 +1,7 @@
 import { z } from 'zod';
+
 import { DirectionType, SourceType } from '@job-tracker/domain';
-import { DirectionTypeSchema, SourceTypeSchema } from './enum-schema';
+
 import {
   CompanySelectionSchema,
   ContactSelectionSchema,
@@ -8,11 +9,13 @@ import {
   RoleSelectionSchema,
   updateOptionalString,
 } from '../helpers/schema-helpers';
+
 import { CompanyDTO } from './company-schema';
 import { ContactDTO } from './contact-schema';
-import { RoleDTO } from './role-schema';
+import { DirectionTypeSchema, SourceTypeSchema } from './enum-schema';
 import { EventTypeDTO } from './event-type-schema';
 import { ReminderDTO } from './reminder-schema';
+import { RoleDTO } from './role-schema';
 
 export const EventCreateSchema = z.object({
   // Relations: Optional and Composable to match Role/Contact patterns

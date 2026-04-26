@@ -1,8 +1,10 @@
 'use client';
 
+import { useCallback, useMemo } from 'react';
+
 import { EventTypeRepository, useDb } from '@job-tracker/data-access';
 import { EventTypeDTO } from '@job-tracker/validation';
-import { useCallback, useMemo } from 'react';
+
 import { useObservable } from './use-observable';
 
 export function useEventTypeRepository() {

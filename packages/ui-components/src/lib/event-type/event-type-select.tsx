@@ -1,7 +1,8 @@
 'use client';
 
-import { EventTypeDTO } from '@job-tracker/validation';
 import { useTranslations } from 'next-intl';
+
+import { EventTypeDTO } from '@job-tracker/validation';
 
 interface EventTypeSelectProps {
   value?: string;

@@ -1,10 +1,12 @@
 'use client';
 
-import ExternalLink from '../common/external-link';
-import Link from 'next/link';
 import { PencilIcon, TrashIcon } from '@heroicons/react/24/solid';
+import Link from 'next/link';
+
 import { CompanyDTO, RoleDTO } from '@job-tracker/validation';
+
 import BaseInfoCard from '../common/base-info-card';
+import ExternalLink from '../common/external-link';
 
 export interface RoleCardProps {
   role: RoleDTO & { company?: CompanyDTO | null };

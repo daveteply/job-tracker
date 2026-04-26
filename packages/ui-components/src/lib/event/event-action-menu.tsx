@@ -1,9 +1,10 @@
 'use client';
 
-import { EllipsisVerticalIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/solid';
-import { BellIcon } from '@heroicons/react/24/outline';
-import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
+
+import { BellIcon } from '@heroicons/react/24/outline';
+import { EllipsisVerticalIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/solid';
+import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 
 interface EventActionMenuProps {

@@ -1,11 +1,14 @@
 'use client';
 
 import { use } from 'react';
-import { useRoleWithCompany } from '@job-tracker/hooks';
-import { RoleInfoCard, PageLoading } from '@job-tracker/ui-components';
-import { Link } from '../../../../../i18n/routing';
+
 import { PencilIcon, TrashIcon } from '@heroicons/react/16/solid';
 import { useTranslations } from 'next-intl';
+
+import { useRoleWithCompany } from '@job-tracker/hooks';
+import { PageLoading,RoleInfoCard } from '@job-tracker/ui-components';
+
+import { Link } from '../../../../../i18n/routing';
 
 export default function RoleDetailsPage({ params }: { params: Promise<{ id: string }> }) {
   const t = useTranslations('Roles');

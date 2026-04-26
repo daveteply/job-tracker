@@ -2,14 +2,17 @@
 
 import { useEffect } from 'react';
 import { DefaultValues, FieldValues, Path, useForm } from 'react-hook-form';
+
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useToast } from '../common/toast-context';
-import { useRouter } from 'next/navigation';
-import { CompanyDTO, ContactCreateSchema, ContactUpdateSchema } from '@job-tracker/validation';
-import CompanyCombobox from '../company/company-combobox';
 import Link from 'next/link';
-import { FloatingButtonContainer } from '../common/floating-button-container';
+import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+
+import { CompanyDTO, ContactCreateSchema, ContactUpdateSchema } from '@job-tracker/validation';
+
+import { FloatingButtonContainer } from '../common/floating-button-container';
+import { useToast } from '../common/toast-context';
+import CompanyCombobox from '../company/company-combobox';
 
 interface ContactFormProps<T extends FieldValues> {
   onSubmitAction: (data: T) => Promise<{ success: boolean; message: string }>;

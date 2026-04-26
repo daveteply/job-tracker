@@ -1,11 +1,14 @@
 'use client';
 
 import { use, useMemo } from 'react';
+
+import { CheckCircleIcon, TrashIcon } from '@heroicons/react/24/solid';
+import { useTranslations } from 'next-intl';
+
 import { useReminder, useReminderActions } from '@job-tracker/hooks';
 import { PageLoading, ReminderForm } from '@job-tracker/ui-components';
 import { ReminderInput } from '@job-tracker/validation';
-import { useTranslations } from 'next-intl';
-import { CheckCircleIcon, TrashIcon } from '@heroicons/react/24/solid';
+
 import { Link, useRouter } from '../../../../../../i18n/routing';
 
 export default function ReminderEditPage({ params }: { params: Promise<{ id: string }> }) {

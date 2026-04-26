@@ -1,10 +1,12 @@
 'use client';
 
 import { use } from 'react';
+
+import { useTranslations } from 'next-intl';
+
 import { useCompanySearch, useContactActions, useContactWithCompany } from '@job-tracker/hooks';
 import { ContactForm, PageLoading } from '@job-tracker/ui-components';
 import { ContactDTO } from '@job-tracker/validation';
-import { useTranslations } from 'next-intl';
 
 type ContactEditFormData = ContactDTO & {
   company?: {

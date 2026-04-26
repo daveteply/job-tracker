@@ -1,6 +1,6 @@
 import NextAuth, { DefaultSession } from 'next-auth';
-import Google from 'next-auth/providers/google';
 import Facebook from 'next-auth/providers/facebook';
+import Google from 'next-auth/providers/google';
 
 declare module 'next-auth' {
   /**

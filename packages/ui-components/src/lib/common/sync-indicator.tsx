@@ -1,12 +1,13 @@
 'use client';
 
-import { useSyncStatus } from '@job-tracker/data-access';
 import {
   CloudArrowUpIcon,
   CloudIcon,
   ExclamationCircleIcon,
   SignalSlashIcon,
 } from '@heroicons/react/24/outline';
+
+import { useSyncStatus } from '@job-tracker/data-access';
 
 export const SyncIndicator = () => {
   const status = useSyncStatus();

@@ -1,7 +1,10 @@
 import { z } from 'zod';
+
 import { EventCategoryType, RoleStatus } from '@job-tracker/domain';
-import { EventCategoryTypeSchema, RoleStatusSchema } from './enum-schema';
+
 import { updateRequiredBoolean, updateRequiredString } from '../helpers/schema-helpers';
+
+import { EventCategoryTypeSchema, RoleStatusSchema } from './enum-schema';
 
 export const EventTypeCreateSchema = z.object({
   name: z.string().min(1, 'Event Type name is required').max(100),

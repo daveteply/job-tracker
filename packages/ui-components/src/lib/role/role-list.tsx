@@ -1,8 +1,10 @@
 'use client';
 
-import { RoleDTO } from '@job-tracker/validation';
-import RoleInfoCard from './role-info-card';
 import { useTranslations } from 'next-intl';
+
+import { RoleDTO } from '@job-tracker/validation';
+
+import RoleInfoCard from './role-info-card';
 
 export interface RoleListProps {
   roles: RoleDTO[];

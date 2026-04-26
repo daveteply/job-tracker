@@ -1,6 +1,8 @@
 import { RxJsonSchema } from 'rxdb';
-import { RoleEntity } from './role.entity';
+
 import { RoleStatus } from '../common/role-status-type';
+
+import { RoleEntity } from './role.entity';
 
 const ROLE_SCHEMA_VERSION = 0;
 

@@ -1,11 +1,13 @@
 'use client';
 
 import { useMemo } from 'react';
+
+import { useSearchParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+
 import { useReminderActions } from '@job-tracker/hooks';
 import { ReminderForm } from '@job-tracker/ui-components';
 import { ReminderInput } from '@job-tracker/validation';
-import { useTranslations } from 'next-intl';
-import { useSearchParams } from 'next/navigation';
 
 export default function ReminderNewPage() {
   const t = useTranslations('Reminders');

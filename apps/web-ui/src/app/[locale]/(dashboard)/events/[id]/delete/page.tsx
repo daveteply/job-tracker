@@ -1,9 +1,11 @@
 'use client';
 
+import { use } from 'react';
+
+import { useTranslations } from 'next-intl';
+
 import { useEventActions, useEventWithChildren } from '@job-tracker/hooks';
 import { EntityDelete, EventInfoCard, PageLoading } from '@job-tracker/ui-components';
-import { use } from 'react';
-import { useTranslations } from 'next-intl';
 
 export default function DeleteEventPage({ params }: { params: Promise<{ id: string }> }) {
   const t = useTranslations('Events');

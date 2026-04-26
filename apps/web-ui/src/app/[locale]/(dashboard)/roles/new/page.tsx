@@ -1,8 +1,9 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
+
 import { useCompanySearch, useRoleActions } from '@job-tracker/hooks';
 import { RoleForm } from '@job-tracker/ui-components';
-import { useTranslations } from 'next-intl';
 
 export default function CreateRolePage() {
   const t = useTranslations('Roles');

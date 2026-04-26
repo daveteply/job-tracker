@@ -1,9 +1,12 @@
 'use client';
 
-import { EventTypeDTO } from '@job-tracker/validation';
-import { useState, useMemo } from 'react';
-import PageLoading from '../../common/page-loading';
+import { useMemo,useState } from 'react';
+
 import { useTranslations } from 'next-intl';
+
+import { EventTypeDTO } from '@job-tracker/validation';
+
+import PageLoading from '../../common/page-loading';
 
 export interface EventStepTypesProps {
   eventTypes: EventTypeDTO[];

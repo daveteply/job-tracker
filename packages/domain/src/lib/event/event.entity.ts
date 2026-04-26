@@ -3,6 +3,7 @@ import { SourceType } from '../common/source-type';
 import { CompanyEntity } from '../company/company.entity';
 import { ContactEntity } from '../contact/contact.entity';
 import { RoleEntity } from '../role/role.entity';
+
 import { EventTypeEntity } from './event-type.entity';
 
 export interface EventEntity {

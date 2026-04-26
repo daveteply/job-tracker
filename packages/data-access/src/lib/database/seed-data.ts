@@ -1,4 +1,5 @@
 import { EventCategoryType, RoleStatus } from '@job-tracker/domain';
+
 import { EventTypeDocument } from './documents/event-type.document';
 
 export const seedEventTypes: EventTypeDocument[] = [

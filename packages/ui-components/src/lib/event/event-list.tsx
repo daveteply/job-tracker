@@ -1,8 +1,10 @@
 'use client';
 
-import { EventWithChildrenDTO } from '@job-tracker/validation';
-import EventInfoCard from './event-info-card';
 import { useTranslations } from 'next-intl';
+
+import { EventWithChildrenDTO } from '@job-tracker/validation';
+
+import EventInfoCard from './event-info-card';
 
 export interface EventListProps {
   events: EventWithChildrenDTO[];

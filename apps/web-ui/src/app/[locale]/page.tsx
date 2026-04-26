@@ -1,5 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 import { setRequestLocale } from 'next-intl/server';
+
 import { Link } from '../../i18n/routing';
 
 export default async function IndexPage({

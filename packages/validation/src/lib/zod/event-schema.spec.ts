@@ -1,5 +1,6 @@
-import { EventCreateWithReminderSchema } from './event-schema';
 import { DirectionType, SourceType } from '@job-tracker/domain';
+
+import { EventCreateWithReminderSchema } from './event-schema';
 
 describe('EventCreateWithReminderSchema', () => {
   const validBaseData = {

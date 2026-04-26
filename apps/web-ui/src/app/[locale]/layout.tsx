@@ -1,10 +1,12 @@
 import { Metadata, Viewport } from 'next';
+import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
-import { notFound } from 'next/navigation';
+
 import { routing } from '../../i18n/routing';
-import '../global.css';
 import { Providers } from '../providers';
+
+import '../global.css';
 
 export const metadata: Metadata = {
   title: 'Job Tracker',

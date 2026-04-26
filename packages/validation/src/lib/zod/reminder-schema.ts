@@ -1,6 +1,8 @@
 import { z } from 'zod';
-import { EventWithChildrenDTO } from './event-schema';
+
 import { emptyToUndefined } from '../helpers/schema-helpers';
+
+import { EventWithChildrenDTO } from './event-schema';
 
 export const ReminderInputSchema = z.object({
   id: z.string().optional(),

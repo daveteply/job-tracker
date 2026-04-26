@@ -1,8 +1,9 @@
 'use client';
 
-import { signIn } from 'next-auth/react';
-import { useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
+
+import { useSearchParams } from 'next/navigation';
+import { signIn } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 
 function SignInContent() {

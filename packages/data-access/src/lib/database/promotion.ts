@@ -1,6 +1,7 @@
-import { RxCollection, removeRxDatabase } from 'rxdb';
+import { removeRxDatabase,RxCollection } from 'rxdb';
 import { getRxStorageDexie } from 'rxdb/plugins/storage-dexie';
-import { TrackerCollections, TrackerDatabase, initRxDatabase } from './rx-database';
+
+import { initRxDatabase,TrackerCollections, TrackerDatabase } from './rx-database';
 
 export const GUEST_DB_NAME = 'job_tracker_db_guest';
 

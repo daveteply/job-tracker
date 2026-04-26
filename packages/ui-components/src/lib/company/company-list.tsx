@@ -1,8 +1,10 @@
 'use client';
 
-import CompanyInfoCard from './company-info-card';
-import { CompanyDTO } from '@job-tracker/validation';
 import { useTranslations } from 'next-intl';
+
+import { CompanyDTO } from '@job-tracker/validation';
+
+import CompanyInfoCard from './company-info-card';
 
 export interface CompanyListProps {
   companies: CompanyDTO[];

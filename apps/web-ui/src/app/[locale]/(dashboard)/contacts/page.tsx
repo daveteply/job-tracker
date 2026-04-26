@@ -1,10 +1,12 @@
 'use client';
 
 import { PlusCircleIcon } from '@heroicons/react/16/solid';
+import { useTranslations } from 'next-intl';
+
 import { useContactsWithCompany } from '@job-tracker/hooks';
 import { ContactList, PageLoading } from '@job-tracker/ui-components';
+
 import { Link } from '../../../../i18n/routing';
-import { useTranslations } from 'next-intl';
 
 export default function ContactsListPage() {
   const t = useTranslations('Contacts');

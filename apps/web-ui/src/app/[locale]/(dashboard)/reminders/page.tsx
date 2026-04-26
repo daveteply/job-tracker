@@ -1,11 +1,14 @@
 'use client';
 
+import { useMemo } from 'react';
+
+import { BellIcon, PlusIcon } from '@heroicons/react/24/outline';
+import { useTranslations } from 'next-intl';
+
 import { useRemindersWithChildren } from '@job-tracker/hooks';
 import { PageLoading, ReminderList } from '@job-tracker/ui-components';
-import { useMemo } from 'react';
-import { BellIcon, PlusIcon } from '@heroicons/react/24/outline';
+
 import { Link } from '../../../../i18n/routing';
-import { useTranslations } from 'next-intl';
 
 export default function ReminderListPage() {
   const t = useTranslations('Reminders');

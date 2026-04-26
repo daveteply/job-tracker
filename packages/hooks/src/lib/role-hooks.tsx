@@ -1,12 +1,15 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { CompanyRepository, RoleRepository, DeletionCheck, useDb } from '@job-tracker/data-access';
-import { resolveCompanyId, type EntitySelection } from '@job-tracker/app-logic';
-import { RoleDTO, RoleWithCompanyDTO } from '@job-tracker/validation';
+
 import { combineLatest, map } from 'rxjs';
-import { useObservable } from './use-observable';
+
+import { type EntitySelection,resolveCompanyId } from '@job-tracker/app-logic';
 import { EMPTY_DELETION_BLOCKERS } from '@job-tracker/app-logic';
+import { CompanyRepository, DeletionCheck, RoleRepository, useDb } from '@job-tracker/data-access';
+import { RoleDTO, RoleWithCompanyDTO } from '@job-tracker/validation';
+
+import { useObservable } from './use-observable';
 
 export function useRoleRepository() {
   const db = useDb();

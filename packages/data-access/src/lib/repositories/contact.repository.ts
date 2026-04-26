@@ -1,18 +1,20 @@
-import { Observable, map } from 'rxjs';
-import { ContactDTO } from '@job-tracker/validation';
+import { map,Observable } from 'rxjs';
+
 import {
   canDeleteEntity,
   createAuditTimestamps,
   createUpdatedAt,
   DEFAULT_SEARCH_LIMIT,
+  type DeletionBlockers,
   EMPTY_DELETION_BLOCKERS,
   normalizeSearchInput,
   upsertEntity,
-  type DeletionBlockers,
 } from '@job-tracker/app-logic';
+import { ContactDTO } from '@job-tracker/validation';
+
 import { TrackerDatabase } from '../database/db';
-import { ContactMapper } from '../mappers/contact.mapper';
 import { ContactDocument } from '../database/documents/contact.document';
+import { ContactMapper } from '../mappers/contact.mapper';
 
 export class ContactRepository {
   constructor(private readonly db: TrackerDatabase) {}

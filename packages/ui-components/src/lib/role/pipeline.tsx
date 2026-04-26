@@ -1,18 +1,21 @@
-import { RoleStatus } from '@job-tracker/domain';
-import { RoleDTO } from '@job-tracker/validation';
-import RoleInfoCard from './role-info-card';
 import { useMemo } from 'react';
-import { useTranslations } from 'next-intl';
+
 import {
+  ArchiveBoxIcon,
   BriefcaseIcon,
-  CheckCircleIcon,
   ChatBubbleLeftRightIcon,
+  CheckCircleIcon,
+  EyeSlashIcon,
   RocketLaunchIcon,
   UserGroupIcon,
   XCircleIcon,
-  ArchiveBoxIcon,
-  EyeSlashIcon,
 } from '@heroicons/react/24/outline';
+import { useTranslations } from 'next-intl';
+
+import { RoleStatus } from '@job-tracker/domain';
+import { RoleDTO } from '@job-tracker/validation';
+
+import RoleInfoCard from './role-info-card';
 
 const STATUS_ORDER = [
   RoleStatus.Lead,

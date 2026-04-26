@@ -1,9 +1,10 @@
 import { z } from 'zod';
+
 import {
-  updateRequiredString,
+  emptyToUndefined,
   updateOptionalString,
   updateOptionalUrl,
-  emptyToUndefined,
+  updateRequiredString,
 } from '../helpers/schema-helpers';
 
 export const CompanyCreateSchema = z.object({

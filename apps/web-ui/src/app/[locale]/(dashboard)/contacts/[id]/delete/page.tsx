@@ -1,10 +1,13 @@
 'use client';
 
 import { use } from 'react';
+
+import { useTranslations } from 'next-intl';
+
 import { useCanDeleteContact, useContactActions, useContactWithCompany } from '@job-tracker/hooks';
 import { ContactInfoCard, EntityDelete, PageLoading } from '@job-tracker/ui-components';
+
 import { Link } from '../../../../../../i18n/routing';
-import { useTranslations } from 'next-intl';
 
 export default function DeleteContactPage({ params }: { params: Promise<{ id: string }> }) {
   const t = useTranslations('Contacts');

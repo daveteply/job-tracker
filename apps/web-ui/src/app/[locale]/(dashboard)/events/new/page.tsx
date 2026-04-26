@@ -1,5 +1,13 @@
 'use client';
 
+import { useState } from 'react';
+import { FormProvider, Path,useForm } from 'react-hook-form';
+
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useTranslations } from 'next-intl';
+
+import { inferDirectionFromEventType } from '@job-tracker/app-logic';
+import { DirectionType, SourceType } from '@job-tracker/domain';
 import {
   useCompanySearch,
   useContactSearch,
@@ -14,14 +22,9 @@ import {
   EventStepType,
   FloatingButtonContainer,
 } from '@job-tracker/ui-components';
-import { useState } from 'react';
-import { useForm, FormProvider, Path } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { EventCreateWithReminderSchema, EventCreateWithReminder } from '@job-tracker/validation';
-import { DirectionType, SourceType } from '@job-tracker/domain';
+import { EventCreateWithReminder,EventCreateWithReminderSchema } from '@job-tracker/validation';
+
 import { useRouter } from '../../../../../i18n/routing';
-import { useTranslations } from 'next-intl';
-import { inferDirectionFromEventType } from '@job-tracker/app-logic';
 
 export default function EventsNewPage() {
   const t = useTranslations('Events');

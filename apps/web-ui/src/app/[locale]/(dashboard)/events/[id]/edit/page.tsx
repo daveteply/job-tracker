@@ -1,6 +1,9 @@
 'use client';
 
 import { use } from 'react';
+
+import { useTranslations } from 'next-intl';
+
 import {
   useCompanySearch,
   useContactSearch,
@@ -11,7 +14,6 @@ import {
 } from '@job-tracker/hooks';
 import { EventForm, PageLoading } from '@job-tracker/ui-components';
 import { EventDTO } from '@job-tracker/validation';
-import { useTranslations } from 'next-intl';
 
 type EventEditFormData = EventDTO & {
   company?: {

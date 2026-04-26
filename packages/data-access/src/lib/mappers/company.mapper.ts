@@ -1,5 +1,6 @@
 import { CompanyEntity } from '@job-tracker/domain';
 import { CompanyDTO } from '@job-tracker/validation';
+
 import { CompanyDocument } from '../database/documents/company.document';
 
 export class CompanyMapper {

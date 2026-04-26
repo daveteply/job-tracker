@@ -1,11 +1,14 @@
 'use client';
 
-import { CompanyDTO, ContactDTO, RoleDTO } from '@job-tracker/validation';
 import { Control, FieldValues, Path } from 'react-hook-form';
+
+import { useTranslations } from 'next-intl';
+
+import { CompanyDTO, ContactDTO, RoleDTO } from '@job-tracker/validation';
+
 import CompanyCombobox from '../../company/company-combobox';
 import ContactCombobox from '../../contact/contact-combobox';
 import RoleCombobox from '../../role/role-combobox';
-import { useTranslations } from 'next-intl';
 
 export interface EventStepContextProps<T extends FieldValues = FieldValues> {
   control: Control<T>;

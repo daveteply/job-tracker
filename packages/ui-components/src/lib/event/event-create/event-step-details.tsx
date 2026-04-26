@@ -1,8 +1,10 @@
 'use client';
 
 import { FieldValues, Path, PathValue, UseFormRegister, UseFormSetValue, UseFormWatch } from 'react-hook-form';
-import { DirectionType, SourceType } from '@job-tracker/domain';
+
 import { useTranslations } from 'next-intl';
+
+import { DirectionType, SourceType } from '@job-tracker/domain';
 
 export interface EventStepDetailsProps<T extends FieldValues = FieldValues> {
   register: UseFormRegister<T>;

@@ -1,8 +1,9 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
+
 import { useCompanySearch, useContactActions } from '@job-tracker/hooks';
 import { ContactForm } from '@job-tracker/ui-components';
-import { useTranslations } from 'next-intl';
 
 export default function CreateContactPage() {
   const t = useTranslations('Contacts');

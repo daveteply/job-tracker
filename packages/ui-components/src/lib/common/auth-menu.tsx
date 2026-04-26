@@ -1,8 +1,9 @@
 'use client';
 
-import { useSession, signOut } from 'next-auth/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { signOut,useSession } from 'next-auth/react';
+
 import { SyncIndicator } from './sync-indicator';
 
 export function AuthMenu() {

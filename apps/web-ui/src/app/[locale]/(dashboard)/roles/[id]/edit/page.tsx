@@ -1,10 +1,12 @@
 'use client';
 
 import { use } from 'react';
-import { useCompanySearch, useRoleActions, useRoleWithCompany } from '@job-tracker/hooks';
-import { RoleForm, PageLoading } from '@job-tracker/ui-components';
-import { RoleDTO } from '@job-tracker/validation';
+
 import { useTranslations } from 'next-intl';
+
+import { useCompanySearch, useRoleActions, useRoleWithCompany } from '@job-tracker/hooks';
+import { PageLoading,RoleForm } from '@job-tracker/ui-components';
+import { RoleDTO } from '@job-tracker/validation';
 
 type RoleEditFormData = RoleDTO & {
   company?: {

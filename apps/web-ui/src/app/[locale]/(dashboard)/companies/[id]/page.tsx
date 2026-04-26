@@ -1,11 +1,14 @@
 'use client';
 
 import { use } from 'react';
-import { useCompany } from '@job-tracker/hooks';
-import { CompanyInfoCard, PageLoading } from '@job-tracker/ui-components';
-import { Link } from '../../../../../i18n/routing';
+
 import { PencilIcon, TrashIcon } from '@heroicons/react/16/solid';
 import { useTranslations } from 'next-intl';
+
+import { useCompany } from '@job-tracker/hooks';
+import { CompanyInfoCard, PageLoading } from '@job-tracker/ui-components';
+
+import { Link } from '../../../../../i18n/routing';
 
 export default function CompanyDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const t = useTranslations('Companies');

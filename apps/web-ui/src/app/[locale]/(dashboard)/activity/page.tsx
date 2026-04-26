@@ -1,10 +1,11 @@
 'use client';
 
-import { EventList } from '@job-tracker/ui-components';
-import { useEventsWithChildren } from '@job-tracker/hooks';
-import Link from 'next/link';
 import { ArchiveBoxIcon, PlusIcon } from '@heroicons/react/24/outline';
+import Link from 'next/link';
 import { useTranslations } from 'next-intl';
+
+import { useEventsWithChildren } from '@job-tracker/hooks';
+import { EventList } from '@job-tracker/ui-components';
 
 export default function ActivityPage() {
   const t = useTranslations('Activity');

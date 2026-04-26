@@ -1,24 +1,25 @@
 import { addRxPlugin, createRxDatabase, RxCollection, RxDatabase } from 'rxdb';
 import { disableWarnings, RxDBDevModePlugin } from 'rxdb/plugins/dev-mode';
+import { RxDBJsonDumpPlugin } from 'rxdb/plugins/json-dump';
+import { RxDBLeaderElectionPlugin } from 'rxdb/plugins/leader-election';
 import { getRxStorageDexie } from 'rxdb/plugins/storage-dexie';
 import { wrappedValidateAjvStorage } from 'rxdb/plugins/validate-ajv';
-import { RxDBLeaderElectionPlugin } from 'rxdb/plugins/leader-election';
-import { RxDBJsonDumpPlugin } from 'rxdb/plugins/json-dump';
 
 import {
-  EventSchema,
-  EventTypeSchema,
-  RoleSchema,
-  ReminderSchema,
   CompanySchema,
   ContactSchema,
+  EventSchema,
+  EventTypeSchema,
+  ReminderSchema,
+  RoleSchema,
 } from '@job-tracker/domain';
+
 import { CompanyDocument } from './documents/company.document';
 import { ContactDocument } from './documents/contact.document';
-import { RoleDocument } from './documents/role.document';
 import { EventDocument } from './documents/event.document';
 import { EventTypeDocument } from './documents/event-type.document';
 import { ReminderDocument } from './documents/reminder.document';
+import { RoleDocument } from './documents/role.document';
 import { seedEventTypes } from './seed-data';
 
 // Add plugins

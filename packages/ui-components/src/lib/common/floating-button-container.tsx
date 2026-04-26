@@ -1,6 +1,7 @@
 'use client';
 
 import { ReactNode, useEffect } from 'react';
+
 import { useFloatingUI } from './floating-ui-context';
 
 interface FloatingButtonContainerProps {

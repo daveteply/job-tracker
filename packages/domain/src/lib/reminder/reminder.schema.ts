@@ -1,4 +1,5 @@
 import { RxJsonSchema } from 'rxdb';
+
 import { ReminderEntity } from './reminder.entity';
 
 const REMINDER_SCHEMA_VERSION = 0;

@@ -1,22 +1,16 @@
 export * from './lib/common/direction-type';
 export * from './lib/common/event-category-type';
-export * from './lib/common/source-type';
 export * from './lib/common/role-status-type';
-
+export * from './lib/common/source-type';
 export * from './lib/company/company.entity';
 export * from './lib/company/company.schema';
-
 export * from './lib/contact/contact.entity';
 export * from './lib/contact/contact.schema';
-
-export * from './lib/event/event-type.entity';
-export * from './lib/event/event-type.schema';
-
 export * from './lib/event/event.entity';
 export * from './lib/event/event.schema';
-
+export * from './lib/event/event-type.entity';
+export * from './lib/event/event-type.schema';
 export * from './lib/reminder/reminder.entity';
 export * from './lib/reminder/reminder.schema';
-
 export * from './lib/role/role.entity';
 export * from './lib/role/role.schema';

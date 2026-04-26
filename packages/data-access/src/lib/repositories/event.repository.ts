@@ -1,8 +1,10 @@
-import { EventDTO } from '@job-tracker/validation';
-import { TrackerDatabase } from '../database/db';
 import { map, Observable } from 'rxjs';
+
 import { upsertEntity } from '@job-tracker/app-logic';
 import { createAuditTimestamps, createUpdatedAt } from '@job-tracker/app-logic';
+import { EventDTO } from '@job-tracker/validation';
+
+import { TrackerDatabase } from '../database/db';
 import { EventMapper } from '../mappers/event.mapper';
 
 export class EventRepository {

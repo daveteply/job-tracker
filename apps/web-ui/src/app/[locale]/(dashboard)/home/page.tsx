@@ -1,17 +1,20 @@
 'use client';
 
+import { useMemo } from 'react';
+
+import { PlusIcon } from '@heroicons/react/24/outline';
+import Image from 'next/image';
+import { useTranslations } from 'next-intl';
+
+import { RoleStatus } from '@job-tracker/domain';
 import {
   useEventsWithChildren,
   useRemindersWithChildren,
   useRolesWithCompany,
 } from '@job-tracker/hooks';
-import { ReminderList, EventList, RoleList } from '@job-tracker/ui-components';
-import { RoleStatus } from '@job-tracker/domain';
-import { useMemo } from 'react';
+import { EventList, ReminderList, RoleList } from '@job-tracker/ui-components';
+
 import { Link } from '../../../../i18n/routing';
-import Image from 'next/image';
-import { PlusIcon } from '@heroicons/react/24/outline';
-import { useTranslations } from 'next-intl';
 
 export default function HomePage() {
   const t = useTranslations('HomePage');

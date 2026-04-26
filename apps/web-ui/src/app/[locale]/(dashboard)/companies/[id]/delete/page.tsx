@@ -1,10 +1,13 @@
 'use client';
 
 import { use } from 'react';
+
+import { useTranslations } from 'next-intl';
+
 import { useCanDeleteCompany, useCompany, useCompanyActions } from '@job-tracker/hooks';
 import { CompanyInfoCard, EntityDelete, PageLoading } from '@job-tracker/ui-components';
+
 import { Link } from '../../../../../../i18n/routing';
-import { useTranslations } from 'next-intl';
 
 export default function DeleteCompanyPage({ params }: { params: Promise<{ id: string }> }) {
   const t = useTranslations('Companies');

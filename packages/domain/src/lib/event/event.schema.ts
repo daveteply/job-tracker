@@ -1,6 +1,8 @@
 import { RxJsonSchema } from 'rxdb';
+
 import { DirectionType } from '../common/direction-type';
 import { SourceType } from '../common/source-type';
+
 import { EventEntity } from './event.entity';
 
 const EVENT_SCHEMA_VERSION = 0;

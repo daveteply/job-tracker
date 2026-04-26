@@ -1,5 +1,9 @@
 'use client';
 
+import { useEffect, useMemo, useState } from 'react';
+
+import { combineLatest, map } from 'rxjs';
+
 import { EntitySelection, resolveCompanyId, resolveEntityId } from '@job-tracker/app-logic';
 import {
   CompanyRepository,
@@ -12,8 +16,7 @@ import {
 } from '@job-tracker/data-access';
 import { DirectionType, RoleStatus, SourceType } from '@job-tracker/domain';
 import { ContactDTO, EventDTO, EventWithChildrenDTO, RoleDTO } from '@job-tracker/validation';
-import { useEffect, useMemo, useState } from 'react';
-import { combineLatest, map } from 'rxjs';
+
 import { useObservable } from './use-observable';
 
 export function useEventRepository() {

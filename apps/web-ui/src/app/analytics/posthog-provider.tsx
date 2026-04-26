@@ -1,9 +1,10 @@
 'use client';
 
+import { Suspense,useEffect } from 'react';
+
+import { usePathname, useSearchParams } from 'next/navigation';
 import posthog from 'posthog-js';
 import { PostHogProvider as PHProvider } from 'posthog-js/react';
-import { useEffect, Suspense } from 'react';
-import { usePathname, useSearchParams } from 'next/navigation';
 import { usePostHog } from 'posthog-js/react';
 
 if (typeof window !== 'undefined') {

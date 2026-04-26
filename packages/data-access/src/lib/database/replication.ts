@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
-import {
-  replicateRxCollection,
-  RxReplicationState,
-} from 'rxdb/plugins/replication';
+
 import {
   ReplicationPullHandlerResult,
   ReplicationPushHandlerResult,
 } from 'rxdb';
+import {
+  replicateRxCollection,
+  RxReplicationState,
+} from 'rxdb/plugins/replication';
+
 import { TrackerDatabase } from './rx-database';
 
 const SYNC_URL = process.env['NEXT_PUBLIC_SYNC_URL'] || 'http://localhost:8080/sync';

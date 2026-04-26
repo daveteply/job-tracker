@@ -1,8 +1,9 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import { useToast } from './toast-context';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+
+import { useToast } from './toast-context';
 
 export interface EntityDeleteTranslations {
   reminder: string;
