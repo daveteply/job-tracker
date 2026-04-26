@@ -4,9 +4,9 @@ import { createContext, useContext, useEffect, useRef, useState } from 'react';
 
 import { useSession } from 'next-auth/react';
 
-import { GUEST_DB_NAME,promoteGuestToUser } from './promotion';
-import { SyncStatus,useReplication } from './replication';
-import { initRxDatabase,TrackerDatabase } from './rx-database';
+import { GUEST_DB_NAME, promoteGuestToUser } from './promotion';
+import { SyncStatus, useReplication } from './replication';
+import { initRxDatabase, TrackerDatabase } from './rx-database';
 
 const PREV_DB_NAME_KEY = 'job_tracker_prev_db_name';
 
@@ -38,11 +38,11 @@ export const DatabaseProvider = ({ children }: { children: React.ReactNode }) =>
     const userId = session?.user?.id;
     const prevDbName = localStorage.getItem(PREV_DB_NAME_KEY);
 
-    // Determine the intended database name. 
+    // Determine the intended database name.
     // If logged in, use the user-specific database.
     // If logged out, default to the most recent database used on this device.
     // This allows users to continue working locally after signing out.
-    const dbName = userId ? `job_tracker_db_${userId}` : (prevDbName || GUEST_DB_NAME);
+    const dbName = userId ? `job_tracker_db_${userId}` : prevDbName || GUEST_DB_NAME;
 
     // If the database is already initialized with the correct name, do nothing
     if (db && prevDbName === dbName) {
@@ -88,7 +88,13 @@ export const DatabaseProvider = ({ children }: { children: React.ReactNode }) =>
   return <DatabaseContext.Provider value={{ db, syncStatus }}>{children}</DatabaseContext.Provider>;
 };
 
-export const DatabaseGate = ({ children, fallback }: { children: React.ReactNode; fallback: React.ReactNode }) => {
+export const DatabaseGate = ({
+  children,
+  fallback,
+}: {
+  children: React.ReactNode;
+  fallback: React.ReactNode;
+}) => {
   const db = useDb();
   if (!db) {
     return <>{fallback}</>;
@@ -107,4 +113,4 @@ export const useSyncStatus = () => {
 };
 
 export type { SyncStatus } from './replication';
-export type { TrackerCollections,TrackerDatabase } from './rx-database';
+export type { TrackerCollections, TrackerDatabase } from './rx-database';

@@ -4,7 +4,7 @@ import { PlusCircleIcon } from '@heroicons/react/16/solid';
 import { useTranslations } from 'next-intl';
 
 import { useRolesWithCompany } from '@job-tracker/hooks';
-import { PageLoading,RoleList } from '@job-tracker/ui-components';
+import { PageLoading, RoleList } from '@job-tracker/ui-components';
 
 import { Link } from '../../../../i18n/routing';
 

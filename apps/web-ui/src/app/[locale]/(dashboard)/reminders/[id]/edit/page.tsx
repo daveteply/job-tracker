@@ -50,10 +50,7 @@ export default function ReminderEditPage({ params }: { params: Promise<{ id: str
 
       {!reminder.completedAt && (
         <div className="mx-auto mb-6 max-w-md px-1">
-          <button
-            onClick={handleComplete}
-            className="btn btn-outline btn-success w-full gap-2"
-          >
+          <button onClick={handleComplete} className="btn btn-outline btn-success w-full gap-2">
             <CheckCircleIcon className="size-5" />
             {t('markAsCompletedLabel')}
           </button>
@@ -63,7 +60,11 @@ export default function ReminderEditPage({ params }: { params: Promise<{ id: str
       <ReminderForm
         isEdit={true}
         initialData={initialData as unknown as ReminderInput}
-        onSubmitAction={upsertReminder as unknown as (data: ReminderInput) => Promise<{ success: boolean; message: string }>}
+        onSubmitAction={
+          upsertReminder as unknown as (
+            data: ReminderInput,
+          ) => Promise<{ success: boolean; message: string }>
+        }
         postActionRoute={`/reminders/${id}`}
       />
     </>

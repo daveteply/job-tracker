@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { FormProvider, Path,useForm } from 'react-hook-form';
+import { FormProvider, Path, useForm } from 'react-hook-form';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
@@ -22,7 +22,7 @@ import {
   EventStepType,
   FloatingButtonContainer,
 } from '@job-tracker/ui-components';
-import { EventCreateWithReminder,EventCreateWithReminderSchema } from '@job-tracker/validation';
+import { EventCreateWithReminder, EventCreateWithReminderSchema } from '@job-tracker/validation';
 
 import { useRouter } from '../../../../../i18n/routing';
 

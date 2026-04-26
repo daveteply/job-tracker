@@ -1,4 +1,4 @@
-import { map,Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 import {
   canDeleteEntity,

@@ -1,14 +1,10 @@
-import { act, fireEvent,render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 
 import { ToastProvider, useToast } from './toast-context';
 
 const TestComponent = () => {
   const { showToast } = useToast();
-  return (
-    <button onClick={() => showToast('Test Message', 'success')}>
-      Show Toast
-    </button>
-  );
+  return <button onClick={() => showToast('Test Message', 'success')}>Show Toast</button>;
 };
 
 describe('ToastProvider', () => {
@@ -25,7 +21,7 @@ describe('ToastProvider', () => {
     render(
       <ToastProvider>
         <TestComponent />
-      </ToastProvider>
+      </ToastProvider>,
     );
 
     fireEvent.click(screen.getByText('Show Toast'));
@@ -39,7 +35,7 @@ describe('ToastProvider', () => {
     render(
       <ToastProvider>
         <TestComponent />
-      </ToastProvider>
+      </ToastProvider>,
     );
 
     fireEvent.click(screen.getByText('Show Toast'));
@@ -64,7 +60,7 @@ describe('ToastProvider', () => {
     render(
       <ToastProvider>
         <TestComponent />
-      </ToastProvider>
+      </ToastProvider>,
     );
 
     fireEvent.click(screen.getByText('Show Toast'));

@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, ReactNode, useCallback, useContext, useEffect,useState } from 'react';
+import { createContext, ReactNode, useCallback, useContext, useEffect, useState } from 'react';
 
 import { XMarkIcon } from '@heroicons/react/24/outline';
 

@@ -1,11 +1,6 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
-import {
-  BottomNav,
-  Breadcrumbs,
-  FloatingActionButton,
-  Header,
-} from '@job-tracker/ui-components';
+import { BottomNav, Breadcrumbs, FloatingActionButton, Header } from '@job-tracker/ui-components';
 
 export default async function DashboardLayout({
   children,

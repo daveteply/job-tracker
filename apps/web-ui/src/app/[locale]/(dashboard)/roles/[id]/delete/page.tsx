@@ -5,7 +5,7 @@ import { use } from 'react';
 import { useTranslations } from 'next-intl';
 
 import { useCanDeleteRole, useRoleActions, useRoleWithCompany } from '@job-tracker/hooks';
-import { EntityDelete, PageLoading,RoleInfoCard } from '@job-tracker/ui-components';
+import { EntityDelete, PageLoading, RoleInfoCard } from '@job-tracker/ui-components';
 
 import { Link } from '../../../../../../i18n/routing';
 

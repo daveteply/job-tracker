@@ -5,8 +5,8 @@ import React from 'react';
 import { SessionProvider } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 
-import { DatabaseGate,DatabaseProvider } from '@job-tracker/data-access';
-import { FloatingUIProvider, PageLoading,ToastProvider } from '@job-tracker/ui-components';
+import { DatabaseGate, DatabaseProvider } from '@job-tracker/data-access';
+import { FloatingUIProvider, PageLoading, ToastProvider } from '@job-tracker/ui-components';
 
 import { PostHogAuthHandler } from './analytics/posthog-auth-handler';
 import { PostHogProvider } from './analytics/posthog-provider';

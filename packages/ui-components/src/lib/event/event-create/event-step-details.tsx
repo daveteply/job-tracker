@@ -1,6 +1,13 @@
 'use client';
 
-import { FieldValues, Path, PathValue, UseFormRegister, UseFormSetValue, UseFormWatch } from 'react-hook-form';
+import {
+  FieldValues,
+  Path,
+  PathValue,
+  UseFormRegister,
+  UseFormSetValue,
+  UseFormWatch,
+} from 'react-hook-form';
 
 import { useTranslations } from 'next-intl';
 
@@ -38,7 +45,9 @@ export function EventStepDetails<T extends FieldValues = FieldValues>({
                 key={key}
                 type="button"
                 onClick={() =>
-                  setValue('direction' as Path<T>, value as PathValue<T, Path<T>>, { shouldValidate: true })
+                  setValue('direction' as Path<T>, value as PathValue<T, Path<T>>, {
+                    shouldValidate: true,
+                  })
                 }
                 className={`badge ${currentDirection === value ? 'badge-primary' : 'badge-ghost'}`}
               >
@@ -58,7 +67,9 @@ export function EventStepDetails<T extends FieldValues = FieldValues>({
                 key={key}
                 type="button"
                 onClick={() =>
-                  setValue('source' as Path<T>, value as PathValue<T, Path<T>>, { shouldValidate: true })
+                  setValue('source' as Path<T>, value as PathValue<T, Path<T>>, {
+                    shouldValidate: true,
+                  })
                 }
                 className={`badge ${currentSource === value ? 'badge-primary' : 'badge-ghost'}`}
               >
@@ -87,7 +98,9 @@ export function EventStepDetails<T extends FieldValues = FieldValues>({
         <input
           className="input input-bordered w-full"
           {...register('summary' as Path<T>)}
-          placeholder={t('formSummaryPlaceholder', { defaultValue: 'e.g. Phone screen with Recruiter' })}
+          placeholder={t('formSummaryPlaceholder', {
+            defaultValue: 'e.g. Phone screen with Recruiter',
+          })}
         />
       </div>
 

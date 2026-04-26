@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { combineLatest, map } from 'rxjs';
 
-import { type EntitySelection,resolveCompanyId } from '@job-tracker/app-logic';
+import { type EntitySelection, resolveCompanyId } from '@job-tracker/app-logic';
 import { EMPTY_DELETION_BLOCKERS } from '@job-tracker/app-logic';
 import { CompanyRepository, DeletionCheck, RoleRepository, useDb } from '@job-tracker/data-access';
 import { RoleDTO, RoleWithCompanyDTO } from '@job-tracker/validation';

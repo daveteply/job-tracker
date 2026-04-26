@@ -12,11 +12,7 @@ export interface RoleListProps {
   noRolesMessage?: string;
 }
 
-export function RoleList({
-  roles,
-  renderFull = true,
-  noRolesMessage,
-}: RoleListProps) {
+export function RoleList({ roles, renderFull = true, noRolesMessage }: RoleListProps) {
   const t = useTranslations('Roles');
   const message = noRolesMessage || t('noRolesFound');
 

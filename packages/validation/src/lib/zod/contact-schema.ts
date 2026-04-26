@@ -17,9 +17,7 @@ import { CompanyDTO } from './company-schema';
 const contactCreateBase = {
   title: emptyToUndefined(z.string().max(100).optional()),
   email: emptyToUndefined(z.email('invalidEmail').max(254).optional()),
-  phoneNumber: emptyToUndefined(
-    z.string().max(30).regex(phoneRegex, 'invalidPhone').optional(),
-  ),
+  phoneNumber: emptyToUndefined(z.string().max(30).regex(phoneRegex, 'invalidPhone').optional()),
   linkedInUrl: emptyToUndefined(z.url('invalidUrl').max(2048).optional()),
   isPrimaryRecruiter: z
     .boolean()

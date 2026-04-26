@@ -1,4 +1,4 @@
-import { expect,test } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 
 // Using serial mode because we want each test to build on the previous one (CRUD)
 test.describe.serial('Companies CRUD Flow', () => {

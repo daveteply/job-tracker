@@ -101,11 +101,11 @@ export function ReminderForm({
 
       <fieldset className="fieldset">
         <legend className="fieldset-legend">{t('formRemindAt')}</legend>
-        <input 
-          className="input" 
-          type="date" 
+        <input
+          className="input"
+          type="date"
           min={formatToYYYYMMDD(new Date())}
-          {...register('remindAt')} 
+          {...register('remindAt')}
         />
         <p className="label">{tCommon('required')}</p>
         <ErrorMsg name="remindAt" />

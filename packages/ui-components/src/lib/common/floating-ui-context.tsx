@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, ReactNode, useCallback, useContext, useMemo,useState } from 'react';
+import { createContext, ReactNode, useCallback, useContext, useMemo, useState } from 'react';
 
 interface FloatingUIContextType {
   isContainerActive: boolean;

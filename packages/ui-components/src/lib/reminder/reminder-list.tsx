@@ -11,10 +11,7 @@ export interface ReminderListProps {
   noRemindersMessage?: string;
 }
 
-export function ReminderList({
-  reminders,
-  noRemindersMessage,
-}: ReminderListProps) {
+export function ReminderList({ reminders, noRemindersMessage }: ReminderListProps) {
   const t = useTranslations('Reminders');
   const message = noRemindersMessage || t('noRemindersFound');
 
@@ -25,10 +22,7 @@ export function ReminderList({
   return (
     <div className="flex flex-col gap-3">
       {reminders.map((reminder) => (
-        <ReminderInfoCard
-          key={reminder.id}
-          reminder={reminder}
-        />
+        <ReminderInfoCard key={reminder.id} reminder={reminder} />
       ))}
     </div>
   );

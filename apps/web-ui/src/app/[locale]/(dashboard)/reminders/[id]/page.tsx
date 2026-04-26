@@ -6,7 +6,7 @@ import { PencilIcon, TrashIcon } from '@heroicons/react/16/solid';
 import { useTranslations } from 'next-intl';
 
 import { useReminder } from '@job-tracker/hooks';
-import { PageLoading,ReminderInfoCard } from '@job-tracker/ui-components';
+import { PageLoading, ReminderInfoCard } from '@job-tracker/ui-components';
 
 import { Link } from '../../../../../i18n/routing';
 

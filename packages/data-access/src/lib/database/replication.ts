@@ -1,13 +1,7 @@
 import { useEffect, useState } from 'react';
 
-import {
-  ReplicationPullHandlerResult,
-  ReplicationPushHandlerResult,
-} from 'rxdb';
-import {
-  replicateRxCollection,
-  RxReplicationState,
-} from 'rxdb/plugins/replication';
+import { ReplicationPullHandlerResult, ReplicationPushHandlerResult } from 'rxdb';
+import { replicateRxCollection, RxReplicationState } from 'rxdb/plugins/replication';
 
 import { TrackerDatabase } from './rx-database';
 
@@ -56,10 +50,7 @@ export function useReplication(db: TrackerDatabase | null, userId: string | unde
                     limit: batchSize,
                   }),
                 });
-                return (await response.json()) as ReplicationPullHandlerResult<
-                  unknown,
-                  Checkpoint
-                >;
+                return (await response.json()) as ReplicationPullHandlerResult<unknown, Checkpoint>;
               } catch (err) {
                 setSyncStatus('offline');
                 throw err;
@@ -79,7 +70,9 @@ export function useReplication(db: TrackerDatabase | null, userId: string | unde
                 });
                 // The push handler expects an array of documents that had conflicts or were deleted.
                 // Our backend currently returns the rows it processed.
-                return (await response.json()) as ReplicationPushHandlerResult<{ _deleted: boolean }>;
+                return (await response.json()) as ReplicationPushHandlerResult<{
+                  _deleted: boolean;
+                }>;
               } catch (err) {
                 setSyncStatus('offline');
                 throw err;

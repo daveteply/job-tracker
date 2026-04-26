@@ -1,7 +1,7 @@
-import { removeRxDatabase,RxCollection } from 'rxdb';
+import { removeRxDatabase, RxCollection } from 'rxdb';
 import { getRxStorageDexie } from 'rxdb/plugins/storage-dexie';
 
-import { initRxDatabase,TrackerCollections, TrackerDatabase } from './rx-database';
+import { initRxDatabase, TrackerCollections, TrackerDatabase } from './rx-database';
 
 export const GUEST_DB_NAME = 'job_tracker_db_guest';
 
@@ -17,7 +17,7 @@ export async function promoteGuestToUser(targetDb: TrackerDatabase): Promise<voi
 
     // 2. Export and Import each collection (except eventTypes)
     const collectionsToPromote = Object.keys(guestDb.collections).filter(
-      (name) => name !== 'eventTypes'
+      (name) => name !== 'eventTypes',
     ) as Array<keyof TrackerCollections>;
 
     for (const colName of collectionsToPromote) {

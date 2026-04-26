@@ -24,7 +24,7 @@ export function ContactInfoCard({
   const controls = showControls && renderFull && (
     <div className="flex gap-1">
       <Link href={`/contacts/${contact.id}/edit`}>
-        < PencilIcon className="size-5" />
+        <PencilIcon className="size-5" />
       </Link>
       <Link href={`/contacts/${contact.id}/delete`} className="text-error">
         <TrashIcon className="size-5" />

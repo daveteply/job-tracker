@@ -5,7 +5,12 @@
     "incremental": true,
     "tsBuildInfoFile": "../../tmp/tsc/ui-components.tsbuildinfo",
     "jsx": "react-jsx",
-    "types": ["node", "react/canary", "@nx/react/typings/cssmodule.d.ts", "@nx/react/typings/image.d.ts"],
+    "types": [
+      "node",
+      "react/canary",
+      "@nx/react/typings/cssmodule.d.ts",
+      "@nx/react/typings/image.d.ts"
+    ],
     "lib": ["dom", "dom.iterable", "esnext"]
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],

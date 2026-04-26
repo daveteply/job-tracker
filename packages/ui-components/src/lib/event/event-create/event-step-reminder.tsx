@@ -92,9 +92,7 @@ export function EventStepReminder<T extends FieldValues = FieldValues>({
             className="checkbox checkbox-primary"
             {...register('hasReminder' as Path<T>)}
           />
-          <span className="label-text text-base-content font-medium">
-            {t('createReminder')}
-          </span>
+          <span className="label-text text-base-content font-medium">{t('createReminder')}</span>
         </label>
       </div>
 
@@ -133,18 +131,12 @@ export function EventStepReminder<T extends FieldValues = FieldValues>({
             </label>
           )}
           <label className="label">
-            <span className="label-text-alt text-base-content/60">
-              {t('reminderTasksNote')}
-            </span>
+            <span className="label-text-alt text-base-content/60">{t('reminderTasksNote')}</span>
           </label>
         </div>
       )}
 
-      {!hasReminder && (
-        <div className="text-base-content/50 italic">
-          {t('noReminderNote')}
-        </div>
-      )}
+      {!hasReminder && <div className="text-base-content/50 italic">{t('noReminderNote')}</div>}
     </div>
   );
 }

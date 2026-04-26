@@ -29,7 +29,11 @@ export default function EventDetailsPage({ params }: { params: Promise<{ id: str
     <>
       <div className="mb-3 flex">
         <h1 className="pr-2 text-xl">{t('detailsTitle')}</h1>
-        <Link className="btn btn-circle btn-sm text-primary" href={`${id}/edit`} title={t('editEvent')}>
+        <Link
+          className="btn btn-circle btn-sm text-primary"
+          href={`${id}/edit`}
+          title={t('editEvent')}
+        >
           <PencilIcon className="size-5" />
         </Link>
         <Link

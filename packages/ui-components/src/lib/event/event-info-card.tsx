@@ -1,9 +1,6 @@
 'use client';
 
-import {
-  ChevronDoubleLeftIcon,
-  ChevronDoubleRightIcon,
-} from '@heroicons/react/24/solid';
+import { ChevronDoubleLeftIcon, ChevronDoubleRightIcon } from '@heroicons/react/24/solid';
 import { useTranslations } from 'next-intl';
 
 import { DirectionType } from '@job-tracker/domain';
@@ -45,18 +42,18 @@ export function EventInfoCard({
     : event.eventType?.name;
 
   const title = (
-    <div className="flex items-center min-w-0">
+    <div className="flex min-w-0 items-center">
       <span className="badge badge-info mr-1 truncate text-xs">{eventName}</span>
       <span className="tooltip shrink-0" data-tip={tEnum(`DirectionType.${event.direction}`)}>
         {event.direction === DirectionType.Inbound ? (
           <div className="flex items-center text-xs">
             <ChevronDoubleRightIcon className="size-4" />
-            <span className="hidden sm:inline ml-1">{tEnum('DirectionType.Inbound')}</span>
+            <span className="ml-1 hidden sm:inline">{tEnum('DirectionType.Inbound')}</span>
           </div>
         ) : (
           <div className="flex items-center text-xs">
             <ChevronDoubleLeftIcon className="size-4" />
-            <span className="hidden sm:inline ml-1">{tEnum('DirectionType.Outbound')}</span>
+            <span className="ml-1 hidden sm:inline">{tEnum('DirectionType.Outbound')}</span>
           </div>
         )}
       </span>
@@ -64,8 +61,8 @@ export function EventInfoCard({
   );
 
   const controls = (
-    <div className="flex items-center gap-2 shrink-0">
-      <span className="text-neutral-content text-xs hidden xs:inline">
+    <div className="flex shrink-0 items-center gap-2">
+      <span className="text-neutral-content xs:inline hidden text-xs">
         <FormattedDate dateValue={event.occurredAt} />
       </span>
       {showControls && <EventActionMenu id={event.id} />}
@@ -100,7 +97,7 @@ export function EventInfoCard({
               </span>
             )}
             {event.contact && (
-              <span className="flex items-center gap-1 truncate ml-2">
+              <span className="ml-2 flex items-center gap-1 truncate">
                 <span>
                   {event.direction === DirectionType.Inbound ? tCard('from') : tCard('to')}
                 </span>

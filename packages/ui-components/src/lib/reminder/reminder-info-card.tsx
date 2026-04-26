@@ -10,10 +10,7 @@ export interface ReminderCardProps {
   showChevron?: boolean;
 }
 
-export function ReminderInfoCard({
-  reminder,
-  showChevron = true,
-}: ReminderCardProps) {
+export function ReminderInfoCard({ reminder, showChevron = true }: ReminderCardProps) {
   const event = reminder.event;
   const titleText = event?.summary || 'Follow up';
   const contactName = event?.contact

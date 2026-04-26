@@ -13,19 +13,13 @@ export const updateOptionalString = (maxLength: number) =>
 
 export const updateOptionalUrl = (maxLength: number) =>
   z
-    .preprocess(
-      (val) => val,
-      z.literal('').or(z.url('invalidUrl').max(maxLength)).or(z.null()),
-    )
+    .preprocess((val) => val, z.literal('').or(z.url('invalidUrl').max(maxLength)).or(z.null()))
     .optional()
     .transform((val) => (val === null ? undefined : val));
 
 export const updateOptionalEmail = (maxLength: number) =>
   z
-    .preprocess(
-      (val) => val,
-      z.literal('').or(z.email('invalidEmail').max(maxLength)).or(z.null()),
-    )
+    .preprocess((val) => val, z.literal('').or(z.email('invalidEmail').max(maxLength)).or(z.null()))
     .optional()
     .transform((val) => (val === null ? undefined : val));
 
@@ -34,10 +28,7 @@ export const updateOptionalPhone = (maxLength: number) =>
   z
     .preprocess(
       (val) => val,
-      z
-        .literal('')
-        .or(z.string().max(maxLength).regex(phoneRegex, 'invalidPhone'))
-        .or(z.null()),
+      z.literal('').or(z.string().max(maxLength).regex(phoneRegex, 'invalidPhone')).or(z.null()),
     )
     .optional()
     .transform((val) => (val === null ? undefined : val));

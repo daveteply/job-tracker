@@ -16,7 +16,7 @@ export default function ReminderNewPage() {
   const eventId = searchParams.get('eventId');
 
   const initialData = useMemo(() => {
-    return eventId ? { eventId } as Partial<ReminderInput> : undefined;
+    return eventId ? ({ eventId } as Partial<ReminderInput>) : undefined;
   }, [eventId]);
 
   return (
@@ -26,7 +26,11 @@ export default function ReminderNewPage() {
       </div>
 
       <ReminderForm
-        onSubmitAction={upsertReminder as unknown as (data: ReminderInput) => Promise<{ success: boolean; message: string }>}
+        onSubmitAction={
+          upsertReminder as unknown as (
+            data: ReminderInput,
+          ) => Promise<{ success: boolean; message: string }>
+        }
         postActionRoute="/reminders"
         initialData={initialData}
       />

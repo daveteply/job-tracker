@@ -1,4 +1,4 @@
-import { DirectionType, RoleStatus,SourceType } from '@job-tracker/domain';
+import { DirectionType, RoleStatus, SourceType } from '@job-tracker/domain';
 
 import { CompanyDTOSchema } from './company-schema';
 import { ContactDTOSchema } from './contact-schema';

@@ -17,9 +17,7 @@ function SignInContent() {
       <div className="bg-base-100 border-base-300 w-full max-w-md space-y-8 rounded-xl border p-8 shadow-lg">
         <div className="text-center">
           <h2 className="text-base-content mt-6 text-3xl font-extrabold">{t('welcomeBack')}</h2>
-          <p className="text-base-content/60 mt-2 text-sm">
-            {t('signInDescription')}
-          </p>
+          <p className="text-base-content/60 mt-2 text-sm">{t('signInDescription')}</p>
         </div>
 
         {error && (
@@ -28,9 +26,7 @@ function SignInContent() {
             role="alert"
           >
             <span className="block sm:inline">
-              {error === 'OAuthAccountNotLinked'
-                ? t('oauthAccountNotLinked')
-                : t('signInError')}
+              {error === 'OAuthAccountNotLinked' ? t('oauthAccountNotLinked') : t('signInError')}
             </span>
           </div>
         )}
@@ -63,14 +59,14 @@ function SignInContent() {
               <div className="border-base-300 w-full border-t"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="bg-base-100 text-base-content/60 px-2">{t('secureAuthentication')}</span>
+              <span className="bg-base-100 text-base-content/60 px-2">
+                {t('secureAuthentication')}
+              </span>
             </div>
           </div>
         </div>
 
-        <div className="text-base-content/60 mt-6 text-center text-xs">
-          {t('termsAndPrivacy')}
-        </div>
+        <div className="text-base-content/60 mt-6 text-center text-xs">{t('termsAndPrivacy')}</div>
       </div>
     </div>
   );

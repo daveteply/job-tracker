@@ -42,10 +42,12 @@ graph TD
 ## 📁 Project Structure
 
 ### 📱 Applications
+
 - [**web-ui**](./apps/web-ui/README.md): Next.js frontend with RxDB for offline-first data management.
 - [**sync-backend**](./apps/sync-backend/README.md): Quarkus-based synchronization server and API.
 
 ### 📦 Shared Libraries
+
 - [**domain**](./packages/domain/README.md): Core entities, TypeScript types, and RxDB schemas.
 - [**validation**](./packages/validation/README.md): Shared Zod validation schemas.
 - [**ui-components**](./packages/ui-components/README.md): Reusable React components styled with Tailwind & daisyUI.
@@ -54,6 +56,7 @@ graph TD
 - [**data-access**](./packages/data-access/README.md): Shared data fetching and persistence logic.
 
 ### 🐳 Infrastructure
+
 - [**infrastructure**](./infrastructure/README.md): Database migrations (Flyway), PGAdmin configuration, and environment setup.
 
 ---
@@ -144,7 +147,6 @@ npm run start
 
 ### 📊 PGAdmin Server Registration
 
-
 If your database tables (like `sync_events`) are missing or you see sync errors:
 
 1.  **Ensure `.env` is set up:** `cp .env.sample .env`.
@@ -159,12 +161,13 @@ If you see permission errors when running `npm run setup` or if the backend fail
     sudo rm -rf apps/sync-backend/target
     ```
     (The `sync-backend` Docker container sometimes creates files as `root`, which blocks the Nx dev server).
-3.  **Avoid using the `sync-backend` container:** 
+3.  **Avoid using the `sync-backend` container:**
     Running the backend directly in your Dev Container via `npm run start` is faster and more reliable for development.
 
 ### 📊 PGAdmin Server Registration
 
-The `docker-compose.yml` is configured to automatically register the "JobTracker DB" in PGAdmin. 
+The `docker-compose.yml` is configured to automatically register the "JobTracker DB" in PGAdmin.
+
 - **Login:** Use the credentials in your `.env` (default: `vscode@vscode.com` / `vscode`).
 - **Access:** http://localhost:5050
 - **Server:** "JobTracker DB" should already be listed in the left panel. (Note: You may still need to enter the database password `postgres_password` when first connecting).

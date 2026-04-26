@@ -26,21 +26,19 @@ export function BaseInfoCard({
   className = '',
   showFull = true,
 }: BaseInfoCardProps) {
-  const cardClasses = className.includes('card') ? className : `card bg-base-300 card-sm shadow-sm ${className}`;
+  const cardClasses = className.includes('card')
+    ? className
+    : `card bg-base-300 card-sm shadow-sm ${className}`;
 
   return (
     <div className={cardClasses}>
       <div className="card-body">
         <div className="flex items-start justify-between gap-2">
-          <div className="flex flex-1 items-center gap-2 min-w-0">
-            {typeof title === 'string' ? (
-              <h2 className="card-title truncate">{title}</h2>
-            ) : (
-              title
-            )}
+          <div className="flex min-w-0 flex-1 items-center gap-2">
+            {typeof title === 'string' ? <h2 className="card-title truncate">{title}</h2> : title}
             {header}
           </div>
-          <div className="flex items-center gap-1 shrink-0">
+          <div className="flex shrink-0 items-center gap-1">
             {controls}
             {detailsUrl && showChevron && (
               <Link

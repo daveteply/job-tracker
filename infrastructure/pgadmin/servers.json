@@ -1,14 +1,14 @@
 {
-    "Servers": {
-        "1": {
-            "Name": "JobTracker DB",
-            "Group": "Servers",
-            "Host": "db",
-            "Port": 5432,
-            "MaintenanceDB": "postgres",
-            "Username": "postgres",
-            "SSLMode": "prefer",
-            "PassFile": "/tmp/pgpassfile"
-        }
+  "Servers": {
+    "1": {
+      "Name": "JobTracker DB",
+      "Group": "Servers",
+      "Host": "db",
+      "Port": 5432,
+      "MaintenanceDB": "postgres",
+      "Username": "postgres",
+      "SSLMode": "prefer",
+      "PassFile": "/tmp/pgpassfile"
     }
+  }
 }

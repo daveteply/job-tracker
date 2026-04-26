@@ -2,8 +2,8 @@
 
 'use client';
 
-import { useEffect, useRef,useState } from 'react';
-import { Control, FieldValues, Path,useController } from 'react-hook-form';
+import { useEffect, useRef, useState } from 'react';
+import { Control, FieldValues, Path, useController } from 'react-hook-form';
 
 // Configuration for how the EntityCombobox should handle a specific entity type
 

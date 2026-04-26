@@ -16,11 +16,7 @@ export function EventTypeInfoCard({
   showChevron = true,
 }: EventTypeCardProps) {
   return (
-    <BaseInfoCard
-      title={eventType.name}
-      showFull={renderFull}
-      showChevron={showChevron}
-    >
+    <BaseInfoCard title={eventType.name} showFull={renderFull} showChevron={showChevron}>
       <ul>
         <li>{eventType.category}</li>
         <li>{eventType.isSystemDefined ? 'System' : 'User'}</li>
