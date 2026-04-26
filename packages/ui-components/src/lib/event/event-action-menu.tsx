@@ -1,6 +1,7 @@
 'use client';
 
 import { EllipsisVerticalIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/solid';
+import { BellIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
@@ -10,7 +11,8 @@ interface EventActionMenuProps {
 }
 
 export function EventActionMenu({ id }: EventActionMenuProps) {
-  const t = useTranslations('Navigation');
+  const tNav = useTranslations('Navigation');
+  const tReminders = useTranslations('Reminders');
   const containerRef = useRef<HTMLDetailsElement>(null);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -57,7 +59,17 @@ export function EventActionMenu({ id }: EventActionMenuProps) {
         </span>
       </summary>
 
-      <ul className="menu dropdown-content bg-base-100 rounded-box border-base-200 z-1 w-40 border p-2 shadow-lg">
+      <ul className="menu dropdown-content bg-base-100 rounded-box border-base-200 z-1 w-48 border p-2 shadow-lg">
+        <li>
+          <Link
+            href={`/reminders/new?eventId=${id}`}
+            className="hover:bg-base-200 flex items-center gap-2"
+            onClick={() => setIsOpen(false)}
+          >
+            <BellIcon className="size-5" />
+            {tReminders('addReminder')}
+          </Link>
+        </li>
         <li>
           <Link
             href={`/events/${id}/edit`}
@@ -65,7 +77,7 @@ export function EventActionMenu({ id }: EventActionMenuProps) {
             onClick={() => setIsOpen(false)} // Close menu after clicking action
           >
             <PencilIcon className="size-5" />
-            {t('edit')}
+            {tNav('edit')}
           </Link>
         </li>
         <li>
@@ -75,7 +87,7 @@ export function EventActionMenu({ id }: EventActionMenuProps) {
             onClick={() => setIsOpen(false)} // Close menu after clicking link
           >
             <TrashIcon className="size-5" />
-            {t('delete')}
+            {tNav('delete')}
           </Link>
         </li>
       </ul>

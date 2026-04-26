@@ -35,7 +35,7 @@ export default function ReminderDetailPage({ params }: { params: Promise<{ id: s
         </Link>
       </div>
 
-      <ReminderInfoCard reminder={reminder} showControls={false} showChevron={false} />
+      <ReminderInfoCard reminder={reminder} showChevron={false} />
 
       <div className="mt-5">
         <Link className="btn mr-3" href="/reminders">

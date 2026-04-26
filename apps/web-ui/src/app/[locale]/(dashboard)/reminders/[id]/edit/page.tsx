@@ -1,6 +1,6 @@
 'use client';
 
-import { use } from 'react';
+import { use, useMemo } from 'react';
 import { useReminder, useReminderActions } from '@job-tracker/hooks';
 import { PageLoading, ReminderForm } from '@job-tracker/ui-components';
 import { ReminderInput } from '@job-tracker/validation';
@@ -15,8 +15,15 @@ export default function ReminderEditPage({ params }: { params: Promise<{ id: str
   const { upsertReminder, completeReminder } = useReminderActions();
   const router = useRouter();
 
+  const initialData = useMemo(() => {
+    if (!reminder) return undefined;
+    return {
+      ...reminder,
+    };
+  }, [reminder]);
+
   if (loading) return <PageLoading entityName={t('reminderEntityName')} />;
-  if (!reminder) return <div>{t('reminderNotFound')}</div>;
+  if (!reminder || !initialData) return <div>{t('reminderNotFound')}</div>;
 
   const handleComplete = async () => {
     await completeReminder(id);
@@ -50,13 +57,9 @@ export default function ReminderEditPage({ params }: { params: Promise<{ id: str
         </div>
       )}
 
-      <ReminderForm<ReminderInput>
+      <ReminderForm
         isEdit={true}
-        initialData={{
-          ...reminder,
-          remindAt: reminder.remindAt.toISOString().split('T')[0] as unknown as Date,
-          completedAt: (reminder.completedAt ? reminder.completedAt.toISOString().split('T')[0] : undefined) as unknown as Date,
-        }}
+        initialData={initialData as unknown as ReminderInput}
         onSubmitAction={upsertReminder as unknown as (data: ReminderInput) => Promise<{ success: boolean; message: string }>}
         postActionRoute={`/reminders/${id}`}
       />

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useLocale } from 'next-intl';
 
 export interface FormattedDateProps {
-  dateValue?: Date;
+  dateValue?: Date | string;
   useRelativeTime?: boolean;
 }
 
@@ -18,19 +18,52 @@ export function FormattedDate({ dateValue, useRelativeTime = true }: FormattedDa
 
   if (!mounted || !dateValue) return null;
 
-  const eventDate = new Date(dateValue);
+  let eventYear: number;
+  let eventMonth: number;
+  let eventDay: number;
+
+  if (typeof dateValue === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(dateValue)) {
+    const [y, m, d] = dateValue.split('-').map(Number);
+    eventYear = y;
+    eventMonth = m - 1;
+    eventDay = d;
+  } else {
+    const d = new Date(dateValue);
+    // Heuristic: If it's exactly UTC midnight, it's likely a date-only value
+    // from a database or a date picker that was coerced/saved as UTC.
+    if (
+      d.getUTCHours() === 0 &&
+      d.getUTCMinutes() === 0 &&
+      d.getUTCSeconds() === 0 &&
+      d.getUTCMilliseconds() === 0
+    ) {
+      eventYear = d.getUTCFullYear();
+      eventMonth = d.getUTCMonth();
+      eventDay = d.getUTCDate();
+    } else {
+      eventYear = d.getFullYear();
+      eventMonth = d.getMonth();
+      eventDay = d.getDate();
+    }
+  }
+
+  const eventDate = new Date(eventYear, eventMonth, eventDay);
+
   if (useRelativeTime) {
     const currentDate = new Date();
 
-    // Calculate difference in calendar days
-    const eventMidnight = new Date(eventDate);
-    eventMidnight.setHours(0, 0, 0, 0);
-    const currentMidnight = new Date(currentDate);
-    currentMidnight.setHours(0, 0, 0, 0);
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth();
+    const currentDay = currentDate.getDate();
 
-    const differenceInDays = Math.round(
-      (eventMidnight.getTime() - currentMidnight.getTime()) / 86400000,
-    );
+    // Create a normalized Date object for both (at midnight local time)
+    const eventMidnight = new Date(eventYear, eventMonth, eventDay);
+    const currentMidnight = new Date(currentYear, currentMonth, currentDay);
+
+    // Calculate the difference in milliseconds and convert to days
+    // We use Math.round to account for possible DST shifts (e.g., 23 or 25 hour days)
+    const diffInMs = eventMidnight.getTime() - currentMidnight.getTime();
+    const differenceInDays = Math.round(diffInMs / (1000 * 60 * 60 * 24));
 
     const rtf = new Intl.RelativeTimeFormat(locale, { numeric: 'auto' });
     const formattedTime = rtf.format(differenceInDays, 'day');

@@ -101,7 +101,7 @@ export default function HomePage() {
             <span className="loading loading-spinner loading-md"></span>
           </div>
         ) : (
-          <EventList events={recentEvents} showControls={false} />
+          <EventList events={recentEvents} showControls={true} />
         )}
       </section>
 

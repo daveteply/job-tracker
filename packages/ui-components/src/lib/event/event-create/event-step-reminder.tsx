@@ -78,6 +78,8 @@ export function EventStepReminder<T extends FieldValues = FieldValues>({
     });
   };
 
+  const todayStr = new Date().toISOString().split('T')[0];
+
   return (
     <div className="space-y-6">
       <h2 className="text-base-content text-lg font-semibold">{t('reminderTitle')}</h2>
@@ -103,6 +105,7 @@ export function EventStepReminder<T extends FieldValues = FieldValues>({
           <input
             type="date"
             className={`input input-bordered w-full ${errors?.remindAt ? 'input-error' : ''}`}
+            min={todayStr}
             {...register('remindAt' as Path<T>)}
           />
           <div className="mt-3 flex flex-wrap gap-2">

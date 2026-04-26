@@ -1,13 +1,21 @@
 'use client';
 
+import { useMemo } from 'react';
 import { useReminderActions } from '@job-tracker/hooks';
 import { ReminderForm } from '@job-tracker/ui-components';
 import { ReminderInput } from '@job-tracker/validation';
 import { useTranslations } from 'next-intl';
+import { useSearchParams } from 'next/navigation';
 
 export default function ReminderNewPage() {
   const t = useTranslations('Reminders');
   const { upsertReminder } = useReminderActions();
+  const searchParams = useSearchParams();
+  const eventId = searchParams.get('eventId');
+
+  const initialData = useMemo(() => {
+    return eventId ? { eventId } as Partial<ReminderInput> : undefined;
+  }, [eventId]);
 
   return (
     <>
@@ -15,9 +23,10 @@ export default function ReminderNewPage() {
         <h1 className="text-xl">{t('addReminder')}</h1>
       </div>
 
-      <ReminderForm<ReminderInput>
+      <ReminderForm
         onSubmitAction={upsertReminder as unknown as (data: ReminderInput) => Promise<{ success: boolean; message: string }>}
         postActionRoute="/reminders"
+        initialData={initialData}
       />
     </>
   );

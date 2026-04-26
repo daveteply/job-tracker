@@ -53,4 +53,16 @@ describe('FormattedDate', () => {
 
     expect(getByText('2 days ago')).toBeTruthy();
   });
+
+  it('should show "today" for a Date object at UTC midnight matching current local date', () => {
+    // Current time: Mar 12, 10:00 AM local
+    jest.setSystemTime(new Date(2026, 2, 12, 10, 0, 0).getTime());
+    
+    // Create a Date object that is UTC midnight for Mar 12
+    const eventDate = new Date(Date.UTC(2026, 2, 12, 0, 0, 0));
+
+    const { getByText } = render(<FormattedDate dateValue={eventDate} useRelativeTime={true} />);
+
+    expect(getByText('today')).toBeTruthy();
+  });
 });

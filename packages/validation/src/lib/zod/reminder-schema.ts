@@ -1,13 +1,16 @@
 import { z } from 'zod';
 import { EventWithChildrenDTO } from './event-schema';
+import { emptyToUndefined } from '../helpers/schema-helpers';
 
 export const ReminderInputSchema = z.object({
+  id: z.string().optional(),
   eventId: z.string(),
-  remindAt: z.coerce.date(),
-  completedAt: z.coerce.date().optional(),
+  remindAt: emptyToUndefined(z.coerce.date({ message: 'invalidDate' })),
+  completedAt: emptyToUndefined(z.coerce.date().nullable().optional()),
 });
 
 export const ReminderUpdateSchema = ReminderInputSchema.partial().required({
+  id: true,
   eventId: true,
 });
 

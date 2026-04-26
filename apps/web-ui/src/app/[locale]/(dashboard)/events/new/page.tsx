@@ -15,7 +15,7 @@ import {
   FloatingButtonContainer,
 } from '@job-tracker/ui-components';
 import { useState } from 'react';
-import { useForm, FormProvider } from 'react-hook-form';
+import { useForm, FormProvider, Path } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { EventCreateWithReminderSchema, EventCreateWithReminder } from '@job-tracker/validation';
 import { DirectionType, SourceType } from '@job-tracker/domain';
@@ -36,7 +36,7 @@ export default function EventsNewPage() {
   const [step, setStep] = useState(1);
 
   const methods = useForm<EventCreateWithReminder>({
-    resolver: zodResolver(EventCreateWithReminderSchema),
+    resolver: zodResolver(EventCreateWithReminderSchema as any),
     mode: 'onChange',
     defaultValues: {
       eventTypeId: '',
@@ -224,7 +224,7 @@ export default function EventsNewPage() {
                       onClick={async () => {
                         const isFormValid = await trigger();
                         if (isFormValid) {
-                          await handleSubmit(onSubmit)();
+                          await handleSubmit(onSubmit as any)();
                         }
                       }}
                     >

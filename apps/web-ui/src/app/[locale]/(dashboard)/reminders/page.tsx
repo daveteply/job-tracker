@@ -1,6 +1,5 @@
 'use client';
 
-import { PlusCircleIcon } from '@heroicons/react/16/solid';
 import { useRemindersWithChildren } from '@job-tracker/hooks';
 import { PageLoading, ReminderList } from '@job-tracker/ui-components';
 import { useMemo } from 'react';
@@ -24,10 +23,6 @@ export default function ReminderListPage() {
     <>
       <div className="mb-3 flex justify-between">
         <h1 className="pr-1 text-xl">{t('listTitle')}</h1>
-        <Link className="btn btn-sm text-primary" href="reminders/new" title={t('addReminder')}>
-          <PlusCircleIcon className="size-5" />
-          {t('addReminder')}
-        </Link>
       </div>
 
       {activeReminders.length === 0 ? (
