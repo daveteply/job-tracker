@@ -26,6 +26,7 @@ export * from './lib/event/event-create/event-step-type';
 export * from './lib/event/event-form';
 export * from './lib/event/event-info-card';
 export * from './lib/event/event-list';
+export * from './lib/event/event-summary-generator';
 export * from './lib/event-type/event-type-info-card';
 export * from './lib/event-type/event-type-select';
 export * from './lib/reminder/reminder-form';

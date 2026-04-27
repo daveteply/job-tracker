@@ -12,23 +12,31 @@ import {
 import { useTranslations } from 'next-intl';
 
 import { DirectionType, SourceType } from '@job-tracker/domain';
+import { CompanyDTO, EventTypeDTO, RoleDTO } from '@job-tracker/validation';
+
+import EventSummaryGenerator from '../event-summary-generator';
 
 export interface EventStepDetailsProps<T extends FieldValues = FieldValues> {
   register: UseFormRegister<T>;
   watch: UseFormWatch<T>;
   setValue: UseFormSetValue<T>;
+  eventTypes?: EventTypeDTO[];
 }
 
 export function EventStepDetails<T extends FieldValues = FieldValues>({
   register,
   watch,
   setValue,
+  eventTypes,
 }: EventStepDetailsProps<T>) {
   const t = useTranslations('Events');
   const tEnum = useTranslations('Enums');
 
   const currentSource = watch('source' as Path<T>);
   const currentDirection = watch('direction' as Path<T>);
+  const eventTypeId = watch('eventTypeId' as Path<T>);
+  const role = watch('role' as Path<T>) as RoleDTO | null;
+  const company = watch('company' as Path<T>) as CompanyDTO | null;
 
   return (
     <div className="space-y-6">
@@ -92,9 +100,19 @@ export function EventStepDetails<T extends FieldValues = FieldValues>({
       </div>
 
       <div className="form-control">
-        <label className="label">
-          <span className="label-text text-base-content font-medium">{t('formSummary')}</span>
-        </label>
+        <div className="flex items-center gap-2">
+          <label className="label">
+            <span className="label-text text-base-content font-medium">{t('formSummary')}</span>
+          </label>
+          <EventSummaryGenerator
+            eventTypeId={eventTypeId}
+            eventTypes={eventTypes}
+            role={role}
+            company={company}
+            currentSource={currentSource}
+            setValue={setValue}
+          />
+        </div>
         <input
           className="input input-bordered w-full"
           {...register('summary' as Path<T>)}

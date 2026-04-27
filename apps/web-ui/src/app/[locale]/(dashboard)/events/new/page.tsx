@@ -207,7 +207,12 @@ export default function EventsNewPage() {
                   />
                 )}
                 {step === 3 && (
-                  <EventStepDetails register={register} watch={watch} setValue={setValue} />
+                  <EventStepDetails
+                    register={register}
+                    watch={watch}
+                    setValue={setValue}
+                    eventTypes={eventTypes}
+                  />
                 )}
                 {step === 4 && (
                   <EventStepReminder
