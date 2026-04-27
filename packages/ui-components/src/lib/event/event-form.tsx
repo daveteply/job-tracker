@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { Controller, DefaultValues, FieldValues, Path, PathValue, useForm } from 'react-hook-form';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -105,12 +105,38 @@ export function EventForm<T extends EventFormValues>({
     reset,
     control,
     setValue,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm<T>({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     resolver: zodResolver(schema as any),
     defaultValues: formatInitialData(initialData),
   });
+
+  const contact = watch('contact' as Path<T>) as (ContactDTO & { company?: CompanyDTO }) | null;
+  const role = watch('role' as Path<T>) as (RoleDTO & { company?: CompanyDTO }) | null;
+  const company = watch('company' as Path<T>);
+
+  const prevContactRef = useRef(contact);
+  const prevRoleRef = useRef(role);
+
+  useEffect(() => {
+    // If role changed and has an associated company, it takes precedence
+    if (role?.id !== prevRoleRef.current?.id) {
+      if (role?.company) {
+        setValue('company' as Path<T>, role.company as any, { shouldValidate: true });
+      }
+    }
+    // If contact changed and has an associated company, only fill if company is currently empty
+    else if (contact?.id !== prevContactRef.current?.id) {
+      if (contact?.company && !company) {
+        setValue('company' as Path<T>, contact.company as any, { shouldValidate: true });
+      }
+    }
+
+    prevContactRef.current = contact;
+    prevRoleRef.current = role;
+  }, [contact, role, company, setValue]);
 
   // Reset form when initialData changes
   useEffect(() => {

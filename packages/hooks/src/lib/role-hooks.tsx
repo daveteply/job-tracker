@@ -7,7 +7,7 @@ import { combineLatest, map } from 'rxjs';
 import { type EntitySelection, resolveCompanyId } from '@job-tracker/app-logic';
 import { EMPTY_DELETION_BLOCKERS } from '@job-tracker/app-logic';
 import { CompanyRepository, DeletionCheck, RoleRepository, useDb } from '@job-tracker/data-access';
-import { RoleDTO, RoleWithCompanyDTO } from '@job-tracker/validation';
+import { CompanyDTO, RoleDTO, RoleWithCompanyDTO } from '@job-tracker/validation';
 
 import { useObservable } from './use-observable';
 
@@ -115,22 +115,39 @@ export function useCanDeleteRole(roleId: string): DeletionCheck {
 }
 
 export function useRoleSearch() {
-  const repository = useRoleRepository();
+  const roleRepository = useRoleRepository();
+  const db = useDb();
+  const companyRepository = useMemo(() => {
+    if (!db) return null;
+    return new CompanyRepository(db);
+  }, [db]);
 
   const searchRoles = useCallback(
-    async (query: string): Promise<RoleDTO[]> => {
-      if (!repository) {
+    async (query: string): Promise<RoleWithCompanyDTO[]> => {
+      if (!roleRepository || !companyRepository) {
         return [];
       }
 
-      return repository.searchByName(query);
+      const roles = await roleRepository.searchByName(query);
+      const companyIds = [...new Set(roles.map((r) => r.companyId).filter(Boolean))];
+      const companies = await Promise.all(
+        companyIds.map((id) => companyRepository.getById(id as string)),
+      );
+      const companiesById = new Map(
+        companies.filter((c): c is CompanyDTO => !!c).map((c) => [c.id, c]),
+      );
+
+      return roles.map((role) => ({
+        ...role,
+        company: role.companyId ? (companiesById.get(role.companyId) ?? null) : null,
+      }));
     },
-    [repository],
+    [roleRepository, companyRepository],
   );
 
   return {
     searchRoles,
-    loading: !repository,
+    loading: !roleRepository || !companyRepository,
   };
 }
 

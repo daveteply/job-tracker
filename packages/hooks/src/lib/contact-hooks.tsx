@@ -12,7 +12,7 @@ import {
   DeletionCheck,
   useDb,
 } from '@job-tracker/data-access';
-import { ContactDTO, ContactWithCompanyDTO } from '@job-tracker/validation';
+import { CompanyDTO, ContactDTO, ContactWithCompanyDTO } from '@job-tracker/validation';
 
 import { useObservable } from './use-observable';
 
@@ -122,22 +122,39 @@ export function useCanDeleteContact(contactId: string): DeletionCheck {
 }
 
 export function useContactSearch() {
-  const repository = useContactRepository();
+  const contactRepository = useContactRepository();
+  const db = useDb();
+  const companyRepository = useMemo(() => {
+    if (!db) return null;
+    return new CompanyRepository(db);
+  }, [db]);
 
   const searchContacts = useCallback(
-    async (query: string): Promise<ContactDTO[]> => {
-      if (!repository) {
+    async (query: string): Promise<ContactWithCompanyDTO[]> => {
+      if (!contactRepository || !companyRepository) {
         return [];
       }
 
-      return repository.searchByName(query);
+      const contacts = await contactRepository.searchByName(query);
+      const companyIds = [...new Set(contacts.map((c) => c.companyId).filter(Boolean))];
+      const companies = await Promise.all(
+        companyIds.map((id) => companyRepository.getById(id as string)),
+      );
+      const companiesById = new Map(
+        companies.filter((c): c is CompanyDTO => !!c).map((c) => [c.id, c]),
+      );
+
+      return contacts.map((contact) => ({
+        ...contact,
+        company: contact.companyId ? (companiesById.get(contact.companyId) ?? null) : null,
+      }));
     },
-    [repository],
+    [contactRepository, companyRepository],
   );
 
   return {
     searchContacts,
-    loading: !repository,
+    loading: !contactRepository || !companyRepository,
   };
 }
 

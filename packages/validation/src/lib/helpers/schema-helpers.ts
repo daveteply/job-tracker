@@ -39,12 +39,14 @@ export const updateOptionalBoolean = z
   .optional()
   .transform((val) => (val === null ? undefined : val));
 
-export const EntitySelectionSchema = z.object({
-  id: z.string().optional(),
-  isNew: z.boolean().optional().default(false),
-  shouldRemove: z.boolean().optional().default(false),
-  displayValue: z.string().optional(),
-});
+export const EntitySelectionSchema = z
+  .object({
+    id: z.string().optional(),
+    isNew: z.boolean().optional().default(false),
+    shouldRemove: z.boolean().optional().default(false),
+    displayValue: z.string().optional(),
+  })
+  .passthrough();
 
 export const CompanySelectionSchema = EntitySelectionSchema.extend({
   name: z.string().optional(),

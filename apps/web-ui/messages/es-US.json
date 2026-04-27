@@ -63,6 +63,13 @@
     "roleEntityName": "rol",
     "rolesEntityName": "roles",
     "formPlaceholder": "Buscar o escribir el título del nuevo rol",
+    "formTitle": "Título",
+    "formCompany": "Compañía",
+    "formStatus": "Estado",
+    "formJobPostingUrl": "URL de la vacante",
+    "formLocation": "Ubicación",
+    "formLevel": "Nivel",
+    "formSalaryRange": "Rango salarial",
     "formCreate": "Crear nuevo rol: \"{name}\"",
     "formCreateCompany": "Crear nueva compañía: \"{name}\"",
     "noRolesFound": "No se encontraron roles"

@@ -30,7 +30,10 @@ export interface RoleFormValue {
 
 // Company configuration
 export const companyComboboxConfig: EntityComboboxConfig<CompanyDTO, CompanyFormValue> = {
-  getDisplayValue: (company) => company.name,
+  getDisplayValue: (company) => {
+    const companyWithDisplay = company as CompanyDTO & { displayValue?: string };
+    return company.name || companyWithDisplay.displayValue || '';
+  },
 
   parseNewEntity: (input) => ({
     name: input,
@@ -42,7 +45,14 @@ export const companyComboboxConfig: EntityComboboxConfig<CompanyDTO, CompanyForm
 // Contact configuration
 //   Parses "FirstName LastName" format
 export const contactComboboxConfig: EntityComboboxConfig<ContactDTO, ContactFormValue> = {
-  getDisplayValue: (contact) => `${contact.firstName} ${contact.lastName}`,
+  getDisplayValue: (contact) => {
+    // Cast to allow accessing form-specific displayValue if it exists
+    const contactWithDisplay = contact as ContactDTO & { displayValue?: string };
+    if (!contact.firstName && !contact.lastName) {
+      return contactWithDisplay.displayValue || '';
+    }
+    return `${contact.firstName || ''} ${contact.lastName || ''}`.trim();
+  },
 
   parseNewEntity: (input) => {
     const trimmed = input.trim();
@@ -73,7 +83,10 @@ export const contactComboboxConfig: EntityComboboxConfig<ContactDTO, ContactForm
 // Role configuration
 // Assumes Role has a similar structure with an id and title
 export const roleComboboxConfig: EntityComboboxConfig<RoleDTO, RoleFormValue> = {
-  getDisplayValue: (role) => role.title,
+  getDisplayValue: (role) => {
+    const roleWithDisplay = role as RoleDTO & { displayValue?: string };
+    return role.title || roleWithDisplay.displayValue || '';
+  },
 
   parseNewEntity: (input) => ({
     title: input,

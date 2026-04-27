@@ -63,6 +63,13 @@
     "roleEntityName": "role",
     "rolesEntityName": "roles",
     "formPlaceholder": "Search or type new role title",
+    "formTitle": "Title",
+    "formCompany": "Company",
+    "formStatus": "Status",
+    "formJobPostingUrl": "Job Posting URL",
+    "formLocation": "Location",
+    "formLevel": "Level",
+    "formSalaryRange": "Salary Range",
     "formCreate": "Create new role: \"{name}\"",
     "formCreateCompany": "Create new company: \"{name}\"",
     "noRolesFound": "No roles found"

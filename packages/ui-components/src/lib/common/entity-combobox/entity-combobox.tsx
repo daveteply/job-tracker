@@ -64,6 +64,21 @@ export function EntityCombobox<TEntity extends { id: string }, T extends FieldVa
   const [showSpinner, setShowSpinner] = useState(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
+  const lastExternalValueRef = useRef(value);
+
+  // Sync internal query state with external form value changes
+  useEffect(() => {
+    // Only sync if the value is different AND it's not a 'new' entity being typed
+    // or if the change is definitely external (lastExternalValueRef check)
+    if (value !== lastExternalValueRef.current) {
+      if (!value?.isNew) {
+        const newQuery =
+          value && !value.isNew ? config.getDisplayValue(value) : value?.displayValue || '';
+        setQuery(newQuery);
+      }
+      lastExternalValueRef.current = value;
+    }
+  }, [value, config]);
 
   // Debounce
   useEffect(() => {
@@ -162,7 +177,6 @@ export function EntityCombobox<TEntity extends { id: string }, T extends FieldVa
       onChange({
         shouldRemove: true,
         isNew: false,
-        name: '',
       });
       return;
     }
@@ -183,7 +197,7 @@ export function EntityCombobox<TEntity extends { id: string }, T extends FieldVa
 
   // Check if there's an exact match in suggestions
   const hasExactMatch = suggestions.some(
-    (s) => config.getDisplayValue(s).toLowerCase() === query.toLowerCase(),
+    (s) => (config.getDisplayValue(s) || '').toLowerCase() === (query || '').toLowerCase(),
   );
 
   // Determine if we should show the "create new" option
