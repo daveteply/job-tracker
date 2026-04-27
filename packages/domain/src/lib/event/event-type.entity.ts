@@ -9,6 +9,7 @@ export interface EventTypeEntity {
   category: EventCategoryType;
   targetStatus?: RoleStatus | null;
   isSystemDefined: boolean;
+  isCommon: boolean;
 
   updatedAt?: string;
   createdAt?: string;

@@ -10,4 +10,5 @@ export interface EventTypeDocument {
   category: EventCategoryType;
   targetStatus?: RoleStatus | null;
   isSystemDefined: boolean;
+  isCommon: boolean;
 }

@@ -12,6 +12,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     category: EventCategoryType.Discovery,
     targetStatus: RoleStatus.Lead,
     isSystemDefined: true,
+    isCommon: false,
   },
   {
     id: '5c3e2d7f-5a6b-5c8d-9e0f-1a2b3c4d5e6f',
@@ -21,6 +22,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     category: EventCategoryType.Application,
     targetStatus: RoleStatus.Applied,
     isSystemDefined: true,
+    isCommon: true,
   },
   {
     id: '7ff1f978-029e-484e-9dee-f6fb373f5444',
@@ -30,6 +32,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     category: EventCategoryType.Application,
     targetStatus: RoleStatus.Applied,
     isSystemDefined: true,
+    isCommon: false,
   },
   {
     id: '7fc6b92d-61cb-4122-bb17-b644a7e56666',
@@ -39,6 +42,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     category: EventCategoryType.Application,
     targetStatus: RoleStatus.Applied,
     isSystemDefined: true,
+    isCommon: false,
   },
 
   // Communication & Networking
@@ -49,6 +53,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     name: 'Recruiter Outreach',
     category: EventCategoryType.Communication,
     isSystemDefined: true,
+    isCommon: false,
   },
   {
     id: '9e5a4f91-7c8d-7e0f-1a2b-3c4d5e6f7a8b',
@@ -57,6 +62,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     name: 'Networking/Coffee Chat',
     category: EventCategoryType.Networking,
     isSystemDefined: true,
+    isCommon: false,
   },
   {
     id: 'af6b5f02-8d9e-8f1a-2b3c-4d5e6f7a8b9c',
@@ -65,6 +71,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     name: 'Follow-up Sent',
     category: EventCategoryType.Communication,
     isSystemDefined: true,
+    isCommon: false,
   },
   {
     id: 'c30498f4-8784-465a-a513-d665999bb5be',
@@ -73,6 +80,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     name: 'Email Received',
     category: EventCategoryType.Communication,
     isSystemDefined: true,
+    isCommon: false,
   },
   {
     id: 'a903ec72-57c1-4ed4-8de9-b559b989d8e7',
@@ -81,6 +89,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     name: 'Email Sent',
     category: EventCategoryType.Communication,
     isSystemDefined: true,
+    isCommon: false,
   },
   {
     id: 'aafe028c-bb68-43a3-bd0d-cfd64c349b40',
@@ -89,6 +98,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     name: 'Phone Call',
     category: EventCategoryType.Communication,
     isSystemDefined: true,
+    isCommon: false,
   },
 
   // Assessments & Interviews
@@ -100,6 +110,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     category: EventCategoryType.Assessment,
     targetStatus: RoleStatus.Interviewing,
     isSystemDefined: true,
+    isCommon: false,
   },
   {
     id: 'ce8d7f24-0f1a-0b3c-4d5e-6f7a8b9c0d1e',
@@ -109,6 +120,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     category: EventCategoryType.Interview,
     targetStatus: RoleStatus.Interviewing,
     isSystemDefined: true,
+    isCommon: false,
   },
   {
     id: 'df9e8f35-1a2b-1c4d-5e6f-7a8b9c0d1e2f',
@@ -118,6 +130,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     category: EventCategoryType.Interview,
     targetStatus: RoleStatus.Interviewing,
     isSystemDefined: true,
+    isCommon: true,
   },
   {
     id: 'e0af9f46-2b3c-2d5e-6f7a-8b9c0d1e2f3a',
@@ -127,6 +140,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     category: EventCategoryType.Interview,
     targetStatus: RoleStatus.Interviewing,
     isSystemDefined: true,
+    isCommon: true,
   },
 
   // Outcomes
@@ -138,6 +152,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     category: EventCategoryType.Offer,
     targetStatus: RoleStatus.Offer,
     isSystemDefined: true,
+    isCommon: true,
   },
   {
     id: '02cfbf68-4d5e-4f7a-8b9c-0d1e2f3a4b5c',
@@ -147,6 +162,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     category: EventCategoryType.Outcome,
     targetStatus: RoleStatus.Accepted,
     isSystemDefined: true,
+    isCommon: false,
   },
   {
     id: '13dfcf79-5e6f-5a8b-9c0d-1e2f3a4b5c6d',
@@ -156,6 +172,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     category: EventCategoryType.Outcome,
     targetStatus: RoleStatus.Rejected,
     isSystemDefined: true,
+    isCommon: true,
   },
   {
     id: '24efdf8a-6f7a-6b9c-0d1e-2f3a4b5c6d7e',
@@ -165,5 +182,6 @@ export const seedEventTypes: EventTypeDocument[] = [
     category: EventCategoryType.Outcome,
     targetStatus: RoleStatus.Withdrawn,
     isSystemDefined: true,
+    isCommon: false,
   },
 ];

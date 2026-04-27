@@ -11,6 +11,7 @@ export const EventTypeCreateSchema = z.object({
   category: EventCategoryTypeSchema,
   targetStatus: RoleStatusSchema.nullable().optional(),
   isSystemDefined: z.boolean().default(false),
+  isCommon: z.boolean().default(false),
 });
 
 export const EventTypeUpdateSchema = z
@@ -19,6 +20,7 @@ export const EventTypeUpdateSchema = z
     category: EventCategoryTypeSchema.optional(),
     targetStatus: RoleStatusSchema.nullable().optional(),
     isSystemDefined: updateRequiredBoolean(),
+    isCommon: updateRequiredBoolean(),
   })
   .partial();
 
@@ -38,6 +40,7 @@ export const EventTypeDTOSchema = z.object({
     .optional()
     .transform((val) => (val ? (val as RoleStatus) : null)),
   isSystemDefined: z.boolean(),
+  isCommon: z.boolean(),
 });
 
 export type EventTypeCreate = z.infer<typeof EventTypeCreateSchema>;

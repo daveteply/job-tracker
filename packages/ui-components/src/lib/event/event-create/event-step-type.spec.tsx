@@ -24,9 +24,27 @@ jest.mock('../../common/page-loading', () => ({
 
 describe('EventStepType', () => {
   const eventTypes: EventTypeDTO[] = [
-    { id: '1', name: 'Type 1', category: EventCategoryType.Application, isSystemDefined: false },
-    { id: '2', name: 'Type 2', category: EventCategoryType.Interview, isSystemDefined: false },
-    { id: '3', name: 'Type 3', category: EventCategoryType.Application, isSystemDefined: false },
+    {
+      id: '1',
+      name: 'Type 1',
+      category: EventCategoryType.Application,
+      isSystemDefined: false,
+      isCommon: false,
+    },
+    {
+      id: '2',
+      name: 'Type 2',
+      category: EventCategoryType.Interview,
+      isSystemDefined: false,
+      isCommon: true,
+    },
+    {
+      id: '3',
+      name: 'Type 3',
+      category: EventCategoryType.Application,
+      isSystemDefined: false,
+      isCommon: false,
+    },
   ];
 
   it('should move Recents to the end and All to the start', () => {

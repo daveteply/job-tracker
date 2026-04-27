@@ -131,7 +131,7 @@ export function EventStepType({
             type="button"
             key={eventType.id}
             onClick={() => onSelect(eventType.id)}
-            className={`btn btn-small btn-soft h-16 leading-tight ${selectedTypeId === eventType.id ? 'btn-secondary' : 'btn-ghost'}`}
+            className={`btn btn-small btn-soft h-16 leading-tight ${selectedTypeId === eventType.id ? 'btn-secondary' : 'btn-ghost'} ${eventType.isCommon ? 'border-secondary border-2' : ''}`}
           >
             {getEventName(eventType)}
           </button>
