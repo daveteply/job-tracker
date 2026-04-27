@@ -34,20 +34,9 @@ export function EventStepType({
   const groupedCategories = useMemo(() => {
     if (!eventTypes || eventTypes.length === 0) return {} as Record<string, EventTypeDTO[]>;
 
-    const counts = eventTypes.reduce(
-      (acc, { category }) => {
-        acc[category] = (acc[category] || 0) + 1;
-        return acc;
-      },
-      {} as Record<string, number>,
-    );
-
     const groups = eventTypes.reduce(
       (acc, item) => {
-        // Only add to specific category group if it has > 1 entry
-        if (counts[item.category] > 1) {
-          (acc[item.category] ??= []).push(item);
-        }
+        (acc[item.category] ??= []).push(item);
         return acc;
       },
       {} as Record<string, EventTypeDTO[]>,
@@ -68,26 +57,33 @@ export function EventStepType({
     return { ...result, ...groups };
   }, [eventTypes, recentEventTypeIds]);
 
-  // Sort categories ('Recent' then 'All' at the start)
+  // Sort categories ('All' at the start, 'Recent' at the end)
   const categoryKeys = useMemo(() => {
     return Object.keys(groupedCategories).sort((a, b) => {
-      if (a === RECENT_KEY) return -1;
-      if (b === RECENT_KEY) return 1;
       if (a === ALL_KEY) return -1;
       if (b === ALL_KEY) return 1;
+      if (a === RECENT_KEY) return 1;
+      if (b === RECENT_KEY) return -1;
       return a.localeCompare(b);
     });
   }, [groupedCategories]);
 
-  // Default to RECENT_KEY if available, otherwise ALL_KEY
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const activeCategory = useMemo(() => {
     if (selectedCategory && groupedCategories[selectedCategory]) {
       return selectedCategory;
     }
-    return groupedCategories[RECENT_KEY] ? RECENT_KEY : ALL_KEY;
-  }, [selectedCategory, groupedCategories]);
+
+    if (selectedTypeId) {
+      const type = eventTypes.find((et) => et.id === selectedTypeId);
+      if (type && groupedCategories[type.category]) {
+        return type.category;
+      }
+    }
+
+    return ALL_KEY;
+  }, [selectedCategory, groupedCategories, selectedTypeId, eventTypes]);
 
   const getCategoryLabel = (cat: string) => {
     if (cat === ALL_KEY) return tEnum('all');
