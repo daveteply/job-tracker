@@ -104,6 +104,6 @@
       }
     }
   },
-  "analytics": true,
+  "analytics": false,
   "neverConnectToCloud": true
 }
