@@ -28,6 +28,16 @@ export function useEventRepository() {
   }, [db]);
 }
 
+export function useRecentEventTypeIds(limit = 10) {
+  const repository = useEventRepository();
+
+  const eventTypeIds$ = useMemo(() => {
+    return repository?.listRecentEventTypeIds$(limit);
+  }, [repository, limit]);
+
+  return useObservable<string[]>(eventTypeIds$, []);
+}
+
 export function useEventWithChildren(id: string) {
   const db = useDb();
   const eventRepository = useEventRepository();

@@ -10,6 +10,7 @@ import PageLoading from '../../common/page-loading';
 
 export interface EventStepTypesProps {
   eventTypes: EventTypeDTO[];
+  recentEventTypeIds: string[];
   loading: boolean;
   selectedTypeId?: string | null;
   onSelect: (typeId: string) => void;
@@ -17,6 +18,7 @@ export interface EventStepTypesProps {
 
 export function EventStepType({
   eventTypes,
+  recentEventTypeIds,
   loading,
   selectedTypeId,
   onSelect,
@@ -26,6 +28,7 @@ export function EventStepType({
   const tEvent = useTranslations('SystemEventTypes');
 
   const ALL_KEY = 'All';
+  const RECENT_KEY = 'Recent';
 
   // Group the data
   const groupedCategories = useMemo(() => {
@@ -50,32 +53,45 @@ export function EventStepType({
       {} as Record<string, EventTypeDTO[]>,
     );
 
-    // Spread the groups after "All" so "All" is naturally first in the object keys
-    return { [ALL_KEY]: eventTypes, ...groups };
-  }, [eventTypes]);
+    const result: Record<string, EventTypeDTO[]> = { [ALL_KEY]: eventTypes };
 
-  // Sort categories ('All' at the start)
+    if (recentEventTypeIds && recentEventTypeIds.length > 0) {
+      const recentTypes = recentEventTypeIds
+        .map((id) => eventTypes.find((et) => et.id === id))
+        .filter((et): et is EventTypeDTO => !!et);
+
+      if (recentTypes.length > 0) {
+        result[RECENT_KEY] = recentTypes;
+      }
+    }
+
+    return { ...result, ...groups };
+  }, [eventTypes, recentEventTypeIds]);
+
+  // Sort categories ('Recent' then 'All' at the start)
   const categoryKeys = useMemo(() => {
     return Object.keys(groupedCategories).sort((a, b) => {
+      if (a === RECENT_KEY) return -1;
+      if (b === RECENT_KEY) return 1;
       if (a === ALL_KEY) return -1;
       if (b === ALL_KEY) return 1;
       return a.localeCompare(b);
     });
   }, [groupedCategories]);
 
-  // Default to ALL_KEY immediately to ensure it's the primary view
-  const [selectedCategory, setSelectedCategory] = useState<string>(ALL_KEY);
+  // Default to RECENT_KEY if available, otherwise ALL_KEY
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const activeCategory = useMemo(() => {
-    // If selection is valid, use it; otherwise, default to 'All' or first available
     if (selectedCategory && groupedCategories[selectedCategory]) {
       return selectedCategory;
     }
-    return categoryKeys[0] || ALL_KEY;
-  }, [selectedCategory, groupedCategories, categoryKeys]);
+    return groupedCategories[RECENT_KEY] ? RECENT_KEY : ALL_KEY;
+  }, [selectedCategory, groupedCategories]);
 
   const getCategoryLabel = (cat: string) => {
     if (cat === ALL_KEY) return tEnum('all');
+    if (cat === RECENT_KEY) return tEnum('recent');
     return tEnum(`EventCategoryType.${cat}`);
   };
 

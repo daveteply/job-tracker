@@ -13,6 +13,7 @@ import {
   useContactSearch,
   useEventActions,
   useEventTypes,
+  useRecentEventTypeIds,
   useRoleSearch,
 } from '@job-tracker/hooks';
 import {
@@ -31,6 +32,7 @@ export default function EventsNewPage() {
   const tCommon = useTranslations('Common');
   const router = useRouter();
   const { eventTypes, loading: eventTypesLoading } = useEventTypes();
+  const recentEventTypeIds = useRecentEventTypeIds();
   const { searchCompanies } = useCompanySearch();
   const { searchContacts } = useContactSearch();
   const { searchRoles } = useRoleSearch();
@@ -38,6 +40,7 @@ export default function EventsNewPage() {
 
   const [step, setStep] = useState(1);
   const scrollPositions = useRef<Record<number, number>>({});
+  const hasDefaulted = useRef(false);
 
   useEffect(() => {
     if (scrollPositions.current[step] !== undefined) {
@@ -76,6 +79,22 @@ export default function EventsNewPage() {
     trigger,
     formState: { isSubmitting, errors },
   } = methods;
+
+  useEffect(() => {
+    if (!hasDefaulted.current && recentEventTypeIds.length > 0 && eventTypes.length > 0) {
+      const mostRecentId = recentEventTypeIds[0];
+      setValue('eventTypeId', mostRecentId);
+
+      const selectedType = eventTypes.find((t) => t.id === mostRecentId);
+      if (selectedType) {
+        const inferredDirection = inferDirectionFromEventType(selectedType.name);
+        if (inferredDirection) {
+          setValue('direction', inferredDirection);
+        }
+      }
+      hasDefaulted.current = true;
+    }
+  }, [recentEventTypeIds, eventTypes, setValue]);
 
   // Watch all fields to ensure the component re-renders and canGoNext is reactive
   const formValues = watch();
@@ -148,6 +167,7 @@ export default function EventsNewPage() {
                 {step === 1 && (
                   <EventStepType
                     eventTypes={eventTypes}
+                    recentEventTypeIds={recentEventTypeIds}
                     loading={eventTypesLoading}
                     selectedTypeId={formValues.eventTypeId}
                     onSelect={(id) => {

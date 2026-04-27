@@ -18,6 +18,20 @@ export class EventRepository {
       .$.pipe(map((docs) => docs.map((doc) => EventMapper.toDto(doc.toJSON()))));
   }
 
+  listRecentEventTypeIds$(limit = 10): Observable<string[]> {
+    return this.db.events
+      .find({
+        sort: [{ updatedAt: 'desc' }],
+        limit: 50, // Get a reasonable number to extract unique IDs from
+      })
+      .$.pipe(
+        map((docs) => {
+          const ids = docs.map((doc) => doc.eventTypeId).filter((id): id is string => !!id);
+          return Array.from(new Set(ids)).slice(0, limit);
+        }),
+      );
+  }
+
   // Backward-compatible alias while consumers move to list$ naming.
   getAll$(): Observable<EventDTO[]> {
     return this.list$();

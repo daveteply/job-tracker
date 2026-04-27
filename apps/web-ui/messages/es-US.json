@@ -232,6 +232,7 @@
   },
   "Enums": {
     "all": "Todos",
+    "recent": "Reciente",
     "selectOption": "Selecciona una opción",
     "RoleStatus": {
       "Lead": "Prospecto",
