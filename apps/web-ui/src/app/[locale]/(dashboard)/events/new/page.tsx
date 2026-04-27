@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FormProvider, Path, useForm } from 'react-hook-form';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -37,6 +37,15 @@ export default function EventsNewPage() {
   const { upsertEvent } = useEventActions();
 
   const [step, setStep] = useState(1);
+  const scrollPositions = useRef<Record<number, number>>({});
+
+  useEffect(() => {
+    if (scrollPositions.current[step] !== undefined) {
+      window.scrollTo(0, scrollPositions.current[step]);
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [step]);
 
   const methods = useForm<EventCreateWithReminder>({
     resolver: zodResolver(EventCreateWithReminderSchema as any),
@@ -79,10 +88,14 @@ export default function EventsNewPage() {
 
     const isStepValid = await trigger(fieldsToValidate as Path<EventCreateWithReminder>[]);
     if (isStepValid) {
+      scrollPositions.current[step] = window.scrollY;
       setStep((s) => Math.min(s + 1, 4));
     }
   };
-  const prevStep = () => setStep((s) => Math.max(s - 1, 1));
+  const prevStep = () => {
+    scrollPositions.current[step] = window.scrollY;
+    setStep((s) => Math.max(s - 1, 1));
+  };
 
   const onSubmit = async (data: EventCreateWithReminder) => {
     // Prevent submission if not on the final step
