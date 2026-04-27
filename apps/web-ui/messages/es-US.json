@@ -245,13 +245,9 @@
       "Ghosted": "Ghosted"
     },
     "EventCategoryType": {
-      "Discovery": "Descubrimiento",
-      "Networking": "Red de contactos",
       "Application": "Postulación",
       "Communication": "Comunicación",
-      "Assessment": "Evaluación",
       "Interview": "Entrevista",
-      "Offer": "Oferta",
       "Outcome": "Resultado"
     },
     "SourceType": {

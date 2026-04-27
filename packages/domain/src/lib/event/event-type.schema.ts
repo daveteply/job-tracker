@@ -17,7 +17,7 @@ export const EventTypeSchema: RxJsonSchema<EventTypeEntity> = {
     serverId: { type: ['number', 'null'] },
 
     name: { type: 'string' },
-    category: { type: 'string', enum: Object.values(EventCategoryType) }, // Discovery, Networking, etc.
+    category: { type: 'string', enum: Object.values(EventCategoryType) }, // Application, Interview, etc.
     targetStatus: { type: ['string', 'null'], enum: [...Object.values(RoleStatus), null] },
     isSystemDefined: { type: 'boolean' },
     isCommon: { type: 'boolean' },

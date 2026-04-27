@@ -3,13 +3,13 @@ import { EventCategoryType, RoleStatus } from '@job-tracker/domain';
 import { EventTypeDocument } from './documents/event-type.document';
 
 export const seedEventTypes: EventTypeDocument[] = [
-  // Application & Discovery
+  // Application
   {
     id: '3b2d1c6e-4f5a-4b7c-8d9e-0f1a2b3c4d5e',
     serverId: null,
     updatedAt: new Date().toISOString(),
     name: 'Job Lead',
-    category: EventCategoryType.Discovery,
+    category: EventCategoryType.Application,
     targetStatus: RoleStatus.Lead,
     isSystemDefined: true,
     isCommon: false,
@@ -45,7 +45,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     isCommon: false,
   },
 
-  // Communication & Networking
+  // Communication
   {
     id: '7d4f3e80-6b7c-6d9e-0f1a-2b3c4d5e6f7a',
     serverId: null,
@@ -60,7 +60,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     serverId: null,
     updatedAt: new Date().toISOString(),
     name: 'Networking/Coffee Chat',
-    category: EventCategoryType.Networking,
+    category: EventCategoryType.Communication,
     isSystemDefined: true,
     isCommon: false,
   },
@@ -101,13 +101,13 @@ export const seedEventTypes: EventTypeDocument[] = [
     isCommon: false,
   },
 
-  // Assessments & Interviews
+  // Interview
   {
     id: 'bd7c6f13-9e0f-9a2b-3c4d-5e6f7a8b9c0d',
     serverId: null,
     updatedAt: new Date().toISOString(),
     name: 'Technical Assessment',
-    category: EventCategoryType.Assessment,
+    category: EventCategoryType.Interview,
     targetStatus: RoleStatus.Interviewing,
     isSystemDefined: true,
     isCommon: false,
@@ -149,7 +149,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     serverId: null,
     updatedAt: new Date().toISOString(),
     name: 'Offer Received',
-    category: EventCategoryType.Offer,
+    category: EventCategoryType.Outcome,
     targetStatus: RoleStatus.Offer,
     isSystemDefined: true,
     isCommon: true,
