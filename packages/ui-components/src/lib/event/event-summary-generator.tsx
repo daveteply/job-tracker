@@ -1,5 +1,6 @@
 'use client';
 
+import { useCallback, useEffect } from 'react';
 import { FieldValues, Path, PathValue, UseFormSetValue } from 'react-hook-form';
 
 import { InformationCircleIcon, LightBulbIcon } from '@heroicons/react/24/outline';
@@ -14,6 +15,8 @@ export interface EventSummaryGeneratorProps<T extends FieldValues = FieldValues>
   company: CompanyDTO | null;
   currentSource: string;
   setValue: UseFormSetValue<T>;
+  autoGenerate?: boolean;
+  onGenerate?: (summary: string) => void;
 }
 
 export function EventSummaryGenerator<T extends FieldValues = FieldValues>({
@@ -23,14 +26,16 @@ export function EventSummaryGenerator<T extends FieldValues = FieldValues>({
   company,
   currentSource,
   setValue,
+  autoGenerate = false,
+  onGenerate,
 }: EventSummaryGeneratorProps<T>) {
   const t = useTranslations('Events');
   const tEnum = useTranslations('Enums');
   const tEvent = useTranslations('SystemEventTypes');
 
-  const generateSummary = () => {
+  const calculateSummary = useCallback(() => {
     const selectedType = eventTypes?.find((et) => et.id === eventTypeId);
-    if (!selectedType) return;
+    if (!selectedType) return '';
 
     let eventTypeName = selectedType.name;
     if (selectedType.isSystemDefined) {
@@ -59,11 +64,29 @@ export function EventSummaryGenerator<T extends FieldValues = FieldValues>({
       summary += ` ${t('via')} ${sourceLabel}`;
     }
 
-    setValue('summary' as Path<T>, summary as PathValue<T, Path<T>>, {
-      shouldValidate: true,
-      shouldDirty: true,
-    });
-  };
+    return summary;
+  }, [eventTypeId, eventTypes, role, company, currentSource, t, tEnum, tEvent]);
+
+  const generateSummary = useCallback(
+    (shouldDirty = true) => {
+      const summary = calculateSummary();
+      if (!summary) return;
+
+      setValue('summary' as Path<T>, summary as PathValue<T, Path<T>>, {
+        shouldValidate: true,
+        shouldDirty,
+      });
+
+      onGenerate?.(summary);
+    },
+    [calculateSummary, setValue, onGenerate],
+  );
+
+  useEffect(() => {
+    if (autoGenerate && eventTypeId) {
+      generateSummary(false);
+    }
+  }, [autoGenerate, eventTypeId, generateSummary]);
 
   const canGenerate = !!eventTypeId && (!!role || !!company || !!currentSource);
 
@@ -73,7 +96,7 @@ export function EventSummaryGenerator<T extends FieldValues = FieldValues>({
     <div className="flex items-center">
       <button
         type="button"
-        onClick={generateSummary}
+        onClick={() => generateSummary(true)}
         className="btn btn-ghost btn-xs text-primary flex items-center gap-1 normal-case"
       >
         <LightBulbIcon className="h-4 w-4" />

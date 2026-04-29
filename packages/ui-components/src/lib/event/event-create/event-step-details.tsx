@@ -4,6 +4,7 @@ import {
   FieldValues,
   Path,
   PathValue,
+  useFormContext,
   UseFormRegister,
   UseFormSetValue,
   UseFormWatch,
@@ -31,6 +32,10 @@ export function EventStepDetails<T extends FieldValues = FieldValues>({
 }: EventStepDetailsProps<T>) {
   const t = useTranslations('Events');
   const tEnum = useTranslations('Enums');
+
+  const { getFieldState, formState } = useFormContext<T>();
+  const { isDirty } = getFieldState('summary' as Path<T>, formState);
+  const summaryValue = watch('summary' as Path<T>);
 
   const currentSource = watch('source' as Path<T>);
   const currentDirection = watch('direction' as Path<T>);
@@ -111,6 +116,7 @@ export function EventStepDetails<T extends FieldValues = FieldValues>({
             company={company}
             currentSource={currentSource}
             setValue={setValue}
+            autoGenerate={!isDirty || !summaryValue}
           />
         </div>
         <input
