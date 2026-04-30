@@ -29,6 +29,20 @@ export function FloatingActionButton() {
       {/* Speed Dial Menu Items */}
       {isOpen && (
         <div className="animate-in fade-in slide-in-from-bottom-4 mb-2 flex flex-col items-end gap-3 duration-200">
+          <div className="flex items-center gap-3">
+            <span className="bg-base-100 text-base-content rounded-md px-2 py-1 text-sm font-medium shadow-sm">
+              {t('newEvent')}
+            </span>
+            <Link
+              href="/events/new"
+              onClick={handleLinkClick}
+              className="btn btn-primary btn-circle shadow-lg"
+              aria-label={t('newEvent')}
+            >
+              <PlusIcon className="h-6 w-6" />
+            </Link>
+          </div>
+
           {actions.map((action) => {
             const Icon = HeroIcons[action.iconName as keyof typeof HeroIcons];
             return (
@@ -47,19 +61,6 @@ export function FloatingActionButton() {
               </div>
             );
           })}
-          <div className="flex items-center gap-3">
-            <span className="bg-base-100 text-base-content rounded-md px-2 py-1 text-sm font-medium shadow-sm">
-              {t('newEvent')}
-            </span>
-            <Link
-              href="/events/new"
-              onClick={handleLinkClick}
-              className="btn btn-primary btn-circle shadow-lg"
-              aria-label={t('newEvent')}
-            >
-              <PlusIcon className="h-6 w-6" />
-            </Link>
-          </div>
         </div>
       )}
 
