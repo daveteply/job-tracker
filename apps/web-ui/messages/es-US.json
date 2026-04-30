@@ -144,6 +144,7 @@
     "summaryLabel": "Resumen: ",
     "detailsLabel": "Detalles: ",
     "backToActivity": "Volver a Actividad",
+    "from": "de",
     "to": "a",
     "at": "en",
     "via": "vía",
@@ -240,6 +241,7 @@
     "delete": "Eliminar",
     "newEvent": "Nuevo evento",
     "actionAppliedToRole": "Postulado a un Rol",
+    "actionRecruiterOutreach": "Recibió contacto de reclutador",
     "toggleMenu": "Alternar menú"
   },
   "Enums": {

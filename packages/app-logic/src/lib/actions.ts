@@ -12,4 +12,14 @@ export const AVAILABLE_ACTIONS: Action[] = [
       suggestReminderDays: 5,
     },
   },
+  {
+    id: 'recruiter-outreach',
+    nameKey: 'actionRecruiterOutreach',
+    iconName: 'ChatBubbleLeftEllipsisIcon',
+    defaults: {
+      eventTypeName: 'Recruiter Outreach',
+      direction: DirectionType.Inbound,
+      source: SourceType.LinkedIn,
+    },
+  },
 ];

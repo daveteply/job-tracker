@@ -144,6 +144,7 @@
     "summaryLabel": "Summary: ",
     "detailsLabel": "Details: ",
     "backToActivity": "Back to Activity",
+    "from": "from",
     "to": "to",
     "at": "at",
     "via": "via",
@@ -240,6 +241,7 @@
     "delete": "Delete",
     "newEvent": "New Event",
     "actionAppliedToRole": "Applied to a Role",
+    "actionRecruiterOutreach": "Received Recruiter Outreach",
     "toggleMenu": "Toggle menu"
   },
   "Enums": {

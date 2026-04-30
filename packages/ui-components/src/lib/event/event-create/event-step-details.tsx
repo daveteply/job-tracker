@@ -13,7 +13,7 @@ import {
 import { useTranslations } from 'next-intl';
 
 import { DirectionType, SourceType } from '@job-tracker/domain';
-import { CompanyDTO, EventTypeDTO, RoleDTO } from '@job-tracker/validation';
+import { CompanyDTO, ContactDTO, EventTypeDTO, RoleDTO } from '@job-tracker/validation';
 
 import EventSummaryGenerator from '../event-summary-generator';
 
@@ -42,6 +42,7 @@ export function EventStepDetails<T extends FieldValues = FieldValues>({
   const eventTypeId = watch('eventTypeId' as Path<T>);
   const role = watch('role' as Path<T>) as RoleDTO | null;
   const company = watch('company' as Path<T>) as CompanyDTO | null;
+  const contact = watch('contact' as Path<T>) as ContactDTO | null;
 
   return (
     <div className="space-y-6">
@@ -114,7 +115,9 @@ export function EventStepDetails<T extends FieldValues = FieldValues>({
             eventTypes={eventTypes}
             role={role}
             company={company}
+            contact={contact}
             currentSource={currentSource}
+            currentDirection={currentDirection}
             setValue={setValue}
             autoGenerate={!isDirty || !summaryValue}
           />

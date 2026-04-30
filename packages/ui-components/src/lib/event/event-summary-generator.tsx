@@ -6,14 +6,16 @@ import { FieldValues, Path, PathValue, UseFormSetValue } from 'react-hook-form';
 import { InformationCircleIcon, LightBulbIcon } from '@heroicons/react/24/outline';
 import { useTranslations } from 'next-intl';
 
-import { CompanyDTO, EventTypeDTO, RoleDTO } from '@job-tracker/validation';
+import { CompanyDTO, ContactDTO, EventTypeDTO, RoleDTO } from '@job-tracker/validation';
 
 export interface EventSummaryGeneratorProps<T extends FieldValues = FieldValues> {
   eventTypeId: string | null;
   eventTypes?: EventTypeDTO[];
   role: RoleDTO | null;
   company: CompanyDTO | null;
+  contact?: ContactDTO | null;
   currentSource: string;
+  currentDirection?: string;
   setValue: UseFormSetValue<T>;
   autoGenerate?: boolean;
   onGenerate?: (summary: string) => void;
@@ -24,7 +26,9 @@ export function EventSummaryGenerator<T extends FieldValues = FieldValues>({
   eventTypes,
   role,
   company,
+  contact,
   currentSource,
+  currentDirection,
   setValue,
   autoGenerate = false,
   onGenerate,
@@ -48,9 +52,14 @@ export function EventSummaryGenerator<T extends FieldValues = FieldValues>({
 
     const roleTitle = role?.title;
     const companyName = company?.name;
+    const contactName = contact ? `${contact.firstName} ${contact.lastName}` : null;
     const sourceLabel = currentSource ? tEnum(`SourceType.${currentSource as string}`) : '';
 
     let summary = eventTypeName;
+
+    if (contactName) {
+      summary += ` ${t('from')} ${contactName}`;
+    }
 
     if (roleTitle) {
       summary += ` ${t('to')} ${roleTitle}`;
@@ -65,7 +74,7 @@ export function EventSummaryGenerator<T extends FieldValues = FieldValues>({
     }
 
     return summary;
-  }, [eventTypeId, eventTypes, role, company, currentSource, t, tEnum, tEvent]);
+  }, [eventTypeId, eventTypes, role, company, contact, currentSource, t, tEnum, tEvent]);
 
   const generateSummary = useCallback(
     (shouldDirty = true) => {
