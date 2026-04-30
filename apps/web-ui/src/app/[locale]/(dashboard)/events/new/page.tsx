@@ -39,6 +39,7 @@ import { useRouter } from '../../../../../i18n/routing';
 export default function EventsNewPage() {
   const t = useTranslations('Events');
   const tCommon = useTranslations('Common');
+  const tEvent = useTranslations('SystemEventTypes');
   const router = useRouter();
   const { eventTypes, loading: eventTypesLoading } = useEventTypes();
   const recentEventTypeIds = useRecentEventTypeIds();
@@ -189,6 +190,20 @@ export default function EventsNewPage() {
   // Watch all fields to ensure the component re-renders and canGoNext is reactive
   const formValues = watch();
 
+  const selectedEventType = eventTypes.find((et) => et.id === formValues.eventTypeId);
+  let selectedEventName = '';
+  if (selectedEventType) {
+    if (selectedEventType.isSystemDefined) {
+      try {
+        selectedEventName = tEvent(selectedEventType.name);
+      } catch {
+        selectedEventName = selectedEventType.name;
+      }
+    } else {
+      selectedEventName = selectedEventType.name;
+    }
+  }
+
   const nextStep = async () => {
     let fieldsToValidate: (keyof EventCreateWithReminder)[] = [];
     if (step === 1) fieldsToValidate = ['eventTypeId'];
@@ -241,7 +256,17 @@ export default function EventsNewPage() {
   return (
     <FormProvider {...methods}>
       <div className="mx-auto max-w-2xl pb-32">
-        <h1 className="text-base-content mb-4 text-3xl font-bold">{t('newTitle')}</h1>
+        <h1 className="text-base-content mb-4 flex items-baseline flex-wrap text-3xl font-bold">
+          <span className="whitespace-nowrap">{t('newTitle')}</span>
+          {selectedEventName && (
+            <span
+              className="ml-2 max-w-[300px] truncate text-xl font-normal opacity-70"
+              title={selectedEventName}
+            >
+              {selectedEventName}
+            </span>
+          )}
+        </h1>
 
         <ul className="steps w-full">
           <li className={`step ${step >= 1 ? 'step-info' : ''}`}>{t('stepType')}</li>
