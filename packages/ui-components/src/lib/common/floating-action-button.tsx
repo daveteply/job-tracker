@@ -1,10 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import * as HeroIcons from '@heroicons/react/24/outline';
 import { PlusIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
+import { useParams, usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 
 import { useAvailableActions } from '@job-tracker/hooks';
@@ -16,6 +17,37 @@ export function FloatingActionButton() {
   const actions = useAvailableActions();
   const { isContainerActive } = useFloatingUI();
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+  const params = useParams();
+
+  // Determine context based on current route
+  const contextParams = useMemo(() => {
+    const queryParams = new URLSearchParams();
+    const id = params?.id as string;
+
+    if (id) {
+      if (pathname.includes('/roles/')) {
+        queryParams.set('roleId', id);
+      } else if (pathname.includes('/contacts/')) {
+        queryParams.set('contactId', id);
+      } else if (pathname.includes('/companies/')) {
+        queryParams.set('companyId', id);
+      }
+    }
+
+    return queryParams.toString();
+  }, [pathname, params]);
+
+  const getEventUrl = (actionId?: string) => {
+    const baseUrl = '/events/new';
+    const queryParams = new URLSearchParams(contextParams);
+    if (actionId) {
+      queryParams.set('action', actionId);
+    }
+
+    const queryString = queryParams.toString();
+    return queryString ? `${baseUrl}?${queryString}` : baseUrl;
+  };
 
   // Function to close menu when a link is clicked
   const handleLinkClick = () => setIsOpen(false);
@@ -34,7 +66,7 @@ export function FloatingActionButton() {
               {t('newEvent')}
             </span>
             <Link
-              href="/events/new"
+              href={getEventUrl()}
               onClick={handleLinkClick}
               className="btn btn-primary btn-circle shadow-lg"
               aria-label={t('newEvent')}
@@ -51,7 +83,7 @@ export function FloatingActionButton() {
                   {t(action.nameKey)}
                 </span>
                 <Link
-                  href={`/events/new?action=${action.id}`}
+                  href={getEventUrl(action.id)}
                   onClick={handleLinkClick}
                   className="btn btn-secondary btn-circle shadow-lg"
                   aria-label={t(action.nameKey)}

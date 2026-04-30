@@ -5,6 +5,7 @@ import { Control, FieldValues, Path, useFormContext } from 'react-hook-form';
 
 import { useTranslations } from 'next-intl';
 
+import { EntitySelection } from '@job-tracker/app-logic';
 import { CompanyDTO, ContactDTO, RoleDTO } from '@job-tracker/validation';
 
 import CompanyCombobox from '../../company/company-combobox';
@@ -52,13 +53,25 @@ export function EventStepContext<T extends FieldValues = FieldValues>({
     // If role changed and has an associated company, it takes precedence
     if (role?.id !== prevRoleRef.current?.id) {
       if (role?.company) {
-        setValue('company' as Path<T>, role.company as any, { shouldValidate: true });
+        const selection: EntitySelection = {
+          ...role.company,
+          isNew: false,
+          shouldRemove: false,
+        };
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        setValue('company' as Path<T>, selection as any, { shouldValidate: true });
       }
     }
     // If contact changed and has an associated company, only fill if company is currently empty
     else if (contact?.id !== prevContactRef.current?.id) {
       if (contact?.company && !company) {
-        setValue('company' as Path<T>, contact.company as any, { shouldValidate: true });
+        const selection: EntitySelection = {
+          ...contact.company,
+          isNew: false,
+          shouldRemove: false,
+        };
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        setValue('company' as Path<T>, selection as any, { shouldValidate: true });
       }
     }
 

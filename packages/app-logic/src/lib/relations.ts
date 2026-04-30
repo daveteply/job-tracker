@@ -1,12 +1,12 @@
 export interface EntitySelection {
-  id?: string;
-  name?: string;
-  firstName?: string;
-  lastName?: string;
-  title?: string;
-  isNew?: boolean;
-  shouldRemove?: boolean;
-  displayValue?: string;
+  id?: string | null;
+  name?: string | null;
+  firstName?: string | null;
+  lastName?: string | null;
+  title?: string | null;
+  isNew: boolean;
+  shouldRemove: boolean;
+  displayValue?: string | null;
   [key: string]: unknown;
 }
 

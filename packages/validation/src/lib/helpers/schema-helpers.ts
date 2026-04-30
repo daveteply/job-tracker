@@ -41,23 +41,23 @@ export const updateOptionalBoolean = z
 
 export const EntitySelectionSchema = z
   .object({
-    id: z.string().optional(),
+    id: z.string().nullable().optional(),
     isNew: z.boolean().optional().default(false),
     shouldRemove: z.boolean().optional().default(false),
-    displayValue: z.string().optional(),
+    displayValue: z.string().nullable().optional(),
   })
   .passthrough();
 
 export const CompanySelectionSchema = EntitySelectionSchema.extend({
-  name: z.string().optional(),
+  name: z.string().nullable().optional(),
 }).refine((data) => data.shouldRemove || (data.name && data.name.length > 0), {
   message: 'companyNameRequired',
   path: ['name'],
 });
 
 export const ContactSelectionSchema = EntitySelectionSchema.extend({
-  firstName: z.string().optional(),
-  lastName: z.string().optional(),
+  firstName: z.string().nullable().optional(),
+  lastName: z.string().nullable().optional(),
 }).refine(
   (data) =>
     data.shouldRemove ||
@@ -69,7 +69,7 @@ export const ContactSelectionSchema = EntitySelectionSchema.extend({
 );
 
 export const RoleSelectionSchema = EntitySelectionSchema.extend({
-  title: z.string().optional(),
+  title: z.string().nullable().optional(),
 }).refine((data) => data.shouldRemove || (data.title && data.title.length > 0), {
   message: 'roleTitleRequired',
   path: ['title'],

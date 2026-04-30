@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 
+import { EntitySelection } from '@job-tracker/app-logic';
 import { DirectionType, SourceType } from '@job-tracker/domain';
 import {
   addBusinessDays,
@@ -14,12 +15,15 @@ import {
   formatDateForInput,
   inferDirectionFromEventType,
   useAvailableActions,
+  useCompany,
   useCompanySearch,
   useContactSearch,
+  useContactWithCompany,
   useEventActions,
   useEventTypes,
   useRecentEventTypeIds,
   useRoleSearch,
+  useRoleWithCompany,
 } from '@job-tracker/hooks';
 import {
   EventStepContext,
@@ -87,6 +91,13 @@ export default function EventsNewPage() {
 
   const searchParams = useSearchParams();
   const actionId = searchParams.get('action');
+  const roleId = searchParams.get('roleId');
+  const contactId = searchParams.get('contactId');
+  const companyId = searchParams.get('companyId');
+
+  const { role: contextRole } = useRoleWithCompany(roleId || '');
+  const { contact: contextContact } = useContactWithCompany(contactId || '');
+  const { company: contextCompany } = useCompany(companyId || '');
 
   useEffect(() => {
     if (hasDefaulted.current || eventTypes.length === 0) return;
@@ -127,6 +138,53 @@ export default function EventsNewPage() {
       hasDefaulted.current = true;
     }
   }, [actionId, eventTypes, recentEventTypeIds, setValue]);
+
+  // Handle Context from URL
+  useEffect(() => {
+    if (contextRole) {
+      const selection: EntitySelection = {
+        ...contextRole,
+        isNew: false,
+        shouldRemove: false,
+      };
+      setValue('role', selection);
+      if (contextRole.company) {
+        setValue('company', {
+          ...contextRole.company,
+          isNew: false,
+          shouldRemove: false,
+        } as EntitySelection);
+      }
+    }
+  }, [contextRole, setValue]);
+
+  useEffect(() => {
+    if (contextContact) {
+      const selection: EntitySelection = {
+        ...contextContact,
+        isNew: false,
+        shouldRemove: false,
+      };
+      setValue('contact', selection);
+      if (contextContact.company) {
+        setValue('company', {
+          ...contextContact.company,
+          isNew: false,
+          shouldRemove: false,
+        } as EntitySelection);
+      }
+    }
+  }, [contextContact, setValue]);
+
+  useEffect(() => {
+    if (contextCompany) {
+      setValue('company', {
+        ...contextCompany,
+        isNew: false,
+        shouldRemove: false,
+      } as EntitySelection);
+    }
+  }, [contextCompany, setValue]);
 
   // Watch all fields to ensure the component re-renders and canGoNext is reactive
   const formValues = watch();
