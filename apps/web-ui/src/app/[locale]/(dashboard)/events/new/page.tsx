@@ -4,11 +4,16 @@ import { useEffect, useRef, useState } from 'react';
 import { FormProvider, Path, useForm } from 'react-hook-form';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 
-import { inferDirectionFromEventType } from '@job-tracker/app-logic';
 import { DirectionType, SourceType } from '@job-tracker/domain';
 import {
+  addBusinessDays,
+  addDays,
+  formatDateForInput,
+  inferDirectionFromEventType,
+  useAvailableActions,
   useCompanySearch,
   useContactSearch,
   useEventActions,
@@ -37,6 +42,7 @@ export default function EventsNewPage() {
   const { searchContacts } = useContactSearch();
   const { searchRoles } = useRoleSearch();
   const { upsertEvent } = useEventActions();
+  const actions = useAvailableActions();
 
   const [step, setStep] = useState(1);
   const scrollPositions = useRef<Record<number, number>>({});
@@ -51,22 +57,21 @@ export default function EventsNewPage() {
   }, [step]);
 
   const methods = useForm<EventCreateWithReminder>({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     resolver: zodResolver(EventCreateWithReminderSchema as any),
     mode: 'onChange',
     defaultValues: {
       eventTypeId: '',
       direction: DirectionType.Inbound,
       source: SourceType.Email,
-      occurredAt: new Date().toISOString().split('T')[0] as unknown as Date,
+      occurredAt: formatDateForInput(new Date()) as unknown as Date,
       summary: '',
       details: '',
       company: null,
       contact: null,
       role: null,
       hasReminder: false,
-      remindAt: new Date(new Date().setDate(new Date().getDate() + 1))
-        .toISOString()
-        .split('T')[0] as unknown as Date,
+      remindAt: formatDateForInput(addDays(new Date(), 1)) as unknown as Date,
     },
   });
 
@@ -80,8 +85,35 @@ export default function EventsNewPage() {
     formState: { isSubmitting, errors },
   } = methods;
 
+  const searchParams = useSearchParams();
+  const actionId = searchParams.get('action');
+
   useEffect(() => {
-    if (!hasDefaulted.current && recentEventTypeIds.length > 0 && eventTypes.length > 0) {
+    if (hasDefaulted.current || eventTypes.length === 0) return;
+
+    // Action from URL
+    if (actionId) {
+      const action = actions.find((a) => a.id === actionId);
+      if (action) {
+        const selectedType = eventTypes.find((t) => t.name === action.defaults.eventTypeName);
+        if (selectedType) {
+          setValue('eventTypeId', selectedType.id);
+          setValue('direction', action.defaults.direction);
+          setValue('source', action.defaults.source);
+
+          if (action.defaults.suggestReminderDays) {
+            const remindAt = addBusinessDays(new Date(), action.defaults.suggestReminderDays);
+            setValue('hasReminder', true);
+            setValue('remindAt', formatDateForInput(remindAt) as unknown as Date);
+          }
+          hasDefaulted.current = true;
+          return;
+        }
+      }
+    }
+
+    // Most recent event type
+    if (recentEventTypeIds.length > 0) {
       const mostRecentId = recentEventTypeIds[0];
       setValue('eventTypeId', mostRecentId);
 
@@ -94,7 +126,7 @@ export default function EventsNewPage() {
       }
       hasDefaulted.current = true;
     }
-  }, [recentEventTypeIds, eventTypes, setValue]);
+  }, [actionId, eventTypes, recentEventTypeIds, setValue]);
 
   // Watch all fields to ensure the component re-renders and canGoNext is reactive
   const formValues = watch();

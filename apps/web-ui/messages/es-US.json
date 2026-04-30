@@ -239,6 +239,7 @@
     "edit": "Editar",
     "delete": "Eliminar",
     "newEvent": "Nuevo evento",
+    "actionAppliedToRole": "Postulado a un Rol",
     "toggleMenu": "Alternar menú"
   },
   "Enums": {

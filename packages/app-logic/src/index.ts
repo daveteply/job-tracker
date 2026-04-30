@@ -1,3 +1,4 @@
+export * from './lib/actions';
 export * from './lib/deletion';
 export * from './lib/event-logic';
 export * from './lib/relations';

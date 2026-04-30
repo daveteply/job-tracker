@@ -8,8 +8,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 
-import { inferDirectionFromEventType } from '@job-tracker/app-logic';
 import { DirectionType, SourceType } from '@job-tracker/domain';
+import { inferDirectionFromEventType } from '@job-tracker/hooks';
 import {
   CompanyDTO,
   ContactDTO,

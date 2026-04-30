@@ -14,6 +14,8 @@ import {
 
 import { useTranslations } from 'next-intl';
 
+import { addBusinessDays, addDays, formatDateForInput } from '@job-tracker/hooks';
+
 export interface EventStepReminderProps<T extends FieldValues = FieldValues> {
   register: UseFormRegister<T>;
   control: Control<T>;
@@ -41,12 +43,8 @@ export function EventStepReminder<T extends FieldValues = FieldValues>({
 
   useEffect(() => {
     if (hasReminder && !remindAt) {
-      const tomorrow = new Date();
-      tomorrow.setDate(tomorrow.getDate() + 1);
-      const year = tomorrow.getFullYear();
-      const month = String(tomorrow.getMonth() + 1).padStart(2, '0');
-      const dayOfMonth = String(tomorrow.getDate()).padStart(2, '0');
-      const formattedDate = `${year}-${month}-${dayOfMonth}`;
+      const tomorrow = addDays(new Date(), 1);
+      const formattedDate = formatDateForInput(tomorrow);
       setValue('remindAt' as Path<T>, formattedDate as PathValue<T, Path<T>>, {
         shouldValidate: true,
       });
@@ -54,24 +52,8 @@ export function EventStepReminder<T extends FieldValues = FieldValues>({
   }, [hasReminder, remindAt, setValue]);
 
   const setReminderDate = (days: number, isBusinessDays = false) => {
-    const date = new Date();
-    if (isBusinessDays) {
-      let count = 0;
-      while (count < days) {
-        date.setDate(date.getDate() + 1);
-        const day = date.getDay();
-        if (day !== 0 && day !== 6) {
-          count++;
-        }
-      }
-    } else {
-      date.setDate(date.getDate() + days);
-    }
-
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const dayOfMonth = String(date.getDate()).padStart(2, '0');
-    const formattedDate = `${year}-${month}-${dayOfMonth}`;
+    const date = isBusinessDays ? addBusinessDays(new Date(), days) : addDays(new Date(), days);
+    const formattedDate = formatDateForInput(date);
 
     setValue('remindAt' as Path<T>, formattedDate as PathValue<T, Path<T>>, {
       shouldValidate: true,
@@ -79,7 +61,7 @@ export function EventStepReminder<T extends FieldValues = FieldValues>({
     });
   };
 
-  const todayStr = new Date().toISOString().split('T')[0];
+  const todayStr = formatDateForInput(new Date());
 
   return (
     <div className="space-y-6">

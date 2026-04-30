@@ -239,6 +239,7 @@
     "edit": "Edit",
     "delete": "Delete",
     "newEvent": "New Event",
+    "actionAppliedToRole": "Applied to a Role",
     "toggleMenu": "Toggle menu"
   },
   "Enums": {
