@@ -12,26 +12,26 @@ export const DirectionTypeSchema = z
   .enum(directionSchema.options)
   .or(z.literal(''))
   .refine((val) => val !== '', {
-    message: 'Select a direction',
+    message: 'selectDirection',
   });
 
 export const SourceTypeSchema = z
   .enum(sourceSchema.options)
   .or(z.literal(''))
   .refine((val) => val !== '', {
-    message: 'Select a source',
+    message: 'selectSource',
   });
 
 export const EventCategoryTypeSchema = z
   .enum(eventCategorySchema.options)
   .or(z.literal(''))
   .refine((val) => val !== '', {
-    message: 'Select a category',
+    message: 'selectCategory',
   });
 
 export const RoleStatusSchema = z
   .enum(roleStatusSchema.options)
   .or(z.literal(''))
   .refine((val) => val !== '', {
-    message: 'Select a status',
+    message: 'selectStatus',
   });

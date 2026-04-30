@@ -322,6 +322,7 @@
     "selectSource": "Selecciona una fuente",
     "selectDirection": "Selecciona una dirección",
     "selectStatus": "Selecciona un estado",
+    "selectCategory": "Selecciona una categoría",
     "reminderDateRequired": "La fecha del recordatorio es requerida"
   },
   "EventInfoCard": {

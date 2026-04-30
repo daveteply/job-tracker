@@ -322,6 +322,7 @@
     "selectSource": "Select a source",
     "selectDirection": "Select a direction",
     "selectStatus": "Select a status",
+    "selectCategory": "Select a category",
     "reminderDateRequired": "Reminder date is required"
   },
   "EventInfoCard": {
