@@ -146,6 +146,8 @@
     "backToActivity": "Volver a Actividad",
     "from": "de",
     "to": "a",
+    "for": "para",
+    "with": "con",
     "at": "en",
     "via": "vía",
     "generateSummaryTooltip": "Generar automáticamente un resumen basado en los campos completados.",
@@ -242,6 +244,12 @@
     "newEvent": "Nuevo evento",
     "actionAppliedToRole": "Postulado a un Rol",
     "actionRecruiterOutreach": "Recibió contacto de reclutador",
+    "actionSentFollowUp": "Envió seguimiento",
+    "actionEmailReceived": "Recibió correo / respuesta",
+    "actionScheduledInterview": "Entrevista programada",
+    "actionInterviewCompleted": "Entrevista finalizada",
+    "actionRejectionReceived": "Rechazo recibido",
+    "actionNetworkingChat": "Networking / Café virtual",
     "toggleMenu": "Alternar menú"
   },
   "Enums": {
@@ -291,9 +299,12 @@
     "Screening Call": "Llamada de preselección",
     "Technical Interview": "Entrevista técnica",
     "Onsite Interview": "Entrevista presencial",
+    "Interview Scheduled": "Entrevista programada",
+    "Interview Completed": "Entrevista finalizada",
     "Offer Received": "Oferta recibida",
     "Offer Accepted": "Oferta aceptada",
     "Rejected": "Rechazado",
+    "Rejection Received": "Rechazo recibido",
     "Withdrew Application": "Postulación retirada"
   },
   "Validation": {

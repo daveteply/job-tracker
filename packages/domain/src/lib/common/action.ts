@@ -6,6 +6,7 @@ export interface ActionDefaults {
   direction: DirectionType;
   source: SourceType;
   suggestReminderDays?: number;
+  suggestReminderRelativeToEvent?: boolean;
 }
 
 export interface Action {

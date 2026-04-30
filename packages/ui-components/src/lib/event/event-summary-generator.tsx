@@ -58,11 +58,16 @@ export function EventSummaryGenerator<T extends FieldValues = FieldValues>({
     let summary = eventTypeName;
 
     if (contactName) {
-      summary += ` ${t('from')} ${contactName}`;
+      let connector = currentDirection === 'Outbound' ? t('to') : t('from');
+      if (selectedType.name.toLowerCase().includes('networking') || selectedType.name.toLowerCase().includes('chat')) {
+        connector = t('with');
+      }
+      summary += ` ${connector} ${contactName}`;
     }
 
     if (roleTitle) {
-      summary += ` ${t('to')} ${roleTitle}`;
+      const connector = (selectedType.category === 'Interview' || selectedType.category === 'Outcome') ? t('for') : t('to');
+      summary += ` ${connector} ${roleTitle}`;
     }
 
     if (companyName) {
@@ -74,7 +79,18 @@ export function EventSummaryGenerator<T extends FieldValues = FieldValues>({
     }
 
     return summary;
-  }, [eventTypeId, eventTypes, role, company, contact, currentSource, t, tEnum, tEvent]);
+  }, [
+    eventTypes,
+    role?.title,
+    company?.name,
+    contact,
+    currentSource,
+    tEnum,
+    eventTypeId,
+    tEvent,
+    currentDirection,
+    t,
+  ]);
 
   const generateSummary = useCallback(
     (shouldDirty = true) => {

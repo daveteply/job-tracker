@@ -142,9 +142,29 @@ export const seedEventTypes: EventTypeDocument[] = [
     isSystemDefined: true,
     isCommon: true,
   },
-
-  // Outcomes
   {
+    id: 'f2c7b068-4d5e-4f6f-8a9b-0c1d2e3f4a5b',
+    serverId: null,
+    updatedAt: new Date().toISOString(),
+    name: 'Interview Scheduled',
+    category: EventCategoryType.Interview,
+    targetStatus: RoleStatus.Interviewing,
+    isSystemDefined: true,
+    isCommon: false,
+    },
+    {
+    id: 'f3d8c179-5e6f-5a7b-9c0d-1e2f3a4b5c6d',
+    serverId: null,
+    updatedAt: new Date().toISOString(),
+    name: 'Interview Completed',
+    category: EventCategoryType.Interview,
+    targetStatus: RoleStatus.Interviewing,
+    isSystemDefined: true,
+    isCommon: false,
+    },
+
+    // Outcomes
+    {
     id: 'f1bfaf57-3c4d-3e6f-7a8b-9c0d1e2f3a4b',
     serverId: null,
     updatedAt: new Date().toISOString(),
@@ -153,9 +173,20 @@ export const seedEventTypes: EventTypeDocument[] = [
     targetStatus: RoleStatus.Offer,
     isSystemDefined: true,
     isCommon: true,
-  },
-  {
-    id: '02cfbf68-4d5e-4f7a-8b9c-0d1e2f3a4b5c',
+    },
+    {
+    id: 'a1b2c3d4-e5f6-47a8-b9c0-d1e2f3a4b5c6',
+    serverId: null,
+    updatedAt: new Date().toISOString(),
+    name: 'Rejection Received',
+    category: EventCategoryType.Outcome,
+    targetStatus: RoleStatus.Rejected,
+    isSystemDefined: true,
+    isCommon: false,
+    },
+    {
+    id: '0c1d2e3f-4a5b-6c7d-8e9f-0a1b2c3d4e5f',
+
     serverId: null,
     updatedAt: new Date().toISOString(),
     name: 'Offer Accepted',

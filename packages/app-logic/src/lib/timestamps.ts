@@ -18,8 +18,11 @@ export function createUpdatedAt(now = new Date()): string {
 export function addBusinessDays(date: Date, days: number): Date {
   const result = new Date(date);
   let count = 0;
-  while (count < days) {
-    result.setDate(result.getDate() + 1);
+  const absDays = Math.abs(days);
+  const step = days >= 0 ? 1 : -1;
+
+  while (count < absDays) {
+    result.setDate(result.getDate() + step);
     const day = result.getDay();
     if (day !== 0 && day !== 6) {
       count++;
