@@ -123,12 +123,12 @@ export function useRoleSearch() {
   }, [db]);
 
   const searchRoles = useCallback(
-    async (query: string): Promise<RoleWithCompanyDTO[]> => {
+    async (query: string, companyId?: string | null): Promise<RoleWithCompanyDTO[]> => {
       if (!roleRepository || !companyRepository) {
         return [];
       }
 
-      const roles = await roleRepository.searchByName(query);
+      const roles = await roleRepository.searchByName(query, undefined, companyId);
       const companyIds = [...new Set(roles.map((r) => r.companyId).filter(Boolean))];
       const companies = await Promise.all(
         companyIds.map((id) => companyRepository.getById(id as string)),

@@ -76,17 +76,27 @@ export class RoleRepository {
     });
   }
 
-  async searchByName(query: string, limit = DEFAULT_SEARCH_LIMIT): Promise<RoleDTO[]> {
+  async searchByName(
+    query: string,
+    limit = DEFAULT_SEARCH_LIMIT,
+    companyId?: string | null,
+  ): Promise<RoleDTO[]> {
     const normalizedInput = normalizeSearchInput(query, limit);
     if (!normalizedInput) return [];
 
+    const selector: Record<string, unknown> = {
+      search: {
+        $regex: normalizedInput.pattern,
+      },
+    };
+
+    if (companyId) {
+      selector.companyId = companyId;
+    }
+
     const docs = await this.db.roles
       .find({
-        selector: {
-          search: {
-            $regex: normalizedInput.pattern,
-          },
-        },
+        selector,
         sort: [{ title: 'asc' }],
         limit: normalizedInput.limit,
       })

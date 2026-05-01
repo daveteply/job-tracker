@@ -37,7 +37,7 @@ interface EventFormProps<T extends EventFormValues> {
   onSubmitAction: (data: T) => Promise<{ success: boolean; message: string }>;
   onSearchCompany: (query: string) => Promise<CompanyDTO[]>;
   onSearchContact: (query: string) => Promise<ContactDTO[]>;
-  onSearchRole: (query: string) => Promise<RoleDTO[]>;
+  onSearchRole: (query: string, companyId?: string | null) => Promise<RoleDTO[]>;
   eventTypes: EventTypeDTO[];
   eventTypesLoading?: boolean;
   initialData?: DefaultValues<T>;
@@ -272,7 +272,7 @@ export function EventForm<T extends EventFormValues>({
         <RoleCombobox
           control={control}
           name={'role' as Path<T>}
-          onSearch={onSearchRole}
+          onSearch={(query) => onSearchRole(query, (company as any)?.id)}
           placeholder={rolePlaceholder}
           createNewLabel={createRoleLabel}
         />

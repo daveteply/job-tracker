@@ -16,7 +16,7 @@ export interface EventStepContextProps<T extends FieldValues = FieldValues> {
   control: Control<T>;
   onSearchCompany: (query: string) => Promise<CompanyDTO[]>;
   onSearchContact: (query: string) => Promise<ContactDTO[]>;
-  onSearchRole: (query: string) => Promise<RoleDTO[]>;
+  onSearchRole: (query: string, companyId?: string | null) => Promise<RoleDTO[]>;
   companyPlaceholder?: string;
   contactPlaceholder?: string;
   rolePlaceholder?: string;
@@ -121,7 +121,7 @@ export function EventStepContext<T extends FieldValues = FieldValues>({
         <RoleCombobox
           control={control}
           name={'role' as Path<T>}
-          onSearch={onSearchRole}
+          onSearch={(query) => onSearchRole(query, (company as EntitySelection | null)?.id)}
           placeholder={rolePlaceholder}
           createNewLabel={createRoleLabel}
         />
