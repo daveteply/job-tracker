@@ -29,7 +29,7 @@ export function Header({ title, iconSrc, homeHref = '/home' }: HeaderProps) {
         scrolled ? 'shadow-lg' : 'shadow-none'
       }`}
     >
-      <div className="container mx-auto flex items-center justify-between">
+      <div className="mx-auto flex max-w-screen-xl items-center justify-between">
         <Link href={homeHref} className="flex items-center gap-2">
           {iconSrc && <img src={iconSrc} alt="App Icon" className="h-8 w-8 rounded" />}
           <h1 className="text-2xl font-bold">{title}</h1>

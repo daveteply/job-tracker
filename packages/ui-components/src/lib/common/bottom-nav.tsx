@@ -22,7 +22,7 @@ export function BottomNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="dock dock-md border-base-200 bg-accent-content border-t">
+    <nav className="dock dock-md border-base-200 bg-accent-content border-t md:right-auto md:left-1/2 md:w-full md:max-w-screen-xl md:-translate-x-1/2 md:rounded-t-xl">
       {navItems.map((item) => {
         const Icon = item.icon;
         const isActive = pathname.endsWith(item.href) || pathname.includes(item.href + '/');

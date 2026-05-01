@@ -16,10 +16,12 @@ export default async function DashboardLayout({
   return (
     <div className="flex min-h-screen flex-col pb-14">
       <Header title={t('title')} iconSrc="/favicon-32x32.png" />
-      <nav className="bg-accent-content pl-3">
-        <Breadcrumbs />
+      <nav className="bg-accent-content px-4">
+        <div className="mx-auto max-w-screen-xl">
+          <Breadcrumbs />
+        </div>
       </nav>
-      <main className="container mx-auto grow p-4">{children}</main>
+      <main className="mx-auto w-full max-w-screen-xl grow p-4">{children}</main>
       <BottomNav />
       <FloatingActionButton />
     </div>

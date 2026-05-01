@@ -57,7 +57,7 @@ export function FloatingActionButton() {
   }
 
   return (
-    <div className="fixed right-5 bottom-15 z-50 flex flex-col items-end gap-3">
+    <div className="fixed right-5 bottom-15 z-50 flex flex-col items-end gap-3 xl:right-[calc(50%-640px+24px)]">
       {/* Speed Dial Menu Items */}
       {isOpen && (
         <div className="animate-in fade-in slide-in-from-bottom-4 mb-2 flex flex-col items-end gap-3 duration-200">
