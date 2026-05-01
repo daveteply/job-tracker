@@ -191,7 +191,7 @@ export function EventForm<T extends EventFormValues>({
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="px-12pt-6 mx-auto mb-4 max-w-md pb-8">
+    <form onSubmit={handleSubmit(onSubmit)} className="px-12pt-6 mx-auto mb-4 max-w-md pb-32">
       <fieldset className="fieldset">
         <legend className="fieldset-legend">{t('formEventType')}</legend>
         <Controller

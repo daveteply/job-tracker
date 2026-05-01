@@ -95,7 +95,7 @@ export function ReminderForm({
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit as any)} className="px-12pt-6 mx-auto mb-4 max-w-md pb-8">
+    <form onSubmit={handleSubmit(onSubmit as any)} className="px-12pt-6 mx-auto mb-4 max-w-md pb-32">
       <input type="hidden" {...register('id')} />
       <input type="hidden" {...register('eventId')} />
 
