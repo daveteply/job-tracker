@@ -4,18 +4,13 @@ import { use } from 'react';
 
 import { useTranslations } from 'next-intl';
 
+import { EntitySelection } from '@job-tracker/app-logic';
 import { useCompanySearch, useRoleActions, useRoleWithCompany } from '@job-tracker/hooks';
 import { PageLoading, RoleForm } from '@job-tracker/ui-components';
 import { RoleDTO } from '@job-tracker/validation';
 
 type RoleEditFormData = RoleDTO & {
-  company?: {
-    id?: string;
-    name?: string;
-    isNew?: boolean;
-    shouldRemove?: boolean;
-    displayValue?: string;
-  } | null;
+  company?: EntitySelection | null;
 };
 
 export default function EditRolePage({ params }: { params: Promise<{ id: string }> }) {
@@ -39,6 +34,7 @@ export default function EditRolePage({ params }: { params: Promise<{ id: string 
           id: role.company.id,
           name: role.company.name,
           isNew: false,
+          shouldRemove: false,
         }
       : null,
   };

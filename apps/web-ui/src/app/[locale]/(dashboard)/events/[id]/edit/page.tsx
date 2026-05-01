@@ -4,6 +4,7 @@ import { use } from 'react';
 
 import { useTranslations } from 'next-intl';
 
+import { EntitySelection } from '@job-tracker/app-logic';
 import {
   useCompanySearch,
   useContactSearch,
@@ -16,31 +17,9 @@ import { EventForm, PageLoading } from '@job-tracker/ui-components';
 import { EventDTO } from '@job-tracker/validation';
 
 type EventEditFormData = EventDTO & {
-  company?: {
-    id?: string;
-    name?: string;
-    isNew?: boolean;
-    shouldRemove?: boolean;
-    displayValue?: string;
-  } | null;
-
-  contact?: {
-    id?: string;
-    firstName?: string;
-    lastName?: string;
-    isNew?: boolean;
-    shouldRemove?: boolean;
-    displayValue?: string;
-  } | null;
-
-  role?: {
-    id?: string;
-    title?: string;
-    isNew?: boolean;
-    shouldRemove?: boolean;
-    displayValue?: string;
-  } | null;
-
+  company?: EntitySelection | null;
+  contact?: EntitySelection | null;
+  role?: EntitySelection | null;
   hasReminder?: boolean;
   remindAt?: string | Date | null;
 };
@@ -70,6 +49,7 @@ export default function EventUpdatePage({ params }: { params: Promise<{ id: stri
           id: event.company.id,
           name: event.company.name,
           isNew: false,
+          shouldRemove: false,
         }
       : null,
     contact: event.contact
@@ -78,6 +58,7 @@ export default function EventUpdatePage({ params }: { params: Promise<{ id: stri
           firstName: event.contact.firstName,
           lastName: event.contact.lastName,
           isNew: false,
+          shouldRemove: false,
         }
       : null,
     role: event.role
@@ -85,6 +66,7 @@ export default function EventUpdatePage({ params }: { params: Promise<{ id: stri
           id: event.role.id,
           title: event.role.title,
           isNew: false,
+          shouldRemove: false,
         }
       : null,
     hasReminder: !!event.reminder,

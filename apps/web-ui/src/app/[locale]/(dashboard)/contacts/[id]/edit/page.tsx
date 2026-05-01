@@ -4,18 +4,13 @@ import { use } from 'react';
 
 import { useTranslations } from 'next-intl';
 
+import { EntitySelection } from '@job-tracker/app-logic';
 import { useCompanySearch, useContactActions, useContactWithCompany } from '@job-tracker/hooks';
 import { ContactForm, PageLoading } from '@job-tracker/ui-components';
 import { ContactDTO } from '@job-tracker/validation';
 
 type ContactEditFormData = ContactDTO & {
-  company?: {
-    id?: string;
-    name?: string;
-    isNew?: boolean;
-    shouldRemove?: boolean;
-    displayValue?: string;
-  } | null;
+  company?: EntitySelection | null;
 };
 
 export default function EditContactPage({ params }: { params: Promise<{ id: string }> }) {
@@ -39,6 +34,7 @@ export default function EditContactPage({ params }: { params: Promise<{ id: stri
           id: contact.company.id,
           name: contact.company.name,
           isNew: false,
+          shouldRemove: false,
         }
       : null,
   };
