@@ -54,11 +54,13 @@ export type TrackerDatabase = RxDatabase<TrackerCollections>;
  * Initializes a new RxDatabase instance with all collections.
  */
 export async function initRxDatabase(name: string): Promise<TrackerDatabase> {
+  const isDev = process.env['NODE_ENV'] === 'development';
+
   const db = await createRxDatabase<TrackerCollections>({
     name,
-    storage: wrappedValidateAjvStorage({
-      storage: getRxStorageDexie(),
-    }),
+    storage: isDev
+      ? wrappedValidateAjvStorage({ storage: getRxStorageDexie() })
+      : getRxStorageDexie(),
     ignoreDuplicate: true,
   });
 

@@ -7,6 +7,8 @@
     "@job-tracker/app-logic": "workspace:*",
     "@job-tracker/domain": "workspace:*",
     "rxdb": "^17.1.0",
+    "dexie": "^4.0.10",
+    "ajv": "^8.18.0",
     "rxjs": "^7.8.2",
     "react": "^19.0.0",
     "next-auth": "^5.0.0-beta.30",
