@@ -2,6 +2,15 @@ import { EventCategoryType, RoleStatus } from '@job-tracker/domain';
 
 import { EventTypeDocument } from './documents/event-type.document';
 
+/**
+ * SEED DATA LOCALIZATION NOTE:
+ * The 'translationKey' field for system-defined types MUST correspond to a key
+ * in the 'SystemEventTypes' namespace within the i18n message files
+ * (e.g., apps/web-ui/messages/en-US.json).
+ *
+ * If you add a new seeded event type here, ensure you add the corresponding
+ * translations in all supported languages.
+ */
 export const seedEventTypes: EventTypeDocument[] = [
   // Application
   {
@@ -9,6 +18,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     serverId: null,
     updatedAt: new Date().toISOString(),
     name: 'Job Lead',
+    translationKey: 'jobLead',
     category: EventCategoryType.Application,
     targetStatus: RoleStatus.Lead,
     isSystemDefined: true,
@@ -19,6 +29,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     serverId: null,
     updatedAt: new Date().toISOString(),
     name: 'Applied',
+    translationKey: 'applied',
     category: EventCategoryType.Application,
     targetStatus: RoleStatus.Applied,
     isSystemDefined: true,
@@ -29,6 +40,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     serverId: null,
     updatedAt: new Date().toISOString(),
     name: 'Application Viewed',
+    translationKey: 'applicationViewed',
     category: EventCategoryType.Application,
     targetStatus: RoleStatus.Applied,
     isSystemDefined: true,
@@ -39,6 +51,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     serverId: null,
     updatedAt: new Date().toISOString(),
     name: 'Recruiter Screening Scheduled',
+    translationKey: 'recruiterScreeningScheduled',
     category: EventCategoryType.Application,
     targetStatus: RoleStatus.Applied,
     isSystemDefined: true,
@@ -51,6 +64,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     serverId: null,
     updatedAt: new Date().toISOString(),
     name: 'Recruiter Outreach',
+    translationKey: 'recruiterOutreach',
     category: EventCategoryType.Communication,
     isSystemDefined: true,
     isCommon: false,
@@ -60,6 +74,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     serverId: null,
     updatedAt: new Date().toISOString(),
     name: 'Networking/Coffee Chat',
+    translationKey: 'networkingCoffeeChat',
     category: EventCategoryType.Communication,
     isSystemDefined: true,
     isCommon: false,
@@ -69,6 +84,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     serverId: null,
     updatedAt: new Date().toISOString(),
     name: 'Follow-up Sent',
+    translationKey: 'followUpSent',
     category: EventCategoryType.Communication,
     isSystemDefined: true,
     isCommon: false,
@@ -78,6 +94,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     serverId: null,
     updatedAt: new Date().toISOString(),
     name: 'Email Received',
+    translationKey: 'emailReceived',
     category: EventCategoryType.Communication,
     isSystemDefined: true,
     isCommon: false,
@@ -87,6 +104,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     serverId: null,
     updatedAt: new Date().toISOString(),
     name: 'Email Sent',
+    translationKey: 'emailSent',
     category: EventCategoryType.Communication,
     isSystemDefined: true,
     isCommon: false,
@@ -96,6 +114,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     serverId: null,
     updatedAt: new Date().toISOString(),
     name: 'Phone Call',
+    translationKey: 'phoneCall',
     category: EventCategoryType.Communication,
     isSystemDefined: true,
     isCommon: false,
@@ -107,6 +126,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     serverId: null,
     updatedAt: new Date().toISOString(),
     name: 'Technical Assessment',
+    translationKey: 'technicalAssessment',
     category: EventCategoryType.Interview,
     targetStatus: RoleStatus.Interviewing,
     isSystemDefined: true,
@@ -117,6 +137,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     serverId: null,
     updatedAt: new Date().toISOString(),
     name: 'Screening Call',
+    translationKey: 'screeningCall',
     category: EventCategoryType.Interview,
     targetStatus: RoleStatus.Interviewing,
     isSystemDefined: true,
@@ -127,6 +148,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     serverId: null,
     updatedAt: new Date().toISOString(),
     name: 'Technical Interview',
+    translationKey: 'technicalInterview',
     category: EventCategoryType.Interview,
     targetStatus: RoleStatus.Interviewing,
     isSystemDefined: true,
@@ -137,6 +159,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     serverId: null,
     updatedAt: new Date().toISOString(),
     name: 'Onsite Interview',
+    translationKey: 'onsiteInterview',
     category: EventCategoryType.Interview,
     targetStatus: RoleStatus.Interviewing,
     isSystemDefined: true,
@@ -147,49 +170,53 @@ export const seedEventTypes: EventTypeDocument[] = [
     serverId: null,
     updatedAt: new Date().toISOString(),
     name: 'Interview Scheduled',
+    translationKey: 'interviewScheduled',
     category: EventCategoryType.Interview,
     targetStatus: RoleStatus.Interviewing,
     isSystemDefined: true,
     isCommon: false,
-    },
-    {
+  },
+  {
     id: 'f3d8c179-5e6f-5a7b-9c0d-1e2f3a4b5c6d',
     serverId: null,
     updatedAt: new Date().toISOString(),
     name: 'Interview Completed',
+    translationKey: 'interviewCompleted',
     category: EventCategoryType.Interview,
     targetStatus: RoleStatus.Interviewing,
     isSystemDefined: true,
     isCommon: false,
-    },
+  },
 
-    // Outcomes
-    {
+  // Outcomes
+  {
     id: 'f1bfaf57-3c4d-3e6f-7a8b-9c0d1e2f3a4b',
     serverId: null,
     updatedAt: new Date().toISOString(),
     name: 'Offer Received',
+    translationKey: 'offerReceived',
     category: EventCategoryType.Outcome,
     targetStatus: RoleStatus.Offer,
     isSystemDefined: true,
     isCommon: true,
-    },
-    {
+  },
+  {
     id: 'a1b2c3d4-e5f6-47a8-b9c0-d1e2f3a4b5c6',
     serverId: null,
     updatedAt: new Date().toISOString(),
     name: 'Rejection Received',
+    translationKey: 'rejectionReceived',
     category: EventCategoryType.Outcome,
     targetStatus: RoleStatus.Rejected,
     isSystemDefined: true,
     isCommon: false,
-    },
-    {
+  },
+  {
     id: '0c1d2e3f-4a5b-6c7d-8e9f-0a1b2c3d4e5f',
-
     serverId: null,
     updatedAt: new Date().toISOString(),
     name: 'Offer Accepted',
+    translationKey: 'offerAccepted',
     category: EventCategoryType.Outcome,
     targetStatus: RoleStatus.Accepted,
     isSystemDefined: true,
@@ -200,6 +227,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     serverId: null,
     updatedAt: new Date().toISOString(),
     name: 'Rejected',
+    translationKey: 'rejected',
     category: EventCategoryType.Outcome,
     targetStatus: RoleStatus.Rejected,
     isSystemDefined: true,
@@ -210,6 +238,7 @@ export const seedEventTypes: EventTypeDocument[] = [
     serverId: null,
     updatedAt: new Date().toISOString(),
     name: 'Withdrew Application',
+    translationKey: 'withdrewApplication',
     category: EventCategoryType.Outcome,
     targetStatus: RoleStatus.Withdrawn,
     isSystemDefined: true,

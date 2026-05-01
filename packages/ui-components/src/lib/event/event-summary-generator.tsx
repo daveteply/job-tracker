@@ -42,9 +42,9 @@ export function EventSummaryGenerator<T extends FieldValues = FieldValues>({
     if (!selectedType) return '';
 
     let eventTypeName = selectedType.name;
-    if (selectedType.isSystemDefined) {
+    if (selectedType.isSystemDefined && selectedType.translationKey) {
       try {
-        eventTypeName = tEvent(selectedType.name);
+        eventTypeName = tEvent(selectedType.translationKey);
       } catch (e) {
         // Fallback to name
       }
@@ -59,14 +59,20 @@ export function EventSummaryGenerator<T extends FieldValues = FieldValues>({
 
     if (contactName) {
       let connector = currentDirection === 'Outbound' ? t('to') : t('from');
-      if (selectedType.name.toLowerCase().includes('networking') || selectedType.name.toLowerCase().includes('chat')) {
+      if (
+        selectedType.name.toLowerCase().includes('networking') ||
+        selectedType.name.toLowerCase().includes('chat')
+      ) {
         connector = t('with');
       }
       summary += ` ${connector} ${contactName}`;
     }
 
     if (roleTitle) {
-      const connector = (selectedType.category === 'Interview' || selectedType.category === 'Outcome') ? t('for') : t('to');
+      const connector =
+        selectedType.category === 'Interview' || selectedType.category === 'Outcome'
+          ? t('for')
+          : t('to');
       summary += ` ${connector} ${roleTitle}`;
     }
 

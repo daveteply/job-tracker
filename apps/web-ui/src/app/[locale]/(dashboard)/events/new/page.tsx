@@ -193,9 +193,9 @@ export default function EventsNewPage() {
   const selectedEventType = eventTypes.find((et) => et.id === formValues.eventTypeId);
   let selectedEventName = '';
   if (selectedEventType) {
-    if (selectedEventType.isSystemDefined) {
+    if (selectedEventType.isSystemDefined && selectedEventType.translationKey) {
       try {
-        selectedEventName = tEvent(selectedEventType.name);
+        selectedEventName = tEvent(selectedEventType.translationKey);
       } catch {
         selectedEventName = selectedEventType.name;
       }
@@ -256,7 +256,7 @@ export default function EventsNewPage() {
   return (
     <FormProvider {...methods}>
       <div className="mx-auto max-w-2xl pb-32">
-        <h1 className="text-base-content mb-4 flex items-baseline flex-wrap text-3xl font-bold">
+        <h1 className="text-base-content mb-4 flex flex-wrap items-baseline text-3xl font-bold">
           <span className="whitespace-nowrap">{t('newTitle')}</span>
           {selectedEventName && (
             <span
@@ -380,6 +380,7 @@ export default function EventsNewPage() {
                       onClick={async () => {
                         const isFormValid = await trigger();
                         if (isFormValid) {
+                          // eslint-disable-next-line @typescript-eslint/no-explicit-any
                           await handleSubmit(onSubmit as any)();
                         }
                       }}

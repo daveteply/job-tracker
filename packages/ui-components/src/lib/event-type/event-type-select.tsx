@@ -25,9 +25,9 @@ export function EventTypeSelect({
   const tCommon = useTranslations('Enums'); // Reusing for 'Select an event type' logic if needed, but let's see
 
   const getLabel = (type: EventTypeDTO) => {
-    if (type.isSystemDefined) {
+    if (type.isSystemDefined && type.translationKey) {
       try {
-        return t(type.name);
+        return t(type.translationKey);
       } catch (e) {
         return type.name;
       }

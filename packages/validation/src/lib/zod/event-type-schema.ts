@@ -8,6 +8,7 @@ import { EventCategoryTypeSchema, RoleStatusSchema } from './enum-schema';
 
 export const EventTypeCreateSchema = z.object({
   name: z.string().min(1, 'Event Type name is required').max(100),
+  translationKey: z.string().optional(),
   category: EventCategoryTypeSchema,
   targetStatus: RoleStatusSchema.nullable().optional(),
   isSystemDefined: z.boolean().default(false),
@@ -17,6 +18,7 @@ export const EventTypeCreateSchema = z.object({
 export const EventTypeUpdateSchema = z
   .object({
     name: updateRequiredString(100, 'Event Type name is required'),
+    translationKey: z.string().optional(),
     category: EventCategoryTypeSchema.optional(),
     targetStatus: RoleStatusSchema.nullable().optional(),
     isSystemDefined: updateRequiredBoolean(),
@@ -31,6 +33,7 @@ export const EventTypeDTOSchema = z.object({
   createdAt: z.string().optional(),
 
   name: z.string(),
+  translationKey: z.string().optional(),
   category: z
     .enum(Object.values(EventCategoryType) as [string, ...string[]])
     .transform((val) => val as EventCategoryType),

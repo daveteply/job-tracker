@@ -12,6 +12,7 @@ export class EventTypeMapper {
       createdAt: doc.createdAt,
 
       name: doc.name,
+      translationKey: doc.translationKey,
       category: doc.category,
       targetStatus: doc.targetStatus,
       isSystemDefined: doc.isSystemDefined,
@@ -27,6 +28,7 @@ export class EventTypeMapper {
       createdAt: doc.createdAt,
 
       name: doc.name,
+      translationKey: doc.translationKey,
       category: doc.category,
       targetStatus: doc.targetStatus ?? null,
       isSystemDefined: doc.isSystemDefined,
@@ -45,6 +47,7 @@ export class EventTypeMapper {
       createdAt: entity.createdAt ?? now,
 
       name: entity.name,
+      translationKey: entity.translationKey,
       category: entity.category ?? EventCategoryType.Application,
       targetStatus: entity.targetStatus,
       isSystemDefined: entity.isSystemDefined ?? false,

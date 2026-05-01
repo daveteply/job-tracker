@@ -7,6 +7,7 @@ export interface EventTypeDocument {
   createdAt?: string;
 
   name: string;
+  translationKey?: string;
   category: EventCategoryType;
   targetStatus?: RoleStatus | null;
   isSystemDefined: boolean;

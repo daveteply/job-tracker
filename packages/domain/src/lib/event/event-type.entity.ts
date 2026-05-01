@@ -6,6 +6,7 @@ export interface EventTypeEntity {
   serverId: number | null;
 
   name: string;
+  translationKey?: string;
   category: EventCategoryType;
   targetStatus?: RoleStatus | null;
   isSystemDefined: boolean;

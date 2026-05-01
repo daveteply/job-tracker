@@ -92,9 +92,9 @@ export function EventStepType({
   };
 
   const getEventName = (type: EventTypeDTO) => {
-    if (type.isSystemDefined) {
+    if (type.isSystemDefined && type.translationKey) {
       try {
-        return tEvent(type.name);
+        return tEvent(type.translationKey);
       } catch (e) {
         return type.name;
       }

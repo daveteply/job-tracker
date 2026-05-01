@@ -37,9 +37,10 @@ export function EventInfoCard({
   const borderClass =
     EVENT_CATEGORY_COLOR_MAP[event.eventType?.category || ''] || EVENT_CATEGORY_COLOR_MAP.default;
 
-  const eventName = event.eventType?.isSystemDefined
-    ? tEvent(event.eventType.name)
-    : event.eventType?.name;
+  const eventName =
+    event.eventType?.isSystemDefined && event.eventType?.translationKey
+      ? tEvent(event.eventType.translationKey)
+      : event.eventType?.name;
 
   const title = (
     <div className="flex min-w-0 items-center">
