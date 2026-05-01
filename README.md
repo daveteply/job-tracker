@@ -61,6 +61,12 @@ graph TD
 
 ---
 
+## 📜 Documentation
+
+- [**Domain Rules & Business Logic**](./docs/business-logic/DOMAIN_RULES.md): A guide to the application's core constraints and business rules.
+
+---
+
 ## 🏗️ Nx Monorepo
 
 This project is managed as an **Nx Monorepo**, providing a unified workflow for frontend, backend, and shared libraries.
