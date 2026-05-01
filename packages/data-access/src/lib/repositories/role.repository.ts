@@ -27,6 +27,15 @@ export class RoleRepository {
       .$.pipe(map((docs) => docs.map((doc) => RoleMapper.toDto(doc.toJSON()))));
   }
 
+  listByCompanyId$(companyId: string): Observable<RoleDTO[]> {
+    return this.db.roles
+      .find({
+        selector: { companyId },
+        sort: [{ title: 'asc' }],
+      })
+      .$.pipe(map((docs) => docs.map((doc) => RoleMapper.toDto(doc.toJSON()))));
+  }
+
   // Backward-compatible alias while consumers move to list$ naming.
   getAll$(): Observable<RoleDTO[]> {
     return this.list$();

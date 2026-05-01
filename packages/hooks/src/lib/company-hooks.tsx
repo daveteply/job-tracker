@@ -2,10 +2,13 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
+import { combineLatest, map } from 'rxjs';
+
 import { EMPTY_DELETION_BLOCKERS } from '@job-tracker/app-logic';
 import { CompanyRepository, DeletionCheck, useDb } from '@job-tracker/data-access';
-import { CompanyDTO } from '@job-tracker/validation';
+import { CompanyDTO, CompanyWithRolesDTO } from '@job-tracker/validation';
 
+import { useRoleRepository } from './role-hooks';
 import { useObservable } from './use-observable';
 
 export function useCompanyRepository() {
@@ -47,6 +50,33 @@ export function useCompanies() {
   return {
     companies,
     loading: !repository,
+  };
+}
+
+export function useCompaniesWithRoles() {
+  const companyRepository = useCompanyRepository();
+  const roleRepository = useRoleRepository();
+
+  const companiesWithRoles$ = useMemo(() => {
+    if (!companyRepository || !roleRepository) {
+      return undefined;
+    }
+
+    return combineLatest([companyRepository.list$(), roleRepository.list$()]).pipe(
+      map(([companies, roles]) => {
+        return companies.map<CompanyWithRolesDTO>((company) => ({
+          ...company,
+          roles: roles.filter((role) => role.companyId === company.id),
+        }));
+      }),
+    );
+  }, [companyRepository, roleRepository]);
+
+  const companies = useObservable<CompanyWithRolesDTO[]>(companiesWithRoles$, []);
+
+  return {
+    companies,
+    loading: !companyRepository || !roleRepository,
   };
 }
 

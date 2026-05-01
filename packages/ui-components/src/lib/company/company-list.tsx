@@ -2,12 +2,12 @@
 
 import { useTranslations } from 'next-intl';
 
-import { CompanyDTO } from '@job-tracker/validation';
+import { CompanyWithRolesDTO } from '@job-tracker/validation';
 
 import CompanyInfoCard from './company-info-card';
 
 export interface CompanyListProps {
-  companies: CompanyDTO[];
+  companies: CompanyWithRolesDTO[];
   noCompaniesMessage?: string;
 }
 
@@ -20,7 +20,12 @@ export function CompanyList({ companies, noCompaniesMessage }: CompanyListProps)
       {companies && companies.length ? (
         <>
           {companies.map((company) => (
-            <CompanyInfoCard key={company.id} company={company} />
+            <CompanyInfoCard
+              key={company.id}
+              company={company}
+              roles={company.roles}
+              showRoles={false}
+            />
           ))}
         </>
       ) : (

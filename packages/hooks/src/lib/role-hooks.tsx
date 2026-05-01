@@ -56,6 +56,21 @@ export function useRoleWithCompany(id: string) {
   return { role: data, loading };
 }
 
+export function useRolesByCompany(companyId: string) {
+  const repository = useRoleRepository();
+
+  const roles$ = useMemo(() => {
+    return repository?.listByCompanyId$(companyId);
+  }, [repository, companyId]);
+
+  const roles = useObservable<RoleDTO[]>(roles$, []);
+
+  return {
+    roles,
+    loading: !repository,
+  };
+}
+
 export function useRolesWithCompany() {
   const db = useDb();
   const roleRepository = useRoleRepository();

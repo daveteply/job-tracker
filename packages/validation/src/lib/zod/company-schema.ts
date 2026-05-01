@@ -7,6 +7,8 @@ import {
   updateRequiredString,
 } from '../helpers/schema-helpers';
 
+import type { RoleDTO } from './role-schema';
+
 export const CompanyCreateSchema = z.object({
   name: z.string().min(1, 'companyNameRequired').max(100),
   website: z.preprocess(
@@ -46,3 +48,7 @@ export const CompanyDTOSchema = z.object({
 export type CompanyCreate = z.infer<typeof CompanyCreateSchema>;
 export type CompanyUpdate = z.infer<typeof CompanyUpdateSchema>;
 export type CompanyDTO = z.infer<typeof CompanyDTOSchema>;
+
+export interface CompanyWithRolesDTO extends CompanyDTO {
+  roles?: RoleDTO[];
+}

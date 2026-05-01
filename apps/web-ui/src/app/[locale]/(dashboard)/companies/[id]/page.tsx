@@ -5,7 +5,7 @@ import { use } from 'react';
 import { PencilIcon, TrashIcon } from '@heroicons/react/16/solid';
 import { useTranslations } from 'next-intl';
 
-import { useCompany } from '@job-tracker/hooks';
+import { useCompany, useRolesByCompany } from '@job-tracker/hooks';
 import { CompanyInfoCard, PageLoading } from '@job-tracker/ui-components';
 
 import { Link } from '../../../../../i18n/routing';
@@ -13,9 +13,10 @@ import { Link } from '../../../../../i18n/routing';
 export default function CompanyDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const t = useTranslations('Companies');
   const { id } = use(params);
-  const { company, loading } = useCompany(id);
+  const { company, loading: companyLoading } = useCompany(id);
+  const { roles, loading: rolesLoading } = useRolesByCompany(id);
 
-  if (loading) return <PageLoading entityName={t('companyEntityName')} />;
+  if (companyLoading || rolesLoading) return <PageLoading entityName={t('companyEntityName')} />;
   if (!company) return <div>{t('companyNotFound')}</div>;
 
   return (
@@ -38,7 +39,7 @@ export default function CompanyDetailPage({ params }: { params: Promise<{ id: st
         </Link>
       </div>
 
-      <CompanyInfoCard company={company} showControls={false} showChevron={false} />
+      <CompanyInfoCard company={company} roles={roles} showControls={false} showChevron={false} />
 
       <div className="mt-5">
         <Link className="btn mr-3" href="/companies">
