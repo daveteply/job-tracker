@@ -45,7 +45,7 @@ export function EventSummaryGenerator<T extends FieldValues = FieldValues>({
     if (selectedType.isSystemDefined && selectedType.translationKey) {
       try {
         eventTypeName = tEvent(selectedType.translationKey);
-      } catch (e) {
+      } catch {
         // Fallback to name
       }
     }
@@ -57,29 +57,28 @@ export function EventSummaryGenerator<T extends FieldValues = FieldValues>({
 
     let summary = eventTypeName;
 
-    if (contactName) {
-      let connector = currentDirection === 'Outbound' ? t('to') : t('from');
-      if (
-        selectedType.name.toLowerCase().includes('networking') ||
-        selectedType.name.toLowerCase().includes('chat')
-      ) {
-        connector = t('with');
-      }
-      summary += ` ${connector} ${contactName}`;
-    }
-
+    // 1. Role (for [Role])
     if (roleTitle) {
-      const connector =
-        selectedType.category === 'Interview' || selectedType.category === 'Outcome'
-          ? t('for')
-          : t('to');
-      summary += ` ${connector} ${roleTitle}`;
+      summary += ` ${t('for')} ${roleTitle}`;
     }
 
+    // 2. Company (at [Company])
     if (companyName) {
       summary += ` ${t('at')} ${companyName}`;
     }
 
+    // 3. Contact (with/to/from [Contact])
+    if (contactName) {
+      const isCommunication = selectedType.category === 'Communication';
+      const connector = isCommunication
+        ? currentDirection === 'Outbound'
+          ? t('to')
+          : t('from')
+        : t('with');
+      summary += ` ${connector} ${contactName}`;
+    }
+
+    // 4. Source (via [Source])
     if (sourceLabel) {
       summary += ` ${t('via')} ${sourceLabel}`;
     }

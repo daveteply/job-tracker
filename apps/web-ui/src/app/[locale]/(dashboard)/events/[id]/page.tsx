@@ -45,31 +45,77 @@ export default function EventDetailsPage({ params }: { params: Promise<{ id: str
         </Link>
       </div>
 
-      <div className="flex flex-col gap-3">
-        <div className="flex gap-1">
+      <div className="flex flex-col gap-4">
+        <div className="flex gap-1 text-sm opacity-80">
           {event.direction}
           <span>{t('on')}</span>
           <FormattedDate dateValue={event.occurredAt} useRelativeTime={false} />
+          {event.source && (
+            <>
+              <span>•</span>
+              <span>{t('sourceLabel')}</span>
+              {event.source}
+            </>
+          )}
         </div>
-        <p>
-          {event.source && <span>{t('sourceLabel')}</span>}
-          {event.source}
-        </p>
 
-        {event.company && <CompanyInfoCard company={event.company} />}
-        {event.contact && <ContactInfoCard contact={event.contact} />}
-        {event.role && <RoleInfoCard role={event.role} />}
-        {event.eventType && <EventTypeInfoCard eventType={event.eventType} />}
-        <ul>
-          <li>
-            {event.summary && <span>{t('summaryLabel')}</span>}
-            {event.summary}
-          </li>
-          <li>
-            {event.details && <span>{t('detailsLabel')}</span>}
-            {event.details}
-          </li>
-        </ul>
+        {event.company && (
+          <div className="space-y-1">
+            <h2 className="text-[10px] font-bold uppercase tracking-wider text-neutral-content/60">
+              {t('sectionCompany')}
+            </h2>
+            <CompanyInfoCard company={event.company} />
+          </div>
+        )}
+
+        {event.contact && (
+          <div className="space-y-1">
+            <h2 className="text-[10px] font-bold uppercase tracking-wider text-neutral-content/60">
+              {t('sectionContact')}
+            </h2>
+            <ContactInfoCard contact={event.contact} />
+          </div>
+        )}
+
+        {event.role && (
+          <div className="space-y-1">
+            <h2 className="text-[10px] font-bold uppercase tracking-wider text-neutral-content/60">
+              {t('sectionRole')}
+            </h2>
+            <RoleInfoCard role={event.role} />
+          </div>
+        )}
+
+        {event.eventType && (
+          <div className="space-y-1">
+            <h2 className="text-[10px] font-bold uppercase tracking-wider text-neutral-content/60">
+              {t('sectionEventType')}
+            </h2>
+            <EventTypeInfoCard eventType={event.eventType} />
+          </div>
+        )}
+
+        {(event.summary || event.details) && (
+          <div className="space-y-1">
+            <h2 className="text-[10px] font-bold uppercase tracking-wider text-neutral-content/60">
+              {t('sectionDescription')}
+            </h2>
+            <div className="card bg-base-300 rounded-xl p-4 shadow-sm">
+              <ul className="space-y-2">
+                {event.summary && (
+                  <li className="text-sm">
+                    <span className="font-semibold">{t('summaryLabel')}</span> {event.summary}
+                  </li>
+                )}
+                {event.details && (
+                  <li className="text-sm">
+                    <span className="font-semibold">{t('detailsLabel')}</span> {event.details}
+                  </li>
+                )}
+              </ul>
+            </div>
+          </div>
+        )}
       </div>
 
       <div className="mt-5">

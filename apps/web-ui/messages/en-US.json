@@ -190,6 +190,11 @@
     "noEventsFound": "No events found",
     "noEventTypesFound": "No Event Types found",
     "reminderTitle": "Follow-up Reminder",
+    "sectionCompany": "Company",
+    "sectionContact": "Contact",
+    "sectionRole": "Role",
+    "sectionEventType": "Event Type",
+    "sectionDescription": "Description",
     "createReminder": "Create a follow-up reminder?",
     "remindMeOn": "Remind me on",
     "reminderDateRequired": "Reminder date is required",
@@ -351,6 +356,9 @@
   "EventInfoCard": {
     "from": "from",
     "to": "to",
-    "detailsAriaLabel": "Go to Event Details page"
+    "detailsAriaLabel": "Go to Event Details page",
+    "context": "Context",
+    "summary": "Summary",
+    "details": "Details"
   }
 }

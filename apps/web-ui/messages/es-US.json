@@ -190,6 +190,11 @@
     "noEventsFound": "No se encontraron eventos",
     "noEventTypesFound": "No se encontraron tipos de evento",
     "reminderTitle": "Recordatorio de seguimiento",
+    "sectionCompany": "Compañía",
+    "sectionContact": "Contacto",
+    "sectionRole": "Rol",
+    "sectionEventType": "Tipo de evento",
+    "sectionDescription": "Descripción",
     "createReminder": "¿Crear un recordatorio de seguimiento?",
     "remindMeOn": "Recordarme el",
     "reminderDateRequired": "La fecha del recordatorio es requerida",
@@ -350,6 +355,9 @@
   "EventInfoCard": {
     "from": "de",
     "to": "a",
-    "detailsAriaLabel": "Ir a la página de detalles del evento"
+    "detailsAriaLabel": "Ir a la página de detalles del evento",
+    "context": "Contexto",
+    "summary": "Resumen",
+    "details": "Detalles"
   }
 }

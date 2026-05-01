@@ -27,6 +27,8 @@ import ContactCombobox from '../contact/contact-combobox';
 import EventTypeSelect from '../event-type/event-type-select';
 import RoleCombobox from '../role/role-combobox';
 
+import EventSummaryGenerator from './event-summary-generator';
+
 interface EventFormValues extends FieldValues {
   occurredAt?: Date | string | null;
 }
@@ -106,6 +108,7 @@ export function EventForm<T extends EventFormValues>({
     control,
     setValue,
     watch,
+    getFieldState,
     formState: { errors, isSubmitting },
   } = useForm<T>({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -113,9 +116,15 @@ export function EventForm<T extends EventFormValues>({
     defaultValues: formatInitialData(initialData),
   });
 
+  const eventTypeId = watch('eventTypeId' as Path<T>);
+  const currentDirection = watch('direction' as Path<T>);
+  const currentSource = watch('source' as Path<T>);
   const contact = watch('contact' as Path<T>) as (ContactDTO & { company?: CompanyDTO }) | null;
   const role = watch('role' as Path<T>) as (RoleDTO & { company?: CompanyDTO }) | null;
   const company = watch('company' as Path<T>);
+  const summaryValue = watch('summary' as Path<T>);
+
+  const { isDirty: isSummaryDirty } = getFieldState('summary' as Path<T>, { errors, isSubmitting } as any);
 
   const prevContactRef = useRef(contact);
   const prevRoleRef = useRef(role);
@@ -281,7 +290,20 @@ export function EventForm<T extends EventFormValues>({
       </fieldset>
 
       <fieldset className="fieldset">
-        <legend className="fieldset-legend">{t('formSummary')}</legend>
+        <legend className="fieldset-legend flex items-center gap-2">
+          {t('formSummary')}
+          <EventSummaryGenerator
+            eventTypeId={eventTypeId}
+            eventTypes={eventTypes}
+            role={role}
+            company={company}
+            contact={contact}
+            currentSource={currentSource}
+            currentDirection={currentDirection}
+            setValue={setValue}
+            autoGenerate={!isSummaryDirty || !summaryValue}
+          />
+        </legend>
         <input className="input" {...register('summary' as Path<T>)} />
         <ErrorMsg name={'summary' as Path<T>} />
       </fieldset>
