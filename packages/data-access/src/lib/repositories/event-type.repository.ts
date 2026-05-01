@@ -18,11 +18,6 @@ export class EventTypeRepository {
       .$.pipe(map((docs) => docs.map((doc) => EventTypeMapper.toDto(doc.toJSON()))));
   }
 
-  // Backward-compatible alias while consumers move to list$ naming.
-  getAll$(): Observable<EventTypeDTO[]> {
-    return this.list$();
-  }
-
   async getById(id: string): Promise<EventTypeDTO | null> {
     const doc = await this.db.eventTypes.findOne(id).exec();
     if (!doc) return null;

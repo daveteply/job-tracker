@@ -36,11 +36,6 @@ export class RoleRepository {
       .$.pipe(map((docs) => docs.map((doc) => RoleMapper.toDto(doc.toJSON()))));
   }
 
-  // Backward-compatible alias while consumers move to list$ naming.
-  getAll$(): Observable<RoleDTO[]> {
-    return this.list$();
-  }
-
   async getById(id: string): Promise<RoleDTO | null> {
     const doc = await this.db.roles.findOne(id).exec();
     if (!doc) return null;

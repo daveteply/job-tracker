@@ -27,11 +27,6 @@ export class ContactRepository {
       .$.pipe(map((docs) => docs.map((doc) => ContactMapper.toDto(doc.toJSON()))));
   }
 
-  // Backward-compatible alias while consumers move to list$ naming.
-  getAll$(): Observable<ContactDTO[]> {
-    return this.list$();
-  }
-
   async getById(id: string): Promise<ContactDTO | null> {
     const doc = await this.db.contacts.findOne(id).exec();
     if (!doc) return null;

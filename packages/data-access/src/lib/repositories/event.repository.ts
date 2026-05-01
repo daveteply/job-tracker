@@ -32,11 +32,6 @@ export class EventRepository {
       );
   }
 
-  // Backward-compatible alias while consumers move to list$ naming.
-  getAll$(): Observable<EventDTO[]> {
-    return this.list$();
-  }
-
   async getById(id: string): Promise<EventDTO | null> {
     const doc = await this.db.events.findOne(id).exec();
     if (!doc) return null;

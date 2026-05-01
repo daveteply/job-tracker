@@ -27,11 +27,6 @@ export class CompanyRepository {
       .$.pipe(map((docs) => docs.map((doc) => CompanyMapper.toDto(doc.toJSON()))));
   }
 
-  // Backward-compatible alias while consumers move to list$ naming.
-  getAll$(): Observable<CompanyDTO[]> {
-    return this.list$();
-  }
-
   async getById(id: string): Promise<CompanyDTO | null> {
     const doc = await this.db.companies.findOne(id).exec();
     if (!doc) return null;
