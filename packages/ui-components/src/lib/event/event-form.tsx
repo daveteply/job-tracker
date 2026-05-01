@@ -128,8 +128,12 @@ export function EventForm<T extends EventFormValues>({
 
   const prevContactRef = useRef(contact);
   const prevRoleRef = useRef(role);
+  const prevCompanyRef = useRef(company);
 
   useEffect(() => {
+    const currentCompanyId = (company as any)?.id;
+    const prevCompanyId = (prevCompanyRef.current as any)?.id;
+
     // If role changed and has an associated company, it takes precedence
     if (role?.id !== prevRoleRef.current?.id) {
       if (role?.company) {
@@ -142,9 +146,17 @@ export function EventForm<T extends EventFormValues>({
         setValue('company' as Path<T>, contact.company as any, { shouldValidate: true });
       }
     }
+    // If company changed, clear the role if it doesn't match the new company
+    else if (currentCompanyId !== prevCompanyId) {
+      if (role && role.companyId !== currentCompanyId) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        setValue('role' as Path<T>, null as any, { shouldValidate: true });
+      }
+    }
 
     prevContactRef.current = contact;
     prevRoleRef.current = role;
+    prevCompanyRef.current = company;
   }, [contact, role, company, setValue]);
 
   // Reset form when initialData changes

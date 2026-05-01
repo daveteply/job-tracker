@@ -48,8 +48,12 @@ export function EventStepContext<T extends FieldValues = FieldValues>({
 
   const prevContactRef = useRef(contact);
   const prevRoleRef = useRef(role);
+  const prevCompanyRef = useRef(company);
 
   useEffect(() => {
+    const currentCompanyId = (company as EntitySelection | null)?.id;
+    const prevCompanyId = (prevCompanyRef.current as EntitySelection | null)?.id;
+
     // If role changed and has an associated company, it takes precedence
     if (role?.id !== prevRoleRef.current?.id) {
       if (role?.company) {
@@ -74,9 +78,17 @@ export function EventStepContext<T extends FieldValues = FieldValues>({
         setValue('company' as Path<T>, selection as any, { shouldValidate: true });
       }
     }
+    // If company changed, clear the role if it doesn't match the new company
+    else if (currentCompanyId !== prevCompanyId) {
+      if (role && role.companyId !== currentCompanyId) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        setValue('role' as Path<T>, null as any, { shouldValidate: true });
+      }
+    }
 
     prevContactRef.current = contact;
     prevRoleRef.current = role;
+    prevCompanyRef.current = company;
   }, [contact, role, company, setValue]);
 
   return (
