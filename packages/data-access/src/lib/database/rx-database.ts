@@ -1,4 +1,4 @@
-import { addRxPlugin, createRxDatabase, RxCollection, RxDatabase } from 'rxdb';
+import { addRxPlugin, createRxDatabase, RxCollection, RxDatabase, RxStorage } from 'rxdb';
 import { disableWarnings, RxDBDevModePlugin } from 'rxdb/plugins/dev-mode';
 import { RxDBJsonDumpPlugin } from 'rxdb/plugins/json-dump';
 import { RxDBLeaderElectionPlugin } from 'rxdb/plugins/leader-election';
@@ -54,14 +54,36 @@ export type TrackerDatabase = RxDatabase<TrackerCollections>;
  * Initializes a new RxDatabase instance with all collections.
  */
 export async function initRxDatabase(name: string): Promise<TrackerDatabase> {
-  const isDev = process.env['NODE_ENV'] === 'development';
+  // Standard Next.js environment check
+  const isDev = process.env.NODE_ENV === 'development';
+  
+  // Get the base storage engine
   const baseStorage = getRxStorageDexie();
+  
+  if (!baseStorage) {
+    console.error('[DB] getRxStorageDexie() returned undefined. This usually means the plugin is missing or incorrectly bundled.');
+  }
 
-  // Use validation wrapper in development, direct storage in production.
-  // This improves production performance and avoids bundling issues with AJV.
-  const storage = isDev
-    ? wrappedValidateAjvStorage({ storage: baseStorage })
-    : baseStorage;
+  // Determine the final storage engine
+  let storage: RxStorage<any, any> = baseStorage;
+  if (isDev && typeof wrappedValidateAjvStorage === 'function') {
+    try {
+      storage = wrappedValidateAjvStorage({ storage: baseStorage });
+    } catch (e) {
+      console.error('[DB] Failed to wrap storage with AJV:', e);
+      storage = baseStorage;
+    }
+  }
+
+  // Safety fallback: Ensure storage is never undefined
+  if (!storage) {
+    console.error('[DB] Storage engine is still undefined after initialization logic. Falling back to getRxStorageDexie().');
+    storage = getRxStorageDexie();
+  }
+
+  if (!storage) {
+    throw new Error('[DB] Critical: RxDB storage engine could not be initialized.');
+  }
 
   const db = await createRxDatabase<TrackerCollections>({
     name,
