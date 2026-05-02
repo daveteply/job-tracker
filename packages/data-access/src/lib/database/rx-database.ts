@@ -3,6 +3,7 @@ import { disableWarnings, RxDBDevModePlugin } from 'rxdb/plugins/dev-mode';
 import { RxDBJsonDumpPlugin } from 'rxdb/plugins/json-dump';
 import { RxDBLeaderElectionPlugin } from 'rxdb/plugins/leader-election';
 import { getRxStorageDexie } from 'rxdb/plugins/storage-dexie';
+import { wrappedValidateAjvStorage } from 'rxdb/plugins/validate-ajv';
 
 import {
   CompanySchema,
@@ -25,10 +26,11 @@ import { seedEventTypes } from './seed-data';
 addRxPlugin(RxDBLeaderElectionPlugin);
 addRxPlugin(RxDBJsonDumpPlugin);
 
-// Temporarily enable dev mode in production to debug DB9 error
-// We will remove this once the issue is resolved.
-disableWarnings();
-addRxPlugin(RxDBDevModePlugin);
+// Add dev mode in development
+if (process.env['NODE_ENV'] === 'development') {
+  disableWarnings();
+  addRxPlugin(RxDBDevModePlugin);
+}
 
 export type CompanyCollection = RxCollection<CompanyDocument>;
 export type ContactCollection = RxCollection<ContactDocument>;
@@ -52,17 +54,14 @@ export type TrackerDatabase = RxDatabase<TrackerCollections>;
  * Initializes a new RxDatabase instance with all collections.
  */
 export async function initRxDatabase(name: string): Promise<TrackerDatabase> {
-  console.log(`[DB] initRxDatabase start: ${name}`);
-  console.log(`[DB] NODE_ENV: ${process.env['NODE_ENV']}`);
-  console.log(`[DB] getRxStorageDexie type: ${typeof getRxStorageDexie}`);
+  const isDev = process.env['NODE_ENV'] === 'development';
+  const baseStorage = getRxStorageDexie();
 
-  const storage = getRxStorageDexie();
-  console.log(`[DB] storage object:`, storage);
-
-  if (!storage) {
-    console.error('[DB] CRITICAL: storage is undefined');
-    throw new Error('RxDB Storage engine is undefined');
-  }
+  // Use validation wrapper in development, direct storage in production.
+  // This improves production performance and avoids bundling issues with AJV.
+  const storage = isDev
+    ? wrappedValidateAjvStorage({ storage: baseStorage })
+    : baseStorage;
 
   const db = await createRxDatabase<TrackerCollections>({
     name,
