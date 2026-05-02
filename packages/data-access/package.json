@@ -7,11 +7,11 @@
     "@job-tracker/app-logic": "workspace:*",
     "@job-tracker/domain": "workspace:*",
     "rxdb": "^17.1.0",
-    "dexie": "^4.0.10",
-    "ajv": "^8.18.0",
+    "dexie": "^4.4.2",
+    "ajv": "^8.20.0",
     "rxjs": "^7.8.2",
-    "react": "^19.0.0",
-    "next-auth": "^5.0.0-beta.30",
-    "@job-tracker/validation": "0.0.1"
+    "react": "^19.2.5",
+    "next-auth": "^5.0.0-beta.31",
+    "@job-tracker/validation": "workspace:*"
   }
 }

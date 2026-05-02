@@ -360,5 +360,11 @@
     "context": "Context",
     "summary": "Summary",
     "details": "Details"
+  },
+  "Error": {
+    "title": "Well, this is awkward.",
+    "description": "Something didn't go as planned on our end. Please try again in a few seconds.",
+    "tryAgain": "Try again",
+    "backHome": "Back to Home"
   }
 }

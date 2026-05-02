@@ -23,7 +23,13 @@ const DatabaseContext = createContext<DatabaseContextValue>({
 export const DatabaseProvider = ({ children }: { children: React.ReactNode }) => {
   const { data: session, status } = useSession();
   const [db, setDb] = useState<TrackerDatabase | null>(null);
+  const [error, setError] = useState<Error | null>(null);
   const isInitializing = useRef(false);
+
+  // Trigger error boundary if initialization failed
+  if (error) {
+    throw error;
+  }
 
   // Use the extracted replication hook
   const syncStatus = useReplication(db, session?.user?.id);
@@ -75,8 +81,9 @@ export const DatabaseProvider = ({ children }: { children: React.ReactNode }) =>
         // 5. Update state and localStorage
         localStorage.setItem(PREV_DB_NAME_KEY, dbName);
         setDb(_db);
-      } catch (error) {
-        console.error(`[DB] Failed to setup RxDB (${dbName}):`, error);
+      } catch (err) {
+        console.error(`[DB] Failed to setup RxDB (${dbName}):`, err);
+        setError(err instanceof Error ? err : new Error(String(err)));
       } finally {
         isInitializing.current = false;
       }

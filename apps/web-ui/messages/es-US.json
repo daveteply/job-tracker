@@ -359,5 +359,11 @@
     "context": "Contexto",
     "summary": "Resumen",
     "details": "Detalles"
+  },
+  "Error": {
+    "title": "Vaya, esto es un poco incómodo.",
+    "description": "Algo no salió como planeamos de nuestro lado. Por favor, inténtalo de nuevo en unos segundos.",
+    "tryAgain": "Intentar de nuevo",
+    "backHome": "Volver al Inicio"
   }
 }
