@@ -2,13 +2,19 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { combineLatest, map } from 'rxjs';
+import { combineLatest, firstValueFrom, map } from 'rxjs';
 
 import { type EntitySelection, resolveCompanyId } from '@job-tracker/app-logic';
 import { EMPTY_DELETION_BLOCKERS } from '@job-tracker/app-logic';
 import { CompanyRepository, DeletionCheck, RoleRepository, useDb } from '@job-tracker/data-access';
-import { CompanyDTO, RoleDTO, RoleWithCompanyDTO } from '@job-tracker/validation';
+import {
+  CompanyDTO,
+  RoleDTO,
+  RoleWithCompanyDTO,
+  RoleWithEventsDTO,
+} from '@job-tracker/validation';
 
+import { useEventRepository } from './event-hooks';
 import { useObservable } from './use-observable';
 
 export function useRoleRepository() {
@@ -27,11 +33,12 @@ export function useRoleWithCompany(id: string) {
     if (!db) return null;
     return new CompanyRepository(db);
   }, [db]);
-  const [data, setData] = useState<RoleWithCompanyDTO | null>(null);
+  const eventRepository = useEventRepository();
+  const [data, setData] = useState<RoleWithEventsDTO | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (roleRepository && companyRepository && id) {
+    if (roleRepository && companyRepository && eventRepository && id) {
       setLoading(true);
 
       roleRepository
@@ -43,15 +50,17 @@ export function useRoleWithCompany(id: string) {
           }
 
           const company = role.companyId ? await companyRepository.getById(role.companyId) : null;
+          const events = await firstValueFrom(eventRepository.listByRoleId$(id));
 
           setData({
             ...role,
             company,
+            events,
           });
         })
         .finally(() => setLoading(false));
     }
-  }, [roleRepository, companyRepository, id]);
+  }, [roleRepository, companyRepository, eventRepository, id]);
 
   return { role: data, loading };
 }
@@ -101,6 +110,45 @@ export function useRolesWithCompany() {
   return {
     roles,
     loading: !roleRepository || !companyRepository,
+  };
+}
+
+export function useRolesWithEvents() {
+  const db = useDb();
+  const roleRepository = useRoleRepository();
+  const companyRepository = useMemo(() => {
+    if (!db) return null;
+    return new CompanyRepository(db);
+  }, [db]);
+  const eventRepository = useEventRepository();
+
+  const rolesWithEvents$ = useMemo(() => {
+    if (!roleRepository || !companyRepository || !eventRepository) {
+      return undefined;
+    }
+
+    return combineLatest([
+      roleRepository.list$(),
+      companyRepository.list$(),
+      eventRepository.list$(),
+    ]).pipe(
+      map(([roles, companies, events]) => {
+        const companiesById = new Map(companies.map((company) => [company.id, company]));
+
+        return roles.map<RoleWithEventsDTO>((role) => ({
+          ...role,
+          company: role.companyId ? (companiesById.get(role.companyId) ?? null) : null,
+          events: events.filter((event) => event.roleId === role.id),
+        }));
+      }),
+    );
+  }, [roleRepository, companyRepository, eventRepository]);
+
+  const roles = useObservable<RoleWithEventsDTO[]>(rolesWithEvents$, []);
+
+  return {
+    roles,
+    loading: !roleRepository || !companyRepository || !eventRepository,
   };
 }
 

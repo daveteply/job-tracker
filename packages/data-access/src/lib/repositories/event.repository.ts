@@ -18,6 +18,15 @@ export class EventRepository {
       .$.pipe(map((docs) => docs.map((doc) => EventMapper.toDto(doc.toJSON()))));
   }
 
+  listByRoleId$(roleId: string): Observable<EventDTO[]> {
+    return this.db.events
+      .find({
+        selector: { roleId },
+        sort: [{ occurredAt: 'desc' }],
+      })
+      .$.pipe(map((docs) => docs.map((doc) => EventMapper.toDto(doc.toJSON()))));
+  }
+
   listRecentEventTypeIds$(limit = 10): Observable<string[]> {
     return this.db.events
       .find({

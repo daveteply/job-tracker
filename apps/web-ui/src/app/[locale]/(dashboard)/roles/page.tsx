@@ -3,14 +3,14 @@
 import { PlusCircleIcon } from '@heroicons/react/16/solid';
 import { useTranslations } from 'next-intl';
 
-import { useRolesWithCompany } from '@job-tracker/hooks';
+import { useRolesWithEvents } from '@job-tracker/hooks';
 import { PageLoading, RoleList } from '@job-tracker/ui-components';
 
 import { Link } from '../../../../i18n/routing';
 
 export default function RoleListPage() {
   const t = useTranslations('Roles');
-  const { roles, loading } = useRolesWithCompany();
+  const { roles, loading } = useRolesWithEvents();
 
   // This is the job pipeline view.
 

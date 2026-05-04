@@ -12,6 +12,7 @@ import {
 
 import { CompanyDTO } from './company-schema';
 import { RoleStatusSchema } from './enum-schema';
+import type { EventDTO } from './event-schema';
 
 const roleCreateBase = {
   jobPostingUrl: emptyToUndefined(z.url('invalidUrl').max(2048).optional()),
@@ -70,4 +71,8 @@ export type RoleDTO = z.infer<typeof RoleDTOSchema>;
 
 export interface RoleWithCompanyDTO extends RoleDTO {
   company?: CompanyDTO | null;
+}
+
+export interface RoleWithEventsDTO extends RoleWithCompanyDTO {
+  events: EventDTO[];
 }

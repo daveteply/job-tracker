@@ -38,7 +38,12 @@ export default function RoleDetailsPage({ params }: { params: Promise<{ id: stri
         </Link>
       </div>
 
-      <RoleInfoCard role={role} showControls={false} showChevron={false} />
+      <RoleInfoCard
+        role={role}
+        events={role.events}
+        showControls={false}
+        showChevron={false}
+      />
 
       <div className="mt-5">
         <Link className="btn" href="/roles">
