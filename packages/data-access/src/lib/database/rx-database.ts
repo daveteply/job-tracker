@@ -113,7 +113,7 @@ export async function initRxDatabase(name: string): Promise<TrackerDatabase> {
       const db = await createRxDatabase<TrackerCollections>({
         name,
         storage,
-        ignoreDuplicate: true,
+        ignoreDuplicate: process.env.NODE_ENV === 'development',
       });
 
       // If collections are already added, addCollections will throw.
