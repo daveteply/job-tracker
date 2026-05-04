@@ -22,22 +22,24 @@ import { ReminderDocument } from './documents/reminder.document';
 import { RoleDocument } from './documents/role.document';
 import { seedEventTypes } from './seed-data';
 
-// Add plugins
-addRxPlugin(RxDBLeaderElectionPlugin);
-addRxPlugin(RxDBJsonDumpPlugin);
+// Truly global state using globalThis to handle module re-evaluation
+const _global = (typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : global) as any;
 
-// Add dev mode in development
-if (process.env['NODE_ENV'] === 'development') {
-  disableWarnings();
-  addRxPlugin(RxDBDevModePlugin);
+// Add plugins only once
+if (!_global.__rxdb_plugins_added) {
+  addRxPlugin(RxDBLeaderElectionPlugin);
+  addRxPlugin(RxDBJsonDumpPlugin);
+
+  // Add dev mode in development
+  if (process.env['NODE_ENV'] === 'development') {
+    disableWarnings();
+    addRxPlugin(RxDBDevModePlugin);
+  }
+  _global.__rxdb_plugins_added = true;
 }
 
-// Singleton storage to ensure we always use the exact same storage instance.
-// This is critical because RxDB's ignoreDuplicate check fails if the storage object is different.
-let storageInstance: RxStorage<any, any> | undefined;
-
 export function getStorage(): RxStorage<any, any> {
-  if (!storageInstance) {
+  if (!_global.__rxdb_storage) {
     const isDev = process.env.NODE_ENV === 'development';
     const baseStorage = getRxStorageDexie();
 
@@ -47,20 +49,23 @@ export function getStorage(): RxStorage<any, any> {
 
     if (isDev && typeof wrappedValidateAjvStorage === 'function') {
       try {
-        storageInstance = wrappedValidateAjvStorage({ storage: baseStorage });
+        _global.__rxdb_storage = wrappedValidateAjvStorage({ storage: baseStorage });
       } catch (e) {
         console.error('[DB] Failed to wrap storage with AJV:', e);
-        storageInstance = baseStorage;
+        _global.__rxdb_storage = baseStorage;
       }
     } else {
-      storageInstance = baseStorage;
+      _global.__rxdb_storage = baseStorage;
     }
   }
-  return storageInstance!;
+  return _global.__rxdb_storage;
 }
 
-// Cache for database promises to handle concurrent calls for the same database name.
-const dbPromises = new Map<string, Promise<TrackerDatabase>>();
+// Cache for database promises
+if (!_global.__rxdb_promises) {
+  _global.__rxdb_promises = new Map<string, Promise<TrackerDatabase>>();
+}
+const dbPromises: Map<string, Promise<TrackerDatabase>> = _global.__rxdb_promises;
 
 export type CompanyCollection = RxCollection<CompanyDocument>;
 export type ContactCollection = RxCollection<ContactDocument>;
@@ -82,14 +87,25 @@ export type TrackerDatabase = RxDatabase<TrackerCollections>;
 
 /**
  * Initializes a new RxDatabase instance with all collections.
- * Uses a promise cache and singleton storage to prevent DB9 errors.
+ * Uses a global promise cache and singleton storage to prevent DB9 errors.
  */
 export async function initRxDatabase(name: string): Promise<TrackerDatabase> {
   const existingPromise = dbPromises.get(name);
   if (existingPromise) {
-    return existingPromise;
+    try {
+      const db = await existingPromise;
+      if (!db.closed) {
+        return existingPromise;
+      }
+      // If it's closed, remove it from cache and proceed to create a new one
+      dbPromises.delete(name);
+    } catch (e) {
+      // If the existing promise failed, remove it so we can retry
+      dbPromises.delete(name);
+    }
   }
 
+  const promiseHolder: { p: Promise<TrackerDatabase> | null } = { p: null };
   const initPromise = (async () => {
     try {
       const storage = getStorage();
@@ -121,17 +137,22 @@ export async function initRxDatabase(name: string): Promise<TrackerDatabase> {
 
       // If the database is closed, remove it from the cache
       db.onClose.push(() => {
-        dbPromises.delete(name);
+        if (dbPromises.get(name) === promiseHolder.p) {
+          dbPromises.delete(name);
+        }
       });
 
       return db;
     } catch (err) {
       // Clear the promise from the cache on failure so it can be retried
-      dbPromises.delete(name);
+      if (dbPromises.get(name) === promiseHolder.p) {
+        dbPromises.delete(name);
+      }
       throw err;
     }
   })();
 
+  promiseHolder.p = initPromise;
   dbPromises.set(name, initPromise);
   return initPromise;
 }

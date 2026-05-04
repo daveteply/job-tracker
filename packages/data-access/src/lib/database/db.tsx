@@ -45,36 +45,37 @@ export const DatabaseProvider = ({ children }: { children: React.ReactNode }) =>
     const prevDbName = localStorage.getItem(PREV_DB_NAME_KEY);
 
     // Determine the intended database name.
-    // If logged in, use the user-specific database.
-    // If logged out, default to the most recent database used on this device.
-    // This allows users to continue working locally after signing out.
     const dbName = userId ? `job_tracker_db_${userId}` : prevDbName || GUEST_DB_NAME;
 
     // If the database is already initialized with the correct name, do nothing
-    if (db && prevDbName === dbName) {
+    if (db && db.name === dbName) {
       return;
     }
 
-    // Prevent concurrent initializations
+    // Prevent concurrent initializations in this component instance
     if (isInitializing.current) return;
     isInitializing.current = true;
 
     const setupDB = async () => {
       try {
         // 1. Close previous database instance if it exists in state
+        // This is important to free up resources before opening a new one
         if (db) {
           await db.close();
           setDb(null);
         }
 
         // 2. Detect if we are transitioning from guest to user
-        const isLoggingIn = userId && prevDbName === GUEST_DB_NAME;
+        // We use the last known database name to decide if promotion is needed.
+        const lastDbName = localStorage.getItem(PREV_DB_NAME_KEY);
+        const isLoggingIn = userId && lastDbName === GUEST_DB_NAME;
 
-        // 3. Initialize new database
+        // 3. Initialize new database (uses global cache and singleton storage)
         const _db = await initRxDatabase(dbName);
 
         // 4. Handle migration if logging in
         if (isLoggingIn) {
+          console.log('[DB] Logging in detected, promoting guest data to user database...');
           await promoteGuestToUser(_db);
         }
 
