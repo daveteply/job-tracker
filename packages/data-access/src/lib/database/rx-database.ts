@@ -23,7 +23,17 @@ import { RoleDocument } from './documents/role.document';
 import { seedEventTypes } from './seed-data';
 
 // Truly global state using globalThis to handle module re-evaluation
-const _global = (typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : global) as any;
+interface GlobalRxDB {
+  __rxdb_plugins_added?: boolean;
+  __rxdb_storage?: RxStorage<unknown, unknown>;
+  __rxdb_promises?: Map<string, Promise<TrackerDatabase>>;
+}
+
+const _global = (typeof globalThis !== 'undefined'
+  ? globalThis
+  : typeof window !== 'undefined'
+    ? window
+    : global) as unknown as GlobalRxDB;
 
 // Add plugins only once
 if (!_global.__rxdb_plugins_added) {
@@ -34,11 +44,22 @@ if (!_global.__rxdb_plugins_added) {
   if (process.env['NODE_ENV'] === 'development') {
     disableWarnings();
     addRxPlugin(RxDBDevModePlugin);
+  } else {
+    // In production, we silence the RxDB Open Core nag message.
+    // This warning is intended to boost premium sales but can be distracting in production logs.
+    const originalWarn = console.warn;
+    console.warn = (...args: unknown[]) => {
+      const firstArg = args[0];
+      if (typeof firstArg === 'string' && firstArg.includes('RxDB Open Core RxStorage')) {
+        return;
+      }
+      originalWarn.apply(console, args);
+    };
   }
   _global.__rxdb_plugins_added = true;
 }
 
-export function getStorage(): RxStorage<any, any> {
+export function getStorage(): RxStorage<unknown, unknown> {
   if (!_global.__rxdb_storage) {
     const isDev = process.env.NODE_ENV === 'development';
     const baseStorage = getRxStorageDexie();
