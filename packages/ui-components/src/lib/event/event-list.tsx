@@ -10,9 +10,17 @@ export interface EventListProps {
   events: EventWithChildrenDTO[];
   showControls?: boolean;
   noEventsMessage?: string;
+  showFull?: boolean;
+  showReminders?: boolean;
 }
 
-export function EventList({ events, showControls, noEventsMessage }: EventListProps) {
+export function EventList({
+  events,
+  showControls,
+  noEventsMessage,
+  showFull = false,
+  showReminders = false,
+}: EventListProps) {
   const t = useTranslations('Events');
   const message = noEventsMessage || t('noEventsFound');
 
@@ -21,7 +29,13 @@ export function EventList({ events, showControls, noEventsMessage }: EventListPr
       {events && events.length ? (
         <>
           {events.map((event: EventWithChildrenDTO) => (
-            <EventInfoCard key={event.id} event={event} showControls={showControls} />
+            <EventInfoCard
+              key={event.id}
+              event={event}
+              showControls={showControls}
+              showFull={showFull}
+              showReminders={showReminders}
+            />
           ))}
         </>
       ) : (

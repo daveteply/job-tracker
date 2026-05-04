@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 
-import { combineLatest, map } from 'rxjs';
+import { combineLatest, firstValueFrom, map } from 'rxjs';
 
 import { EntitySelection, resolveCompanyId, resolveEntityId } from '@job-tracker/app-logic';
 import {
@@ -94,7 +94,7 @@ export function useEventWithChildren(id: string) {
           const company = event.companyId ? await companyRepository.getById(event.companyId) : null;
           const contact = event.contactId ? await contactRepository.getById(event.contactId) : null;
           const role = event.roleId ? await roleRepository.getById(event.roleId) : null;
-          const reminder = await reminderRepository.getByEventId(event.id);
+          const reminders = await firstValueFrom(reminderRepository.listByEventId$(event.id));
 
           setData({
             ...event,
@@ -102,7 +102,7 @@ export function useEventWithChildren(id: string) {
             company,
             contact,
             role,
-            reminder,
+            reminders,
           });
         })
         .finally(() => setLoading(false));
@@ -174,9 +174,6 @@ export function useEventsWithChildren() {
         const companiesById = new Map(companies.map((company) => [company.id, company]));
         const contactsById = new Map(contacts.map((contact) => [contact.id, contact]));
         const rolesById = new Map(roles.map((role) => [role.id, role]));
-        const remindersByEventId = new Map(
-          reminders.map((reminder) => [reminder.eventId, reminder]),
-        );
 
         return events.map<EventWithChildrenDTO>((event) => ({
           ...event,
@@ -184,7 +181,7 @@ export function useEventsWithChildren() {
           company: event.companyId ? (companiesById.get(event.companyId) ?? null) : null,
           contact: event.contactId ? (contactsById.get(event.contactId) ?? null) : null,
           role: event.roleId ? (rolesById.get(event.roleId) ?? null) : null,
-          reminder: remindersByEventId.get(event.id) ?? null,
+          reminders: reminders.filter((reminder) => reminder.eventId === event.id),
         }));
       }),
     );

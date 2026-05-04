@@ -69,8 +69,8 @@ export default function EventUpdatePage({ params }: { params: Promise<{ id: stri
           shouldRemove: false,
         }
       : null,
-    hasReminder: !!event.reminder,
-    remindAt: event.reminder?.remindAt || null,
+    hasReminder: event.reminders.length > 0,
+    remindAt: event.reminders[0]?.remindAt || null,
   };
 
   return (

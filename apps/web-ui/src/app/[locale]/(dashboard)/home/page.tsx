@@ -10,7 +10,7 @@ import { RoleStatus } from '@job-tracker/domain';
 import {
   useEventsWithChildren,
   useRemindersWithChildren,
-  useRolesWithCompany,
+  useRolesWithEvents,
 } from '@job-tracker/hooks';
 import { EventList, ReminderList, RoleList } from '@job-tracker/ui-components';
 
@@ -20,7 +20,7 @@ export default function HomePage() {
   const t = useTranslations('HomePage');
   const { reminders, loading: loadingReminders } = useRemindersWithChildren();
   const { events, loading: loadingEvents } = useEventsWithChildren();
-  const { roles, loading: loadingRoles } = useRolesWithCompany();
+  const { roles, loading: loadingRoles } = useRolesWithEvents();
 
   const activeReminders = useMemo(() => {
     return reminders
@@ -115,7 +115,7 @@ export default function HomePage() {
             <span className="loading loading-spinner loading-md"></span>
           </div>
         ) : (
-          <RoleList roles={activeRoles} renderFull={false} noRolesMessage={t('noActiveRoles')} />
+          <RoleList roles={activeRoles} showFull={false} noRolesMessage={t('noActiveRoles')} />
         )}
       </section>
     </div>

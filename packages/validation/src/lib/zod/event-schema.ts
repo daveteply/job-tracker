@@ -114,5 +114,5 @@ export interface EventWithChildrenDTO extends EventDTO {
   company?: CompanyDTO | null;
   contact?: ContactDTO | null;
   role?: RoleDTO | null;
-  reminder?: ReminderDTO | null;
+  reminders: ReminderDTO[];
 }

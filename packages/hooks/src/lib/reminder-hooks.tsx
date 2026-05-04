@@ -127,6 +127,7 @@ export function useRemindersWithChildren() {
               company: event.companyId ? (companiesById.get(event.companyId) ?? null) : null,
               contact: event.contactId ? (contactsById.get(event.contactId) ?? null) : null,
               role: event.roleId ? (rolesById.get(event.roleId) ?? null) : null,
+              reminders: reminders.filter((r) => r.eventId === event.id),
             },
           ]),
         );

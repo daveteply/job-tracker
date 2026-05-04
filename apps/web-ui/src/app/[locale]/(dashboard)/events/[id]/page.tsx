@@ -95,6 +95,28 @@ export default function EventDetailsPage({ params }: { params: Promise<{ id: str
           </div>
         )}
 
+        {event.reminders && event.reminders.length > 0 && (
+          <div className="space-y-1">
+            <h2 className="text-[10px] font-bold uppercase tracking-wider text-neutral-content/60">
+              Reminders
+            </h2>
+            <div className="card bg-base-300 rounded-xl p-4 shadow-sm">
+              <ul className="space-y-2">
+                {event.reminders.map((reminder) => (
+                  <li key={reminder.id} className="text-sm flex items-center justify-between">
+                    <span>
+                      <FormattedDate dateValue={reminder.remindAt} useRelativeTime={false} />
+                    </span>
+                    {reminder.completedAt && (
+                      <span className="badge badge-success badge-sm italic">Completed</span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        )}
+
         {(event.summary || event.details) && (
           <div className="space-y-1">
             <h2 className="text-[10px] font-bold uppercase tracking-wider text-neutral-content/60">

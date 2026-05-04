@@ -16,6 +16,8 @@ export interface EventInfoCardProps {
   event: EventWithChildrenDTO;
   showControls?: boolean;
   showChevron?: boolean;
+  showFull?: boolean;
+  showReminders?: boolean;
 }
 
 const EVENT_CATEGORY_COLOR_MAP: Record<string, string> = {
@@ -29,10 +31,14 @@ export function EventInfoCard({
   event,
   showControls = true,
   showChevron = true,
+  showFull = true,
+  showReminders = true,
 }: EventInfoCardProps) {
   const tEnum = useTranslations('Enums');
   const tEvent = useTranslations('SystemEventTypes');
   const tCard = useTranslations('EventInfoCard');
+
+  const reminderCount = event.reminders?.length ?? 0;
 
   const borderClass =
     EVENT_CATEGORY_COLOR_MAP[event.eventType?.category || ''] || EVENT_CATEGORY_COLOR_MAP.default;
@@ -58,6 +64,9 @@ export function EventInfoCard({
           </div>
         )}
       </span>
+      {reminderCount > 0 && (!showFull || !showReminders) && (
+        <span className="badge badge-ghost badge-sm ml-2">{reminderCount} reminders</span>
+      )}
     </div>
   );
 
@@ -76,9 +85,10 @@ export function EventInfoCard({
       controls={controls}
       detailsUrl={`/events/${event.id}`}
       showChevron={showChevron}
+      showFull={showFull}
       className={`card bg-base-300 w-full rounded-xl border-l-5 shadow-sm transition-transform hover:shadow-md active:scale-[0.99] ${borderClass}`}
     >
-      <div className="space-y-2">
+      <div className="space-y-3">
         {/* Main Content */}
         {(event.company || event.role) && (
           <div className="space-y-1">
@@ -86,6 +96,23 @@ export function EventInfoCard({
               <p className="truncate text-sm font-semibold">{event.company?.name}</p>
             )}
             {event.role && <p className="truncate text-sm">{event.role?.title}</p>}
+          </div>
+        )}
+
+        {/* Reminders Section */}
+        {showReminders && event.reminders && event.reminders.length > 0 && (
+          <div>
+            <h3 className="mb-1 text-xs font-semibold uppercase opacity-60">Reminders</h3>
+            <ul className="list-inside list-disc text-xs">
+              {event.reminders.map((reminder) => (
+                <li key={reminder.id}>
+                  <FormattedDate dateValue={reminder.remindAt} />
+                  {reminder.completedAt && (
+                    <span className="ml-2 badge badge-success badge-xs italic">Completed</span>
+                  )}
+                </li>
+              ))}
+            </ul>
           </div>
         )}
 

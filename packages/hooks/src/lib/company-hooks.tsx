@@ -7,23 +7,14 @@ import { combineLatest, map } from 'rxjs';
 import { EMPTY_DELETION_BLOCKERS } from '@job-tracker/app-logic';
 import {
   CompanyRepository,
-  ContactRepository,
   DeletionCheck,
   useDb,
 } from '@job-tracker/data-access';
 import { CompanyDTO, CompanyWithChildrenDTO } from '@job-tracker/validation';
 
+import { useContactRepository } from './contact-hooks';
 import { useRoleRepository } from './role-hooks';
 import { useObservable } from './use-observable';
-
-export function useContactRepository() {
-  const db = useDb();
-
-  return useMemo(() => {
-    if (!db) return null;
-    return new ContactRepository(db);
-  }, [db]);
-}
 
 export function useCompanyRepository() {
   const db = useDb();

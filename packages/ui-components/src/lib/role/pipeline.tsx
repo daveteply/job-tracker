@@ -75,7 +75,7 @@ export function PipelineColumn({ status, roles, loading }: PipelineColumnProps) 
         ) : roles.length > 0 ? (
           roles.map((role) => (
             <div key={role.id} className="transition-all active:scale-[0.98]">
-              <RoleInfoCard role={role} renderFull={false} />
+              <RoleInfoCard role={role} showFull={false} />
             </div>
           ))
         ) : (
