@@ -1,7 +1,11 @@
 import { removeRxDatabase, RxCollection } from 'rxdb';
-import { getRxStorageDexie } from 'rxdb/plugins/storage-dexie';
 
-import { initRxDatabase, TrackerCollections, TrackerDatabase } from './rx-database';
+import {
+  getStorage,
+  initRxDatabase,
+  TrackerCollections,
+  TrackerDatabase,
+} from './rx-database';
 
 export const GUEST_DB_NAME = 'job_tracker_db_guest';
 
@@ -36,7 +40,7 @@ export async function promoteGuestToUser(targetDb: TrackerDatabase): Promise<voi
     await guestDb.close();
     guestDb = null;
 
-    await removeRxDatabase(GUEST_DB_NAME, getRxStorageDexie());
+    await removeRxDatabase(GUEST_DB_NAME, getStorage());
   } catch (err) {
     console.error('[Promotion] CRITICAL ERROR during promotion:', err);
     if (guestDb) {

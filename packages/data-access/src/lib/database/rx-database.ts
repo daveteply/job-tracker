@@ -32,6 +32,36 @@ if (process.env['NODE_ENV'] === 'development') {
   addRxPlugin(RxDBDevModePlugin);
 }
 
+// Singleton storage to ensure we always use the exact same storage instance.
+// This is critical because RxDB's ignoreDuplicate check fails if the storage object is different.
+let storageInstance: RxStorage<any, any> | undefined;
+
+export function getStorage(): RxStorage<any, any> {
+  if (!storageInstance) {
+    const isDev = process.env.NODE_ENV === 'development';
+    const baseStorage = getRxStorageDexie();
+
+    if (!baseStorage) {
+      throw new Error('[DB] Critical: getRxStorageDexie() returned undefined.');
+    }
+
+    if (isDev && typeof wrappedValidateAjvStorage === 'function') {
+      try {
+        storageInstance = wrappedValidateAjvStorage({ storage: baseStorage });
+      } catch (e) {
+        console.error('[DB] Failed to wrap storage with AJV:', e);
+        storageInstance = baseStorage;
+      }
+    } else {
+      storageInstance = baseStorage;
+    }
+  }
+  return storageInstance!;
+}
+
+// Cache for database promises to handle concurrent calls for the same database name.
+const dbPromises = new Map<string, Promise<TrackerDatabase>>();
+
 export type CompanyCollection = RxCollection<CompanyDocument>;
 export type ContactCollection = RxCollection<ContactDocument>;
 export type RoleCollection = RxCollection<RoleDocument>;
@@ -52,59 +82,56 @@ export type TrackerDatabase = RxDatabase<TrackerCollections>;
 
 /**
  * Initializes a new RxDatabase instance with all collections.
+ * Uses a promise cache and singleton storage to prevent DB9 errors.
  */
 export async function initRxDatabase(name: string): Promise<TrackerDatabase> {
-  // Standard Next.js environment check
-  const isDev = process.env.NODE_ENV === 'development';
-  
-  // Get the base storage engine
-  const baseStorage = getRxStorageDexie();
-  
-  if (!baseStorage) {
-    console.error('[DB] getRxStorageDexie() returned undefined. This usually means the plugin is missing or incorrectly bundled.');
+  const existingPromise = dbPromises.get(name);
+  if (existingPromise) {
+    return existingPromise;
   }
 
-  // Determine the final storage engine
-  let storage: RxStorage<any, any> = baseStorage;
-  if (isDev && typeof wrappedValidateAjvStorage === 'function') {
+  const initPromise = (async () => {
     try {
-      storage = wrappedValidateAjvStorage({ storage: baseStorage });
-    } catch (e) {
-      console.error('[DB] Failed to wrap storage with AJV:', e);
-      storage = baseStorage;
+      const storage = getStorage();
+
+      const db = await createRxDatabase<TrackerCollections>({
+        name,
+        storage,
+        ignoreDuplicate: true,
+      });
+
+      // If collections are already added, addCollections will throw.
+      // We check if companies exists as a proxy for all collections.
+      if (!db.companies) {
+        await db.addCollections({
+          companies: { schema: CompanySchema },
+          contacts: { schema: ContactSchema },
+          roles: { schema: RoleSchema },
+          events: { schema: EventSchema },
+          eventTypes: { schema: EventTypeSchema },
+          reminders: { schema: ReminderSchema },
+        });
+      }
+
+      // Seed data if needed
+      const eventTypeCount = await db.eventTypes.count().exec();
+      if (eventTypeCount === 0) {
+        await db.eventTypes.bulkInsert(seedEventTypes);
+      }
+
+      // If the database is closed, remove it from the cache
+      db.onClose.push(() => {
+        dbPromises.delete(name);
+      });
+
+      return db;
+    } catch (err) {
+      // Clear the promise from the cache on failure so it can be retried
+      dbPromises.delete(name);
+      throw err;
     }
-  }
+  })();
 
-  // Safety fallback: Ensure storage is never undefined
-  if (!storage) {
-    console.error('[DB] Storage engine is still undefined after initialization logic. Falling back to getRxStorageDexie().');
-    storage = getRxStorageDexie();
-  }
-
-  if (!storage) {
-    throw new Error('[DB] Critical: RxDB storage engine could not be initialized.');
-  }
-
-  const db = await createRxDatabase<TrackerCollections>({
-    name,
-    storage,
-    ignoreDuplicate: true,
-  });
-
-  await db.addCollections({
-    companies: { schema: CompanySchema },
-    contacts: { schema: ContactSchema },
-    roles: { schema: RoleSchema },
-    events: { schema: EventSchema },
-    eventTypes: { schema: EventTypeSchema },
-    reminders: { schema: ReminderSchema },
-  });
-
-  // Seed data if needed
-  const eventTypeCount = await db.eventTypes.count().exec();
-  if (eventTypeCount === 0) {
-    await db.eventTypes.bulkInsert(seedEventTypes);
-  }
-
-  return db;
+  dbPromises.set(name, initPromise);
+  return initPromise;
 }
