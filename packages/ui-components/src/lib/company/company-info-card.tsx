@@ -3,7 +3,7 @@
 import { PencilIcon, TrashIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 
-import { CompanyDTO, RoleDTO } from '@job-tracker/validation';
+import { CompanyDTO, ContactDTO, RoleDTO } from '@job-tracker/validation';
 
 import BaseInfoCard from '../common/base-info-card';
 import ExternalLink from '../common/external-link';
@@ -11,21 +11,26 @@ import ExternalLink from '../common/external-link';
 export interface CompanyCardProps {
   company: CompanyDTO;
   roles?: RoleDTO[];
+  contacts?: ContactDTO[];
   showFull?: boolean;
   showControls?: boolean;
   showChevron?: boolean;
   showRoles?: boolean;
+  showContacts?: boolean;
 }
 
 export function CompanyInfoCard({
   company,
   roles,
+  contacts,
   showFull = true,
   showControls = true,
   showChevron = true,
   showRoles = true,
+  showContacts = true,
 }: CompanyCardProps) {
   const roleCount = roles?.length ?? 0;
+  const contactCount = contacts?.length ?? 0;
 
   const controls = showControls && showFull && (
     <div className="flex gap-1">
@@ -43,6 +48,9 @@ export function CompanyInfoCard({
       {!showFull && <ExternalLink url={company.website || ''} />}
       {roleCount > 0 && (!showFull || !showRoles) && (
         <span className="badge badge-ghost badge-sm">{roleCount} roles</span>
+      )}
+      {contactCount > 0 && (!showFull || !showContacts) && (
+        <span className="badge badge-ghost badge-sm">{contactCount} contacts</span>
       )}
     </div>
   );
@@ -70,14 +78,30 @@ export function CompanyInfoCard({
 
         {showRoles && roles && roles.length > 0 && (
           <div>
-            <h3 className="mb-1 font-semibold">Roles</h3>
-            <ul className="list-inside list-disc">
+            <h3 className="mb-1 font-semibold text-sm">Roles</h3>
+            <ul className="list-inside list-disc text-sm">
               {roles.map((role) => (
                 <li key={role.id}>
                   <Link href={`/roles/${role.id}`} className="link link-primary">
                     {role.title}
                   </Link>
                   <span className="ml-2 text-xs opacity-70">({role.status})</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {showContacts && contacts && contacts.length > 0 && (
+          <div>
+            <h3 className="mb-1 font-semibold text-sm">Contacts</h3>
+            <ul className="list-inside list-disc text-sm">
+              {contacts.map((contact) => (
+                <li key={contact.id}>
+                  <Link href={`/contacts/${contact.id}`} className="link link-primary">
+                    {contact.firstName} {contact.lastName}
+                  </Link>
+                  {contact.title && <span className="ml-2 text-xs opacity-70">({contact.title})</span>}
                 </li>
               ))}
             </ul>

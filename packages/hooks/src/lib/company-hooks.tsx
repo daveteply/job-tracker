@@ -5,11 +5,25 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { combineLatest, map } from 'rxjs';
 
 import { EMPTY_DELETION_BLOCKERS } from '@job-tracker/app-logic';
-import { CompanyRepository, DeletionCheck, useDb } from '@job-tracker/data-access';
-import { CompanyDTO, CompanyWithRolesDTO } from '@job-tracker/validation';
+import {
+  CompanyRepository,
+  ContactRepository,
+  DeletionCheck,
+  useDb,
+} from '@job-tracker/data-access';
+import { CompanyDTO, CompanyWithChildrenDTO } from '@job-tracker/validation';
 
 import { useRoleRepository } from './role-hooks';
 import { useObservable } from './use-observable';
+
+export function useContactRepository() {
+  const db = useDb();
+
+  return useMemo(() => {
+    if (!db) return null;
+    return new ContactRepository(db);
+  }, [db]);
+}
 
 export function useCompanyRepository() {
   const db = useDb();
@@ -53,30 +67,36 @@ export function useCompanies() {
   };
 }
 
-export function useCompaniesWithRoles() {
+export function useCompaniesWithChildren() {
   const companyRepository = useCompanyRepository();
   const roleRepository = useRoleRepository();
+  const contactRepository = useContactRepository();
 
-  const companiesWithRoles$ = useMemo(() => {
-    if (!companyRepository || !roleRepository) {
+  const companiesWithChildren$ = useMemo(() => {
+    if (!companyRepository || !roleRepository || !contactRepository) {
       return undefined;
     }
 
-    return combineLatest([companyRepository.list$(), roleRepository.list$()]).pipe(
-      map(([companies, roles]) => {
-        return companies.map<CompanyWithRolesDTO>((company) => ({
+    return combineLatest([
+      companyRepository.list$(),
+      roleRepository.list$(),
+      contactRepository.list$(),
+    ]).pipe(
+      map(([companies, roles, contacts]) => {
+        return companies.map<CompanyWithChildrenDTO>((company) => ({
           ...company,
           roles: roles.filter((role) => role.companyId === company.id),
+          contacts: contacts.filter((contact) => contact.companyId === company.id),
         }));
       }),
     );
-  }, [companyRepository, roleRepository]);
+  }, [companyRepository, roleRepository, contactRepository]);
 
-  const companies = useObservable<CompanyWithRolesDTO[]>(companiesWithRoles$, []);
+  const companies = useObservable<CompanyWithChildrenDTO[]>(companiesWithChildren$, []);
 
   return {
     companies,
-    loading: !companyRepository || !roleRepository,
+    loading: !companyRepository || !roleRepository || !contactRepository,
   };
 }
 

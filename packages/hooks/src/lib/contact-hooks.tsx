@@ -60,7 +60,25 @@ export function useContactWithCompany(id: string) {
     }
   }, [contactRepository, companyRepository, id]);
 
-  return { contact: data, loading };
+  return {
+    contact: data,
+    loading,
+  };
+}
+
+export function useContactsByCompany(companyId: string) {
+  const repository = useContactRepository();
+
+  const contacts$ = useMemo(() => {
+    return repository?.listByCompanyId$(companyId);
+  }, [repository, companyId]);
+
+  const contacts = useObservable<ContactDTO[]>(contacts$, []);
+
+  return {
+    contacts,
+    loading: !repository,
+  };
 }
 
 export function useContactsWithCompany() {

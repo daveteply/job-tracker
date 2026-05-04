@@ -3,14 +3,14 @@
 import { PlusCircleIcon } from '@heroicons/react/16/solid';
 import { useTranslations } from 'next-intl';
 
-import { useCompaniesWithRoles } from '@job-tracker/hooks';
+import { useCompaniesWithChildren } from '@job-tracker/hooks';
 import { CompanyList, PageLoading } from '@job-tracker/ui-components';
 
 import { Link } from '../../../../i18n/routing';
 
 export default function CompaniesListPage() {
   const t = useTranslations('Companies');
-  const { companies, loading } = useCompaniesWithRoles();
+  const { companies, loading } = useCompaniesWithChildren();
 
   if (loading) return <PageLoading entityName={t('companiesEntityName')} />;
 

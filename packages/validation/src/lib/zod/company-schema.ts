@@ -7,6 +7,7 @@ import {
   updateRequiredString,
 } from '../helpers/schema-helpers';
 
+import type { ContactDTO } from './contact-schema';
 import type { RoleDTO } from './role-schema';
 
 export const CompanyCreateSchema = z.object({
@@ -50,5 +51,9 @@ export type CompanyUpdate = z.infer<typeof CompanyUpdateSchema>;
 export type CompanyDTO = z.infer<typeof CompanyDTOSchema>;
 
 export interface CompanyWithRolesDTO extends CompanyDTO {
-  roles?: RoleDTO[];
+  roles: RoleDTO[];
+}
+
+export interface CompanyWithChildrenDTO extends CompanyWithRolesDTO {
+  contacts: ContactDTO[];
 }

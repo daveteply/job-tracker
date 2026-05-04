@@ -27,6 +27,15 @@ export class ContactRepository {
       .$.pipe(map((docs) => docs.map((doc) => ContactMapper.toDto(doc.toJSON()))));
   }
 
+  listByCompanyId$(companyId: string): Observable<ContactDTO[]> {
+    return this.db.contacts
+      .find({
+        selector: { companyId },
+        sort: [{ lastName: 'asc' }, { firstName: 'asc' }],
+      })
+      .$.pipe(map((docs) => docs.map((doc) => ContactMapper.toDto(doc.toJSON()))));
+  }
+
   async getById(id: string): Promise<ContactDTO | null> {
     const doc = await this.db.contacts.findOne(id).exec();
     if (!doc) return null;

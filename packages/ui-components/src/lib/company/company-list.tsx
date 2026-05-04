@@ -2,16 +2,23 @@
 
 import { useTranslations } from 'next-intl';
 
-import { CompanyWithRolesDTO } from '@job-tracker/validation';
+import { CompanyWithChildrenDTO } from '@job-tracker/validation';
 
 import CompanyInfoCard from './company-info-card';
 
 export interface CompanyListProps {
-  companies: CompanyWithRolesDTO[];
+  companies: CompanyWithChildrenDTO[];
   noCompaniesMessage?: string;
+  showRoles?: boolean;
+  showContacts?: boolean;
 }
 
-export function CompanyList({ companies, noCompaniesMessage }: CompanyListProps) {
+export function CompanyList({
+  companies,
+  noCompaniesMessage,
+  showRoles = false,
+  showContacts = false,
+}: CompanyListProps) {
   const t = useTranslations('Companies');
   const message = noCompaniesMessage || t('noCompaniesFound');
 
@@ -24,7 +31,9 @@ export function CompanyList({ companies, noCompaniesMessage }: CompanyListProps)
               key={company.id}
               company={company}
               roles={company.roles}
-              showRoles={false}
+              contacts={company.contacts}
+              showRoles={showRoles}
+              showContacts={showContacts}
             />
           ))}
         </>
