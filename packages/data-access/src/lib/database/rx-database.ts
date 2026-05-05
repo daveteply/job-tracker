@@ -12,6 +12,7 @@ import {
   EventTypeSchema,
   ReminderSchema,
   RoleSchema,
+  UserSettingsSchema,
 } from '@job-tracker/domain';
 
 import { CompanyDocument } from './documents/company.document';
@@ -20,6 +21,7 @@ import { EventDocument } from './documents/event.document';
 import { EventTypeDocument } from './documents/event-type.document';
 import { ReminderDocument } from './documents/reminder.document';
 import { RoleDocument } from './documents/role.document';
+import { UserSettingsDocument } from './documents/user-settings.document';
 import { seedEventTypes } from './seed-data';
 
 // Truly global state using globalThis to handle module re-evaluation
@@ -94,6 +96,7 @@ export type RoleCollection = RxCollection<RoleDocument>;
 export type EventCollection = RxCollection<EventDocument>;
 export type EventTypeCollection = RxCollection<EventTypeDocument>;
 export type ReminderCollection = RxCollection<ReminderDocument>;
+export type UserSettingsCollection = RxCollection<UserSettingsDocument>;
 
 export interface TrackerCollections {
   companies: CompanyCollection;
@@ -102,6 +105,7 @@ export interface TrackerCollections {
   events: EventCollection;
   eventTypes: EventTypeCollection;
   reminders: ReminderCollection;
+  userSettings: UserSettingsCollection;
 }
 
 export type TrackerDatabase = RxDatabase<TrackerCollections>;
@@ -147,6 +151,7 @@ export async function initRxDatabase(name: string): Promise<TrackerDatabase> {
           events: { schema: EventSchema },
           eventTypes: { schema: EventTypeSchema },
           reminders: { schema: ReminderSchema },
+          userSettings: { schema: UserSettingsSchema },
         });
       }
 

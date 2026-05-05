@@ -11,6 +11,7 @@ import {
   useEventsWithChildren,
   useRemindersWithChildren,
   useRolesWithEvents,
+  useUserSettings,
 } from '@job-tracker/hooks';
 import { EventList, ReminderList, RoleList } from '@job-tracker/ui-components';
 
@@ -21,6 +22,13 @@ export default function HomePage() {
   const { reminders, loading: loadingReminders } = useRemindersWithChildren();
   const { events, loading: loadingEvents } = useEventsWithChildren();
   const { roles, loading: loadingRoles } = useRolesWithEvents();
+  const { settings, updateSettings } = useUserSettings();
+
+  const showFullEvents = settings?.showFullEventList ?? false;
+
+  const handleToggleEvents = async () => {
+    await updateSettings({ showFullEventList: !showFullEvents });
+  };
 
   const activeReminders = useMemo(() => {
     return reminders
@@ -104,7 +112,13 @@ export default function HomePage() {
             <span className="loading loading-spinner loading-md"></span>
           </div>
         ) : (
-          <EventList events={recentEvents} showControls={true} />
+          <EventList
+            events={recentEvents}
+            showControls={true}
+            showFull={showFullEvents}
+            onToggleShowFull={handleToggleEvents}
+            showExpandToggle={true}
+          />
         )}
       </section>
 

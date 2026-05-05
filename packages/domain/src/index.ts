@@ -15,3 +15,5 @@ export * from './lib/reminder/reminder.entity';
 export * from './lib/reminder/reminder.schema';
 export * from './lib/role/role.entity';
 export * from './lib/role/role.schema';
+export * from './lib/user-settings/user-settings.entity';
+export * from './lib/user-settings/user-settings.schema';

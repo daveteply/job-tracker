@@ -4,12 +4,19 @@ import { ArchiveBoxIcon, PlusIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 
-import { useEventsWithChildren } from '@job-tracker/hooks';
+import { useEventsWithChildren, useUserSettings } from '@job-tracker/hooks';
 import { EventList } from '@job-tracker/ui-components';
 
 export default function ActivityPage() {
   const t = useTranslations('Activity');
   const { events, loading } = useEventsWithChildren();
+  const { settings, updateSettings } = useUserSettings();
+
+  const showFullEvents = settings?.showFullEventList ?? false;
+
+  const handleToggleEvents = async () => {
+    await updateSettings({ showFullEventList: !showFullEvents });
+  };
 
   return (
     <>
@@ -31,7 +38,12 @@ export default function ActivityPage() {
           </Link>
         </div>
       ) : (
-        <EventList events={events} />
+        <EventList
+          events={events}
+          showFull={showFullEvents}
+          onToggleShowFull={handleToggleEvents}
+          showExpandToggle={true}
+        />
       )}
     </>
   );

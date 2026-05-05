@@ -201,7 +201,9 @@
     "fiveBusinessDays": "5 Business Days",
     "tenBusinessDays": "10 Business Days",
     "reminderTasksNote": "We'll add this to your tasks.",
-    "noReminderNote": "No reminder will be created. You can always add one later."
+    "noReminderNote": "No reminder will be created. You can always add one later.",
+    "expand": "Expand",
+    "collapse": "Collapse"
   },
   "Reminders": {
     "listTitle": "Reminders",

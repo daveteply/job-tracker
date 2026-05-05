@@ -201,8 +201,11 @@
     "fiveBusinessDays": "5 días hábiles",
     "tenBusinessDays": "10 días hábiles",
     "reminderTasksNote": "Agregaremos esto a tus tareas.",
-    "noReminderNote": "No se creará ningún recordatorio. Siempre puedes agregar uno más tarde."
+    "noReminderNote": "No se creará ningún recordatorio. Siempre puedes añadir uno más tarde.",
+    "expand": "Expandir",
+    "collapse": "Contraer"
   },
+
   "Reminders": {
     "listTitle": "Recordatorios",
     "addReminder": "Agregar Recordatorio",
