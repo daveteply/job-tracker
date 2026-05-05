@@ -51,7 +51,15 @@ export function BaseInfoCard({
             )}
           </div>
         </div>
-        {showFull && children && <div className="mt-2">{children}</div>}
+        <div
+          className={`grid transition-all duration-300 ease-in-out ${
+            showFull ? 'grid-rows-[1fr] mt-2 opacity-100' : 'grid-rows-[0fr] mt-0 opacity-0'
+          }`}
+        >
+          <div className="overflow-hidden">
+            {children}
+          </div>
+        </div>
       </div>
     </div>
   );
