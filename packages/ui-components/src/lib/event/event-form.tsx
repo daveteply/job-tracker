@@ -124,7 +124,10 @@ export function EventForm<T extends EventFormValues>({
   const company = watch('company' as Path<T>);
   const summaryValue = watch('summary' as Path<T>);
 
-  const { isDirty: isSummaryDirty } = getFieldState('summary' as Path<T>, { errors, isSubmitting } as any);
+  const { isDirty: isSummaryDirty } = getFieldState(
+    'summary' as Path<T>,
+    { errors, isSubmitting } as any,
+  );
 
   const prevContactRef = useRef(contact);
   const prevRoleRef = useRef(role);

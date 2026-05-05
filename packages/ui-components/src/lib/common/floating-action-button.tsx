@@ -96,7 +96,6 @@ export function FloatingActionButton() {
         </div>
       )}
 
-
       {/* Main Trigger Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}

@@ -1,11 +1,6 @@
 import { removeRxDatabase, RxCollection } from 'rxdb';
 
-import {
-  getStorage,
-  initRxDatabase,
-  TrackerCollections,
-  TrackerDatabase,
-} from './rx-database';
+import { getStorage, initRxDatabase, TrackerCollections, TrackerDatabase } from './rx-database';
 
 export const GUEST_DB_NAME = 'job_tracker_db_guest';
 

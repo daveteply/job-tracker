@@ -19,7 +19,7 @@ export default function DeleteEventPage({ params }: { params: Promise<{ id: stri
   if (!event) return <div>{t('notFound')}</div>;
 
   return (
-    <div className="mx-auto max-w-2xl flex flex-col">
+    <div className="mx-auto flex max-w-2xl flex-col">
       <div className="mb-6">
         <h1 className="px-1 text-2xl font-bold">{t('deleteTitle')}</h1>
       </div>

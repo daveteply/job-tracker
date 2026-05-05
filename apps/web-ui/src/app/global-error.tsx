@@ -30,9 +30,7 @@ export default function GlobalError({
           <div className="hero-content text-center">
             <div className="max-w-md">
               <div className="mb-6 flex justify-center">
-                <div className="text-7xl animate-bounce">
-                  {emoji}
-                </div>
+                <div className="animate-bounce text-7xl">{emoji}</div>
               </div>
               <h1 className="font-sans text-5xl font-bold">Well, this is awkward.</h1>
               <p className="text-base-content/70 py-6 font-sans">

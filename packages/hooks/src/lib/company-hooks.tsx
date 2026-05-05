@@ -5,11 +5,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { combineLatest, map } from 'rxjs';
 
 import { EMPTY_DELETION_BLOCKERS } from '@job-tracker/app-logic';
-import {
-  CompanyRepository,
-  DeletionCheck,
-  useDb,
-} from '@job-tracker/data-access';
+import { CompanyRepository, DeletionCheck, useDb } from '@job-tracker/data-access';
 import { CompanyDTO, CompanyWithChildrenDTO } from '@job-tracker/validation';
 
 import { useContactRepository } from './contact-hooks';

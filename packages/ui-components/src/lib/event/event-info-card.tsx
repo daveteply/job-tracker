@@ -113,7 +113,7 @@ export function EventInfoCard({
                 <li key={reminder.id}>
                   <FormattedDate dateValue={reminder.remindAt} />
                   {reminder.completedAt && (
-                    <span className="ml-2 badge badge-success badge-xs italic">Completed</span>
+                    <span className="badge badge-success badge-xs ml-2 italic">Completed</span>
                   )}
                 </li>
               ))}

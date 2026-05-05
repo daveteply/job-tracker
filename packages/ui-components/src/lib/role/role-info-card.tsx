@@ -70,7 +70,7 @@ export function RoleInfoCard({
 
         {showEvents && events && events.length > 0 && (
           <div>
-            <h3 className="mb-1 font-semibold text-sm">Recent Events</h3>
+            <h3 className="mb-1 text-sm font-semibold">Recent Events</h3>
             <ul className="list-inside list-disc text-sm">
               {events.slice(0, 5).map((event) => (
                 <li key={event.id}>

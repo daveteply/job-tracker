@@ -22,7 +22,7 @@ export default function DeleteContactPage({ params }: { params: Promise<{ id: st
   if (!contact) return null;
 
   return (
-    <div className="mx-auto max-w-2xl flex flex-col">
+    <div className="mx-auto flex max-w-2xl flex-col">
       <div className="mb-6">
         <h1 className="px-1 text-2xl font-bold">{t('deleteContactTitle')}</h1>
       </div>

@@ -78,7 +78,7 @@ export function CompanyInfoCard({
 
         {showRoles && roles && roles.length > 0 && (
           <div>
-            <h3 className="mb-1 font-semibold text-sm">Roles</h3>
+            <h3 className="mb-1 text-sm font-semibold">Roles</h3>
             <ul className="list-inside list-disc text-sm">
               {roles.map((role) => (
                 <li key={role.id}>
@@ -94,14 +94,16 @@ export function CompanyInfoCard({
 
         {showContacts && contacts && contacts.length > 0 && (
           <div>
-            <h3 className="mb-1 font-semibold text-sm">Contacts</h3>
+            <h3 className="mb-1 text-sm font-semibold">Contacts</h3>
             <ul className="list-inside list-disc text-sm">
               {contacts.map((contact) => (
                 <li key={contact.id}>
                   <Link href={`/contacts/${contact.id}`} className="link link-primary">
                     {contact.firstName} {contact.lastName}
                   </Link>
-                  {contact.title && <span className="ml-2 text-xs opacity-70">({contact.title})</span>}
+                  {contact.title && (
+                    <span className="ml-2 text-xs opacity-70">({contact.title})</span>
+                  )}
                 </li>
               ))}
             </ul>

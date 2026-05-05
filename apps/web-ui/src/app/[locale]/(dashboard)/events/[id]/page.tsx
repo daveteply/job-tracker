@@ -61,7 +61,7 @@ export default function EventDetailsPage({ params }: { params: Promise<{ id: str
 
         {event.company && (
           <div className="space-y-1">
-            <h2 className="text-[10px] font-bold uppercase tracking-wider text-neutral-content/60">
+            <h2 className="text-neutral-content/60 text-[10px] font-bold tracking-wider uppercase">
               {t('sectionCompany')}
             </h2>
             <CompanyInfoCard company={event.company} />
@@ -70,7 +70,7 @@ export default function EventDetailsPage({ params }: { params: Promise<{ id: str
 
         {event.contact && (
           <div className="space-y-1">
-            <h2 className="text-[10px] font-bold uppercase tracking-wider text-neutral-content/60">
+            <h2 className="text-neutral-content/60 text-[10px] font-bold tracking-wider uppercase">
               {t('sectionContact')}
             </h2>
             <ContactInfoCard contact={event.contact} />
@@ -79,7 +79,7 @@ export default function EventDetailsPage({ params }: { params: Promise<{ id: str
 
         {event.role && (
           <div className="space-y-1">
-            <h2 className="text-[10px] font-bold uppercase tracking-wider text-neutral-content/60">
+            <h2 className="text-neutral-content/60 text-[10px] font-bold tracking-wider uppercase">
               {t('sectionRole')}
             </h2>
             <RoleInfoCard role={event.role} />
@@ -88,7 +88,7 @@ export default function EventDetailsPage({ params }: { params: Promise<{ id: str
 
         {event.eventType && (
           <div className="space-y-1">
-            <h2 className="text-[10px] font-bold uppercase tracking-wider text-neutral-content/60">
+            <h2 className="text-neutral-content/60 text-[10px] font-bold tracking-wider uppercase">
               {t('sectionEventType')}
             </h2>
             <EventTypeInfoCard eventType={event.eventType} />
@@ -97,13 +97,13 @@ export default function EventDetailsPage({ params }: { params: Promise<{ id: str
 
         {event.reminders && event.reminders.length > 0 && (
           <div className="space-y-1">
-            <h2 className="text-[10px] font-bold uppercase tracking-wider text-neutral-content/60">
+            <h2 className="text-neutral-content/60 text-[10px] font-bold tracking-wider uppercase">
               Reminders
             </h2>
             <div className="card bg-base-300 rounded-xl p-4 shadow-sm">
               <ul className="space-y-2">
                 {event.reminders.map((reminder) => (
-                  <li key={reminder.id} className="text-sm flex items-center justify-between">
+                  <li key={reminder.id} className="flex items-center justify-between text-sm">
                     <span>
                       <FormattedDate dateValue={reminder.remindAt} useRelativeTime={false} />
                     </span>
@@ -119,7 +119,7 @@ export default function EventDetailsPage({ params }: { params: Promise<{ id: str
 
         {(event.summary || event.details) && (
           <div className="space-y-1">
-            <h2 className="text-[10px] font-bold uppercase tracking-wider text-neutral-content/60">
+            <h2 className="text-neutral-content/60 text-[10px] font-bold tracking-wider uppercase">
               {t('sectionDescription')}
             </h2>
             <div className="card bg-base-300 rounded-xl p-4 shadow-sm">
