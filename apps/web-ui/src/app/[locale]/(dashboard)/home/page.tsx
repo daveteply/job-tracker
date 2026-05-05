@@ -19,6 +19,7 @@ import { Link } from '../../../../i18n/routing';
 
 export default function HomePage() {
   const t = useTranslations('HomePage');
+  const tNav = useTranslations('Navigation');
   const { reminders, loading: loadingReminders } = useRemindersWithChildren();
   const { events, loading: loadingEvents } = useEventsWithChildren();
   const { roles, loading: loadingRoles } = useRolesWithEvents();
@@ -94,6 +95,8 @@ export default function HomePage() {
 
   return (
     <div className="space-y-8 pb-8">
+      <h1 className="px-1 text-2xl font-bold">{tNav('home')}</h1>
+
       <section>
         <h2 className="mb-4 px-1 text-xl font-bold">{t('reminders')}</h2>
         {loadingReminders ? (

@@ -20,8 +20,8 @@ export default function ActivityPage() {
 
   return (
     <>
-      <div className="mb-3 flex items-center justify-between">
-        <h1 className="pr-1 text-xl">{t('listTitle')}</h1>
+      <div className="mb-6 flex items-center justify-between">
+        <h1 className="px-1 text-2xl font-bold">{t('listTitle')}</h1>
         {loading && <span className="loading loading-spinner loading-sm opacity-20"></span>}
       </div>
 
