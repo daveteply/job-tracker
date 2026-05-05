@@ -12,7 +12,9 @@ export default function CreateRolePage() {
 
   return (
     <>
-      <h1 className="mb-5 text-xl">{t('newRoleTitle')}</h1>
+      <div className="mb-6">
+        <h1 className="px-1 text-2xl font-bold">{t('newRoleTitle')}</h1>
+      </div>
 
       <RoleForm
         onSubmitAction={upsertRole}

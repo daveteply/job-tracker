@@ -35,8 +35,8 @@ export default function ReminderEditPage({ params }: { params: Promise<{ id: str
 
   return (
     <>
-      <div className="mb-3 flex items-center justify-between">
-        <h1 className="text-xl">{t('editReminder')}</h1>
+      <div className="mb-6 flex items-center justify-between">
+        <h1 className="px-1 text-2xl font-bold">{t('editReminder')}</h1>
         <div className="flex gap-2">
           <Link
             href={`/reminders/${id}/delete`}

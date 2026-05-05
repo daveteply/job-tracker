@@ -41,9 +41,11 @@ export default function EditContactPage({ params }: { params: Promise<{ id: stri
 
   return (
     <>
-      <h1 className="mb-5 text-xl">
-        {t('editContactTitle', { firstName: contact.firstName, lastName: contact.lastName })}
-      </h1>
+      <div className="mb-6">
+        <h1 className="px-1 text-2xl font-bold">
+          {t('editContactTitle', { firstName: contact.firstName, lastName: contact.lastName })}
+        </h1>
+      </div>
       {
         <ContactForm
           onSubmitAction={handleUpdate}

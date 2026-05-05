@@ -11,7 +11,9 @@ export default function CreateCompanyPage() {
 
   return (
     <>
-      <h1 className="mb-5 text-xl">{t('newCompanyTitle')}</h1>
+      <div className="mb-6">
+        <h1 className="px-1 text-2xl font-bold">{t('newCompanyTitle')}</h1>
+      </div>
 
       <CompanyForm onSubmitAction={upsertCompany} postActionRoute={'/companies'} />
     </>

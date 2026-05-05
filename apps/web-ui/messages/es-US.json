@@ -270,6 +270,8 @@
       "Interviewing": "En entrevista",
       "Offer": "Oferta",
       "Accepted": "Aceptado",
+      "Rejected": "Rechazado",
+      "NotSelected": "No seleccionado",
       "Not Selected": "No seleccionado",
       "Withdrawn": "Retirado",
       "Ghosted": "Ghosted"
@@ -333,6 +335,8 @@
     "Interview Completed": "Entrevista finalizada",
     "Offer Received": "Oferta recibida",
     "Offer Accepted": "Oferta aceptada",
+    "Rejected": "Rechazado",
+    "Rejection Received": "Rechazo recibido",
     "Not Selected": "No seleccionado",
     "Not Selected Received": "No seleccionado",
     "Withdrew Application": "Postulación retirada"
@@ -367,6 +371,10 @@
     "title": "Vaya, esto es un poco incómodo.",
     "description": "Algo no salió como planeamos de nuestro lado. Por favor, inténtalo de nuevo en unos segundos.",
     "tryAgain": "Intentar de nuevo",
+    "backHome": "Volver al Inicio"
+  }
+}
+,
     "backHome": "Volver al Inicio"
   }
 }

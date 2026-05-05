@@ -41,7 +41,9 @@ export default function EditRolePage({ params }: { params: Promise<{ id: string 
 
   return (
     <>
-      <h1 className="mb-5 text-xl">{t('editRoleTitle', { title: role.title })}</h1>
+      <div className="mb-6">
+        <h1 className="px-1 text-2xl font-bold">{t('editRoleTitle', { title: role.title })}</h1>
+      </div>
       {
         <RoleForm
           onSubmitAction={handleUpdate}

@@ -19,8 +19,8 @@ export default function ReminderDeletePage({ params }: { params: Promise<{ id: s
 
   return (
     <>
-      <div className="mb-3">
-        <h1 className="text-xl">{t('deleteReminder')}</h1>
+      <div className="mb-6">
+        <h1 className="px-1 text-2xl font-bold">{t('deleteReminder')}</h1>
       </div>
 
       <EntityDelete

@@ -22,10 +22,12 @@ export default function DeleteCompanyPage({ params }: { params: Promise<{ id: st
   if (!company) return null;
 
   return (
-    <div className="flex flex-col gap-4">
-      <h1 className="pr-1 text-xl">{t('deleteCompanyTitle')}</h1>
+    <div className="flex flex-col">
+      <div className="mb-6">
+        <h1 className="px-1 text-2xl font-bold">{t('deleteCompanyTitle')}</h1>
+      </div>
 
-      <>
+      <div className="flex flex-col gap-4">
         <CompanyInfoCard company={company} showControls={false} />
         {canDelete ? (
           <EntityDelete
@@ -60,7 +62,7 @@ export default function DeleteCompanyPage({ params }: { params: Promise<{ id: st
             </div>
           </>
         )}
-      </>
+      </div>
     </div>
   );
 }

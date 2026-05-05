@@ -269,6 +269,8 @@
       "Interviewing": "Interviewing",
       "Offer": "Offer",
       "Accepted": "Accepted",
+      "Rejected": "Rejected",
+      "NotSelected": "Not Selected",
       "Not Selected": "Not Selected",
       "Withdrawn": "Withdrawn",
       "Ghosted": "Ghosted"
@@ -333,6 +335,8 @@
     "Interview Completed": "Interview Completed",
     "Offer Received": "Offer Received",
     "Offer Accepted": "Offer Accepted",
+    "Rejected": "Rejected",
+    "Rejection Received": "Rejection Received",
     "Not Selected": "Not Selected",
     "Not Selected Received": "Not Selected",
     "Withdrew Application": "Withdrew Application"
@@ -367,6 +371,10 @@
     "title": "Well, this is awkward.",
     "description": "Something didn't go as planned on our end. Please try again in a few seconds.",
     "tryAgain": "Try again",
+    "backHome": "Back to Home"
+  }
+}
+again",
     "backHome": "Back to Home"
   }
 }

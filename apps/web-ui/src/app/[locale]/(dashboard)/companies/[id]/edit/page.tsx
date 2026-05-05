@@ -23,7 +23,9 @@ export default function EditCompanyPage({ params }: { params: Promise<{ id: stri
 
   return (
     <>
-      <h1 className="mb-5 text-xl">{t('editCompanyTitle', { name: company.name })}</h1>
+      <div className="mb-6">
+        <h1 className="px-1 text-2xl font-bold">{t('editCompanyTitle', { name: company.name })}</h1>
+      </div>
       <CompanyForm
         onSubmitAction={handleUpdate}
         initialData={company}

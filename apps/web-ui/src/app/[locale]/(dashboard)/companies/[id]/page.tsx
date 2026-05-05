@@ -23,17 +23,17 @@ export default function CompanyDetailPage({ params }: { params: Promise<{ id: st
 
   return (
     <>
-      <div className="mb-3 flex">
-        <h1 className="pr-2 text-xl">{t('companyDetails')}</h1>
+      <div className="mb-6 flex items-center">
+        <h1 className="px-1 text-2xl font-bold">{t('companyDetails')}</h1>
         <Link
-          className="btn btn-circle btn-sm text-primary"
+          className="btn btn-circle btn-sm text-primary ml-1"
           href={`${id}/edit`}
           title={t('editCompany')}
         >
           <PencilIcon className="size-5" />
         </Link>
         <Link
-          className="btn btn-circle btn-sm text-error"
+          className="btn btn-circle btn-sm text-error ml-1"
           href={`${id}/delete`}
           title={t('deleteCompany')}
         >

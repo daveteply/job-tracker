@@ -256,17 +256,19 @@ export default function EventsNewPage() {
   return (
     <FormProvider {...methods}>
       <div className="mx-auto max-w-2xl pb-32">
-        <h1 className="text-base-content mb-4 flex flex-wrap items-baseline text-3xl font-bold">
-          <span className="whitespace-nowrap">{t('newTitle')}</span>
-          {selectedEventName && (
-            <span
-              className="ml-2 max-w-[300px] truncate text-xl font-normal opacity-70"
-              title={selectedEventName}
-            >
-              {selectedEventName}
-            </span>
-          )}
-        </h1>
+        <div className="mb-6">
+          <h1 className="text-base-content flex flex-wrap items-baseline px-1 text-2xl font-bold">
+            <span className="whitespace-nowrap">{t('newTitle')}</span>
+            {selectedEventName && (
+              <span
+                className="ml-2 max-w-[300px] truncate text-xl font-normal opacity-70"
+                title={selectedEventName}
+              >
+                {selectedEventName}
+              </span>
+            )}
+          </h1>
+        </div>
 
         <ul className="steps w-full">
           <li className={`step ${step >= 1 ? 'step-info' : ''}`}>{t('stepType')}</li>

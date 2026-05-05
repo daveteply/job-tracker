@@ -21,8 +21,8 @@ export default function ReminderNewPage() {
 
   return (
     <>
-      <div className="mb-3">
-        <h1 className="text-xl">{t('addReminder')}</h1>
+      <div className="mb-6">
+        <h1 className="px-1 text-2xl font-bold">{t('addReminder')}</h1>
       </div>
 
       <ReminderForm

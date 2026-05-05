@@ -22,10 +22,12 @@ export default function DeleteRolePage({ params }: { params: Promise<{ id: strin
   if (!role) return null;
 
   return (
-    <div className="flex flex-col gap-4">
-      <h1 className="pr-1 text-xl">{t('deleteRoleTitle')}</h1>
+    <div className="flex flex-col">
+      <div className="mb-6">
+        <h1 className="px-1 text-2xl font-bold">{t('deleteRoleTitle')}</h1>
+      </div>
 
-      <>
+      <div className="flex flex-col gap-4">
         <RoleInfoCard role={role} showControls={false} />
         {canDelete ? (
           <EntityDelete
@@ -58,7 +60,7 @@ export default function DeleteRolePage({ params }: { params: Promise<{ id: strin
             </div>
           </>
         )}
-      </>
+      </div>
     </div>
   );
 }

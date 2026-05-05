@@ -18,8 +18,8 @@ export default function RoleListPage() {
 
   return (
     <>
-      <div className="mb-3 flex justify-between">
-        <h1 className="pr-1 text-xl">{t('listTitle')}</h1>
+      <div className="mb-6 flex justify-between">
+        <h1 className="px-1 text-2xl font-bold">{t('listTitle')}</h1>
         <Link className="btn btn-sm text-primary" href="roles/new" title={t('addRole')}>
           <PlusCircleIcon className="size-5" />
           {t('addRole')}

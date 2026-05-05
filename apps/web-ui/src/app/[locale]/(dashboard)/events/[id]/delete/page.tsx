@@ -19,10 +19,12 @@ export default function DeleteEventPage({ params }: { params: Promise<{ id: stri
   if (!event) return <div>{t('notFound')}</div>;
 
   return (
-    <div className="flex flex-col gap-4">
-      <h1 className="pr-1 text-xl">{t('deleteTitle')}</h1>
+    <div className="flex flex-col">
+      <div className="mb-6">
+        <h1 className="px-1 text-2xl font-bold">{t('deleteTitle')}</h1>
+      </div>
 
-      <>
+      <div className="flex flex-col gap-4">
         <EventInfoCard event={event} showControls={false}></EventInfoCard>
         <EntityDelete
           id={event.id}
@@ -37,7 +39,7 @@ export default function DeleteEventPage({ params }: { params: Promise<{ id: stri
             error: tCommon('deleteError', { name: t('eventEntityName') }),
           }}
         />
-      </>
+      </div>
     </div>
   );
 }

@@ -12,7 +12,9 @@ export default function CreateContactPage() {
 
   return (
     <>
-      <h1 className="mb-5 text-xl">{t('newContactTitle')}</h1>
+      <div className="mb-6">
+        <h1 className="px-1 text-2xl font-bold">{t('newContactTitle')}</h1>
+      </div>
 
       <ContactForm
         onSubmitAction={upsertContact}
