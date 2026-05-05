@@ -31,8 +31,8 @@ describe('inferDirectionFromEventType', () => {
     expect(inferDirectionFromEventType('Offer Accepted')).toBe(DirectionType.Outbound);
   });
 
-  it('should infer Inbound for "Rejected"', () => {
-    expect(inferDirectionFromEventType('Rejected')).toBe(DirectionType.Inbound);
+  it('should infer Inbound for "Not Selected"', () => {
+    expect(inferDirectionFromEventType('Not Selected')).toBe(DirectionType.Inbound);
   });
 
   it('should infer Outbound for "Withdrew Application"', () => {

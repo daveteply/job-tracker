@@ -43,10 +43,15 @@ export function EventInfoCard({
   const borderClass =
     EVENT_CATEGORY_COLOR_MAP[event.eventType?.category || ''] || EVENT_CATEGORY_COLOR_MAP.default;
 
-  const eventName =
-    event.eventType?.isSystemDefined && event.eventType?.translationKey
-      ? tEvent(event.eventType.translationKey)
-      : event.eventType?.name;
+  let eventName = event.eventType?.name;
+  if (event.eventType?.isSystemDefined && event.eventType?.translationKey) {
+    try {
+      eventName = tEvent(event.eventType.translationKey);
+    } catch (e) {
+      // Fallback to name if translation key is missing (legacy data)
+      console.warn(`Missing translation for ${event.eventType.translationKey}`);
+    }
+  }
 
   const title = (
     <div className="flex min-w-0 items-center">

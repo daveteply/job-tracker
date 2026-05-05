@@ -42,10 +42,14 @@ function EventLabel({ id, fallback }: { id: string; fallback: React.ReactNode })
   const tEvent = useTranslations('SystemEventTypes');
   if (loading || !event || !event.eventType) return fallback;
 
-  const eventName =
-    event.eventType.isSystemDefined && event.eventType.translationKey
-      ? tEvent(event.eventType.translationKey)
-      : event.eventType.name;
+  let eventName = event.eventType.name;
+  if (event.eventType.isSystemDefined && event.eventType.translationKey) {
+    try {
+      eventName = tEvent(event.eventType.translationKey);
+    } catch {
+      // Fallback to name
+    }
+  }
 
   return `${eventName} (${event.source}, ${event.occurredAt.toLocaleDateString()})`;
 }

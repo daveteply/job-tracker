@@ -253,7 +253,7 @@
     "actionEmailReceived": "Received Email / Response",
     "actionScheduledInterview": "Scheduled Interview",
     "actionInterviewCompleted": "Completed Interview",
-    "actionRejectionReceived": "Received Rejection",
+    "actionNotSelected": "Not Selected",
     "actionNetworkingChat": "Networking / Coffee Chat",
     "toggleMenu": "Toggle menu"
   },
@@ -267,7 +267,7 @@
       "Interviewing": "Interviewing",
       "Offer": "Offer",
       "Accepted": "Accepted",
-      "Rejected": "Rejected",
+      "Not Selected": "Not Selected",
       "Withdrawn": "Withdrawn",
       "Ghosted": "Ghosted"
     },
@@ -309,8 +309,8 @@
     "interviewCompleted": "Interview Completed",
     "offerReceived": "Offer Received",
     "offerAccepted": "Offer Accepted",
-    "rejected": "Rejected",
-    "rejectionReceived": "Rejection Received",
+    "notSelected": "Not Selected",
+    "notSelectedReceived": "Not Selected",
     "withdrewApplication": "Withdrew Application",
 
     "Job Lead": "Job Lead",
@@ -331,8 +331,8 @@
     "Interview Completed": "Interview Completed",
     "Offer Received": "Offer Received",
     "Offer Accepted": "Offer Accepted",
-    "Rejected": "Rejected",
-    "Rejection Received": "Rejection Received",
+    "Not Selected": "Not Selected",
+    "Not Selected Received": "Not Selected",
     "Withdrew Application": "Withdrew Application"
   },
   "Validation": {

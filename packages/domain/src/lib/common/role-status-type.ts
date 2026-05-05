@@ -4,7 +4,7 @@ export enum RoleStatus {
   Interviewing = 'Interviewing',
   Offer = 'Offer',
   Accepted = 'Accepted',
-  Rejected = 'Rejected',
+  NotSelected = 'Not Selected',
   Withdrawn = 'Withdrawn',
   Ghosted = 'Ghosted',
 }

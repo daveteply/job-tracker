@@ -20,7 +20,7 @@ export function inferDirectionFromEventType(name: string): DirectionType | null 
     n.includes('outreach') ||
     n.includes('viewed') ||
     n.includes('scheduled') ||
-    n.includes('rejected') ||
+    n.includes('not selected') ||
     n.includes('lead') ||
     n.includes('invite') ||
     n.includes('inbound') ||

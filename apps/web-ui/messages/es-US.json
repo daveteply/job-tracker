@@ -253,7 +253,7 @@
     "actionEmailReceived": "Recibió correo / respuesta",
     "actionScheduledInterview": "Entrevista programada",
     "actionInterviewCompleted": "Entrevista finalizada",
-    "actionRejectionReceived": "Rechazo recibido",
+    "actionNotSelected": "No seleccionado",
     "actionNetworkingChat": "Networking / Café virtual",
     "toggleMenu": "Alternar menú"
   },
@@ -267,7 +267,7 @@
       "Interviewing": "En entrevista",
       "Offer": "Oferta",
       "Accepted": "Aceptado",
-      "Rejected": "Rechazado",
+      "Not Selected": "No seleccionado",
       "Withdrawn": "Retirado",
       "Ghosted": "Ghosted"
     },
@@ -308,8 +308,8 @@
     "interviewCompleted": "Entrevista finalizada",
     "offerReceived": "Oferta recibida",
     "offerAccepted": "Oferta aceptada",
-    "rejected": "Rechazado",
-    "rejectionReceived": "Rechazo recibido",
+    "notSelected": "No seleccionado",
+    "notSelectedReceived": "No seleccionado",
     "withdrewApplication": "Postulación retirada",
 
     "Job Lead": "Prospecto de empleo",
@@ -330,8 +330,8 @@
     "Interview Completed": "Entrevista finalizada",
     "Offer Received": "Oferta recibida",
     "Offer Accepted": "Oferta aceptada",
-    "Rejected": "Rechazado",
-    "Rejection Received": "Rechazo recibido",
+    "Not Selected": "No seleccionado",
+    "Not Selected Received": "No seleccionado",
     "Withdrew Application": "Postulación retirada"
   },
   "Validation": {

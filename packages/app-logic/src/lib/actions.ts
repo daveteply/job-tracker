@@ -2,11 +2,11 @@ import { Action, DirectionType, SourceType } from '@job-tracker/domain';
 
 export const AVAILABLE_ACTIONS: Action[] = [
   {
-    id: 'rejection-received',
-    nameKey: 'actionRejectionReceived',
+    id: 'not-selected',
+    nameKey: 'actionNotSelected',
     iconName: 'XCircleIcon',
     defaults: {
-      eventTypeName: 'Rejection Received',
+      eventTypeName: 'Not Selected',
       direction: DirectionType.Inbound,
       source: SourceType.Email,
     },
