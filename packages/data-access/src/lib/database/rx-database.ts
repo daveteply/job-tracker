@@ -124,7 +124,7 @@ export async function initRxDatabase(name: string): Promise<TrackerDatabase> {
       }
       // If it's closed, remove it from cache and proceed to create a new one
       dbPromises.delete(name);
-    } catch (e) {
+    } catch {
       // If the existing promise failed, remove it so we can retry
       dbPromises.delete(name);
     }

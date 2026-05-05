@@ -24,28 +24,30 @@ export class UserSettingsRepository {
 
   async update(id = 'current', settings: Partial<UserSettingsDTO>): Promise<UserSettingsDTO> {
     const existing = await this.db.userSettings.findOne(id).exec();
-    
+
     if (!existing) {
       const timestamps = createAuditTimestamps();
-      const doc = UserSettingsMapper.toDocument({
+      const newSettings: UserSettingsDTO = {
         id,
         showFullEventList: false,
         ...settings,
         ...timestamps,
-      } as UserSettingsDTO);
+      };
+      const doc = UserSettingsMapper.toDocument(newSettings);
       const inserted = await this.db.userSettings.insert(doc);
       return UserSettingsMapper.toDto(inserted.toJSON());
     }
 
-    const existingDoc = existing.toJSON();
-    const merged = UserSettingsMapper.toDocument({
-      ...existingDoc,
-      ...(settings as any),
+    const existingDto = UserSettingsMapper.toDto(existing.toJSON());
+    const updatedDto: UserSettingsDTO = {
+      ...existingDto,
+      ...settings,
       id,
       updatedAt: createUpdatedAt(),
-    });
+    };
 
-    const updated = await this.db.userSettings.upsert(merged);
+    const doc = UserSettingsMapper.toDocument(updatedDto);
+    const updated = await this.db.userSettings.upsert(doc);
     return UserSettingsMapper.toDto(updated.toJSON());
   }
 }
