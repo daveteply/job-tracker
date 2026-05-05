@@ -205,7 +205,6 @@
     "expand": "Expandir",
     "collapse": "Contraer"
   },
-
   "Reminders": {
     "listTitle": "Recordatorios",
     "addReminder": "Agregar Recordatorio",
@@ -256,6 +255,7 @@
     "actionEmailReceived": "Recibió correo / respuesta",
     "actionScheduledInterview": "Entrevista programada",
     "actionInterviewCompleted": "Entrevista finalizada",
+    "actionRejectionReceived": "Rechazo recibido",
     "actionNotSelected": "No seleccionado",
     "actionNetworkingChat": "Networking / Café virtual",
     "toggleMenu": "Alternar menú"
@@ -274,7 +274,7 @@
       "NotSelected": "No seleccionado",
       "Not Selected": "No seleccionado",
       "Withdrawn": "Retirado",
-      "Ghosted": "Ghosted"
+      "Ghosted": "Sin respuesta (Ghosted)"
     },
     "EventCategoryType": {
       "Application": "Postulación",
@@ -313,6 +313,8 @@
     "interviewCompleted": "Entrevista finalizada",
     "offerReceived": "Oferta recibida",
     "offerAccepted": "Oferta aceptada",
+    "rejected": "Rechazado",
+    "rejectionReceived": "Rechazo recibido",
     "notSelected": "No seleccionado",
     "notSelectedReceived": "No seleccionado",
     "withdrewApplication": "Postulación retirada",
@@ -371,10 +373,6 @@
     "title": "Vaya, esto es un poco incómodo.",
     "description": "Algo no salió como planeamos de nuestro lado. Por favor, inténtalo de nuevo en unos segundos.",
     "tryAgain": "Intentar de nuevo",
-    "backHome": "Volver al Inicio"
-  }
-}
-,
     "backHome": "Volver al Inicio"
   }
 }

@@ -255,6 +255,7 @@
     "actionEmailReceived": "Received Email / Response",
     "actionScheduledInterview": "Scheduled Interview",
     "actionInterviewCompleted": "Completed Interview",
+    "actionRejectionReceived": "Received Rejection",
     "actionNotSelected": "Not Selected",
     "actionNetworkingChat": "Networking / Coffee Chat",
     "toggleMenu": "Toggle menu"
@@ -313,6 +314,8 @@
     "interviewCompleted": "Interview Completed",
     "offerReceived": "Offer Received",
     "offerAccepted": "Offer Accepted",
+    "rejected": "Rejected",
+    "rejectionReceived": "Rejection Received",
     "notSelected": "Not Selected",
     "notSelectedReceived": "Not Selected",
     "withdrewApplication": "Withdrew Application",
@@ -371,10 +374,6 @@
     "title": "Well, this is awkward.",
     "description": "Something didn't go as planned on our end. Please try again in a few seconds.",
     "tryAgain": "Try again",
-    "backHome": "Back to Home"
-  }
-}
-again",
     "backHome": "Back to Home"
   }
 }
