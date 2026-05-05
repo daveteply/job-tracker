@@ -18,7 +18,7 @@ export default function ReminderDeletePage({ params }: { params: Promise<{ id: s
   if (!reminder) return <div>{t('reminderNotFound')}</div>;
 
   return (
-    <>
+    <div className="mx-auto max-w-2xl">
       <div className="mb-6">
         <h1 className="px-1 text-2xl font-bold">{t('deleteReminder')}</h1>
       </div>
@@ -36,6 +36,6 @@ export default function ReminderDeletePage({ params }: { params: Promise<{ id: s
           error: tCommon('deleteError', { name: t('reminderEntityName') }),
         }}
       />
-    </>
+    </div>
   );
 }

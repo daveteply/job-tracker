@@ -19,7 +19,7 @@ export default function RoleDetailsPage({ params }: { params: Promise<{ id: stri
   if (!role) return <div>{t('roleNotFound')}</div>;
 
   return (
-    <>
+    <div className="mx-auto max-w-2xl">
       <div className="mb-6 flex items-center">
         <h1 className="px-1 text-2xl font-bold">{t('roleDetails')}</h1>
         <Link
@@ -38,18 +38,13 @@ export default function RoleDetailsPage({ params }: { params: Promise<{ id: stri
         </Link>
       </div>
 
-      <RoleInfoCard
-        role={role}
-        events={role.events}
-        showControls={false}
-        showChevron={false}
-      />
+      <RoleInfoCard role={role} events={role.events} showControls={false} showChevron={false} />
 
       <div className="mt-5">
         <Link className="btn" href="/roles">
           {t('backToRoles')}
         </Link>
       </div>
-    </>
+    </div>
   );
 }

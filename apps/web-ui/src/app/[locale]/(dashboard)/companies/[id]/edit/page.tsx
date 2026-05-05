@@ -22,7 +22,7 @@ export default function EditCompanyPage({ params }: { params: Promise<{ id: stri
   };
 
   return (
-    <>
+    <div className="mx-auto max-w-2xl">
       <div className="mb-6">
         <h1 className="px-1 text-2xl font-bold">{t('editCompanyTitle', { name: company.name })}</h1>
       </div>
@@ -30,8 +30,8 @@ export default function EditCompanyPage({ params }: { params: Promise<{ id: stri
         onSubmitAction={handleUpdate}
         initialData={company}
         isEdit={true}
-        postActionRoute={'/companies'}
+        postActionRoute={`/companies/${id}`}
       />
-    </>
+    </div>
   );
 }

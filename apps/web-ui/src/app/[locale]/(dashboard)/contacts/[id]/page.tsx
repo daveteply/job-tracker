@@ -19,7 +19,7 @@ export default function ContactDetailsPage({ params }: { params: Promise<{ id: s
   if (!contact) return <div>{t('contactNotFound')}</div>;
 
   return (
-    <>
+    <div className="mx-auto max-w-2xl">
       <div className="mb-6 flex items-center">
         <h1 className="px-1 text-2xl font-bold">{t('contactDetails')}</h1>
         <Link
@@ -45,6 +45,6 @@ export default function ContactDetailsPage({ params }: { params: Promise<{ id: s
           {t('backToContacts')}
         </Link>
       </div>
-    </>
+    </div>
   );
 }

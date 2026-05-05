@@ -40,7 +40,7 @@ export default function EditRolePage({ params }: { params: Promise<{ id: string 
   };
 
   return (
-    <>
+    <div className="mx-auto max-w-2xl">
       <div className="mb-6">
         <h1 className="px-1 text-2xl font-bold">{t('editRoleTitle', { title: role.title })}</h1>
       </div>
@@ -55,6 +55,6 @@ export default function EditRolePage({ params }: { params: Promise<{ id: string 
           createCompanyLabel={(name) => t('formCreateCompany', { name })}
         />
       }
-    </>
+    </div>
   );
 }

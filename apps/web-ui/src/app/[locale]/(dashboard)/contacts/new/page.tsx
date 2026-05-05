@@ -11,7 +11,7 @@ export default function CreateContactPage() {
   const { searchCompanies } = useCompanySearch();
 
   return (
-    <>
+    <div className="mx-auto max-w-2xl">
       <div className="mb-6">
         <h1 className="px-1 text-2xl font-bold">{t('newContactTitle')}</h1>
       </div>
@@ -23,6 +23,6 @@ export default function CreateContactPage() {
         companyPlaceholder={t('formPlaceholder')}
         createCompanyLabel={(name) => t('formCreateCompany', { name })}
       />
-    </>
+    </div>
   );
 }

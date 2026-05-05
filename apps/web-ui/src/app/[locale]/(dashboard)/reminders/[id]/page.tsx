@@ -19,7 +19,7 @@ export default function ReminderDetailPage({ params }: { params: Promise<{ id: s
   if (!reminder) return <div>{t('reminderNotFound')}</div>;
 
   return (
-    <>
+    <div className="mx-auto max-w-2xl">
       <div className="mb-6 flex items-center">
         <h1 className="px-1 text-2xl font-bold">{t('reminderDetails')}</h1>
         <Link
@@ -45,6 +45,6 @@ export default function ReminderDetailPage({ params }: { params: Promise<{ id: s
           {t('backToReminders')}
         </Link>
       </div>
-    </>
+    </div>
   );
 }

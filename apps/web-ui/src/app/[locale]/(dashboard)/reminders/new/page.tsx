@@ -20,7 +20,7 @@ export default function ReminderNewPage() {
   }, [eventId]);
 
   return (
-    <>
+    <div className="mx-auto max-w-2xl">
       <div className="mb-6">
         <h1 className="px-1 text-2xl font-bold">{t('addReminder')}</h1>
       </div>
@@ -34,6 +34,6 @@ export default function ReminderNewPage() {
         postActionRoute="/reminders"
         initialData={initialData}
       />
-    </>
+    </div>
   );
 }

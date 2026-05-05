@@ -26,7 +26,7 @@ export default function EventDetailsPage({ params }: { params: Promise<{ id: str
   if (!event) return <div>{t('notFound')}</div>;
 
   return (
-    <>
+    <div className="mx-auto max-w-2xl">
       <div className="mb-6 flex items-center">
         <h1 className="px-1 text-2xl font-bold">{t('detailsTitle')}</h1>
         <Link
@@ -145,6 +145,6 @@ export default function EventDetailsPage({ params }: { params: Promise<{ id: str
           {t('backToActivity')}
         </Link>
       </div>
-    </>
+    </div>
   );
 }

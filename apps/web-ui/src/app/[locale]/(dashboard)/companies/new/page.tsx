@@ -10,12 +10,12 @@ export default function CreateCompanyPage() {
   const { upsertCompany } = useCompanyActions();
 
   return (
-    <>
+    <div className="mx-auto max-w-2xl">
       <div className="mb-6">
         <h1 className="px-1 text-2xl font-bold">{t('newCompanyTitle')}</h1>
       </div>
 
       <CompanyForm onSubmitAction={upsertCompany} postActionRoute={'/companies'} />
-    </>
+    </div>
   );
 }

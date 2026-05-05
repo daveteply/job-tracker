@@ -34,7 +34,7 @@ export default function ReminderEditPage({ params }: { params: Promise<{ id: str
   };
 
   return (
-    <>
+    <div className="mx-auto max-w-2xl">
       <div className="mb-6 flex items-center justify-between">
         <h1 className="px-1 text-2xl font-bold">{t('editReminder')}</h1>
         <div className="flex gap-2">
@@ -49,7 +49,7 @@ export default function ReminderEditPage({ params }: { params: Promise<{ id: str
       </div>
 
       {!reminder.completedAt && (
-        <div className="mx-auto mb-6 max-w-md px-1">
+        <div className="mb-6 px-1">
           <button onClick={handleComplete} className="btn btn-outline btn-success w-full gap-2">
             <CheckCircleIcon className="size-5" />
             {t('markAsCompletedLabel')}
@@ -67,6 +67,6 @@ export default function ReminderEditPage({ params }: { params: Promise<{ id: str
         }
         postActionRoute={`/reminders/${id}`}
       />
-    </>
+    </div>
   );
 }

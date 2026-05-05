@@ -22,7 +22,7 @@ export default function DeleteRolePage({ params }: { params: Promise<{ id: strin
   if (!role) return null;
 
   return (
-    <div className="flex flex-col">
+    <div className="mx-auto max-w-2xl flex flex-col">
       <div className="mb-6">
         <h1 className="px-1 text-2xl font-bold">{t('deleteRoleTitle')}</h1>
       </div>

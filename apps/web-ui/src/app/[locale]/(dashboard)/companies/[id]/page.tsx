@@ -22,7 +22,7 @@ export default function CompanyDetailPage({ params }: { params: Promise<{ id: st
   if (!company) return <div>{t('companyNotFound')}</div>;
 
   return (
-    <>
+    <div className="mx-auto max-w-2xl">
       <div className="mb-6 flex items-center">
         <h1 className="px-1 text-2xl font-bold">{t('companyDetails')}</h1>
         <Link
@@ -57,6 +57,6 @@ export default function CompanyDetailPage({ params }: { params: Promise<{ id: st
           {t('backToEvents')}
         </Link>
       </div>
-    </>
+    </div>
   );
 }

@@ -11,7 +11,7 @@ export default function CreateRolePage() {
   const { searchCompanies } = useCompanySearch();
 
   return (
-    <>
+    <div className="mx-auto max-w-2xl">
       <div className="mb-6">
         <h1 className="px-1 text-2xl font-bold">{t('newRoleTitle')}</h1>
       </div>
@@ -23,6 +23,6 @@ export default function CreateRolePage() {
         companyPlaceholder={t('formPlaceholder')}
         createCompanyLabel={(name) => t('formCreateCompany', { name })}
       />
-    </>
+    </div>
   );
 }

@@ -40,7 +40,7 @@ export default function EditContactPage({ params }: { params: Promise<{ id: stri
   };
 
   return (
-    <>
+    <div className="mx-auto max-w-2xl">
       <div className="mb-6">
         <h1 className="px-1 text-2xl font-bold">
           {t('editContactTitle', { firstName: contact.firstName, lastName: contact.lastName })}
@@ -57,6 +57,6 @@ export default function EditContactPage({ params }: { params: Promise<{ id: stri
           createCompanyLabel={(name) => t('formCreateCompany', { name })}
         />
       }
-    </>
+    </div>
   );
 }
