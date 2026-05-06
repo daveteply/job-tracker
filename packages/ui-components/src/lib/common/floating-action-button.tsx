@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import * as HeroIcons from '@heroicons/react/24/outline';
 import { PlusIcon, XMarkIcon } from '@heroicons/react/24/outline';
@@ -17,8 +17,18 @@ export function FloatingActionButton() {
   const actions = useAvailableActions();
   const { isContainerActive } = useFloatingUI();
   const [isOpen, setIsOpen] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
   const pathname = usePathname();
   const params = useParams();
+
+  useEffect(() => {
+    if (isOpen) {
+      const timer = setTimeout(() => setIsAnimating(true), 10);
+      return () => clearTimeout(timer);
+    }
+    setIsAnimating(false);
+    return undefined;
+  }, [isOpen]);
 
   // Determine context based on current route
   const contextParams = useMemo(() => {
@@ -60,8 +70,13 @@ export function FloatingActionButton() {
     <div className="fixed right-5 bottom-15 z-50 flex flex-col items-end gap-3 xl:right-[calc(50%-640px+24px)]">
       {/* Speed Dial Menu Items */}
       {isOpen && (
-        <div className="animate-in fade-in slide-in-from-bottom-4 mb-2 flex flex-col items-end gap-3 duration-200">
-          <div className="flex items-center gap-3">
+        <div className="mb-2 flex flex-col items-end gap-3">
+          <div
+            className={`flex items-center gap-3 transition-all duration-300 ease-out ${
+              isAnimating ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
+            }`}
+            style={{ transitionDelay: `${actions.length * 40}ms` }}
+          >
             <span className="bg-base-100 text-base-content rounded-md px-2 py-1 text-sm font-medium shadow-sm">
               {t('newEvent')}
             </span>
@@ -75,10 +90,16 @@ export function FloatingActionButton() {
             </Link>
           </div>
 
-          {actions.map((action) => {
+          {actions.map((action, index) => {
             const Icon = HeroIcons[action.iconName as keyof typeof HeroIcons];
             return (
-              <div key={action.id} className="flex items-center gap-3">
+              <div
+                key={action.id}
+                className={`flex items-center gap-3 transition-all duration-300 ease-out ${
+                  isAnimating ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
+                }`}
+                style={{ transitionDelay: `${(actions.length - 1 - index) * 40}ms` }}
+              >
                 <span className="bg-base-100 text-base-content rounded-md px-2 py-1 text-sm font-medium shadow-sm">
                   {t(action.nameKey)}
                 </span>
