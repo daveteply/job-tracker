@@ -3,12 +3,14 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
 
 import { SyncIndicator } from './sync-indicator';
 
 export function AuthMenu() {
   const { data: session, status } = useSession();
   const pathname = usePathname();
+  const t = useTranslations('Navigation');
 
   if (status === 'loading') {
     return (
@@ -51,8 +53,11 @@ export function AuthMenu() {
             </li>
             <div className="divider my-0"></div>
             <li>
+              <Link href="/settings">{t('settings')}</Link>
+            </li>
+            <li>
               <button onClick={() => signOut()} className="text-error">
-                Sign out
+                {t('signOut')}
               </button>
             </li>
           </ul>
@@ -67,7 +72,7 @@ export function AuthMenu() {
         href={`/auth/signin?callbackUrl=${encodeURIComponent(pathname || '/')}`}
         className="btn btn-ghost btn-sm border-white text-white"
       >
-        Sign In
+        {t('signIn')}
       </Link>
     </div>
   );

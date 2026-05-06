@@ -1,6 +1,6 @@
 {
   "Common": {
-    "title": "Rastreador de Empleo",
+    "title": "Job Tracker",
     "cancel": "Cancelar",
     "create": "Crear",
     "update": "Actualizar",
@@ -8,13 +8,13 @@
     "database": "Base de datos",
     "deleteReminder": "Recordatorio: Esta acción no se puede deshacer",
     "deleteAction": "Eliminar {name}",
-    "deleteSuccess": "¡{name} eliminado con éxito!",
+    "deleteSuccess": "¡{name} eliminado exitosamente!",
     "deleteError": "No se pudo eliminar {name}",
     "Loading": {
       "0": "Cargando {entityName}",
-      "1": "Redirigiendo satélites para {entityName}",
+      "1": "Reruteando satélites para {entityName}",
       "2": "Preparando café para {entityName}",
-      "3": "Persiguiendo a {entityName} por la manzana",
+      "3": "Persiguiendo a {entityName} por la cuadra",
       "4": "Puliendo los píxeles de {entityName}",
       "5": "Enseñando a {entityName} a traer la pelota",
       "count": "6"
@@ -22,8 +22,8 @@
   },
   "IndexPage": {
     "title": "Job Tracker",
-    "description": "Job Tracker es una herramienta de seguimiento para quienes buscan empleo. ¡Ponte en camino hacia tu próximo trabajo ideal!",
-    "dashboardButton": "Ir a mi Panel de Empleos"
+    "description": "Job Tracker es una herramienta de seguimiento para buscadores de empleo. ¡Vamos a ponerte en camino hacia tu próximo trabajo ideal!",
+    "dashboardButton": "Ir a mi Dashboard de Empleos"
   },
   "HomePage": {
     "welcome": "¡Bienvenido a Job Tracker!",
@@ -44,6 +44,10 @@
     "signInWithFacebook": "Iniciar sesión con Facebook",
     "secureAuthentication": "Autenticación Segura",
     "termsAndPrivacy": "Al continuar, aceptas nuestros Términos de Servicio y Política de Privacidad."
+  },
+  "UserSettings": {
+    "title": "Configuración de usuario",
+    "description": "Administra la configuración y preferencias de tu cuenta."
   },
   "DashboardLayout": {
     "title": "Job Tracker"
@@ -252,6 +256,9 @@
     "new": "Nuevo",
     "edit": "Editar",
     "delete": "Eliminar",
+    "settings": "Configuración",
+    "signOut": "Cerrar sesión",
+    "signIn": "Iniciar sesión",
     "newEvent": "Nuevo evento",
     "actionAppliedToRole": "Postulado a un Rol",
     "actionRecruiterOutreach": "Recibió contacto de reclutador",

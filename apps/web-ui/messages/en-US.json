@@ -45,6 +45,10 @@
     "secureAuthentication": "Secure Authentication",
     "termsAndPrivacy": "By continuing, you agree to our Terms of Service and Privacy Policy."
   },
+  "UserSettings": {
+    "title": "User Settings",
+    "description": "Manage your account settings and preferences."
+  },
   "DashboardLayout": {
     "title": "Job Tracker"
   },
@@ -252,6 +256,9 @@
     "new": "New",
     "edit": "Edit",
     "delete": "Delete",
+    "settings": "Settings",
+    "signOut": "Sign Out",
+    "signIn": "Sign In",
     "newEvent": "New Event",
     "actionAppliedToRole": "Applied to a Role",
     "actionRecruiterOutreach": "Received Recruiter Outreach",
