@@ -6,9 +6,9 @@ import { PlusIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
-import { RoleStatus } from '@job-tracker/domain';
 import {
   useEventsWithChildren,
+  useGroupedRoles,
   useRemindersWithChildren,
   useRolesWithEvents,
   useUserSettings,
@@ -24,6 +24,7 @@ export default function HomePage() {
   const { events, loading: loadingEvents } = useEventsWithChildren();
   const { roles, loading: loadingRoles } = useRolesWithEvents();
   const { settings, updateSettings } = useUserSettings();
+  const { pipeline: activeRoles } = useGroupedRoles(roles);
 
   const showFullEvents = settings?.showFullEventList ?? false;
 
@@ -40,16 +41,6 @@ export default function HomePage() {
   const recentEvents = useMemo(() => {
     return [...events].sort((a, b) => b.occurredAt.getTime() - a.occurredAt.getTime()).slice(0, 5);
   }, [events]);
-
-  const activeRoles = useMemo(() => {
-    const activeStatuses = [
-      RoleStatus.Lead,
-      RoleStatus.Applied,
-      RoleStatus.Interviewing,
-      RoleStatus.Offer,
-    ];
-    return roles.filter((r) => activeStatuses.includes(r.status));
-  }, [roles]);
 
   const isEmpty = useMemo(() => {
     return (
@@ -126,13 +117,22 @@ export default function HomePage() {
       </section>
 
       <section>
-        <h2 className="mb-4 px-1 text-xl font-bold">{t('activeRoles')}</h2>
+        <div className="mb-4 flex items-center justify-between px-1">
+          <h2 className="text-xl font-bold">{t('activeRoles')}</h2>
+          <Link href="/roles" className="btn btn-ghost btn-sm text-primary gap-1 px-2">
+            {t('seeAllRoles')}
+          </Link>
+        </div>
         {loadingRoles ? (
           <div className="flex justify-center p-4">
             <span className="loading loading-spinner loading-md"></span>
           </div>
         ) : (
-          <RoleList roles={activeRoles} showFull={false} noRolesMessage={t('noActiveRoles')} />
+          <RoleList
+            activeRoles={activeRoles}
+            showFull={false}
+            noRolesMessage={t('noActiveRoles')}
+          />
         )}
       </section>
     </div>

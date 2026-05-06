@@ -30,6 +30,7 @@ export class UserSettingsRepository {
       const newSettings: UserSettingsDTO = {
         id,
         showFullEventList: false,
+        showInactiveRoles: false,
         ...settings,
         ...timestamps,
       };

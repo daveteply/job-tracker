@@ -36,25 +36,39 @@ describe('UserSettingsRepository', () => {
       const mockDoc = {
         id: 'current',
         showFullEventList: true,
-        toJSON: () => ({ id: 'current', showFullEventList: true }),
+        showInactiveRoles: false,
+        toJSON: () => ({
+          id: 'current',
+          showFullEventList: true,
+          showInactiveRoles: false,
+        }),
       };
       mockDb.userSettings.findOne.mockReturnValue({ $: of(mockDoc) });
       const result = await firstValueFrom(repository.get$());
-      expect(result).toEqual({ id: 'current', showFullEventList: true });
+      expect(result).toEqual({
+        id: 'current',
+        showFullEventList: true,
+        showInactiveRoles: false,
+      });
     });
   });
 
   describe('update', () => {
     it('should create new settings if they do not exist', async () => {
-      mockDb.userSettings.findOne.mockReturnValue({ exec: jest.fn().mockResolvedValue(null) });
+      mockDb.userSettings.findOne.mockReturnValue({
+        exec: jest.fn().mockResolvedValue(null),
+      });
       mockDb.userSettings.insert.mockImplementation((doc: unknown) =>
         Promise.resolve({ toJSON: () => doc }),
       );
 
-      const result = await repository.update('current', { showFullEventList: true });
+      const result = await repository.update('current', {
+        showFullEventList: true,
+      });
 
       expect(mockDb.userSettings.insert).toHaveBeenCalled();
       expect(result.showFullEventList).toBe(true);
+      expect(result.showInactiveRoles).toBe(false);
       expect(result.id).toBe('current');
     });
 
@@ -62,7 +76,12 @@ describe('UserSettingsRepository', () => {
       const existingDoc = {
         id: 'current',
         showFullEventList: false,
-        toJSON: () => ({ id: 'current', showFullEventList: false }),
+        showInactiveRoles: false,
+        toJSON: () => ({
+          id: 'current',
+          showFullEventList: false,
+          showInactiveRoles: false,
+        }),
       };
       mockDb.userSettings.findOne.mockReturnValue({
         exec: jest.fn().mockResolvedValue(existingDoc),
@@ -71,7 +90,9 @@ describe('UserSettingsRepository', () => {
         Promise.resolve({ toJSON: () => doc }),
       );
 
-      const result = await repository.update('current', { showFullEventList: true });
+      const result = await repository.update('current', {
+        showFullEventList: true,
+      });
 
       expect(mockDb.userSettings.upsert).toHaveBeenCalled();
       expect(result.showFullEventList).toBe(true);

@@ -3,7 +3,7 @@
 import { PlusCircleIcon } from '@heroicons/react/16/solid';
 import { useTranslations } from 'next-intl';
 
-import { useRolesWithEvents } from '@job-tracker/hooks';
+import { useGroupedRoles, useRolesWithEvents } from '@job-tracker/hooks';
 import { PageLoading, RoleList } from '@job-tracker/ui-components';
 
 import { Link } from '../../../../i18n/routing';
@@ -11,6 +11,7 @@ import { Link } from '../../../../i18n/routing';
 export default function RoleListPage() {
   const t = useTranslations('Roles');
   const { roles, loading } = useRolesWithEvents();
+  const { active, inactive } = useGroupedRoles(roles);
 
   // This is the job pipeline view.
 
@@ -26,7 +27,7 @@ export default function RoleListPage() {
         </Link>
       </div>
 
-      <RoleList roles={roles} />
+      <RoleList activeRoles={active} inactiveRoles={inactive} />
     </>
   );
 }

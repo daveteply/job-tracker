@@ -32,7 +32,8 @@
     "reminders": "Reminders",
     "recentActivity": "Recent Activity",
     "activeRoles": "Active Roles",
-    "noActiveRoles": "No active roles"
+    "noActiveRoles": "No active roles",
+    "seeAllRoles": "See All Roles"
   },
   "SignInPage": {
     "welcomeBack": "Welcome Back",
@@ -60,6 +61,7 @@
     "roleNotFound": "Role not found",
     "deleteBlocker": "This Role is associated with {events} Event(s) and cannot be deleted",
     "backToEvents": "Back to Events",
+    "inactiveRoles": "Inactive Roles",
     "roleEntityName": "role",
     "rolesEntityName": "roles",
     "formPlaceholder": "Search or type new role title",

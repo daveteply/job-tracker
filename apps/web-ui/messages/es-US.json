@@ -32,7 +32,8 @@
     "reminders": "Recordatorios",
     "recentActivity": "Actividad Reciente",
     "activeRoles": "Roles Activos",
-    "noActiveRoles": "No hay roles activos"
+    "noActiveRoles": "No hay roles activos",
+    "seeAllRoles": "Ver todos los roles"
   },
   "SignInPage": {
     "welcomeBack": "Bienvenido de nuevo",
@@ -60,6 +61,7 @@
     "roleNotFound": "Rol no encontrado",
     "deleteBlocker": "Este Rol está asociado con {events} Evento(s) y no se puede eliminar",
     "backToEvents": "Volver a Eventos",
+    "inactiveRoles": "Roles Inactivos",
     "roleEntityName": "rol",
     "rolesEntityName": "roles",
     "formPlaceholder": "Buscar o escribir el título del nuevo rol",

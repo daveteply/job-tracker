@@ -7,6 +7,7 @@ export class UserSettingsMapper {
     return {
       id: doc.id,
       showFullEventList: doc.showFullEventList,
+      showInactiveRoles: doc.showInactiveRoles,
       updatedAt: doc.updatedAt,
       createdAt: doc.createdAt,
     };
@@ -16,6 +17,7 @@ export class UserSettingsMapper {
     return {
       id: dto.id,
       showFullEventList: dto.showFullEventList,
+      showInactiveRoles: dto.showInactiveRoles,
       updatedAt: dto.updatedAt,
       createdAt: dto.createdAt,
     };

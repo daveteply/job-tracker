@@ -8,6 +8,12 @@ import { type EntitySelection, resolveCompanyId } from '@job-tracker/app-logic';
 import { EMPTY_DELETION_BLOCKERS } from '@job-tracker/app-logic';
 import { CompanyRepository, DeletionCheck, RoleRepository, useDb } from '@job-tracker/data-access';
 import {
+  ACTIVE_STATUSES,
+  INACTIVE_STATUSES,
+  PIPELINE_STATUSES,
+  RoleStatus,
+} from '@job-tracker/domain';
+import {
   CompanyDTO,
   RoleDTO,
   RoleWithCompanyDTO,
@@ -16,6 +22,31 @@ import {
 
 import { useEventRepository } from './event-hooks';
 import { useObservable } from './use-observable';
+
+export { ACTIVE_STATUSES, INACTIVE_STATUSES, PIPELINE_STATUSES, RoleStatus };
+
+export function useRoleStatusGroups() {
+  return useMemo(
+    () => ({
+      active: ACTIVE_STATUSES,
+      inactive: INACTIVE_STATUSES,
+      pipeline: PIPELINE_STATUSES,
+    }),
+    [],
+  );
+}
+
+export function useGroupedRoles(roles: RoleWithEventsDTO[]) {
+  const { inactive: inactiveStatuses, pipeline: pipelineStatuses } = useRoleStatusGroups();
+
+  return useMemo(() => {
+    const active = roles.filter((role) => !inactiveStatuses.includes(role.status));
+    const inactive = roles.filter((role) => inactiveStatuses.includes(role.status));
+    const pipeline = roles.filter((role) => pipelineStatuses.includes(role.status));
+
+    return { active, inactive, pipeline };
+  }, [roles, inactiveStatuses, pipelineStatuses]);
+}
 
 export function useRoleRepository() {
   const db = useDb();

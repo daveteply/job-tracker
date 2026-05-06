@@ -8,3 +8,24 @@ export enum RoleStatus {
   Withdrawn = 'Withdrawn',
   Ghosted = 'Ghosted',
 }
+
+export const INACTIVE_STATUSES = [
+  RoleStatus.NotSelected,
+  RoleStatus.Withdrawn,
+  RoleStatus.Ghosted,
+];
+
+export const ACTIVE_STATUSES = [
+  RoleStatus.Lead,
+  RoleStatus.Applied,
+  RoleStatus.Interviewing,
+  RoleStatus.Offer,
+  RoleStatus.Accepted,
+];
+
+export const PIPELINE_STATUSES = [
+  RoleStatus.Lead,
+  RoleStatus.Applied,
+  RoleStatus.Interviewing,
+  RoleStatus.Offer,
+];

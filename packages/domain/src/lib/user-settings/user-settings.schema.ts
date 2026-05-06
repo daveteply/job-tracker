@@ -12,8 +12,9 @@ export const UserSettingsSchema: RxJsonSchema<UserSettingsEntity> = {
   properties: {
     id: { type: 'string', maxLength: 36 },
     showFullEventList: { type: 'boolean', default: false },
+    showInactiveRoles: { type: 'boolean', default: false },
     updatedAt: { type: 'string', format: 'date-time', maxLength: 30 },
     createdAt: { type: 'string', format: 'date-time', maxLength: 30 },
   },
-  required: ['id', 'showFullEventList'],
+  required: ['id', 'showFullEventList', 'showInactiveRoles'],
 };
