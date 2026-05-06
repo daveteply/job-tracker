@@ -6,6 +6,7 @@ import { combineLatest, map } from 'rxjs';
 
 import { EMPTY_DELETION_BLOCKERS } from '@job-tracker/app-logic';
 import { CompanyRepository, DeletionCheck, useDb } from '@job-tracker/data-access';
+import { INACTIVE_STATUSES } from '@job-tracker/domain';
 import { CompanyDTO, CompanyWithChildrenDTO } from '@job-tracker/validation';
 
 import { useContactRepository } from './contact-hooks';
@@ -52,6 +53,27 @@ export function useCompanies() {
     companies,
     loading: !repository,
   };
+}
+
+export function useGroupedCompanies(companies: CompanyWithChildrenDTO[]) {
+  return useMemo(() => {
+    const active: CompanyWithChildrenDTO[] = [];
+    const inactive: CompanyWithChildrenDTO[] = [];
+
+    companies.forEach((company) => {
+      const allRoles = company.roles ?? [];
+      const activeRoles = allRoles.filter((role) => !INACTIVE_STATUSES.includes(role.status));
+      const isInactive = allRoles.length > 0 && activeRoles.length === 0;
+
+      if (isInactive) {
+        inactive.push(company);
+      } else {
+        active.push(company);
+      }
+    });
+
+    return { active, inactive };
+  }, [companies]);
 }
 
 export function useCompaniesWithChildren() {

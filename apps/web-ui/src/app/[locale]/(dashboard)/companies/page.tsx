@@ -3,7 +3,7 @@
 import { PlusCircleIcon } from '@heroicons/react/16/solid';
 import { useTranslations } from 'next-intl';
 
-import { useCompaniesWithChildren } from '@job-tracker/hooks';
+import { useCompaniesWithChildren, useGroupedCompanies } from '@job-tracker/hooks';
 import { CompanyList, PageLoading } from '@job-tracker/ui-components';
 
 import { Link } from '../../../../i18n/routing';
@@ -11,6 +11,7 @@ import { Link } from '../../../../i18n/routing';
 export default function CompaniesListPage() {
   const t = useTranslations('Companies');
   const { companies, loading } = useCompaniesWithChildren();
+  const { active, inactive } = useGroupedCompanies(companies);
 
   if (loading) return <PageLoading entityName={t('companiesEntityName')} />;
 
@@ -24,7 +25,7 @@ export default function CompaniesListPage() {
         </Link>
       </div>
 
-      <CompanyList companies={companies} />
+      <CompanyList activeCompanies={active} inactiveCompanies={inactive} />
     </>
   );
 }

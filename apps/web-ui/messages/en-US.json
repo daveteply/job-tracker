@@ -91,6 +91,8 @@
     "deleteBlocker": "This Company is associated with {events} Event(s), {contacts} Contact(s) or {roles} Role(s) and cannot be deleted",
     "companyEntityName": "company",
     "companiesEntityName": "companies",
+    "inactiveCompanies": "Inactive Companies",
+    "inactiveCompaniesDescription": "These companies have no currently active roles.",
     "formName": "Company Name",
     "formWebsite": "Website",
     "formIndustry": "Industry",
