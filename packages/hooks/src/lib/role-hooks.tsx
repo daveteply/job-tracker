@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { combineLatest, firstValueFrom, map } from 'rxjs';
+import { combineLatest, map } from 'rxjs';
 
 import { type EntitySelection, resolveCompanyId } from '@job-tracker/app-logic';
 import { EMPTY_DELETION_BLOCKERS } from '@job-tracker/app-logic';
@@ -65,35 +65,35 @@ export function useRoleWithCompany(id: string) {
     return new CompanyRepository(db);
   }, [db]);
   const eventRepository = useEventRepository();
-  const [data, setData] = useState<RoleWithEventsDTO | null>(null);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (roleRepository && companyRepository && eventRepository && id) {
-      setLoading(true);
+  const roleWithEvents$ = useMemo(() => {
+    if (!roleRepository || !companyRepository || !eventRepository || !id) return undefined;
 
-      roleRepository
-        .getById(id)
-        .then(async (role) => {
-          if (!role) {
-            setData(null);
-            return;
-          }
-
-          const company = role.companyId ? await companyRepository.getById(role.companyId) : null;
-          const events = await firstValueFrom(eventRepository.listByRoleId$(id));
-
-          setData({
-            ...role,
-            company,
-            events,
-          });
-        })
-        .finally(() => setLoading(false));
-    }
+    return combineLatest([
+      roleRepository.getById$(id),
+      companyRepository.list$(),
+      eventRepository.listByRoleId$(id),
+    ]).pipe(
+      map(([role, companies, events]) => {
+        if (!role) return null;
+        const company = role.companyId
+          ? companies.find((c) => c.id === role.companyId) || null
+          : null;
+        return {
+          ...role,
+          company,
+          events,
+        };
+      }),
+    );
   }, [roleRepository, companyRepository, eventRepository, id]);
 
-  return { role: data, loading };
+  const role = useObservable<RoleWithEventsDTO | null>(roleWithEvents$, null);
+
+  return {
+    role,
+    loading: !roleRepository || !companyRepository || !eventRepository || (!!id && !role),
+  };
 }
 
 export function useRolesByCompany(companyId: string) {

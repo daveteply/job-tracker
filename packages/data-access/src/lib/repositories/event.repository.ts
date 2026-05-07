@@ -48,6 +48,12 @@ export class EventRepository {
     return EventMapper.toDto(doc.toJSON());
   }
 
+  getById$(id: string): Observable<EventDTO | null> {
+    return this.db.events
+      .findOne(id)
+      .$.pipe(map((doc) => (doc ? EventMapper.toDto(doc.toJSON()) : null)));
+  }
+
   async create(event: Partial<EventDTO> & { id: string }): Promise<EventDTO> {
     const timestamps = createAuditTimestamps();
     const doc = EventMapper.toDocument({

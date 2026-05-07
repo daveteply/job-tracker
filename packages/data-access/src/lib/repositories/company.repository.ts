@@ -33,6 +33,12 @@ export class CompanyRepository {
     return CompanyMapper.toDto(doc.toJSON());
   }
 
+  getById$(id: string): Observable<CompanyDTO | null> {
+    return this.db.companies
+      .findOne(id)
+      .$.pipe(map((doc) => (doc ? CompanyMapper.toDto(doc.toJSON()) : null)));
+  }
+
   async create(company: Partial<CompanyDTO> & { id: string; name: string }): Promise<CompanyDTO> {
     const timestamps = createAuditTimestamps();
     const doc = CompanyMapper.toDocument({

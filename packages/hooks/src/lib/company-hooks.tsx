@@ -24,20 +24,17 @@ export function useCompanyRepository() {
 
 export function useCompany(id: string) {
   const repository = useCompanyRepository();
-  const [data, setData] = useState<CompanyDTO | null>(null);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (repository && id) {
-      setLoading(true);
-      repository.getById(id).then((res) => {
-        setData(res);
-        setLoading(false);
-      });
-    }
+  const company$ = useMemo(() => {
+    return repository?.getById$(id);
   }, [repository, id]);
 
-  return { company: data, loading };
+  const company = useObservable<CompanyDTO | null>(company$, null);
+
+  return {
+    company,
+    loading: !repository || (!!id && !company),
+  };
 }
 
 export function useCompanies() {

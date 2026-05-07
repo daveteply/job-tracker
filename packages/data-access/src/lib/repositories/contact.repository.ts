@@ -42,6 +42,12 @@ export class ContactRepository {
     return ContactMapper.toDto(doc.toJSON());
   }
 
+  getById$(id: string): Observable<ContactDTO | null> {
+    return this.db.contacts
+      .findOne(id)
+      .$.pipe(map((doc) => (doc ? ContactMapper.toDto(doc.toJSON()) : null)));
+  }
+
   async create(
     contact: Partial<ContactDTO> & { id: string; firstName: string; lastName: string },
   ): Promise<ContactDTO> {

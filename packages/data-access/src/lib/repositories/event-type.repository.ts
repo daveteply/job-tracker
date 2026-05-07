@@ -25,6 +25,12 @@ export class EventTypeRepository {
     return EventTypeMapper.toDto(doc.toJSON());
   }
 
+  getById$(id: string): Observable<EventTypeDTO | null> {
+    return this.db.eventTypes
+      .findOne(id)
+      .$.pipe(map((doc) => (doc ? EventTypeMapper.toDto(doc.toJSON()) : null)));
+  }
+
   async create(eventType: Partial<EventTypeDTO> & { id: string }): Promise<EventTypeDTO> {
     const timestamps = createAuditTimestamps();
     const doc = EventTypeMapper.toDocument({

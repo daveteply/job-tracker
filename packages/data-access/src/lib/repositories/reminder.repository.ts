@@ -33,6 +33,12 @@ export class ReminderRepository {
     return ReminderMapper.toDto(doc.toJSON());
   }
 
+  getById$(id: string): Observable<ReminderDTO | null> {
+    return this.db.reminders
+      .findOne(id)
+      .$.pipe(map((doc) => (doc ? ReminderMapper.toDto(doc.toJSON()) : null)));
+  }
+
   async getByEventId(eventId: string): Promise<ReminderDTO | null> {
     const doc = await this.db.reminders
       .findOne({

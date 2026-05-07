@@ -42,6 +42,12 @@ export class RoleRepository {
     return RoleMapper.toDto(doc.toJSON());
   }
 
+  getById$(id: string): Observable<RoleDTO | null> {
+    return this.db.roles
+      .findOne(id)
+      .$.pipe(map((doc) => (doc ? RoleMapper.toDto(doc.toJSON()) : null)));
+  }
+
   async create(role: Partial<RoleDTO> & { id: string; title: string }): Promise<RoleDTO> {
     const timestamps = createAuditTimestamps();
     const doc = RoleMapper.toDocument({

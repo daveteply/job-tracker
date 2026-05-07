@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
 import { combineLatest, map } from 'rxjs';
 
@@ -32,20 +32,17 @@ export function useReminderRepository() {
 
 export function useReminder(id: string) {
   const repository = useReminderRepository();
-  const [data, setData] = useState<ReminderDTO | null>(null);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (repository && id) {
-      setLoading(true);
-      repository.getById(id).then((res) => {
-        setData(res);
-        setLoading(false);
-      });
-    }
+  const reminder$ = useMemo(() => {
+    return repository?.getById$(id);
   }, [repository, id]);
 
-  return { reminder: data, loading };
+  const reminder = useObservable<ReminderDTO | null>(reminder$, null);
+
+  return {
+    reminder,
+    loading: !repository || (!!id && !reminder),
+  };
 }
 
 export function useReminders() {

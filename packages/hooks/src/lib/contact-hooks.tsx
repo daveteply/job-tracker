@@ -32,37 +32,26 @@ export function useContactWithCompany(id: string) {
     if (!db) return null;
     return new CompanyRepository(db);
   }, [db]);
-  const [data, setData] = useState<ContactWithCompanyDTO | null>(null);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (contactRepository && companyRepository && id) {
-      setLoading(true);
+  const contactWithCompany$ = useMemo(() => {
+    if (!contactRepository || !companyRepository || !id) return undefined;
 
-      contactRepository
-        .getById(id)
-        .then(async (contact) => {
-          if (!contact) {
-            setData(null);
-            return;
-          }
-
-          const company = contact.companyId
-            ? await companyRepository.getById(contact.companyId)
-            : null;
-
-          setData({
-            ...contact,
-            company,
-          });
-        })
-        .finally(() => setLoading(false));
-    }
+    return combineLatest([contactRepository.getById$(id), companyRepository.list$()]).pipe(
+      map(([contact, companies]) => {
+        if (!contact) return null;
+        const company = contact.companyId
+          ? companies.find((c) => c.id === contact.companyId) || null
+          : null;
+        return { ...contact, company };
+      }),
+    );
   }, [contactRepository, companyRepository, id]);
 
+  const contact = useObservable<ContactWithCompanyDTO | null>(contactWithCompany$, null);
+
   return {
-    contact: data,
-    loading,
+    contact,
+    loading: !contactRepository || !companyRepository || (!!id && !contact),
   };
 }
 

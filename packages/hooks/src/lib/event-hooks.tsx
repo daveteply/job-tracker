@@ -1,8 +1,8 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
-import { combineLatest, firstValueFrom, map } from 'rxjs';
+import { combineLatest, map } from 'rxjs';
 
 import { EntitySelection, resolveCompanyId, resolveEntityId } from '@job-tracker/app-logic';
 import {
@@ -67,46 +67,49 @@ export function useEventWithChildren(id: string) {
     return new ReminderRepository(db);
   }, [db]);
 
-  const [data, setData] = useState<EventWithChildrenDTO | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
+  const eventWithChildren$ = useMemo(() => {
     if (
-      eventRepository &&
-      eventTypeRepository &&
-      companyRepository &&
-      contactRepository &&
-      roleRepository &&
-      reminderRepository &&
-      id
+      !eventRepository ||
+      !eventTypeRepository ||
+      !companyRepository ||
+      !contactRepository ||
+      !roleRepository ||
+      !reminderRepository ||
+      !id
     ) {
-      setLoading(true);
-
-      eventRepository
-        .getById(id)
-        .then(async (event) => {
-          if (!event) {
-            setData(null);
-            return;
-          }
-
-          const eventType = await eventTypeRepository.getById(event.eventTypeId);
-          const company = event.companyId ? await companyRepository.getById(event.companyId) : null;
-          const contact = event.contactId ? await contactRepository.getById(event.contactId) : null;
-          const role = event.roleId ? await roleRepository.getById(event.roleId) : null;
-          const reminders = await firstValueFrom(reminderRepository.listByEventId$(event.id));
-
-          setData({
-            ...event,
-            eventType,
-            company,
-            contact,
-            role,
-            reminders,
-          });
-        })
-        .finally(() => setLoading(false));
+      return undefined;
     }
+
+    return combineLatest([
+      eventRepository.getById$(id),
+      eventTypeRepository.list$(),
+      companyRepository.list$(),
+      contactRepository.list$(),
+      roleRepository.list$(),
+      reminderRepository.listByEventId$(id),
+    ]).pipe(
+      map(([event, eventTypes, companies, contacts, roles, reminders]) => {
+        if (!event) return null;
+
+        const eventType = eventTypes.find((et) => et.id === event.eventTypeId) || null;
+        const company = event.companyId
+          ? companies.find((c) => c.id === event.companyId) || null
+          : null;
+        const contact = event.contactId
+          ? contacts.find((c) => c.id === event.contactId) || null
+          : null;
+        const role = event.roleId ? roles.find((r) => r.id === event.roleId) || null : null;
+
+        return {
+          ...event,
+          eventType,
+          company,
+          contact,
+          role,
+          reminders,
+        };
+      }),
+    );
   }, [
     eventRepository,
     eventTypeRepository,
@@ -117,7 +120,12 @@ export function useEventWithChildren(id: string) {
     id,
   ]);
 
-  return { event: data, loading };
+  const event = useObservable<EventWithChildrenDTO | null>(eventWithChildren$, null);
+
+  return {
+    event,
+    loading: !eventRepository || !eventTypeRepository || (!!id && !event),
+  };
 }
 
 export function useEventsWithChildren() {
