@@ -2,13 +2,9 @@
 
 import { useEffect, useState } from 'react';
 
-import {
-  ArrowLeftOnRectangleIcon,
-  ArrowRightOnRectangleIcon,
-  Bars3Icon,
-  Cog8ToothIcon,
-} from '@heroicons/react/24/outline';
+import { ArrowLeftOnRectangleIcon, ArrowRightOnRectangleIcon, Bars3Icon, Cog8ToothIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 
@@ -24,6 +20,7 @@ export interface HeaderProps {
 export function Header({ title, iconSrc, homeHref = '/home' }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
   const { data: session } = useSession();
+  const pathname = usePathname();
   const t = useTranslations('Navigation');
 
   useEffect(() => {
@@ -97,7 +94,7 @@ export function Header({ title, iconSrc, homeHref = '/home' }: HeaderProps) {
                 </>
               ) : (
                 <li>
-                  <Link href="/auth/signin">
+                  <Link href={`/auth/signin?callbackUrl=${encodeURIComponent(pathname || '/')}`}>
                     <ArrowRightOnRectangleIcon className="h-5 w-5" />
                     {t('signIn')}
                   </Link>
