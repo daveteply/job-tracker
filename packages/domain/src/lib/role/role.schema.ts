@@ -31,5 +31,5 @@ export const RoleSchema: RxJsonSchema<RoleEntity> = {
     createdAt: { type: 'string', format: 'date-time', maxLength: 30 },
   },
   required: ['id', 'title', 'companyId', 'search'],
-  indexes: ['companyId', 'search'],
+  indexes: ['companyId', 'search', 'title'],
 };

@@ -16,8 +16,8 @@ export const EventTypeSchema: RxJsonSchema<EventTypeEntity> = {
     id: { type: 'string', maxLength: 36 },
     serverId: { type: ['number', 'null'] },
 
-    name: { type: 'string' },
-    translationKey: { type: 'string' },
+    name: { type: 'string', maxLength: 100 },
+    translationKey: { type: 'string', maxLength: 100 },
     category: { type: 'string', enum: Object.values(EventCategoryType) }, // Application, Interview, etc.
     targetStatus: { type: ['string', 'null'], enum: [...Object.values(RoleStatus), null] },
     isSystemDefined: { type: 'boolean' },
@@ -27,4 +27,5 @@ export const EventTypeSchema: RxJsonSchema<EventTypeEntity> = {
     createdAt: { type: 'string', format: 'date-time', maxLength: 30 },
   },
   required: ['id', 'name', 'category', 'isSystemDefined', 'isCommon'],
+  indexes: ['name'],
 };

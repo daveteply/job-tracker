@@ -22,5 +22,6 @@ export const ReminderSchema: RxJsonSchema<ReminderEntity> = {
     updatedAt: { type: 'string', format: 'date-time', maxLength: 30 },
     createdAt: { type: 'string', format: 'date-time', maxLength: 30 },
   },
-  required: ['id', 'remindAt'],
+  required: ['id', 'remindAt', 'eventId'],
+  indexes: ['remindAt', 'eventId'],
 };

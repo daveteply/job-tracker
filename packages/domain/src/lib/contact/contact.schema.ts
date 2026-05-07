@@ -30,5 +30,5 @@ export const ContactSchema: RxJsonSchema<ContactEntity> = {
     createdAt: { type: 'string', format: 'date-time', maxLength: 30 },
   },
   required: ['id', 'firstName', 'lastName', 'companyId', 'search'],
-  indexes: ['companyId', 'search'],
+  indexes: ['companyId', 'search', 'lastName', 'firstName'],
 };

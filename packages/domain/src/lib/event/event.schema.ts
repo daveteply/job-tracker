@@ -41,6 +41,7 @@ export const EventSchema: RxJsonSchema<EventEntity> = {
     'companyId',
     'contactId',
     'roleId',
+    'updatedAt',
   ],
-  indexes: ['companyId', 'contactId', 'roleId', 'occurredAt'],
+  indexes: ['companyId', 'contactId', 'roleId', 'occurredAt', 'updatedAt'],
 };
