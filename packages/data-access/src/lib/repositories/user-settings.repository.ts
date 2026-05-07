@@ -9,7 +9,7 @@ import { UserSettingsMapper } from '../mappers/user-settings.mapper';
 export class UserSettingsRepository {
   constructor(private readonly db: TrackerDatabase) {}
 
-  get$(id = 'current'): Observable<UserSettingsDTO | null> {
+  getById$(id = 'current'): Observable<UserSettingsDTO | null> {
     return this.db.userSettings
       .findOne(id)
       .$.pipe(map((doc) => (doc ? UserSettingsMapper.toDto(doc.toJSON()) : null)));

@@ -20,7 +20,7 @@ export function useUserSettings() {
   const repository = useUserSettingsRepository();
 
   const settings$ = useMemo(() => {
-    return repository?.get$();
+    return repository?.getById$();
   }, [repository]);
 
   const settings = useObservable<UserSettingsDTO | null>(settings$, null);
