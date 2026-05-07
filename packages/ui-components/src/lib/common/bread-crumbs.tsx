@@ -10,6 +10,7 @@ import {
   useCompany,
   useContactWithCompany,
   useEventWithChildren,
+  useReminder,
   useRoleWithCompany,
 } from '@job-tracker/hooks';
 
@@ -54,6 +55,12 @@ function EventLabel({ id, fallback }: { id: string; fallback: React.ReactNode })
   return `${eventName} (${event.source}, ${event.occurredAt.toLocaleDateString()})`;
 }
 
+function ReminderLabel({ id, fallback }: { id: string; fallback: React.ReactNode }) {
+  const { reminder, loading } = useReminder(id);
+  if (loading || !reminder) return fallback;
+  return reminder.remindAt.toLocaleDateString();
+}
+
 const ENTITY_LABEL_MAP: Record<
   string,
   React.ComponentType<{ id: string; fallback: React.ReactNode }>
@@ -62,6 +69,7 @@ const ENTITY_LABEL_MAP: Record<
   contacts: ContactLabel,
   roles: RoleLabel,
   events: EventLabel,
+  reminders: ReminderLabel,
 };
 
 function EntityLabel({
