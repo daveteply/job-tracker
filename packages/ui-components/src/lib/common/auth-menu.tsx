@@ -5,8 +5,6 @@ import { usePathname } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 
-import { SyncIndicator } from './sync-indicator';
-
 export function AuthMenu() {
   const { data: session, status } = useSession();
   const pathname = usePathname();
@@ -24,7 +22,6 @@ export function AuthMenu() {
   if (session) {
     return (
       <div className="flex items-center gap-4">
-        <SyncIndicator />
         <div className="dropdown dropdown-end">
           <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar border-white">
             <div className="w-10 rounded-full">
