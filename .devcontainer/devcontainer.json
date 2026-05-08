@@ -5,9 +5,6 @@
   "workspaceFolder": "/workspace",
   "remoteUser": "vscode",
   "features": {
-    "ghcr.io/devcontainers/features/java:1": {
-      "version": "21"
-    },
     "ghcr.io/devcontainers/features/node:1": {
       "version": "24"
     },
@@ -22,8 +19,6 @@
         "nrwl.angular-console",
         "esbenp.prettier-vscode",
         "dbaeumer.vscode-eslint",
-        "vscjava.vscode-java-pack",
-        "vmware.vscode-spring-boot",
         "ms-playwright.playwright",
         "firsttris.vscode-jest-runner",
         "ms-azuretools.vscode-containers",

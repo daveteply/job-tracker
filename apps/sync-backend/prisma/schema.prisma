@@ -1,0 +1,26 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model SyncEvent {
+  id             String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId         String   @map("user_id")
+  eventOp        String   @map("event_op")
+  documentId     String   @map("document_id")
+  collectionName String   @map("collection_name")
+  payload        Json
+  version        Int
+  serverTimestamp BigInt  @default(dbgenerated("(extract(epoch from now()) * 1000)::bigint")) @map("server_timestamp")
+
+  @@index([userId, collectionName, serverTimestamp], name: "idx_user_collection_timestamp")
+  @@index([documentId], name: "idx_doc_id")
+  @@map("sync_events")
+}

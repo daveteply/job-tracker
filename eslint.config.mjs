@@ -15,6 +15,7 @@ export default [
       '**/node_modules',
       '**/vite.config.*.timestamp*',
       '**/vitest.config.*.timestamp*',
+      '**/apps/sync-backend/src/generated/**',
     ],
   },
   {
