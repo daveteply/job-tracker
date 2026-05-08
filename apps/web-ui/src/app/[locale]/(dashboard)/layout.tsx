@@ -16,7 +16,7 @@ export default async function DashboardLayout({
   return (
     <div className="flex min-h-screen flex-col pb-14">
       <Header title={t('title')} iconSrc="/favicon-32x32.png" />
-      <nav className="bg-accent-content px-4">
+      <nav className="bg-base-200 text-base-content/70 px-4">
         <div className="mx-auto max-w-screen-xl">
           <Breadcrumbs />
         </div>
