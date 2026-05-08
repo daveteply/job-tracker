@@ -11,6 +11,7 @@ import { FloatingUIProvider, PageLoading, ToastProvider } from '@job-tracker/ui-
 import { LocaleGate } from './[locale]/locale-gate';
 import { PostHogAuthHandler } from './analytics/posthog-auth-handler';
 import { PostHogProvider } from './analytics/posthog-provider';
+import { ThemeHandler } from './theme-handler';
 
 function DatabaseLoading() {
   const t = useTranslations('Common');
@@ -25,6 +26,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
         <DatabaseProvider>
           <DatabaseGate fallback={<DatabaseLoading />}>
             <LocaleGate>
+              <ThemeHandler />
               <ToastProvider>
                 <FloatingUIProvider>{children}</FloatingUIProvider>
               </ToastProvider>

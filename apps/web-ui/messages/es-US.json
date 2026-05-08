@@ -50,7 +50,11 @@
     "title": "Configuración",
     "description": "Administra la configuración y preferencias.",
     "languageTitle": "Idioma",
-    "applyLanguage": "Aplicar cambios de idioma"
+    "applyLanguage": "Aplicar cambios de idioma",
+    "appearanceTitle": "Apariencia",
+    "appearanceLight": "Claro",
+    "appearanceDark": "Oscuro",
+    "appearanceSystem": "Ajustes del dispositivo"
   },
   "Languages": {
     "en-US": "English",

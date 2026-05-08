@@ -50,7 +50,11 @@
     "title": "Settings",
     "description": "Manage settings and preferences.",
     "languageTitle": "Language",
-    "applyLanguage": "Apply Language Changes"
+    "applyLanguage": "Apply Language Changes",
+    "appearanceTitle": "Appearance",
+    "appearanceLight": "Light",
+    "appearanceDark": "Dark",
+    "appearanceSystem": "Use Device Settings"
   },
   "Languages": {
     "en-US": "English",

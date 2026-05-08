@@ -66,6 +66,41 @@ export default function SettingsPage({ params }: { params: Promise<{ locale: str
           </div>
         </div>
       </div>
+
+      <div className="card border-base-300 bg-base-100 border shadow-xl">
+        <div className="card-body">
+          <h2 className="card-title mb-4 text-xl">{t('appearanceTitle')}</h2>
+          <div className="join">
+            <button
+              className={`btn join-item btn-sm ${
+                settings?.appearance === 'light' ? 'btn-active btn-primary' : ''
+              }`}
+              onClick={() => updateSettings({ appearance: 'light' })}
+              disabled={isLoading}
+            >
+              {t('appearanceLight')}
+            </button>
+            <button
+              className={`btn join-item btn-sm ${
+                settings?.appearance === 'dark' ? 'btn-active btn-primary' : ''
+              }`}
+              onClick={() => updateSettings({ appearance: 'dark' })}
+              disabled={isLoading}
+            >
+              {t('appearanceDark')}
+            </button>
+            <button
+              className={`btn join-item btn-sm ${
+                settings?.appearance === 'system' ? 'btn-active btn-primary' : ''
+              }`}
+              onClick={() => updateSettings({ appearance: 'system' })}
+              disabled={isLoading}
+            >
+              {t('appearanceSystem')}
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

@@ -25,10 +25,10 @@ describe('UserSettingsRepository', () => {
     repository = new UserSettingsRepository(mockDb as unknown as TrackerDatabase);
   });
 
-  describe('get$', () => {
+  describe('getById$', () => {
     it('should return null if settings not found', async () => {
       mockDb.userSettings.findOne.mockReturnValue({ $: of(null) });
-      const result = await firstValueFrom(repository.get$());
+      const result = await firstValueFrom(repository.getById$());
       expect(result).toBeNull();
     });
 
@@ -37,18 +37,24 @@ describe('UserSettingsRepository', () => {
         id: 'current',
         showFullEventList: true,
         showInactiveRoles: false,
+        locale: 'en-US',
+        appearance: 'light',
         toJSON: () => ({
           id: 'current',
           showFullEventList: true,
           showInactiveRoles: false,
+          locale: 'en-US',
+          appearance: 'light',
         }),
       };
       mockDb.userSettings.findOne.mockReturnValue({ $: of(mockDoc) });
-      const result = await firstValueFrom(repository.get$());
+      const result = await firstValueFrom(repository.getById$());
       expect(result).toEqual({
         id: 'current',
         showFullEventList: true,
         showInactiveRoles: false,
+        locale: 'en-US',
+        appearance: 'light',
       });
     });
   });
@@ -69,6 +75,8 @@ describe('UserSettingsRepository', () => {
       expect(mockDb.userSettings.insert).toHaveBeenCalled();
       expect(result.showFullEventList).toBe(true);
       expect(result.showInactiveRoles).toBe(false);
+      expect(result.locale).toBe('en-US');
+      expect(result.appearance).toBe('light');
       expect(result.id).toBe('current');
     });
 
@@ -77,10 +85,14 @@ describe('UserSettingsRepository', () => {
         id: 'current',
         showFullEventList: false,
         showInactiveRoles: false,
+        locale: 'en-US',
+        appearance: 'light',
         toJSON: () => ({
           id: 'current',
           showFullEventList: false,
           showInactiveRoles: false,
+          locale: 'en-US',
+          appearance: 'light',
         }),
       };
       mockDb.userSettings.findOne.mockReturnValue({
@@ -96,6 +108,8 @@ describe('UserSettingsRepository', () => {
 
       expect(mockDb.userSettings.upsert).toHaveBeenCalled();
       expect(result.showFullEventList).toBe(true);
+      expect(result.locale).toBe('en-US');
+      expect(result.appearance).toBe('light');
     });
   });
 });
