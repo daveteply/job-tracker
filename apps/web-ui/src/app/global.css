@@ -4,8 +4,7 @@
 @plugin 'daisyui' {
   themes:
     light --default,
-    dark --prefersdark,
-    cupcake;
+    dark --prefersdark;
 }
 
 @layer base {

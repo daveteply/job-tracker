@@ -18,12 +18,12 @@ export function PageLoading({ entityName }: { entityName: string }) {
   const displayIndex = randomIndex ?? 0;
 
   return (
-    <div className="bg-base-100/50 absolute inset-0 z-50 flex items-center justify-center backdrop-blur-none">
-      <div>
-        <span className="mr-2 capitalize" suppressHydrationWarning>
+    <div className="absolute inset-0 z-50 flex items-center justify-center">
+      <div className="flex flex-col items-center gap-4 text-center">
+        <span className="loading loading-bars loading-lg text-primary"></span>
+        <span className="text-base-content text-lg font-medium capitalize" suppressHydrationWarning>
           {t(displayIndex.toString(), { entityName })}
         </span>
-        <span className="loading loading-bars loading-xs text-primary"></span>
       </div>
     </div>
   );

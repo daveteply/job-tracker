@@ -28,7 +28,7 @@ export class UserSettingsRepository {
 
     return this.update(id, {
       locale: 'en-US',
-      appearance: 'light',
+      appearance: 'system',
       showFullEventList: false,
       showInactiveRoles: false,
     });
@@ -51,7 +51,7 @@ export class UserSettingsRepository {
         showFullEventList: false,
         showInactiveRoles: false,
         locale: 'en-US',
-        appearance: 'light',
+        appearance: 'system',
         ...settings,
         ...timestamps,
       };

@@ -38,13 +38,13 @@ describe('UserSettingsRepository', () => {
         showFullEventList: true,
         showInactiveRoles: false,
         locale: 'en-US',
-        appearance: 'light',
+        appearance: 'system',
         toJSON: () => ({
           id: 'current',
           showFullEventList: true,
           showInactiveRoles: false,
           locale: 'en-US',
-          appearance: 'light',
+          appearance: 'system',
         }),
       };
       mockDb.userSettings.findOne.mockReturnValue({ $: of(mockDoc) });
@@ -54,7 +54,7 @@ describe('UserSettingsRepository', () => {
         showFullEventList: true,
         showInactiveRoles: false,
         locale: 'en-US',
-        appearance: 'light',
+        appearance: 'system',
       });
     });
   });
@@ -76,7 +76,7 @@ describe('UserSettingsRepository', () => {
       expect(result.showFullEventList).toBe(true);
       expect(result.showInactiveRoles).toBe(false);
       expect(result.locale).toBe('en-US');
-      expect(result.appearance).toBe('light');
+      expect(result.appearance).toBe('system');
       expect(result.id).toBe('current');
     });
 
@@ -86,13 +86,13 @@ describe('UserSettingsRepository', () => {
         showFullEventList: false,
         showInactiveRoles: false,
         locale: 'en-US',
-        appearance: 'light',
+        appearance: 'system',
         toJSON: () => ({
           id: 'current',
           showFullEventList: false,
           showInactiveRoles: false,
           locale: 'en-US',
-          appearance: 'light',
+          appearance: 'system',
         }),
       };
       mockDb.userSettings.findOne.mockReturnValue({
@@ -109,7 +109,7 @@ describe('UserSettingsRepository', () => {
       expect(mockDb.userSettings.upsert).toHaveBeenCalled();
       expect(result.showFullEventList).toBe(true);
       expect(result.locale).toBe('en-US');
-      expect(result.appearance).toBe('light');
+      expect(result.appearance).toBe('system');
     });
   });
 });

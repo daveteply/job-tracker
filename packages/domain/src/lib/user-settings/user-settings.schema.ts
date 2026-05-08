@@ -17,7 +17,7 @@ export const UserSettingsSchema: RxJsonSchema<UserSettingsEntity> = {
     appearance: {
       type: 'string',
       enum: ['light', 'dark', 'system'],
-      default: 'light',
+      default: 'system',
     },
     updatedAt: { type: 'string', format: 'date-time', maxLength: 30 },
     createdAt: { type: 'string', format: 'date-time', maxLength: 30 },

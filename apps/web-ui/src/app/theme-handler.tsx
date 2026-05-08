@@ -15,7 +15,22 @@ export function ThemeHandler() {
 
     const applyTheme = (theme: 'light' | 'dark') => {
       root.setAttribute('data-theme', theme);
+
+      // Update PWA theme-color meta tag to match the user's selected theme
+      const color = theme === 'light' ? '#ffffff' : '#1d232a';
+      let meta = document.querySelector('meta[name="theme-color"]');
+
+      if (!meta) {
+        meta = document.createElement('meta');
+        meta.setAttribute('name', 'theme-color');
+        document.head.appendChild(meta);
+      }
+
+      meta.setAttribute('content', color);
     };
+
+
+    let cleanup: (() => void) | undefined;
 
     if (appearance === 'system') {
       const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
@@ -25,10 +40,12 @@ export function ThemeHandler() {
 
       handleChange(mediaQuery);
       mediaQuery.addEventListener('change', handleChange);
-      return () => mediaQuery.removeEventListener('change', handleChange);
+      cleanup = () => mediaQuery.removeEventListener('change', handleChange);
     } else {
       applyTheme(appearance);
     }
+
+    return cleanup;
   }, [settings?.appearance]);
 
   return null;

@@ -142,7 +142,7 @@ export async function initRxDatabase(name: string): Promise<TrackerDatabase> {
               },
               // 2: Add appearance field
               2: (oldDoc: any) => {
-                oldDoc.appearance = 'light';
+                oldDoc.appearance = 'system';
                 return oldDoc;
               },
             },
@@ -164,7 +164,7 @@ export async function initRxDatabase(name: string): Promise<TrackerDatabase> {
           showFullEventList: false,
           showInactiveRoles: false,
           locale: 'en-US',
-          appearance: 'light',
+          appearance: 'system',
           createdAt: now,
           updatedAt: now,
         });
