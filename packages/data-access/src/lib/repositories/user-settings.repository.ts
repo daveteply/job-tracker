@@ -10,9 +10,27 @@ export class UserSettingsRepository {
   constructor(private readonly db: TrackerDatabase) {}
 
   getById$(id = 'current'): Observable<UserSettingsDTO | null> {
-    return this.db.userSettings
-      .findOne(id)
-      .$.pipe(map((doc) => (doc ? UserSettingsMapper.toDto(doc.toJSON()) : null)));
+    return this.db.userSettings.findOne(id).$.pipe(
+      map((doc) => {
+        if (doc) {
+          return UserSettingsMapper.toDto(doc.toJSON());
+        }
+        // If no document exists yet, we don't want the UI to hang in isLoading forever.
+        // We'll return null here, but we should ensure the hook or the repo handles the 'first run' case.
+        return null;
+      }),
+    );
+  }
+
+  async ensureDefaultSettings(id = 'current'): Promise<UserSettingsDTO> {
+    const existing = await this.getById(id);
+    if (existing) return existing;
+
+    return this.update(id, {
+      locale: 'en-US',
+      showFullEventList: false,
+      showInactiveRoles: false,
+    });
   }
 
   async getById(id = 'current'): Promise<UserSettingsDTO | null> {
@@ -31,6 +49,7 @@ export class UserSettingsRepository {
         id,
         showFullEventList: false,
         showInactiveRoles: false,
+        locale: 'en-US',
         ...settings,
         ...timestamps,
       };

@@ -2,6 +2,7 @@ import { addRxPlugin, createRxDatabase, RxCollection, RxDatabase, RxStorage } fr
 import { disableWarnings, RxDBDevModePlugin } from 'rxdb/plugins/dev-mode';
 import { RxDBJsonDumpPlugin } from 'rxdb/plugins/json-dump';
 import { RxDBLeaderElectionPlugin } from 'rxdb/plugins/leader-election';
+import { RxDBMigrationSchemaPlugin } from 'rxdb/plugins/migration-schema';
 import { getRxStorageDexie } from 'rxdb/plugins/storage-dexie';
 import { wrappedValidateAjvStorage } from 'rxdb/plugins/validate-ajv';
 
@@ -15,31 +16,23 @@ import {
   UserSettingsSchema,
 } from '@job-tracker/domain';
 
-import { CompanyDocument } from './documents/company.document';
-import { ContactDocument } from './documents/contact.document';
-import { EventDocument } from './documents/event.document';
-import { EventTypeDocument } from './documents/event-type.document';
-import { ReminderDocument } from './documents/reminder.document';
-import { RoleDocument } from './documents/role.document';
 import { UserSettingsDocument } from './documents/user-settings.document';
 import { seedEventTypes } from './seed-data';
 
-// Truly global state using globalThis to handle module re-evaluation
 interface GlobalRxDB {
   __rxdb_plugins_added?: boolean;
   __rxdb_storage?: RxStorage<unknown, unknown>;
   __rxdb_promises?: Map<string, Promise<TrackerDatabase>>;
 }
 
-const _global = (typeof globalThis !== 'undefined'
-  ? globalThis
-  : typeof window !== 'undefined'
-    ? window
-    : global) as unknown as GlobalRxDB;
+const _global = (typeof window !== 'undefined'
+  ? window
+  : global) as unknown as GlobalRxDB;
 
 // Add plugins only once
 if (!_global.__rxdb_plugins_added) {
   addRxPlugin(RxDBLeaderElectionPlugin);
+  addRxPlugin(RxDBMigrationSchemaPlugin);
   addRxPlugin(RxDBJsonDumpPlugin);
 
   // Add dev mode in development
@@ -48,33 +41,30 @@ if (!_global.__rxdb_plugins_added) {
     addRxPlugin(RxDBDevModePlugin);
   } else {
     // In production, we silence the RxDB Open Core nag message.
-    // This warning is intended to boost premium sales but can be distracting in production logs.
-    const originalWarn = console.warn;
-    console.warn = (...args: unknown[]) => {
+    const originalConsoleWarn = console.warn;
+    console.warn = (...args) => {
       const firstArg = args[0];
       if (typeof firstArg === 'string' && firstArg.includes('RxDB Open Core RxStorage')) {
         return;
       }
-      originalWarn.apply(console, args);
+      originalConsoleWarn.apply(console, args);
     };
   }
   _global.__rxdb_plugins_added = true;
 }
 
-export function getStorage(): RxStorage<unknown, unknown> {
+export function getStorage(): RxStorage<any, any> {
   if (!_global.__rxdb_storage) {
-    const isDev = process.env.NODE_ENV === 'development';
     const baseStorage = getRxStorageDexie();
-
     if (!baseStorage) {
       throw new Error('[DB] Critical: getRxStorageDexie() returned undefined.');
     }
 
-    if (isDev && typeof wrappedValidateAjvStorage === 'function') {
+    if (process.env['NODE_ENV'] === 'development') {
       try {
         _global.__rxdb_storage = wrappedValidateAjvStorage({ storage: baseStorage });
-      } catch (e) {
-        console.error('[DB] Failed to wrap storage with AJV:', e);
+      } catch (err) {
+        console.error('[DB] Failed to wrap storage with AJV validation:', err);
         _global.__rxdb_storage = baseStorage;
       }
     } else {
@@ -84,35 +74,28 @@ export function getStorage(): RxStorage<unknown, unknown> {
   return _global.__rxdb_storage;
 }
 
-// Cache for database promises
 if (!_global.__rxdb_promises) {
   _global.__rxdb_promises = new Map<string, Promise<TrackerDatabase>>();
 }
 const dbPromises: Map<string, Promise<TrackerDatabase>> = _global.__rxdb_promises;
 
-export type CompanyCollection = RxCollection<CompanyDocument>;
-export type ContactCollection = RxCollection<ContactDocument>;
-export type RoleCollection = RxCollection<RoleDocument>;
-export type EventCollection = RxCollection<EventDocument>;
-export type EventTypeCollection = RxCollection<EventTypeDocument>;
-export type ReminderCollection = RxCollection<ReminderDocument>;
 export type UserSettingsCollection = RxCollection<UserSettingsDocument>;
 
 export interface TrackerCollections {
-  companies: CompanyCollection;
-  contacts: ContactCollection;
-  roles: RoleCollection;
-  events: EventCollection;
-  eventTypes: EventTypeCollection;
-  reminders: ReminderCollection;
+  companies: RxCollection<any>;
+  contacts: RxCollection<any>;
+  roles: RxCollection<any>;
+  events: RxCollection<any>;
+  eventTypes: RxCollection<any>;
+  reminders: RxCollection<any>;
   userSettings: UserSettingsCollection;
 }
 
 export type TrackerDatabase = RxDatabase<TrackerCollections>;
 
 /**
- * Initializes a new RxDatabase instance with all collections.
- * Uses a global promise cache and singleton storage to prevent DB9 errors.
+ * Gets or creates an RxDatabase instance for the given name.
+ * Uses a promise cache to ensure only one instance is created per name.
  */
 export async function initRxDatabase(name: string): Promise<TrackerDatabase> {
   const existingPromise = dbPromises.get(name);
@@ -120,12 +103,10 @@ export async function initRxDatabase(name: string): Promise<TrackerDatabase> {
     try {
       const db = await existingPromise;
       if (!db.closed) {
-        return existingPromise;
+        return db;
       }
-      // If it's closed, remove it from cache and proceed to create a new one
       dbPromises.delete(name);
-    } catch {
-      // If the existing promise failed, remove it so we can retry
+    } catch (err) {
       dbPromises.delete(name);
     }
   }
@@ -151,7 +132,16 @@ export async function initRxDatabase(name: string): Promise<TrackerDatabase> {
           events: { schema: EventSchema },
           eventTypes: { schema: EventTypeSchema },
           reminders: { schema: ReminderSchema },
-          userSettings: { schema: UserSettingsSchema },
+          userSettings: {
+            schema: UserSettingsSchema,
+            migrationStrategies: {
+              // 1: Add locale field
+              1: (oldDoc: any) => {
+                oldDoc.locale = 'en-US';
+                return oldDoc;
+              },
+            },
+          },
         });
       }
 
@@ -159,6 +149,19 @@ export async function initRxDatabase(name: string): Promise<TrackerDatabase> {
       const eventTypeCount = await db.eventTypes.count().exec();
       if (eventTypeCount === 0) {
         await db.eventTypes.bulkInsert(seedEventTypes);
+      }
+
+      const settingsCount = await db.userSettings.count().exec();
+      if (settingsCount === 0) {
+        const now = new Date().toISOString();
+        await db.userSettings.insert({
+          id: 'current',
+          showFullEventList: false,
+          showInactiveRoles: false,
+          locale: 'en-US',
+          createdAt: now,
+          updatedAt: now,
+        });
       }
 
       // If the database is closed, remove it from the cache

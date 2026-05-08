@@ -4,6 +4,7 @@ export const UserSettingsSchema = z.object({
   id: z.string(),
   showFullEventList: z.boolean(),
   showInactiveRoles: z.boolean(),
+  locale: z.string(),
   updatedAt: z.string().optional(),
   createdAt: z.string().optional(),
 });

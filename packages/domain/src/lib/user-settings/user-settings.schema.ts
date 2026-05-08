@@ -2,7 +2,7 @@ import { RxJsonSchema } from 'rxdb';
 
 import { UserSettingsEntity } from './user-settings.entity';
 
-const USER_SETTINGS_SCHEMA_VERSION = 0;
+const USER_SETTINGS_SCHEMA_VERSION = 1;
 
 export const UserSettingsSchema: RxJsonSchema<UserSettingsEntity> = {
   title: 'user settings schema',
@@ -13,8 +13,9 @@ export const UserSettingsSchema: RxJsonSchema<UserSettingsEntity> = {
     id: { type: 'string', maxLength: 36 },
     showFullEventList: { type: 'boolean', default: false },
     showInactiveRoles: { type: 'boolean', default: false },
+    locale: { type: 'string', maxLength: 10, default: 'en-US' },
     updatedAt: { type: 'string', format: 'date-time', maxLength: 30 },
     createdAt: { type: 'string', format: 'date-time', maxLength: 30 },
   },
-  required: ['id', 'showFullEventList', 'showInactiveRoles'],
+  required: ['id', 'showFullEventList', 'showInactiveRoles', 'locale'],
 };

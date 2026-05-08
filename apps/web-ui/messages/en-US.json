@@ -4,6 +4,7 @@
     "cancel": "Cancel",
     "create": "Create",
     "update": "Update",
+    "save": "Save Changes",
     "required": "Required",
     "database": "Database",
     "deleteReminder": "Reminder: This action cannot be undone",
@@ -46,8 +47,14 @@
     "termsAndPrivacy": "By continuing, you agree to our Terms of Service and Privacy Policy."
   },
   "UserSettings": {
-    "title": "User Settings",
-    "description": "Manage your account settings and preferences."
+    "title": "Settings",
+    "description": "Manage settings and preferences.",
+    "languageTitle": "Language",
+    "applyLanguage": "Apply Language Changes"
+  },
+  "Languages": {
+    "en-US": "English",
+    "es-US": "Español"
   },
   "DashboardLayout": {
     "title": "Job Tracker"

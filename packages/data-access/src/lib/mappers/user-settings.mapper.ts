@@ -8,6 +8,7 @@ export class UserSettingsMapper {
       id: doc.id,
       showFullEventList: doc.showFullEventList,
       showInactiveRoles: doc.showInactiveRoles,
+      locale: doc.locale,
       updatedAt: doc.updatedAt,
       createdAt: doc.createdAt,
     };
@@ -18,6 +19,7 @@ export class UserSettingsMapper {
       id: dto.id,
       showFullEventList: dto.showFullEventList,
       showInactiveRoles: dto.showInactiveRoles,
+      locale: dto.locale,
       updatedAt: dto.updatedAt,
       createdAt: dto.createdAt,
     };

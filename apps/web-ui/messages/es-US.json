@@ -4,6 +4,7 @@
     "cancel": "Cancelar",
     "create": "Crear",
     "update": "Actualizar",
+    "save": "Guardar cambios",
     "required": "Requerido",
     "database": "Base de datos",
     "deleteReminder": "Recordatorio: Esta acción no se puede deshacer",
@@ -46,8 +47,14 @@
     "termsAndPrivacy": "Al continuar, aceptas nuestros Términos de Servicio y Política de Privacidad."
   },
   "UserSettings": {
-    "title": "Configuración de usuario",
-    "description": "Administra la configuración y preferencias de tu cuenta."
+    "title": "Configuración",
+    "description": "Administra la configuración y preferencias.",
+    "languageTitle": "Idioma",
+    "applyLanguage": "Aplicar cambios de idioma"
+  },
+  "Languages": {
+    "en-US": "English",
+    "es-US": "Español"
   },
   "DashboardLayout": {
     "title": "Job Tracker"
