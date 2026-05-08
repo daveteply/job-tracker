@@ -8,6 +8,7 @@ import { useTranslations } from 'next-intl';
 import { DatabaseGate, DatabaseProvider } from '@job-tracker/data-access';
 import { FloatingUIProvider, PageLoading, ToastProvider } from '@job-tracker/ui-components';
 
+import { LocaleGate } from './[locale]/locale-gate';
 import { PostHogAuthHandler } from './analytics/posthog-auth-handler';
 import { PostHogProvider } from './analytics/posthog-provider';
 
@@ -23,9 +24,11 @@ export function Providers({ children }: { children: React.ReactNode }) {
         <PostHogAuthHandler />
         <DatabaseProvider>
           <DatabaseGate fallback={<DatabaseLoading />}>
-            <ToastProvider>
-              <FloatingUIProvider>{children}</FloatingUIProvider>
-            </ToastProvider>
+            <LocaleGate>
+              <ToastProvider>
+                <FloatingUIProvider>{children}</FloatingUIProvider>
+              </ToastProvider>
+            </LocaleGate>
           </DatabaseGate>
         </DatabaseProvider>
       </SessionProvider>

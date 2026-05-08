@@ -12,6 +12,9 @@ export const metadata: Metadata = {
   title: 'Job Tracker',
   description: 'Track your career journey',
   manifest: '/site.webmanifest',
+  other: {
+    google: 'notranslate',
+  },
 };
 
 export const viewport: Viewport = {
@@ -50,9 +53,9 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} suppressHydrationWarning>
+    <html lang={locale} translate="no" suppressHydrationWarning>
       <body className="bg-base-100 text-base-content min-h-screen font-sans antialiased">
-        <NextIntlClientProvider messages={messages}>
+        <NextIntlClientProvider locale={locale} messages={messages}>
           <Providers>{children}</Providers>
         </NextIntlClientProvider>
       </body>
