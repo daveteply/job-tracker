@@ -13,7 +13,7 @@ export function AuthMenu() {
   if (status === 'loading') {
     return (
       <div className="flex items-center gap-2">
-        <span className="loading loading-spinner loading-xs text-white"></span>
+        <span className="loading loading-spinner loading-xs text-primary-content"></span>
         <span className="text-sm">...</span>
       </div>
     );
@@ -23,7 +23,11 @@ export function AuthMenu() {
     return (
       <div className="flex items-center gap-4">
         <div className="dropdown dropdown-end">
-          <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar border-white">
+          <div
+            tabIndex={0}
+            role="button"
+            className="btn btn-ghost btn-circle avatar border-primary-content/20"
+          >
             <div className="w-10 rounded-full">
               {session.user?.image ? (
                 <img
@@ -32,7 +36,7 @@ export function AuthMenu() {
                   referrerPolicy="no-referrer"
                 />
               ) : (
-                <div className="flex h-full w-full items-center justify-center bg-blue-500 font-bold text-white">
+                <div className="bg-neutral text-neutral-content flex h-full w-full items-center justify-center font-bold">
                   {session.user?.name?.[0] ?? '?'}
                 </div>
               )}
@@ -45,7 +49,7 @@ export function AuthMenu() {
             <li>
               <div className="flex flex-col items-start px-2 py-1">
                 <span className="font-bold">{session.user?.name}</span>
-                <span className="text-xs text-gray-500">{session.user?.email}</span>
+                <span className="text-base-content/60 text-xs">{session.user?.email}</span>
               </div>
             </li>
             <div className="divider my-0"></div>
@@ -67,7 +71,7 @@ export function AuthMenu() {
     <div className="flex gap-2">
       <Link
         href={`/auth/signin?callbackUrl=${encodeURIComponent(pathname || '/')}`}
-        className="btn btn-ghost btn-sm border-white text-white"
+        className="btn btn-ghost btn-sm border-primary-content/20 text-primary-content"
       >
         {t('signIn')}
       </Link>

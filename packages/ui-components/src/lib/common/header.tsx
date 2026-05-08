@@ -33,7 +33,7 @@ export function Header({ title, iconSrc, homeHref = '/home' }: HeaderProps) {
 
   return (
     <header
-      className={`sticky top-0 z-50 bg-blue-600 p-4 text-white transition-shadow duration-300 ${
+      className={`sticky top-0 z-50 bg-primary p-4 text-primary-content transition-shadow duration-300 ${
         scrolled ? 'shadow-lg' : 'shadow-none'
       }`}
     >
@@ -49,7 +49,7 @@ export function Header({ title, iconSrc, homeHref = '/home' }: HeaderProps) {
 
           {/* Desktop Navigation */}
           <div className="hidden items-center gap-4 md:flex">
-            <Link href="/settings" className="btn btn-ghost btn-sm text-white">
+            <Link href="/settings" className="btn btn-ghost btn-sm text-primary-content">
               <Cog8ToothIcon className="mr-1 h-5 w-5" />
               {t('settings')}
             </Link>
@@ -61,7 +61,7 @@ export function Header({ title, iconSrc, homeHref = '/home' }: HeaderProps) {
             <div
               tabIndex={0}
               role="button"
-              className="btn btn-ghost btn-sm p-1 text-white"
+              className="btn btn-ghost btn-sm p-1 text-primary-content"
               aria-label={t('toggleMenu')}
             >
               <Bars3Icon className="h-6 w-6" />

@@ -7,6 +7,11 @@
     dark --prefersdark;
 }
 
+@theme {
+  --color-facebook: #1877f2;
+  --color-facebook-hover: #166fe5;
+}
+
 @layer base {
   :root {
     color-scheme: light dark;

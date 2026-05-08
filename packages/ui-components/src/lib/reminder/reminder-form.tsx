@@ -88,7 +88,7 @@ export function ReminderForm({
     const error = errors[name];
     if (!error || !error.message) return null;
     return (
-      <p className="text-red-600">
+      <p className="text-error">
         <span>{tValidation(error.message.toString() as any)}</span>
       </p>
     );

@@ -88,7 +88,7 @@ export function RoleForm<T extends FieldValues>({
 
     if (!error || !error.message) return null;
     return (
-      <p className="text-red-600">
+      <p className="text-error">
         {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
         <span>{tValidation(error.message.toString() as any)}</span>
       </p>

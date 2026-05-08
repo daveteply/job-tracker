@@ -34,7 +34,7 @@ function SignInContent() {
         <div className="mt-8 space-y-4">
           <button
             onClick={() => signIn('google', { callbackUrl })}
-            className="group relative flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none"
+            className="group relative flex w-full justify-center rounded-md border border-base-300 bg-base-100 px-4 py-3 text-sm font-medium text-base-content shadow-sm transition-colors hover:bg-base-200 focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:outline-none"
           >
             <div className="absolute left-4 flex items-center">
               <img src="/auth/google.svg" alt="Google Logo" className="h-5 w-5" />
@@ -44,7 +44,7 @@ function SignInContent() {
 
           <button
             onClick={() => signIn('facebook', { callbackUrl })}
-            className="group relative flex w-full justify-center rounded-md border border-transparent bg-[#1877F2] px-4 py-3 text-sm font-medium text-white shadow-sm transition-colors hover:bg-[#166fe5] focus:ring-2 focus:ring-[#1877F2] focus:ring-offset-2 focus:outline-none"
+            className="group relative flex w-full justify-center rounded-md border border-transparent bg-facebook px-4 py-3 text-sm font-medium text-white shadow-sm transition-colors hover:bg-facebook-hover focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:outline-none"
           >
             <div className="absolute left-4 flex items-center">
               <img src="/auth/facebook.svg" alt="Facebook Logo" className="h-5 w-5" />
