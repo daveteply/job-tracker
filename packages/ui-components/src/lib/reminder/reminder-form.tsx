@@ -10,8 +10,8 @@ import { useTranslations } from 'next-intl';
 
 import { ReminderInput, ReminderInputSchema, ReminderUpdateSchema } from '@job-tracker/validation';
 
-import { FloatingButtonContainer } from '../common/floating-button-container';
-import { useToast } from '../common/toast-context';
+import { useToast } from '../common/feedback/toast-context';
+import { FloatingButtonContainer } from '../common/layout/floating-button-container';
 
 interface ReminderFormProps {
   onSubmitAction: (data: ReminderInput) => Promise<{ success: boolean; message: string }>;

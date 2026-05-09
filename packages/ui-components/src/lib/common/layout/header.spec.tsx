@@ -5,7 +5,7 @@ import { useSession } from 'next-auth/react';
 import { Header } from './header';
 
 // Mock SyncIndicator
-jest.mock('./sync-indicator', () => ({
+jest.mock('../feedback/sync-indicator', () => ({
   SyncIndicator: () => <div data-testid="sync-indicator">SyncIndicator</div>,
 }));
 

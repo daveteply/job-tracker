@@ -19,9 +19,9 @@ import {
   RoleDTO,
 } from '@job-tracker/validation';
 
-import { EnumSelector } from '../common/enum-selector';
-import { FloatingButtonContainer } from '../common/floating-button-container';
-import { useToast } from '../common/toast-context';
+import { useToast } from '../common/feedback/toast-context';
+import { EnumSelector } from '../common/forms/enum-selector';
+import { FloatingButtonContainer } from '../common/layout/floating-button-container';
 import CompanyCombobox from '../company/company-combobox';
 import ContactCombobox from '../contact/contact-combobox';
 import EventTypeSelect from '../event-type/event-type-select';

@@ -2,7 +2,7 @@
 
 import { EventTypeDTO } from '@job-tracker/validation';
 
-import BaseInfoCard from '../common/base-info-card';
+import BaseInfoCard from '../common/data-display/base-info-card';
 
 export interface EventTypeCardProps {
   eventType: EventTypeDTO;

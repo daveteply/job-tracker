@@ -7,8 +7,8 @@ import { INACTIVE_STATUSES } from '@job-tracker/domain';
 import { useUserSettings } from '@job-tracker/hooks';
 import { CompanyDTO, ContactDTO, RoleDTO } from '@job-tracker/validation';
 
-import BaseInfoCard from '../common/base-info-card';
-import ExternalLink from '../common/external-link';
+import BaseInfoCard from '../common/data-display/base-info-card';
+import ExternalLink from '../common/data-display/external-link';
 
 export interface CompanyCardProps {
   company: CompanyDTO;

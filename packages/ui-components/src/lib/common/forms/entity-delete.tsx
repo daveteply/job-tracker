@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
-import { useToast } from './toast-context';
+import { useToast } from '../feedback/toast-context';
 
 export interface EntityDeleteTranslations {
   reminder: string;

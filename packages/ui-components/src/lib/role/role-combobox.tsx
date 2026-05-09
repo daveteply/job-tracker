@@ -4,8 +4,8 @@ import { Control, FieldValues, Path } from 'react-hook-form';
 
 import { RoleDTO } from '@job-tracker/validation';
 
-import EntityCombobox from '../common/entity-combobox/entity-combobox';
-import { roleComboboxConfig } from '../common/entity-combobox/entity-combobox-config';
+import EntityCombobox from '../common/forms/entity-combobox/entity-combobox';
+import { roleComboboxConfig } from '../common/forms/entity-combobox/entity-combobox-config';
 
 interface RoleComboboxProps<T extends FieldValues> {
   control: Control<T>;

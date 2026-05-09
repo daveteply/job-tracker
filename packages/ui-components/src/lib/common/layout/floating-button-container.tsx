@@ -2,7 +2,7 @@
 
 import { ReactNode, useEffect } from 'react';
 
-import { useFloatingUI } from './floating-ui-context';
+import { useFloatingUI } from '../context/floating-ui-context';
 
 interface FloatingButtonContainerProps {
   children: ReactNode;

@@ -5,8 +5,8 @@ import Link from 'next/link';
 
 import { CompanyDTO, EventDTO, RoleDTO } from '@job-tracker/validation';
 
-import BaseInfoCard from '../common/base-info-card';
-import ExternalLink from '../common/external-link';
+import BaseInfoCard from '../common/data-display/base-info-card';
+import ExternalLink from '../common/data-display/external-link';
 
 export interface RoleCardProps {
   role: RoleDTO & { company?: CompanyDTO | null };

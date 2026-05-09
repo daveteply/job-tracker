@@ -11,9 +11,9 @@ import { useTranslations } from 'next-intl';
 import { RoleStatus } from '@job-tracker/domain';
 import { CompanyDTO, RoleCreateSchema, RoleUpdateSchema } from '@job-tracker/validation';
 
-import EnumSelector from '../common/enum-selector';
-import { FloatingButtonContainer } from '../common/floating-button-container';
-import { useToast } from '../common/toast-context';
+import { useToast } from '../common/feedback/toast-context';
+import EnumSelector from '../common/forms/enum-selector';
+import { FloatingButtonContainer } from '../common/layout/floating-button-container';
 import CompanyCombobox from '../company/company-combobox';
 
 interface RoleFormProps<T extends FieldValues> {

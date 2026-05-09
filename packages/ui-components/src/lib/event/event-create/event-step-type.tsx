@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl';
 
 import { EventTypeDTO } from '@job-tracker/validation';
 
-import PageLoading from '../../common/page-loading';
+import PageLoading from '../../common/feedback/page-loading';
 
 export interface EventStepTypesProps {
   eventTypes: EventTypeDTO[];

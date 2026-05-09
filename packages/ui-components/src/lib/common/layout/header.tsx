@@ -13,8 +13,8 @@ import { usePathname } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 
-import { AuthMenu } from './auth-menu';
-import { SyncIndicator } from './sync-indicator';
+import { AuthMenu } from '../auth/auth-menu';
+import { SyncIndicator } from '../feedback/sync-indicator';
 
 export interface HeaderProps {
   title: string;

@@ -6,9 +6,9 @@ import { useTranslations } from 'next-intl';
 import { DirectionType } from '@job-tracker/domain';
 import { EventWithChildrenDTO } from '@job-tracker/validation';
 
-import BaseInfoCard from '../common/base-info-card';
-import ExternalLink from '../common/external-link';
-import FormattedDate from '../common/formatted-date';
+import BaseInfoCard from '../common/data-display/base-info-card';
+import ExternalLink from '../common/data-display/external-link';
+import FormattedDate from '../common/data-display/formatted-date';
 
 import EventActionMenu from './event-action-menu';
 

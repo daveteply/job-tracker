@@ -10,8 +10,8 @@ import { useTranslations } from 'next-intl';
 
 import { CompanyCreateSchema, CompanyUpdateSchema } from '@job-tracker/validation';
 
-import { FloatingButtonContainer } from '../common/floating-button-container';
-import { useToast } from '../common/toast-context';
+import { useToast } from '../common/feedback/toast-context';
+import { FloatingButtonContainer } from '../common/layout/floating-button-container';
 
 interface CompanyFormProps<T extends FieldValues> {
   onSubmitAction: (data: T) => Promise<{ success: boolean; message: string }>;

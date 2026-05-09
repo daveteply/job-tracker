@@ -10,7 +10,7 @@ import { useTranslations } from 'next-intl';
 
 import { useAvailableActions } from '@job-tracker/hooks';
 
-import { useFloatingUI } from './floating-ui-context';
+import { useFloatingUI } from '../context/floating-ui-context';
 
 export function FloatingActionButton() {
   const t = useTranslations('Navigation');

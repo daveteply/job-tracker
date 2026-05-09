@@ -4,8 +4,8 @@ import { Control, FieldValues, Path } from 'react-hook-form';
 
 import { ContactDTO } from '@job-tracker/validation';
 
-import EntityCombobox from '../common/entity-combobox/entity-combobox';
-import { contactComboboxConfig } from '../common/entity-combobox/entity-combobox-config';
+import EntityCombobox from '../common/forms/entity-combobox/entity-combobox';
+import { contactComboboxConfig } from '../common/forms/entity-combobox/entity-combobox-config';
 
 interface ContactComboboxProps<T extends FieldValues> {
   control: Control<T>;

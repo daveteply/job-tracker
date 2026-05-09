@@ -2,8 +2,8 @@
 
 import { ReminderWithChildrenDTO } from '@job-tracker/validation';
 
-import BaseInfoCard from '../common/base-info-card';
-import FormattedDate from '../common/formatted-date';
+import BaseInfoCard from '../common/data-display/base-info-card';
+import FormattedDate from '../common/data-display/formatted-date';
 
 export interface ReminderCardProps {
   reminder: ReminderWithChildrenDTO;

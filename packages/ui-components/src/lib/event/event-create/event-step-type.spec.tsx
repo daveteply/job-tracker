@@ -17,7 +17,7 @@ jest.mock('next-intl', () => ({
 }));
 
 // Mock PageLoading as it's not relevant for these tests
-jest.mock('../../common/page-loading', () => ({
+jest.mock('../../common/feedback/page-loading', () => ({
   __esModule: true,
   default: () => <div data-testid="page-loading" />,
 }));
