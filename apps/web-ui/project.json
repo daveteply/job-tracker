@@ -5,6 +5,12 @@
   "projectType": "application",
   "tags": [],
   "targets": {
+    "dev": {
+      "command": "next dev -p 3000",
+      "options": {
+        "cwd": "apps/web-ui"
+      }
+    },
     "typecheck": {
       "command": "tsc -p tsconfig.json --noEmit",
       "cache": true

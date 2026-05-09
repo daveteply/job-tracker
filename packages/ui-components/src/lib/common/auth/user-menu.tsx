@@ -84,6 +84,13 @@ export function UserMenu() {
               </li>
             </>
           )}
+          <div className="divider my-0 opacity-50"></div>
+          <li className="px-4 py-1.5 opacity-30 select-none">
+            <div className="flex items-center justify-between w-full">
+              <span className="text-[9px] font-bold uppercase tracking-wider">Version</span>
+              <span className="text-[10px] font-mono">{process.env.NEXT_PUBLIC_APP_VERSION}</span>
+            </div>
+          </li>
         </ul>
       </div>
     </div>
