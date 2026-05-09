@@ -1,6 +1,9 @@
 // Auth
-export * from './lib/common/auth/auth-menu';
 export * from './lib/common/auth/sign-in-view';
+export * from './lib/common/auth/user-menu';
+
+// Navigation
+export * from './lib/common/navigation/dashboard-menu-links';
 
 // Data Display
 export * from './lib/common/data-display/base-info-card';

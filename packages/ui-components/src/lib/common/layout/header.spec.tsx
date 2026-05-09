@@ -20,10 +20,26 @@ jest.mock('next-auth/react', () => ({
   signOut: jest.fn(),
 }));
 
+// Mock next-intl
+jest.mock('next-intl', () => ({
+  useTranslations: () => (key: string) => {
+    const translations: Record<string, string> = {
+      signIn: 'Enable Sync',
+      settings: 'Settings',
+      signOut: 'Sign Out',
+      toggleMenu: 'Toggle menu',
+      contacts: 'Contacts',
+      reminders: 'Reminders',
+      roles: 'Roles',
+    };
+    return translations[key] || key;
+  },
+}));
+
 // Mock Link from next/link
 jest.mock('next/link', () => {
-  return ({ children, href }: { children: React.ReactNode; href: string }) => {
-    return <a href={href}>{children}</a>;
+  return ({ children, href, onClick }: { children: React.ReactNode; href: string; onClick?: () => void }) => {
+    return <a href={href} onClick={onClick}>{children}</a>;
   };
 });
 
@@ -40,9 +56,8 @@ describe('Header', () => {
 
   it('renders sign-in link with callbackUrl on mobile', () => {
     render(<Header title="Test App" />);
-    const signinLinks = screen.getAllByRole('link', { name: /Sign In/i });
-    // The mobile link is likely the second one if AuthMenu also renders one for desktop
-    // But in tests, they might both be present.
+    const signinLinks = screen.getAllByRole('link', { name: /Enable Sync/i });
+    // The mobile link is likely the second one if UserMenu also renders one for desktop
     const mobileSigninLink = signinLinks.find((link) =>
       link.getAttribute('href')?.includes('callbackUrl=%2Fcurrent-path'),
     );
@@ -58,14 +73,50 @@ describe('Header', () => {
 
   it('links to home by default', () => {
     render(<Header title="Test App" />);
-    const link = screen.getByRole('link');
+    const link = screen.getByRole('link', { name: /Test App/i });
     expect(link.getAttribute('href')).toBe('/home');
   });
 
   it('links to provided homeHref', () => {
     render(<Header title="Test App" homeHref="/custom-home" />);
-    const link = screen.getByRole('link');
+    const link = screen.getByRole('link', { name: /Test App/i });
     expect(link.getAttribute('href')).toBe('/custom-home');
+  });
+
+  it('renders dashboard links when authenticated', () => {
+    (useSession as jest.Mock).mockReturnValue({
+      data: { user: { name: 'Test User', email: 'test@example.com' } },
+      status: 'authenticated',
+    });
+    render(<Header title="Test App" />);
+
+    // Dashboard links should be present (at least one for mobile, one for desktop)
+    const contactsLinks = screen.getAllByText('Contacts');
+    expect(contactsLinks.length).toBeGreaterThanOrEqual(1);
+
+    const remindersLinks = screen.getAllByText('Reminders');
+    expect(remindersLinks.length).toBeGreaterThanOrEqual(1);
+
+    const rolesLinks = screen.getAllByText('Roles');
+    expect(rolesLinks.length).toBeGreaterThanOrEqual(1);
+  });
+
+  it('renders dashboard links when unauthenticated', () => {
+    (useSession as jest.Mock).mockReturnValue({
+      data: null,
+      status: 'unauthenticated',
+    });
+    render(<Header title="Test App" />);
+
+    // Dashboard links should still be present
+    const contactsLinks = screen.getAllByText('Contacts');
+    expect(contactsLinks.length).toBeGreaterThanOrEqual(1);
+
+    const remindersLinks = screen.getAllByText('Reminders');
+    expect(remindersLinks.length).toBeGreaterThanOrEqual(1);
+
+    const rolesLinks = screen.getAllByText('Roles');
+    expect(rolesLinks.length).toBeGreaterThanOrEqual(1);
   });
 
   it('toggles shadow on scroll', () => {

@@ -13,8 +13,9 @@ import { usePathname } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 
-import { AuthMenu } from '../auth/auth-menu';
+import { UserMenu } from '../auth/user-menu';
 import { SyncIndicator } from '../feedback/sync-indicator';
+import { DashboardMenuLinks } from '../navigation/dashboard-menu-links';
 
 export interface HeaderProps {
   title: string;
@@ -36,6 +37,12 @@ export function Header({ title, iconSrc, homeHref = '/home' }: HeaderProps) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const closeMenu = () => {
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
+  };
+
   return (
     <header
       className={`bg-primary text-primary-content sticky top-0 z-50 p-4 transition-shadow duration-300 ${
@@ -54,11 +61,7 @@ export function Header({ title, iconSrc, homeHref = '/home' }: HeaderProps) {
 
           {/* Desktop Navigation */}
           <div className="hidden items-center gap-4 md:flex">
-            <Link href="/settings" className="btn btn-ghost btn-sm text-primary-content">
-              <Cog8ToothIcon className="mr-1 h-5 w-5" />
-              {t('settings')}
-            </Link>
-            <AuthMenu />
+            <UserMenu />
           </div>
 
           {/* Mobile Navigation (DaisyUI Dropdown) */}
@@ -75,35 +78,50 @@ export function Header({ title, iconSrc, homeHref = '/home' }: HeaderProps) {
               tabIndex={0}
               className="dropdown-content menu bg-base-100 rounded-box text-base-content z-[1] mt-3 w-56 p-2 shadow"
             >
+              {session ? (
+                <li>
+                  <button
+                    onClick={() => {
+                      closeMenu();
+                      signOut();
+                    }}
+                    className="text-error font-semibold"
+                  >
+                    <ArrowLeftOnRectangleIcon className="h-5 w-5" />
+                    {t('signOut')}
+                  </button>
+                </li>
+              ) : (
+                <li>
+                  <Link
+                    href={`/auth/signin?callbackUrl=${encodeURIComponent(pathname || '/')}`}
+                    onClick={closeMenu}
+                    className="text-primary font-semibold"
+                  >
+                    <ArrowRightOnRectangleIcon className="h-5 w-5" />
+                    {t('signIn')}
+                  </Link>
+                </li>
+              )}
+              <div className="divider my-0 opacity-50"></div>
               <li>
-                <Link href="/settings">
+                <Link href="/settings" onClick={closeMenu}>
                   <Cog8ToothIcon className="h-5 w-5" />
                   {t('settings')}
                 </Link>
               </li>
               <div className="divider my-0 opacity-50"></div>
-              {session ? (
+              <DashboardMenuLinks showIcons onItemClick={closeMenu} />
+              {session && (
                 <>
+                  <div className="divider my-0 opacity-50"></div>
                   <li className="menu-title px-4 py-2">
                     <div className="flex flex-col items-start gap-1">
                       <span className="font-bold">{session.user?.name}</span>
                       <span className="text-xs font-normal opacity-60">{session.user?.email}</span>
                     </div>
                   </li>
-                  <li>
-                    <button onClick={() => signOut()} className="text-error">
-                      <ArrowLeftOnRectangleIcon className="h-5 w-5" />
-                      {t('signOut')}
-                    </button>
-                  </li>
                 </>
-              ) : (
-                <li>
-                  <Link href={`/auth/signin?callbackUrl=${encodeURIComponent(pathname || '/')}`}>
-                    <ArrowRightOnRectangleIcon className="h-5 w-5" />
-                    {t('signIn')}
-                  </Link>
-                </li>
               )}
             </ul>
           </div>
