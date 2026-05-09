@@ -55,7 +55,7 @@ export default function DeleteContactPage({ params }: { params: Promise<{ id: st
                 {t('backToContacts')}
               </Link>
               <Link className="btn btn-info" href="/activity">
-                {t('backToEvents')}
+                {t('backToActivity')}
               </Link>
             </div>
           </>

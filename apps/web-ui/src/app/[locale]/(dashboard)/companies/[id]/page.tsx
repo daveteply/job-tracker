@@ -53,7 +53,7 @@ export default function CompanyDetailPage({ params }: { params: Promise<{ id: st
           {t('backToCompanies')}
         </Link>
         <Link className="btn" href="/activity">
-          {t('backToEvents')}
+          {t('backToActivity')}
         </Link>
       </div>
     </div>

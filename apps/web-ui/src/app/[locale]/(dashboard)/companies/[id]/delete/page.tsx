@@ -57,7 +57,7 @@ export default function DeleteCompanyPage({ params }: { params: Promise<{ id: st
                 {t('backToCompanies')}
               </Link>
               <Link className="btn btn-info" href="/activity">
-                {t('backToEvents')}
+                {t('backToActivity')}
               </Link>
             </div>
           </>
