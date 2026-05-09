@@ -44,7 +44,39 @@
     "signInWithGoogle": "Iniciar sesión con Google",
     "signInWithFacebook": "Iniciar sesión con Facebook",
     "secureAuthentication": "Autenticación Segura",
-    "termsAndPrivacy": "Al continuar, aceptas nuestros Términos de Servicio y Política de Privacidad."
+    "termsAndPrivacy": "Al continuar, aceptas nuestros <terms>Términos de Servicio</terms> y <privacy>Política de Privacidad</privacy>.",
+    "backToHome": "Volver al Inicio"
+  },
+  "PrivacyPage": {
+    "title": "Política de Privacidad",
+    "lastUpdated": "Última actualización: 9 de mayo de 2026",
+    "introduction": "Esta Política de Privacidad describe cómo David Hamdan Teply ('nosotros', 'nos' o 'nuestro') recopila, utiliza y comparte su información personal cuando utiliza la aplicación Job Tracker.",
+    "dataCollection": "Información que recopilamos",
+    "dataCollectionContent": "Recopilamos la información que nos proporciona directamente cuando crea una cuenta, como su nombre y dirección de correo electrónico a través de la autenticación de Google o Facebook. También almacenamos los datos de búsqueda de empleo que ingresa, incluidos nombres de empresas, roles, contactos y eventos. Estos datos se almacenan localmente en su dispositivo y se sincronizan con nuestro almacenamiento en la nube si ha iniciado sesión.",
+    "usageAnalytics": "Analítica de uso",
+    "usageAnalyticsContent": "Utilizamos servicios de analítica para ayudarnos a comprender cómo interactúan los usuarios con la aplicación, lo que nos permite mejorar nuestros servicios. Estos servicios pueden recopilar información enviada por su navegador como parte de una solicitud de página web, como cookies o su dirección IP.",
+    "dataStorage": "Almacenamiento y seguridad de datos",
+    "dataStorageContent": "Sus datos se almacenan principalmente de forma local en su navegador. Cuando inicia sesión, sus datos se sincronizan con nuestra base de datos segura en la nube. Tomamos medidas razonables para proteger su información del acceso o divulgación no autorizados.",
+    "yourRights": "Sus derechos",
+    "yourRightsContent": "Tiene derecho a acceder, corregir o eliminar su información personal y sus datos de búsqueda de empleo. Puede eliminar sus datos en cualquier momento a través de la configuración de la aplicación o poniéndose en contacto con nosotros.",
+    "contactUs": "Contacto",
+    "contactUsContent": "Si tiene alguna pregunta sobre esta Política de Privacidad, póngase en contacto con nosotros en davehamdan@gmail.com."
+  },
+  "TermsPage": {
+    "title": "Términos de Servicio",
+    "lastUpdated": "Última actualización: 9 de mayo de 2026",
+    "acceptance": "Aceptación de los términos",
+    "acceptanceContent": "Al acceder o utilizar Job Tracker, usted acepta estar sujeto a estos Términos de Servicio. Si no está de acuerdo con estos términos, no utilice la aplicación.",
+    "description": "Descripción del servicio",
+    "descriptionContent": "Job Tracker es una herramienta diseñada para ayudar a los usuarios a realizar un seguimiento del progreso de su solicitud de empleo. El servicio se proporciona 'tal cual' y no ofrecemos garantías con respecto a la disponibilidad o precisión del servicio.",
+    "userConduct": "Conducta del usuario",
+    "userConductContent": "Usted es responsable de su uso de la aplicación y de cualquier contenido que proporcione. Acepta no utilizar la aplicación para fines ilegales o para interferir con el funcionamiento del servicio.",
+    "limitationOfLiability": "Limitación de responsabilidad",
+    "limitationOfLiabilityContent": "En la medida máxima permitida por la ley, David Hamdan Teply no será responsable de ningún daño indirecto, incidental, especial, consecuente o punitivo que resulte de su uso o incapacidad de usar el servicio.",
+    "governingLaw": "Ley aplicable",
+    "governingLawContent": "Estos Términos se regirán e interpretarán de acuerdo con las leyes del Estado de Texas, Estados Unidos, sin tener en cuenta sus disposiciones sobre conflictos de leyes.",
+    "changesToTerms": "Cambios en los términos",
+    "changesToTermsContent": "Nos reservamos el derecho de modificar estos términos en cualquier momento. Le notificaremos cualquier cambio actualizando la fecha de 'Última actualización' en la parte superior de esta página."
   },
   "UserSettings": {
     "title": "Configuración",

@@ -44,7 +44,39 @@
     "signInWithGoogle": "Sign in with Google",
     "signInWithFacebook": "Sign in with Facebook",
     "secureAuthentication": "Secure Authentication",
-    "termsAndPrivacy": "By continuing, you agree to our Terms of Service and Privacy Policy."
+    "termsAndPrivacy": "By continuing, you agree to our <terms>Terms of Service</terms> and <privacy>Privacy Policy</privacy>.",
+    "backToHome": "Back to Home"
+  },
+  "PrivacyPage": {
+    "title": "Privacy Policy",
+    "lastUpdated": "Last Updated: May 9, 2026",
+    "introduction": "This Privacy Policy describes how David Hamdan Teply ('we', 'us', or 'our') collects, uses, and shares your personal information when you use the Job Tracker application.",
+    "dataCollection": "Information We Collect",
+    "dataCollectionContent": "We collect information you provide directly to us when you create an account, such as your name and email address through Google or Facebook authentication. We also store the job search data you enter, including company names, roles, contacts, and events. This data is stored locally on your device and synchronized to our cloud storage if you are signed in.",
+    "usageAnalytics": "Usage Analytics",
+    "usageAnalyticsContent": "We use analytics services to help us understand how users interact with the application, which allows us to improve our services. These services may collect information sent by your browser as part of a web page request, such as cookies or your IP address.",
+    "dataStorage": "Data Storage and Security",
+    "dataStorageContent": "Your data is primarily stored locally in your browser. When signed in, your data is synchronized with our secure cloud database. We take reasonable measures to protect your information from unauthorized access or disclosure.",
+    "yourRights": "Your Rights",
+    "yourRightsContent": "You have the right to access, correct, or delete your personal information and job search data. You can delete your data at any time through the application settings or by contacting us.",
+    "contactUs": "Contact Us",
+    "contactUsContent": "If you have any questions about this Privacy Policy, please contact us at davehamdan@gmail.com."
+  },
+  "TermsPage": {
+    "title": "Terms of Service",
+    "lastUpdated": "Last Updated: May 9, 2026",
+    "acceptance": "Acceptance of Terms",
+    "acceptanceContent": "By accessing or using Job Tracker, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use the application.",
+    "description": "Description of Service",
+    "descriptionContent": "Job Tracker is a tool designed to help users track their job application progress. The service is provided 'as is' and we make no guarantees regarding the availability or accuracy of the service.",
+    "userConduct": "User Conduct",
+    "userConductContent": "You are responsible for your use of the application and for any content you provide. You agree not to use the application for any unlawful purposes or to interfere with the operation of the service.",
+    "limitationOfLiability": "Limitation of Liability",
+    "limitationOfLiabilityContent": "To the maximum extent permitted by law, David Hamdan Teply shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of or inability to use the service.",
+    "governingLaw": "Governing Law",
+    "governingLawContent": "These Terms shall be governed by and construed in accordance with the laws of the State of Texas, United States, without regard to its conflict of law provisions.",
+    "changesToTerms": "Changes to Terms",
+    "changesToTermsContent": "We reserve the right to modify these terms at any time. We will notify you of any changes by updating the 'Last Updated' date at the top of this page."
   },
   "UserSettings": {
     "title": "Settings",

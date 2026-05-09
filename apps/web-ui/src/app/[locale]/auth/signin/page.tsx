@@ -8,6 +8,8 @@ import { useTranslations } from 'next-intl';
 
 import { SignInView } from '@job-tracker/ui-components';
 
+import { Link } from '../../../../i18n/routing';
+
 function SignInContent() {
   const t = useTranslations('SignInPage');
   const commonT = useTranslations('Common');
@@ -32,20 +34,41 @@ function SignInContent() {
   ];
 
   return (
-    <SignInView
-      title={t('title')}
-      description={t('signInDescription')}
-      appName={commonT('title')}
-      appIconSrc="/apple-touch-icon.png"
-      error={error}
-      errorMessages={{
-        oauthAccountNotLinked: t('oauthAccountNotLinked'),
-        signInError: t('signInError'),
-      }}
-      providers={providers}
-      secureAuthLabel={t('secureAuthentication')}
-      footerContent={t('termsAndPrivacy')}
-    />
+    <div className="relative">
+      <div className="absolute top-4 left-4 z-10">
+        <Link
+          href="/home"
+          className="text-base-content/60 hover:text-primary flex items-center gap-2 text-sm transition-colors"
+        >
+          <span>&larr;</span> {t('backToHome')}
+        </Link>
+      </div>
+      <SignInView
+        title={t('title')}
+        description={t('signInDescription')}
+        appName={commonT('title')}
+        appIconSrc="/apple-touch-icon.png"
+        error={error}
+        errorMessages={{
+          oauthAccountNotLinked: t('oauthAccountNotLinked'),
+          signInError: t('signInError'),
+        }}
+        providers={providers}
+        secureAuthLabel={t('secureAuthentication')}
+        footerContent={t.rich('termsAndPrivacy', {
+          terms: (chunks) => (
+            <Link href="/terms" className="text-primary hover:underline">
+              {chunks}
+            </Link>
+          ),
+          privacy: (chunks) => (
+            <Link href="/privacy" className="text-primary hover:underline">
+              {chunks}
+            </Link>
+          ),
+        })}
+      />
+    </div>
   );
 }
 
