@@ -53,7 +53,9 @@ export function CompanyList({
           ))}
         </div>
       ) : (
-        inactiveCompanies.length === 0 && <p className="px-1 text-sm italic opacity-50">{message}</p>
+        inactiveCompanies.length === 0 && (
+          <p className="px-1 text-sm italic opacity-50">{message}</p>
+        )
       )}
 
       {inactiveCompanies.length > 0 && (
@@ -72,7 +74,7 @@ export function CompanyList({
 
           {showInactive && (
             <>
-              <p className="px-1 text-xs opacity-50 -mt-2 mb-2">
+              <p className="-mt-2 mb-2 px-1 text-xs opacity-50">
                 {t('inactiveCompaniesDescription')}
               </p>
               <div className="grid grid-cols-1 gap-4 opacity-70 md:grid-cols-2 lg:grid-cols-3">

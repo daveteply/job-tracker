@@ -63,7 +63,7 @@ export function EventTypeSelect({
           <span className="loading loading-bars loading-xs text-primary"></span>
         </div>
       )}
-      {error && <p className="mt-1 text-sm text-error">{error}</p>}
+      {error && <p className="text-error mt-1 text-sm">{error}</p>}
     </div>
   );
 }

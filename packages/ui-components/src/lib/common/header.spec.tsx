@@ -43,7 +43,9 @@ describe('Header', () => {
     const signinLinks = screen.getAllByRole('link', { name: /Sign In/i });
     // The mobile link is likely the second one if AuthMenu also renders one for desktop
     // But in tests, they might both be present.
-    const mobileSigninLink = signinLinks.find(link => link.getAttribute('href')?.includes('callbackUrl=%2Fcurrent-path'));
+    const mobileSigninLink = signinLinks.find((link) =>
+      link.getAttribute('href')?.includes('callbackUrl=%2Fcurrent-path'),
+    );
     expect(mobileSigninLink).toBeTruthy();
     expect(mobileSigninLink?.getAttribute('href')).toBe('/auth/signin?callbackUrl=%2Fcurrent-path');
   });

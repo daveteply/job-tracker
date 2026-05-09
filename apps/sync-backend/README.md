@@ -14,11 +14,13 @@ A Node.js synchronization backend for local-first applications, built with Fasti
 ### Local Development
 
 1. Ensure the database is running:
+
    ```bash
    docker compose up db -d
    ```
 
 2. Generate the Prisma client:
+
    ```bash
    npx nx run sync-backend:prisma-generate
    ```

@@ -13,7 +13,7 @@ import {
   useRolesWithEvents,
   useUserSettings,
 } from '@job-tracker/hooks';
-import { EventList, ReminderList, RoleList } from '@job-tracker/ui-components';
+import { EmptyState, EventList, ReminderList, RoleList } from '@job-tracker/ui-components';
 
 import { Link } from '../../../../i18n/routing';
 
@@ -62,25 +62,27 @@ export default function HomePage() {
 
   if (isEmpty) {
     return (
-      <div className="bg-base-200/30 border-base-300 flex min-h-[400px] flex-col items-center justify-center rounded-2xl border-2 border-dashed p-12">
-        <div className="relative mb-6 h-20 w-20 opacity-20 grayscale">
-          <Image
-            src="/android-chrome-192x192.png"
-            alt="Job Tracker Logo"
-            fill
-            sizes="80px"
-            className="object-contain"
-          />
-        </div>
-        <h2 className="text-center text-2xl font-bold opacity-60">{t('welcome')}</h2>
-        <p className="mt-2 mb-8 max-w-xs text-center text-sm opacity-40">
-          {t('emptyStateDescription')}
-        </p>
-        <Link href="/events/new" className="btn btn-primary gap-2">
-          <PlusIcon className="h-5 w-5" />
-          {t('addFirstEvent')}
-        </Link>
-      </div>
+      <EmptyState
+        icon={
+          <div className="relative h-20 w-20">
+            <Image
+              src="/android-chrome-192x192.png"
+              alt="Job Tracker Logo"
+              fill
+              sizes="80px"
+              className="object-contain"
+            />
+          </div>
+        }
+        title={t('welcome')}
+        description={t('emptyStateDescription')}
+        action={
+          <Link href="/events/new" className="btn btn-primary gap-2">
+            <PlusIcon className="h-5 w-5" />
+            {t('addFirstEvent')}
+          </Link>
+        }
+      />
     );
   }
 

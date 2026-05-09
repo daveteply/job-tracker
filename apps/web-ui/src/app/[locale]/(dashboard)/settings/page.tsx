@@ -5,9 +5,9 @@ import { use } from 'react';
 import { useTranslations } from 'next-intl';
 
 import { useUserSettings } from '@job-tracker/hooks';
+import { ContentCard } from '@job-tracker/ui-components';
 
-import { routing } from '../../../../i18n/routing';
-import { useRouter } from '../../../../i18n/routing';
+import { routing, useRouter } from '../../../../i18n/routing';
 
 export default function SettingsPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: currentLocale } = use(params);
@@ -34,73 +34,67 @@ export default function SettingsPage({ params }: { params: Promise<{ locale: str
         <p className="text-base-content/60 mt-2">{t('description')}</p>
       </div>
 
-      <div className="card border-base-300 bg-base-100 border shadow-xl">
-        <div className="card-body">
-          <h2 className="card-title mb-4 text-xl">{t('languageTitle')}</h2>
-          <div className="flex flex-col gap-4">
-            <div className="join">
-              {routing.locales.map((loc) => (
-                <button
-                  key={loc}
-                  className={`btn join-item btn-sm ${
-                    selectedLocale === loc ? 'btn-active btn-primary' : ''
-                  }`}
-                  onClick={() => updateSettings({ locale: loc })}
-                  disabled={isLoading}
-                >
-                  {tLang(loc as any)}
-                </button>
-              ))}
-            </div>
-
-            {selectedLocale !== currentLocale && (
-              <div className="flex animate-in fade-in slide-in-from-top-1 duration-300">
-                <button
-                  className="btn btn-secondary btn-sm"
-                  onClick={() => handleApplyLocale(selectedLocale)}
-                >
-                  {t('applyLanguage')}
-                </button>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-
-      <div className="card border-base-300 bg-base-100 border shadow-xl">
-        <div className="card-body">
-          <h2 className="card-title mb-4 text-xl">{t('appearanceTitle')}</h2>
+      <ContentCard title={t('languageTitle')}>
+        <div className="flex flex-col gap-4">
           <div className="join">
-            <button
-              className={`btn join-item btn-sm ${
-                settings?.appearance === 'light' ? 'btn-active btn-primary' : ''
-              }`}
-              onClick={() => updateSettings({ appearance: 'light' })}
-              disabled={isLoading}
-            >
-              {t('appearanceLight')}
-            </button>
-            <button
-              className={`btn join-item btn-sm ${
-                settings?.appearance === 'dark' ? 'btn-active btn-primary' : ''
-              }`}
-              onClick={() => updateSettings({ appearance: 'dark' })}
-              disabled={isLoading}
-            >
-              {t('appearanceDark')}
-            </button>
-            <button
-              className={`btn join-item btn-sm ${
-                settings?.appearance === 'system' ? 'btn-active btn-primary' : ''
-              }`}
-              onClick={() => updateSettings({ appearance: 'system' })}
-              disabled={isLoading}
-            >
-              {t('appearanceSystem')}
-            </button>
+            {routing.locales.map((loc) => (
+              <button
+                key={loc}
+                className={`btn join-item btn-sm ${
+                  selectedLocale === loc ? 'btn-active btn-primary' : ''
+                }`}
+                onClick={() => updateSettings({ locale: loc })}
+                disabled={isLoading}
+              >
+                {tLang(loc as any)}
+              </button>
+            ))}
           </div>
+
+          {selectedLocale !== currentLocale && (
+            <div className="animate-in fade-in slide-in-from-top-1 flex duration-300">
+              <button
+                className="btn btn-secondary btn-sm"
+                onClick={() => handleApplyLocale(selectedLocale)}
+              >
+                {t('applyLanguage')}
+              </button>
+            </div>
+          )}
         </div>
-      </div>
+      </ContentCard>
+
+      <ContentCard title={t('appearanceTitle')}>
+        <div className="join">
+          <button
+            className={`btn join-item btn-sm ${
+              settings?.appearance === 'light' ? 'btn-active btn-primary' : ''
+            }`}
+            onClick={() => updateSettings({ appearance: 'light' })}
+            disabled={isLoading}
+          >
+            {t('appearanceLight')}
+          </button>
+          <button
+            className={`btn join-item btn-sm ${
+              settings?.appearance === 'dark' ? 'btn-active btn-primary' : ''
+            }`}
+            onClick={() => updateSettings({ appearance: 'dark' })}
+            disabled={isLoading}
+          >
+            {t('appearanceDark')}
+          </button>
+          <button
+            className={`btn join-item btn-sm ${
+              settings?.appearance === 'system' ? 'btn-active btn-primary' : ''
+            }`}
+            onClick={() => updateSettings({ appearance: 'system' })}
+            disabled={isLoading}
+          >
+            {t('appearanceSystem')}
+          </button>
+        </div>
+      </ContentCard>
     </div>
   );
 }

@@ -77,7 +77,7 @@
     "deleteBlocker": "This Role is associated with {events} Event(s) and cannot be deleted",
     "backToEvents": "Back to Events",
     "inactiveRoles": "Inactive Roles",
-    "roleEntityName": "role",
+    "rolesEntityName": "role",
     "rolesEntityName": "roles",
     "formPlaceholder": "Search or type new role title",
     "formTitle": "Title",
@@ -89,7 +89,8 @@
     "formSalaryRange": "Salary Range",
     "formCreate": "Create new role: \"{name}\"",
     "formCreateCompany": "Create new company: \"{name}\"",
-    "noRolesFound": "No roles found"
+    "noRolesFound": "No roles found",
+    "emptyStateDescription": "Your list of roles is empty. Add a role to start tracking your job application progress."
   },
   "Companies": {
     "listTitle": "Companies",
@@ -115,7 +116,8 @@
     "formNotes": "Notes",
     "formPlaceholder": "Search or type new company name",
     "formCreate": "Create new company: \"{name}\"",
-    "noCompaniesFound": "No companies found"
+    "noCompaniesFound": "No companies found",
+    "emptyStateDescription": "No companies tracked yet. Adding a company helps you organize roles and contacts for each employer."
   },
   "Contacts": {
     "listTitle": "Contacts",
@@ -146,7 +148,8 @@
     "formCreate": "Create new contact: \"{name}\"",
     "formCreateCompany": "Create new company: \"{name}\"",
     "formValidation": "Please enter both first and last name (e.g., \"John Doe\")",
-    "noContactsFound": "No contacts found"
+    "noContactsFound": "No contacts found",
+    "emptyStateDescription": "Your contact list is empty. Keep track of recruiters, hiring managers, and networking contacts here."
   },
   "Events": {
     "listTitle": "Events",

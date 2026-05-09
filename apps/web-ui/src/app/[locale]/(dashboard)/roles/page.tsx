@@ -1,10 +1,11 @@
 'use client';
 
 import { PlusCircleIcon } from '@heroicons/react/16/solid';
+import { BriefcaseIcon } from '@heroicons/react/24/outline';
 import { useTranslations } from 'next-intl';
 
 import { useGroupedRoles, useRolesWithEvents } from '@job-tracker/hooks';
-import { PageLoading, RoleList } from '@job-tracker/ui-components';
+import { EmptyState, PageHeader, PageLoading, RoleList } from '@job-tracker/ui-components';
 
 import { Link } from '../../../../i18n/routing';
 
@@ -19,15 +20,28 @@ export default function RoleListPage() {
 
   return (
     <>
-      <div className="mb-6 flex justify-between">
-        <h1 className="px-1 text-2xl font-bold">{t('listTitle')}</h1>
+      <PageHeader title={t('listTitle')}>
         <Link className="btn btn-sm text-primary" href="roles/new" title={t('addRole')}>
           <PlusCircleIcon className="size-5" />
           {t('addRole')}
         </Link>
-      </div>
+      </PageHeader>
 
-      <RoleList activeRoles={active} inactiveRoles={inactive} />
+      {active.length === 0 && inactive.length === 0 ? (
+        <EmptyState
+          icon={<BriefcaseIcon className="h-16 w-16" />}
+          title={t('noRolesFound')}
+          description={t('emptyStateDescription')}
+          action={
+            <Link href="roles/new" className="btn btn-primary gap-2">
+              <PlusCircleIcon className="h-5 w-5" />
+              {t('addRole')}
+            </Link>
+          }
+        />
+      ) : (
+        <RoleList activeRoles={active} inactiveRoles={inactive} />
+      )}
     </>
   );
 }

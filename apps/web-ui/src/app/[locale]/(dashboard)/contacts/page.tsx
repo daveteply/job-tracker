@@ -1,10 +1,11 @@
 'use client';
 
 import { PlusCircleIcon } from '@heroicons/react/16/solid';
+import { UserGroupIcon } from '@heroicons/react/24/outline';
 import { useTranslations } from 'next-intl';
 
 import { useContactsWithCompany } from '@job-tracker/hooks';
-import { ContactList, PageLoading } from '@job-tracker/ui-components';
+import { ContactList, EmptyState, PageHeader, PageLoading } from '@job-tracker/ui-components';
 
 import { Link } from '../../../../i18n/routing';
 
@@ -16,15 +17,28 @@ export default function ContactsListPage() {
 
   return (
     <>
-      <div className="mb-6 flex justify-between">
-        <h1 className="px-1 text-2xl font-bold">{t('listTitle')}</h1>
+      <PageHeader title={t('listTitle')}>
         <Link className="btn btn-sm text-primary" href="contacts/new" title={t('addContact')}>
           <PlusCircleIcon className="size-5" />
           {t('addContact')}
         </Link>
-      </div>
+      </PageHeader>
 
-      <ContactList contacts={contacts} />
+      {contacts.length === 0 ? (
+        <EmptyState
+          icon={<UserGroupIcon className="h-16 w-16" />}
+          title={t('noContactsFound')}
+          description={t('emptyStateDescription')}
+          action={
+            <Link href="contacts/new" className="btn btn-primary gap-2">
+              <PlusCircleIcon className="h-5 w-5" />
+              {t('addContact')}
+            </Link>
+          }
+        />
+      ) : (
+        <ContactList contacts={contacts} />
+      )}
     </>
   );
 }

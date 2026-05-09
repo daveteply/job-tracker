@@ -6,7 +6,7 @@ import { PencilIcon, TrashIcon } from '@heroicons/react/16/solid';
 import { useTranslations } from 'next-intl';
 
 import { useCompany, useContactsByCompany, useRolesByCompany } from '@job-tracker/hooks';
-import { CompanyInfoCard, PageLoading } from '@job-tracker/ui-components';
+import { CompanyInfoCard, PageHeader, PageLoading } from '@job-tracker/ui-components';
 
 import { Link } from '../../../../../i18n/routing';
 
@@ -23,23 +23,22 @@ export default function CompanyDetailPage({ params }: { params: Promise<{ id: st
 
   return (
     <div className="mx-auto max-w-2xl">
-      <div className="mb-6 flex items-center">
-        <h1 className="px-1 text-2xl font-bold">{t('companyDetails')}</h1>
+      <PageHeader title={t('companyDetails')}>
         <Link
-          className="btn btn-circle btn-sm text-primary ml-1"
+          className="btn btn-circle btn-sm text-primary"
           href={`${id}/edit`}
           title={t('editCompany')}
         >
           <PencilIcon className="size-5" />
         </Link>
         <Link
-          className="btn btn-circle btn-sm text-error ml-1"
+          className="btn btn-circle btn-sm text-error"
           href={`${id}/delete`}
           title={t('deleteCompany')}
         >
           <TrashIcon className="size-5" />
         </Link>
-      </div>
+      </PageHeader>
 
       <CompanyInfoCard
         company={company}

@@ -25,9 +25,7 @@ interface GlobalRxDB {
   __rxdb_promises?: Map<string, Promise<TrackerDatabase>>;
 }
 
-const _global = (typeof window !== 'undefined'
-  ? window
-  : global) as unknown as GlobalRxDB;
+const _global = (typeof window !== 'undefined' ? window : global) as unknown as GlobalRxDB;
 
 // Add plugins only once
 if (!_global.__rxdb_plugins_added) {

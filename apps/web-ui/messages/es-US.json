@@ -89,7 +89,8 @@
     "formSalaryRange": "Rango salarial",
     "formCreate": "Crear nuevo rol: \"{name}\"",
     "formCreateCompany": "Crear nueva compañía: \"{name}\"",
-    "noRolesFound": "No se encontraron roles"
+    "noRolesFound": "No se encontraron roles",
+    "emptyStateDescription": "Tu lista de roles está vacía. Agrega un rol para comenzar a seguir el progreso de tus postulaciones."
   },
   "Companies": {
     "listTitle": "Compañías",
@@ -115,7 +116,8 @@
     "formNotes": "Notas",
     "formPlaceholder": "Buscar o escribir el nombre de la nueva compañía",
     "formCreate": "Crear nueva compañía: \"{name}\"",
-    "noCompaniesFound": "No se encontraron compañías"
+    "noCompaniesFound": "No se encontraron compañías",
+    "emptyStateDescription": "Aún no se han registrado compañías. Agregar una compañía te ayuda a organizar roles y contactos para cada empleador."
   },
   "Contacts": {
     "listTitle": "Contactos",
@@ -146,7 +148,8 @@
     "formCreate": "Crear nuevo contacto: \"{name}\"",
     "formCreateCompany": "Crear nueva compañía: \"{name}\"",
     "formValidation": "Por favor, ingresa tanto el nombre como el apellido (ej. \"John Doe\")",
-    "noContactsFound": "No se encontraron contactos"
+    "noContactsFound": "No se encontraron contactos",
+    "emptyStateDescription": "Tu lista de contactos está vacía. Mantén un registro de reclutadores, gerentes de contratación y contactos de networking aquí."
   },
   "Events": {
     "listTitle": "Eventos",

@@ -15,13 +15,13 @@ export const SyncIndicator = () => {
   const getIcon = () => {
     switch (status) {
       case 'syncing':
-        return <CloudArrowUpIcon className="h-5 w-5 animate-pulse text-info" />;
+        return <CloudArrowUpIcon className="text-info h-5 w-5 animate-pulse" />;
       case 'synced':
-        return <CloudIcon className="h-5 w-5 text-success" />;
+        return <CloudIcon className="text-success h-5 w-5" />;
       case 'error':
-        return <ExclamationCircleIcon className="h-5 w-5 text-error" />;
+        return <ExclamationCircleIcon className="text-error h-5 w-5" />;
       case 'offline':
-        return <SignalSlashIcon className="h-5 w-5 text-primary-content/40" />;
+        return <SignalSlashIcon className="text-primary-content/40 h-5 w-5" />;
       default:
         return null;
     }

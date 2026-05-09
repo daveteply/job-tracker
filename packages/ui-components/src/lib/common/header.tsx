@@ -2,7 +2,12 @@
 
 import { useEffect, useState } from 'react';
 
-import { ArrowLeftOnRectangleIcon, ArrowRightOnRectangleIcon, Bars3Icon, Cog8ToothIcon } from '@heroicons/react/24/outline';
+import {
+  ArrowLeftOnRectangleIcon,
+  ArrowRightOnRectangleIcon,
+  Bars3Icon,
+  Cog8ToothIcon,
+} from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
@@ -33,7 +38,7 @@ export function Header({ title, iconSrc, homeHref = '/home' }: HeaderProps) {
 
   return (
     <header
-      className={`sticky top-0 z-50 bg-primary p-4 text-primary-content transition-shadow duration-300 ${
+      className={`bg-primary text-primary-content sticky top-0 z-50 p-4 transition-shadow duration-300 ${
         scrolled ? 'shadow-lg' : 'shadow-none'
       }`}
     >
@@ -61,7 +66,7 @@ export function Header({ title, iconSrc, homeHref = '/home' }: HeaderProps) {
             <div
               tabIndex={0}
               role="button"
-              className="btn btn-ghost btn-sm p-1 text-primary-content"
+              className="btn btn-ghost btn-sm text-primary-content p-1"
               aria-label={t('toggleMenu')}
             >
               <Bars3Icon className="h-6 w-6" />

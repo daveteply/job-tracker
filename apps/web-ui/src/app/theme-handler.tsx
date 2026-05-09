@@ -29,7 +29,6 @@ export function ThemeHandler() {
       meta.setAttribute('content', color);
     };
 
-
     let cleanup: (() => void) | undefined;
 
     if (appearance === 'system') {

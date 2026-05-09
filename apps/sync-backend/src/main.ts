@@ -43,7 +43,7 @@ async function main() {
   try {
     const port = Number(process.env.PORT) || 8080;
     const host = process.env.HOST || '0.0.0.0';
-    
+
     await server.listen({ port, host });
     console.log(`Server listening at http://${host}:${port}`);
   } catch (err) {

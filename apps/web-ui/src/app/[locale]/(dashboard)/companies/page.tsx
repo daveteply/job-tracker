@@ -1,10 +1,11 @@
 'use client';
 
 import { PlusCircleIcon } from '@heroicons/react/16/solid';
+import { BuildingOfficeIcon } from '@heroicons/react/24/outline';
 import { useTranslations } from 'next-intl';
 
 import { useCompaniesWithChildren, useGroupedCompanies } from '@job-tracker/hooks';
-import { CompanyList, PageLoading } from '@job-tracker/ui-components';
+import { CompanyList, EmptyState, PageHeader, PageLoading } from '@job-tracker/ui-components';
 
 import { Link } from '../../../../i18n/routing';
 
@@ -17,15 +18,28 @@ export default function CompaniesListPage() {
 
   return (
     <>
-      <div className="mb-6 flex justify-between">
-        <h1 className="px-1 text-2xl font-bold">{t('listTitle')}</h1>
+      <PageHeader title={t('listTitle')}>
         <Link className="btn btn-sm text-primary" href="companies/new" title={t('addCompany')}>
           <PlusCircleIcon className="size-5" />
           {t('addCompany')}
         </Link>
-      </div>
+      </PageHeader>
 
-      <CompanyList activeCompanies={active} inactiveCompanies={inactive} />
+      {active.length === 0 && inactive.length === 0 ? (
+        <EmptyState
+          icon={<BuildingOfficeIcon className="h-16 w-16" />}
+          title={t('noCompaniesFound')}
+          description={t('emptyStateDescription')}
+          action={
+            <Link href="companies/new" className="btn btn-primary gap-2">
+              <PlusCircleIcon className="h-5 w-5" />
+              {t('addCompany')}
+            </Link>
+          }
+        />
+      ) : (
+        <CompanyList activeCompanies={active} inactiveCompanies={inactive} />
+      )}
     </>
   );
 }

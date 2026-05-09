@@ -9,11 +9,7 @@ export enum RoleStatus {
   Ghosted = 'Ghosted',
 }
 
-export const INACTIVE_STATUSES = [
-  RoleStatus.NotSelected,
-  RoleStatus.Withdrawn,
-  RoleStatus.Ghosted,
-];
+export const INACTIVE_STATUSES = [RoleStatus.NotSelected, RoleStatus.Withdrawn, RoleStatus.Ghosted];
 
 export const ACTIVE_STATUSES = [
   RoleStatus.Lead,
