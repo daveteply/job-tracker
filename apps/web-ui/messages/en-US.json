@@ -109,7 +109,7 @@
     "deleteBlocker": "This Role is associated with {events} Event(s) and cannot be deleted",
     "backToEvents": "Back to Events",
     "inactiveRoles": "Inactive Roles",
-    "rolesEntityName": "role",
+    "roleEntityName": "role",
     "rolesEntityName": "roles",
     "formPlaceholder": "Search or type new role title",
     "formTitle": "Title",
