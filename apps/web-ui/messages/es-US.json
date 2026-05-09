@@ -37,8 +37,8 @@
     "seeAllRoles": "Ver todos los roles"
   },
   "SignInPage": {
-    "welcomeBack": "Bienvenido de nuevo",
-    "signInDescription": "Inicia sesión en tu cuenta para continuar el seguimiento de tus empleos.",
+    "title": "Activar sincronización en la nube",
+    "signInDescription": "Inicia sesión para respaldar tus datos de forma segura y acceder a ellos en todos tus dispositivos.",
     "oauthAccountNotLinked": "Para confirmar tu identidad, inicia sesión con la misma cuenta que usaste originalmente.",
     "signInError": "Ocurrió un error al iniciar sesión. Por favor, inténtalo de nuevo.",
     "signInWithGoogle": "Iniciar sesión con Google",
@@ -269,7 +269,7 @@
     "delete": "Eliminar",
     "settings": "Configuración",
     "signOut": "Cerrar sesión",
-    "signIn": "Iniciar sesión",
+    "signIn": "Activar sincronización",
     "newEvent": "Nuevo evento",
     "actionAppliedToRole": "Postulado a un Rol",
     "actionRecruiterOutreach": "Recibió contacto de reclutador",
@@ -396,5 +396,11 @@
     "description": "Algo no salió como planeamos de nuestro lado. Por favor, inténtalo de nuevo en unos segundos.",
     "tryAgain": "Intentar de nuevo",
     "backHome": "Volver al Inicio"
+  }
+}
+
+  }
+}
+icio"
   }
 }

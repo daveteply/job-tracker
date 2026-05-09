@@ -44,8 +44,8 @@ export function Header({ title, iconSrc, homeHref = '/home' }: HeaderProps) {
         </Link>
 
         <div className="flex items-center gap-2">
-          {/* Sync Indicator (Visible on all devices if logged in) */}
-          {session && <SyncIndicator />}
+          {/* Sync Indicator */}
+          <SyncIndicator />
 
           {/* Desktop Navigation */}
           <div className="hidden items-center gap-4 md:flex">

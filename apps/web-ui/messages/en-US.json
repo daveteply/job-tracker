@@ -37,8 +37,8 @@
     "seeAllRoles": "See All Roles"
   },
   "SignInPage": {
-    "welcomeBack": "Welcome Back",
-    "signInDescription": "Sign in to your account to continue tracking your jobs.",
+    "title": "Enable Cloud Sync",
+    "signInDescription": "Sign in to securely backup your job search data and access it across all your devices.",
     "oauthAccountNotLinked": "To confirm your identity, sign in with the same account you used originally.",
     "signInError": "An error occurred during sign in. Please try again.",
     "signInWithGoogle": "Sign in with Google",
@@ -269,7 +269,7 @@
     "delete": "Delete",
     "settings": "Settings",
     "signOut": "Sign Out",
-    "signIn": "Sign In",
+    "signIn": "Enable Sync",
     "newEvent": "New Event",
     "actionAppliedToRole": "Applied to a Role",
     "actionRecruiterOutreach": "Received Recruiter Outreach",

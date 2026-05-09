@@ -8,6 +8,7 @@ import { useTranslations } from 'next-intl';
 
 function SignInContent() {
   const t = useTranslations('SignInPage');
+  const commonT = useTranslations('Common');
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get('callbackUrl') || '/';
   const error = searchParams.get('error');
@@ -16,7 +17,13 @@ function SignInContent() {
     <div className="bg-base-200 flex min-h-screen items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
       <div className="bg-base-100 border-base-300 w-full max-w-md space-y-8 rounded-xl border p-8 shadow-lg">
         <div className="text-center">
-          <h2 className="text-base-content mt-6 text-3xl font-extrabold">{t('welcomeBack')}</h2>
+          <div className="flex flex-col items-center gap-2">
+            <img src="/apple-touch-icon.png" alt="App Icon" className="h-12 w-12 rounded-xl shadow-sm" />
+            <h1 className="text-primary text-xl font-bold tracking-tight">
+              {commonT('title')}
+            </h1>
+          </div>
+          <h2 className="text-base-content mt-6 text-3xl font-extrabold">{t('title')}</h2>
           <p className="text-base-content/60 mt-2 text-sm">{t('signInDescription')}</p>
         </div>
 
