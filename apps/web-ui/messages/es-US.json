@@ -445,7 +445,8 @@
     "expiredCode": "El código de invitación ha expirado",
     "usedCode": "El código de invitación ya ha sido utilizado",
     "notAuthorized": "Usuario no autorizado para la Beta",
-    "invalidEmail": "Dirección de correo electrónico no válida"
+    "invalidEmail": "Dirección de correo electrónico no válida",
+    "serverError": "Error interno del servidor"
   },
   "Error": {
     "title": "Vaya, esto es un poco incómodo.",

@@ -39,7 +39,7 @@ const betaRoutes: FastifyPluginAsync = async (server) => {
     const { token, email } = ValidateSchema.parse(request.body);
 
     const betaToken = await server.prisma.betaToken.findUnique({
-      where: { token },
+      where: { token: token.toUpperCase() },
     });
 
     if (!betaToken) {

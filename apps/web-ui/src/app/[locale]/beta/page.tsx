@@ -89,7 +89,7 @@ function BetaContent() {
       const response = await fetch(`${BETA_BASE_URL}/validate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token: inviteCode, email: validateEmail }),
+        body: JSON.stringify({ token: inviteCode.toUpperCase(), email: validateEmail }),
       });
 
       const data = await response.json();
@@ -103,9 +103,23 @@ function BetaContent() {
         router.push(`/auth/signin?callbackUrl=${encodeURIComponent(callbackUrl)}`);
       }, 1500);
     } catch (error: any) {
+      // Safely attempt to translate the error code, fallback to validationError
+      let message = t('validationError');
+      const errorCode = error.message;
+
+      // Handle common network/fastify errors that might not be in our explicit list
+      const normalizedCode = errorCode === 'Not Found' ? 'notFound' : errorCode;
+
+      try {
+        // Only try to translate if we think it might be a key
+        message = t(normalizedCode);
+      } catch (e) {
+        // Fallback already set
+      }
+
       setFeedback({
         type: 'error',
-        message: t(error.message) || t('validationError'),
+        message,
       });
     } finally {
       setIsValidating(false);

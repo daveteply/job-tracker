@@ -447,7 +447,8 @@
     "expiredCode": "Invite code has expired",
     "usedCode": "Invite code has already been used",
     "notAuthorized": "User is not authorized for Beta",
-    "invalidEmail": "Invalid email address"
+    "invalidEmail": "Invalid email address",
+    "serverError": "Internal server error"
   },
   "Error": {
     "title": "Well, this is awkward.",
