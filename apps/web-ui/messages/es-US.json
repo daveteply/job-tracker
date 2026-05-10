@@ -446,7 +446,10 @@
     "usedCode": "El código de invitación ya ha sido utilizado",
     "notAuthorized": "Usuario no autorizado para la Beta",
     "invalidEmail": "Dirección de correo electrónico no válida",
-    "serverError": "Error interno del servidor"
+    "serverError": "Error interno del servidor",
+    "alreadyApproved": "¿Ya eres parte de la Beta?",
+    "signInToSync": "Inicia sesión para reanudar la sincronización",
+    "signInNow": "Iniciar sesión ahora"
   },
   "Error": {
     "title": "Vaya, esto es un poco incómodo.",

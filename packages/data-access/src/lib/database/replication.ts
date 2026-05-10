@@ -58,8 +58,12 @@ export function useReplication(
                   }),
                 });
                 if (response.status === 403) {
+                  localStorage.removeItem('job-tracker-beta-approved');
                   setSyncStatus('error');
                   throw new Error('Not authorized for Beta');
+                }
+                if (response.ok) {
+                  localStorage.setItem('job-tracker-beta-approved', 'true');
                 }
                 return (await response.json()) as ReplicationPullHandlerResult<unknown, Checkpoint>;
               } catch (err) {
@@ -83,8 +87,12 @@ export function useReplication(
                   body: JSON.stringify(rows),
                 });
                 if (response.status === 403) {
+                  localStorage.removeItem('job-tracker-beta-approved');
                   setSyncStatus('error');
                   throw new Error('Not authorized for Beta');
+                }
+                if (response.ok) {
+                  localStorage.setItem('job-tracker-beta-approved', 'true');
                 }
                 return (await response.json()) as ReplicationPushHandlerResult<{
                   _deleted: boolean;

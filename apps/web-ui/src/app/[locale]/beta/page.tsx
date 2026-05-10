@@ -5,16 +5,17 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 import {
-  CheckCircleIcon,
+  ArrowRightOnRectangleIcon,
   EnvelopeIcon,
   KeyIcon,
   UserIcon,
-  XCircleIcon,
 } from '@heroicons/react/24/outline';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import * as z from 'zod';
+
+import { useToast } from '@job-tracker/ui-components';
 
 import { Link } from '../../../i18n/routing';
 
@@ -29,6 +30,7 @@ type ApplyFormValues = z.infer<ReturnType<typeof applySchema>>;
 
 function BetaContent() {
   const t = useTranslations('BetaPage');
+  const { showToast } = useToast();
   const searchParams = useSearchParams();
   const router = useRouter();
   const callbackUrl = searchParams.get('callbackUrl') || '/';
@@ -43,9 +45,6 @@ function BetaContent() {
   const [isValidating, setIsValidating] = useState(false);
   const [inviteCode, setInviteCode] = useState('');
   const [validateEmail, setValidateEmail] = useState('');
-  const [feedback, setFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(
-    null,
-  );
 
   const {
     register,
@@ -61,7 +60,6 @@ function BetaContent() {
 
   const onApply = async (data: ApplyFormValues) => {
     setIsApplying(true);
-    setFeedback(null);
     try {
       const response = await fetch(`${BETA_BASE_URL}/apply`, {
         method: 'POST',
@@ -71,10 +69,10 @@ function BetaContent() {
 
       if (!response.ok) throw new Error();
 
-      setFeedback({ type: 'success', message: t('applicationSuccess') });
+      showToast(t('applicationSuccess'), 'success');
       reset();
     } catch (error) {
-      setFeedback({ type: 'error', message: t('applicationError') });
+      showToast(t('applicationError'), 'error');
     } finally {
       setIsApplying(false);
     }
@@ -83,7 +81,6 @@ function BetaContent() {
   const onValidate = async () => {
     if (!inviteCode || !validateEmail) return;
     setIsValidating(true);
-    setFeedback(null);
 
     try {
       const response = await fetch(`${BETA_BASE_URL}/validate`, {
@@ -98,7 +95,10 @@ function BetaContent() {
         throw new Error(data.error);
       }
 
-      setFeedback({ type: 'success', message: t('validationSuccess') });
+      // Mark this device as approved to skip the gate in the future
+      localStorage.setItem('job-tracker-beta-approved', 'true');
+
+      showToast(t('validationSuccess'), 'success');
       setTimeout(() => {
         router.push(`/auth/signin?callbackUrl=${encodeURIComponent(callbackUrl)}`);
       }, 1500);
@@ -117,10 +117,7 @@ function BetaContent() {
         // Fallback already set
       }
 
-      setFeedback({
-        type: 'error',
-        message,
-      });
+      showToast(message, 'error');
     } finally {
       setIsValidating(false);
     }
@@ -140,21 +137,6 @@ function BetaContent() {
           <h1 className="text-base-content text-4xl font-extrabold tracking-tight">{t('title')}</h1>
           <p className="text-base-content/70 mt-4 text-lg">{t('description')}</p>
         </div>
-
-        {feedback && (
-          <div
-            className={`alert shadow-lg ${
-              feedback.type === 'success' ? 'alert-success' : 'alert-error'
-            } transition-all duration-300`}
-          >
-            {feedback.type === 'success' ? (
-              <CheckCircleIcon className="h-6 w-6 shrink-0" />
-            ) : (
-              <XCircleIcon className="h-6 w-6 shrink-0" />
-            )}
-            <span>{feedback.message}</span>
-          </div>
-        )}
 
         <div className="space-y-4">
           {/* Apply for Invite Code */}
@@ -266,6 +248,32 @@ function BetaContent() {
                     </button>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="divider opacity-50"></div>
+
+          {/* Already in the Beta? */}
+          <div className="collapse-arrow bg-base-100 border-base-300 collapse border shadow-sm">
+            <input type="checkbox" />
+            <div className="collapse-title flex items-center gap-3 text-xl font-medium">
+              <ArrowRightOnRectangleIcon className="text-primary h-6 w-6" />
+              {t('alreadyApproved')}
+            </div>
+            <div className="collapse-content">
+              <div className="flex flex-col items-center gap-4 py-2">
+                <p className="text-base-content/60 text-center text-sm">{t('signInToSync')}</p>
+                <Link
+                  href={`/auth/signin?callbackUrl=${encodeURIComponent(callbackUrl)}`}
+                  className="btn btn-primary btn-wide group"
+                  onClick={() => {
+                    localStorage.setItem('job-tracker-beta-approved', 'true');
+                  }}
+                >
+                  <ArrowRightOnRectangleIcon className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                  {t('signInNow')}
+                </Link>
               </div>
             </div>
           </div>

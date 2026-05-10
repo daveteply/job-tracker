@@ -25,6 +25,7 @@ export interface HeaderProps {
 
 export function Header({ title, iconSrc, homeHref = '/home' }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
+  const [isBetaApproved, setIsBetaApproved] = useState(false);
   const { data: session } = useSession();
   const pathname = usePathname();
   const t = useTranslations('Navigation');
@@ -34,8 +35,20 @@ export function Header({ title, iconSrc, homeHref = '/home' }: HeaderProps) {
       setScrolled(window.scrollY > 0);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    // Check for beta approval
+    if (localStorage.getItem('job-tracker-beta-approved') === 'true') {
+      setIsBetaApproved(true);
+    }
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const getSignInUrl = () => {
+    const isBetaEnabled = process.env.NEXT_PUBLIC_ENABLE_BETA_GATE === 'true';
+    const baseUrl = isBetaEnabled && !isBetaApproved ? '/beta' : '/auth/signin';
+    return `${baseUrl}?callbackUrl=${encodeURIComponent(pathname || '/')}`;
+  };
 
   const closeMenu = () => {
     if (document.activeElement instanceof HTMLElement) {
@@ -94,9 +107,7 @@ export function Header({ title, iconSrc, homeHref = '/home' }: HeaderProps) {
               ) : (
                 <li>
                   <Link
-                    href={`${
-                      process.env.NEXT_PUBLIC_ENABLE_BETA_GATE === 'true' ? '/beta' : '/auth/signin'
-                    }?callbackUrl=${encodeURIComponent(pathname || '/')}`}
+                    href={getSignInUrl()}
                     onClick={closeMenu}
                     className="text-primary font-semibold"
                   >

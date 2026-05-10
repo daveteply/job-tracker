@@ -43,13 +43,13 @@ async function approveUser() {
       });
       console.log(`User ${email} is already approved.`);
       if (existingToken) {
-        console.log(`Existing Token: ${existingToken.token}`);
+        console.log(`Existing Invite Code: ${existingToken.token}`);
       }
       process.exit(0);
     }
 
-    // 2. Generate token (2-byte hex = 4 characters, plus prefix)
-    const token = `BETA-${crypto.randomBytes(2).toString('hex').toUpperCase()}`;
+    // 2. Generate invite code (2-byte hex = 4 characters, plus prefix)
+    const inviteCode = `BETA-${crypto.randomBytes(2).toString('hex').toUpperCase()}`;
 
     // 3. Update application and create token in a transaction
     await prisma.$transaction(async (tx) => {
@@ -60,7 +60,7 @@ async function approveUser() {
 
       await tx.betaToken.create({
         data: {
-          token,
+          token: inviteCode,
           issuedToEmail: email,
           maxUses: 1,
           notes: 'Generated via CLI approve-user.ts',
@@ -71,9 +71,9 @@ async function approveUser() {
     console.log('------------------------------------------');
     console.log('✅ Application Approved Successfully!');
     console.log(`📧 Email: ${email}`);
-    console.log(`🔑 Token: ${token}`);
+    console.log(`🔑 Invite Code: ${inviteCode}`);
     console.log('------------------------------------------');
-    console.log('You can now send this token to the user.');
+    console.log('You can now send this invite code to the user.');
   } catch (error) {
     console.error('An unexpected error occurred:', error);
     process.exit(1);

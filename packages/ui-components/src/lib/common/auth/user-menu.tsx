@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+
 import { CogIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -10,8 +12,21 @@ import { DashboardMenuLinks } from '../navigation/dashboard-menu-links';
 
 export function UserMenu() {
   const { data: session, status } = useSession();
+  const [isBetaApproved, setIsBetaApproved] = useState(false);
   const pathname = usePathname();
   const t = useTranslations('Navigation');
+
+  useEffect(() => {
+    if (localStorage.getItem('job-tracker-beta-approved') === 'true') {
+      setIsBetaApproved(true);
+    }
+  }, []);
+
+  const getSignInUrl = () => {
+    const isBetaEnabled = process.env.NEXT_PUBLIC_ENABLE_BETA_GATE === 'true';
+    const baseUrl = isBetaEnabled && !isBetaApproved ? '/beta' : '/auth/signin';
+    return `${baseUrl}?callbackUrl=${encodeURIComponent(pathname || '/')}`;
+  };
 
   if (status === 'loading') {
     return (
@@ -57,9 +72,7 @@ export function UserMenu() {
           ) : (
             <li>
               <Link
-                href={`${
-                  process.env.NEXT_PUBLIC_ENABLE_BETA_GATE === 'true' ? '/beta' : '/auth/signin'
-                }?callbackUrl=${encodeURIComponent(pathname || '/')}`}
+                href={getSignInUrl()}
                 className="text-primary font-semibold"
               >
                 {t('signIn')}

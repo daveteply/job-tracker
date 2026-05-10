@@ -448,7 +448,10 @@
     "usedCode": "Invite code has already been used",
     "notAuthorized": "User is not authorized for Beta",
     "invalidEmail": "Invalid email address",
-    "serverError": "Internal server error"
+    "serverError": "Internal server error",
+    "alreadyApproved": "Already in the Beta?",
+    "signInToSync": "Sign in to resume syncing",
+    "signInNow": "Sign In Now"
   },
   "Error": {
     "title": "Well, this is awkward.",
