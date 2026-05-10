@@ -237,10 +237,10 @@ function BetaContent() {
                   <div className="join flex w-full">
                     <input
                       type="text"
-                      className="input input-bordered join-item mr-3 grow"
+                      className="input input-bordered join-item grow"
                       value={inviteCode}
                       onChange={(e) => setInviteCode(e.target.value)}
-                      placeholder="BETA-XXXX-XXXX"
+                      placeholder="BETA-XXXX"
                     />
                     <button
                       className="btn btn-secondary join-item"
