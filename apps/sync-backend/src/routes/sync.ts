@@ -21,18 +21,81 @@ const PushRowSchema = z.object({
 
 const PushRequestSchema = z.array(PushRowSchema);
 
+// In-memory cache for user authorization
+const authCache = new Map<string, { isActive: boolean; expires: number }>();
+const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+
 const syncRoutes: FastifyPluginAsync = async (server) => {
-  server.post('/pull', async (request, reply) => {
+  // Authorization Hook
+  server.addHook('preHandler', async (request, reply) => {
     const userId = request.headers['x-user-id'] as string;
+    const userEmail = request.headers['x-user-email'] as string;
+
     if (!userId) {
       return reply.code(400).send({ error: 'X-User-Id header is required' });
     }
 
+    // Check cache first
+    const cached = authCache.get(userId);
+    if (cached && cached.expires > Date.now()) {
+      if (!cached.isActive) {
+        return reply.code(403).send({ error: 'notAuthorized' });
+      }
+      return;
+    }
+
+    // Check database
+    let user = await server.prisma.user.findUnique({
+      where: { id: userId },
+    });
+
+    if (!user && userEmail) {
+      // Auto-provision if email is approved in beta applications
+      const application = await server.prisma.betaApplication.findUnique({
+        where: { email: userEmail, status: 'APPROVED' },
+      });
+
+      if (application) {
+        try {
+          user = await server.prisma.user.create({
+            data: {
+              id: userId,
+              email: userEmail,
+              plan: 'beta',
+              isActive: true,
+              lastLoginAt: new Date(),
+            },
+          });
+        } catch (e) {
+          // Handle potential race condition if user was created between check and create
+          user = await server.prisma.user.findUnique({ where: { id: userId } });
+        }
+      }
+    }
+
+    if (!user || !user.isActive) {
+      authCache.set(userId, { isActive: false, expires: Date.now() + CACHE_TTL });
+      return reply.code(403).send({ error: 'notAuthorized' });
+    }
+
+    // Success: update cache and last login
+    authCache.set(userId, { isActive: true, expires: Date.now() + CACHE_TTL });
+
+    // Background update last login at (don't await to keep response fast)
+    server.prisma.user
+      .update({
+        where: { id: userId },
+        data: { lastLoginAt: new Date() },
+      })
+      .catch((err) => server.log.error(err));
+  });
+
+  server.post('/pull', async (request, reply) => {
+    const userId = request.headers['x-user-id'] as string;
     const { collection, checkpoint, limit } = PullRequestSchema.parse(request.body);
 
     const lastTimestamp = checkpoint?.serverTimestamp ?? BigInt(0);
 
-    // Prisma doesn't support >= with UUID sort easily in one go if we want strict ordering
     const events = await server.prisma.syncEvent.findMany({
       where: {
         userId,
@@ -63,16 +126,12 @@ const syncRoutes: FastifyPluginAsync = async (server) => {
     const userId = request.headers['x-user-id'] as string;
     const { collection } = request.query as { collection?: string };
 
-    if (!userId) {
-      return reply.code(400).send({ error: 'X-User-Id header is required' });
-    }
     if (!collection) {
       return reply.code(400).send({ error: 'collection query param is required' });
     }
 
     const rows = PushRequestSchema.parse(request.body);
 
-    // Using a transaction to ensure all events are saved
     await server.prisma.$transaction(
       rows.map((row) => {
         const doc = row.newDocumentState;
@@ -90,7 +149,6 @@ const syncRoutes: FastifyPluginAsync = async (server) => {
       }),
     );
 
-    // Return conflicts
     return [];
   });
 };

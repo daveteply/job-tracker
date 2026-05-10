@@ -32,7 +32,7 @@ export const DatabaseProvider = ({ children }: { children: React.ReactNode }) =>
   }
 
   // Use the extracted replication hook
-  const syncStatus = useReplication(db, session?.user?.id);
+  const syncStatus = useReplication(db, session?.user?.id, session?.user?.email);
 
   // Initialize DB based on auth status
   useEffect(() => {

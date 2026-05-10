@@ -440,8 +440,14 @@
     "codeLabel": "Invite Code",
     "validateCode": "Validate Code",
     "applicationSuccess": "Thanks for applying! We'll be in touch soon.",
+    "applicationError": "Failed to submit application. Please try again.",
     "validationError": "Invalid invite code. Please check and try again.",
-    "validationSuccess": "Code validated! Redirecting to sign in..."
+    "validationSuccess": "Code validated! Redirecting to sign in...",
+    "invalidCode": "Invalid invite code",
+    "expiredCode": "Invite code has expired",
+    "usedCode": "Invite code has already been used",
+    "notAuthorized": "User is not authorized for Beta",
+    "invalidEmail": "Invalid email address"
   },
   "Error": {
     "title": "Well, this is awkward.",

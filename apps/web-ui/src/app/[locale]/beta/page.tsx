@@ -18,13 +18,14 @@ import * as z from 'zod';
 
 import { Link } from '../../../i18n/routing';
 
-const applySchema = z.object({
-  email: z.string().email('Invalid email address'),
-  name: z.string().optional(),
-  reason: z.string().optional(),
-});
+const applySchema = (t: any) =>
+  z.object({
+    email: z.email(t('invalidEmail')),
+    name: z.string().optional(),
+    reason: z.string().optional(),
+  });
 
-type ApplyFormValues = z.infer<typeof applySchema>;
+type ApplyFormValues = z.infer<ReturnType<typeof applySchema>>;
 
 function BetaContent() {
   const t = useTranslations('BetaPage');
@@ -41,6 +42,7 @@ function BetaContent() {
   const [isApplying, setIsApplying] = useState(false);
   const [isValidating, setIsValidating] = useState(false);
   const [inviteCode, setInviteCode] = useState('');
+  const [validateEmail, setValidateEmail] = useState('');
   const [feedback, setFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(
     null,
   );
@@ -51,33 +53,62 @@ function BetaContent() {
     formState: { errors },
     reset,
   } = useForm<ApplyFormValues>({
-    resolver: zodResolver(applySchema),
+    resolver: zodResolver(applySchema(t)),
   });
+
+  const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8080/';
+  const BETA_BASE_URL = `${BACKEND_URL.replace(/\/$/, '')}/beta`;
 
   const onApply = async (data: ApplyFormValues) => {
     setIsApplying(true);
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    setIsApplying(false);
-    setFeedback({ type: 'success', message: t('applicationSuccess') });
-    reset();
+    setFeedback(null);
+    try {
+      const response = await fetch(`${BETA_BASE_URL}/apply`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) throw new Error();
+
+      setFeedback({ type: 'success', message: t('applicationSuccess') });
+      reset();
+    } catch (error) {
+      setFeedback({ type: 'error', message: t('applicationError') });
+    } finally {
+      setIsApplying(false);
+    }
   };
 
   const onValidate = async () => {
-    if (!inviteCode) return;
+    if (!inviteCode || !validateEmail) return;
     setIsValidating(true);
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    setIsValidating(false);
+    setFeedback(null);
 
-    // Mock validation logic
-    if (inviteCode.toUpperCase() === 'BETA2026') {
+    try {
+      const response = await fetch(`${BETA_BASE_URL}/validate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: inviteCode, email: validateEmail }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error);
+      }
+
       setFeedback({ type: 'success', message: t('validationSuccess') });
       setTimeout(() => {
         router.push(`/auth/signin?callbackUrl=${encodeURIComponent(callbackUrl)}`);
       }, 1500);
-    } else {
-      setFeedback({ type: 'error', message: t('validationError') });
+    } catch (error: any) {
+      setFeedback({
+        type: 'error',
+        message: t(error.message) || t('validationError'),
+      });
+    } finally {
+      setIsValidating(false);
     }
   };
 
@@ -179,29 +210,47 @@ function BetaContent() {
               {t('alreadyHaveCode')}
             </div>
             <div className="collapse-content">
-              <div className="form-control w-full">
-                <label className="label">
-                  <span className="label-text flex items-center gap-2">
-                    <KeyIcon className="h-4 w-4" />
-                    {t('codeLabel')}
-                  </span>
-                </label>
-                <div className="join flex w-full">
+              <div className="space-y-4">
+                <div className="form-control w-full">
+                  <label className="label">
+                    <span className="label-text flex items-center gap-2">
+                      <EnvelopeIcon className="h-4 w-4" />
+                      {t('emailLabel')}
+                    </span>
+                  </label>
                   <input
-                    type="text"
-                    className="input input-bordered join-item grow"
-                    value={inviteCode}
-                    onChange={(e) => setInviteCode(e.target.value)}
-                    placeholder="BETA-XXXX-XXXX"
+                    type="email"
+                    className="input input-bordered w-full"
+                    value={validateEmail}
+                    onChange={(e) => setValidateEmail(e.target.value)}
+                    placeholder="you@example.com"
                   />
-                  <button
-                    className="btn btn-secondary join-item"
-                    onClick={onValidate}
-                    disabled={isValidating || !inviteCode}
-                  >
-                    {isValidating && <span className="loading loading-spinner"></span>}
-                    {t('validateCode')}
-                  </button>
+                </div>
+
+                <div className="form-control w-full">
+                  <label className="label">
+                    <span className="label-text flex items-center gap-2">
+                      <KeyIcon className="h-4 w-4" />
+                      {t('codeLabel')}
+                    </span>
+                  </label>
+                  <div className="join flex w-full">
+                    <input
+                      type="text"
+                      className="input input-bordered join-item mr-3 grow"
+                      value={inviteCode}
+                      onChange={(e) => setInviteCode(e.target.value)}
+                      placeholder="BETA-XXXX-XXXX"
+                    />
+                    <button
+                      className="btn btn-secondary join-item"
+                      onClick={onValidate}
+                      disabled={isValidating || !inviteCode || !validateEmail}
+                    >
+                      {isValidating && <span className="loading loading-spinner"></span>}
+                      {t('validateCode')}
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

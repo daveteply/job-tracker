@@ -438,8 +438,14 @@
     "codeLabel": "Código de invitación",
     "validateCode": "Validar código",
     "applicationSuccess": "¡Gracias por postularte! Nos pondremos en contacto pronto.",
+    "applicationError": "Error al enviar la solicitud. Por favor, inténtalo de nuevo.",
     "validationError": "Código de invitación inválido. Por favor, revísalo e inténtalo de nuevo.",
-    "validationSuccess": "¡Código validado! Redirigiendo para iniciar sesión..."
+    "validationSuccess": "¡Código validado! Redirigiendo para iniciar sesión...",
+    "invalidCode": "Código de invitación inválido",
+    "expiredCode": "El código de invitación ha expirado",
+    "usedCode": "El código de invitación ya ha sido utilizado",
+    "notAuthorized": "Usuario no autorizado para la Beta",
+    "invalidEmail": "Dirección de correo electrónico no válida"
   },
   "Error": {
     "title": "Vaya, esto es un poco incómodo.",
