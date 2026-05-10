@@ -427,6 +427,22 @@
     "summary": "Summary",
     "details": "Details"
   },
+  "BetaPage": {
+    "title": "Join the Beta Program",
+    "description": "We're gradually rolling out Cloud Sync to ensure a smooth experience for everyone. Join the waitlist or enter your invite code to get started.",
+    "applyTitle": "Apply for an Invite Code",
+    "applyDescription": "Tell us a bit about yourself and why you'd like to join.",
+    "emailLabel": "Email Address",
+    "nameLabel": "Name (Optional)",
+    "reasonLabel": "What do you plan to do with Job Tracker? (Optional)",
+    "submitApplication": "Submit Application",
+    "alreadyHaveCode": "Already have an Invite Code?",
+    "codeLabel": "Invite Code",
+    "validateCode": "Validate Code",
+    "applicationSuccess": "Thanks for applying! We'll be in touch soon.",
+    "validationError": "Invalid invite code. Please check and try again.",
+    "validationSuccess": "Code validated! Redirecting to sign in..."
+  },
   "Error": {
     "title": "Well, this is awkward.",
     "description": "Something didn't go as planned on our end. Please try again in a few seconds.",

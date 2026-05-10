@@ -1,5 +1,6 @@
 'use client';
 
+import { CogIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
@@ -38,7 +39,7 @@ export function UserMenu() {
               />
             ) : (
               <div className="bg-neutral text-neutral-content flex h-full w-full items-center justify-center font-bold">
-                {session?.user?.name?.[0] ?? '?'}
+                {session?.user?.name?.[0] ?? <CogIcon />}
               </div>
             )}
           </div>
@@ -56,7 +57,9 @@ export function UserMenu() {
           ) : (
             <li>
               <Link
-                href={`/auth/signin?callbackUrl=${encodeURIComponent(pathname || '/')}`}
+                href={`${
+                  process.env.NEXT_PUBLIC_ENABLE_BETA_GATE === 'true' ? '/beta' : '/auth/signin'
+                }?callbackUrl=${encodeURIComponent(pathname || '/')}`}
                 className="text-primary font-semibold"
               >
                 {t('signIn')}
@@ -74,10 +77,10 @@ export function UserMenu() {
               <div className="divider my-0"></div>
               <li className="menu-title px-2 py-1">
                 <div className="flex flex-col items-start gap-0.5">
-                  <span className="text-base-content font-bold line-clamp-1">
+                  <span className="text-base-content line-clamp-1 font-bold">
                     {session.user?.name}
                   </span>
-                  <span className="text-base-content/60 text-[10px] font-normal line-clamp-1">
+                  <span className="text-base-content/60 line-clamp-1 text-[10px] font-normal">
                     {session.user?.email}
                   </span>
                 </div>
@@ -86,9 +89,9 @@ export function UserMenu() {
           )}
           <div className="divider my-0 opacity-50"></div>
           <li className="px-4 py-1.5 opacity-30 select-none">
-            <div className="flex items-center justify-between w-full">
-              <span className="text-[9px] font-bold uppercase tracking-wider">Version</span>
-              <span className="text-[10px] font-mono">{process.env.NEXT_PUBLIC_APP_VERSION}</span>
+            <div className="flex w-full items-center justify-between">
+              <span className="text-[9px] font-bold tracking-wider uppercase">Version</span>
+              <span className="font-mono text-[10px]">{process.env.NEXT_PUBLIC_APP_VERSION}</span>
             </div>
           </li>
         </ul>

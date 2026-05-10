@@ -425,6 +425,22 @@
     "summary": "Resumen",
     "details": "Detalles"
   },
+  "BetaPage": {
+    "title": "Únete al Programa Beta",
+    "description": "Estamos implementando la sincronización en la nube gradualmente para asegurar una experiencia fluida para todos. Únete a la lista de espera o ingresa tu código de invitación para comenzar.",
+    "applyTitle": "Solicitar un Código de Invitación",
+    "applyDescription": "Cuéntanos un poco sobre ti y por qué te gustaría unirte.",
+    "emailLabel": "Correo electrónico",
+    "nameLabel": "Nombre (Opcional)",
+    "reasonLabel": "¿Qué planeas hacer con Job Tracker? (Opcional)",
+    "submitApplication": "Enviar solicitud",
+    "alreadyHaveCode": "¿Ya tienes un código de invitación?",
+    "codeLabel": "Código de invitación",
+    "validateCode": "Validar código",
+    "applicationSuccess": "¡Gracias por postularte! Nos pondremos en contacto pronto.",
+    "validationError": "Código de invitación inválido. Por favor, revísalo e inténtalo de nuevo.",
+    "validationSuccess": "¡Código validado! Redirigiendo para iniciar sesión..."
+  },
   "Error": {
     "title": "Vaya, esto es un poco incómodo.",
     "description": "Algo no salió como planeamos de nuestro lado. Por favor, inténtalo de nuevo en unos segundos.",

@@ -94,7 +94,9 @@ export function Header({ title, iconSrc, homeHref = '/home' }: HeaderProps) {
               ) : (
                 <li>
                   <Link
-                    href={`/auth/signin?callbackUrl=${encodeURIComponent(pathname || '/')}`}
+                    href={`${
+                      process.env.NEXT_PUBLIC_ENABLE_BETA_GATE === 'true' ? '/beta' : '/auth/signin'
+                    }?callbackUrl=${encodeURIComponent(pathname || '/')}`}
                     onClick={closeMenu}
                     className="text-primary font-semibold"
                   >
@@ -125,9 +127,9 @@ export function Header({ title, iconSrc, homeHref = '/home' }: HeaderProps) {
               )}
               <div className="divider my-0 opacity-50"></div>
               <li className="px-4 py-1.5 opacity-30 select-none">
-                <div className="flex items-center justify-between w-full">
-                  <span className="text-[9px] font-bold uppercase tracking-wider">Version</span>
-                  <span className="text-[10px] font-mono">
+                <div className="flex w-full items-center justify-between">
+                  <span className="text-[9px] font-bold tracking-wider uppercase">Version</span>
+                  <span className="font-mono text-[10px]">
                     {process.env.NEXT_PUBLIC_APP_VERSION}
                   </span>
                 </div>
