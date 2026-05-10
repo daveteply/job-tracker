@@ -6,7 +6,8 @@
     "setup": "npm run clear-target && npx nx run-many -t build -p sync-backend",
     "clear-target": "rm -rf apps/sync-backend/target",
     "start": "npx nx run-many -t dev -p web-ui sync-backend",
-    "start:backend": "npx nx run sync-backend:dev"
+    "start:backend": "npx nx run sync-backend:dev",
+    "beta:approve": "npm run beta:approve --prefix apps/sync-backend"
   },
   "private": true,
   "dependencies": {
