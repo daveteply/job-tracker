@@ -10,9 +10,23 @@ datasource db {
   provider = "postgresql"
 }
 
+model User {
+  id          String   @id
+  email       String   @unique
+  createdAt   DateTime @default(now()) @map("created_at")
+  lastLoginAt DateTime? @map("last_login_at")
+  isActive    Boolean  @default(true) @map("is_active")
+  plan        String   @default("beta")
+
+  syncEvents  SyncEvent[]
+
+  @@map("users")
+}
+
 model SyncEvent {
   id             String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   userId         String   @map("user_id")
+  user           User     @relation(fields: [userId], references: [id])
   eventOp        String   @map("event_op")
   documentId     String   @map("document_id")
   collectionName String   @map("collection_name")
@@ -23,4 +37,36 @@ model SyncEvent {
   @@index([userId, collectionName, serverTimestamp], name: "idx_user_collection_timestamp")
   @@index([documentId], name: "idx_doc_id")
   @@map("sync_events")
+}
+
+enum ApplicationStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model BetaApplication {
+  id        String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email     String            @unique
+  name      String?
+  reason    String?
+  status    ApplicationStatus @default(PENDING)
+  createdAt DateTime          @default(now()) @map("created_at")
+  updatedAt DateTime          @updatedAt @map("updated_at")
+
+  @@map("beta_applications")
+}
+
+model BetaToken {
+  id            String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  token         String    @unique
+  createdAt     DateTime  @default(now()) @map("created_at")
+  expiresAt     DateTime? @map("expires_at")
+  maxUses       Int       @default(1) @map("max_uses")
+  uses          Int       @default(0)
+  issuedToEmail String?   @map("issued_to_email")
+  issuedBy      String?   @map("issued_by")
+  notes         String?
+
+  @@map("beta_tokens")
 }

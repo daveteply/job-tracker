@@ -5,7 +5,7 @@ import { replicateRxCollection, RxReplicationState } from 'rxdb/plugins/replicat
 
 import { TrackerDatabase } from './rx-database';
 
-const SYNC_URL = process.env['NEXT_PUBLIC_SYNC_URL'] || 'http://localhost:8080/sync';
+const SYNC_URL = (process.env['NEXT_PUBLIC_BACKEND_URL'] || 'http://localhost:8080/') + 'sync';
 
 export type SyncStatus = 'synced' | 'syncing' | 'error' | 'offline';
 
@@ -14,7 +14,11 @@ export interface Checkpoint {
   id: string;
 }
 
-export function useReplication(db: TrackerDatabase | null, userId: string | undefined) {
+export function useReplication(
+  db: TrackerDatabase | null,
+  userId: string | undefined,
+  userEmail: string | null | undefined,
+) {
   const [syncStatus, setSyncStatus] = useState<SyncStatus>('offline');
 
   useEffect(() => {
@@ -38,20 +42,37 @@ export function useReplication(db: TrackerDatabase | null, userId: string | unde
           pull: {
             handler: async (lastCheckpoint, batchSize) => {
               try {
+                const headers: Record<string, string> = {
+                  'Content-Type': 'application/json',
+                  'X-User-Id': userId,
+                };
+                if (userEmail) headers['X-User-Email'] = userEmail;
+
                 const response = await fetch(`${SYNC_URL}/pull`, {
                   method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json',
-                    'X-User-Id': userId,
-                  },
+                  headers,
                   body: JSON.stringify({
                     collection: collection.name,
                     checkpoint: lastCheckpoint,
                     limit: batchSize,
                   }),
                 });
+                if (response.status === 403) {
+                  localStorage.removeItem('job-tracker-beta-approved');
+                  setSyncStatus('error');
+                  // Cancel all replications to stop retries
+                  replicationStates.forEach((state) => state.cancel());
+                  throw new Error('Not authorized for Beta');
+                }
+                if (response.ok) {
+                  localStorage.setItem('job-tracker-beta-approved', 'true');
+                }
                 return (await response.json()) as ReplicationPullHandlerResult<unknown, Checkpoint>;
               } catch (err) {
+                // If it's our specific error, don't set to offline (keep as error)
+                if (err instanceof Error && err.message === 'Not authorized for Beta') {
+                  throw err;
+                }
                 setSyncStatus('offline');
                 throw err;
               }
@@ -60,20 +81,35 @@ export function useReplication(db: TrackerDatabase | null, userId: string | unde
           push: {
             handler: async (rows) => {
               try {
+                const headers: Record<string, string> = {
+                  'Content-Type': 'application/json',
+                  'X-User-Id': userId,
+                };
+                if (userEmail) headers['X-User-Email'] = userEmail;
+
                 const response = await fetch(`${SYNC_URL}/push?collection=${collection.name}`, {
                   method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json',
-                    'X-User-Id': userId,
-                  },
+                  headers,
                   body: JSON.stringify(rows),
                 });
-                // The push handler expects an array of documents that had conflicts or were deleted.
-                // Our backend currently returns the rows it processed.
+                if (response.status === 403) {
+                  localStorage.removeItem('job-tracker-beta-approved');
+                  setSyncStatus('error');
+                  // Cancel all replications to stop retries
+                  replicationStates.forEach((state) => state.cancel());
+                  throw new Error('Not authorized for Beta');
+                }
+                if (response.ok) {
+                  localStorage.setItem('job-tracker-beta-approved', 'true');
+                }
                 return (await response.json()) as ReplicationPushHandlerResult<{
                   _deleted: boolean;
                 }>;
               } catch (err) {
+                // If it's our specific error, don't set to offline (keep as error)
+                if (err instanceof Error && err.message === 'Not authorized for Beta') {
+                  throw err;
+                }
                 setSyncStatus('offline');
                 throw err;
               }

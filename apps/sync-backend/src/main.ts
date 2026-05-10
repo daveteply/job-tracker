@@ -4,6 +4,7 @@ import swaggerUi from '@fastify/swagger-ui';
 import Fastify from 'fastify';
 
 import prismaPlugin from './plugins/prisma.js';
+import betaRoutes from './routes/beta.js';
 import syncRoutes from './routes/sync.js';
 
 const server = Fastify({
@@ -34,6 +35,7 @@ async function main() {
 
   // Register Routes
   await server.register(syncRoutes, { prefix: '/sync' });
+  await server.register(betaRoutes, { prefix: '/beta' });
 
   // Health Check
   server.get('/health', async () => {
