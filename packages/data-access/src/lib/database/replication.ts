@@ -60,6 +60,8 @@ export function useReplication(
                 if (response.status === 403) {
                   localStorage.removeItem('job-tracker-beta-approved');
                   setSyncStatus('error');
+                  // Cancel all replications to stop retries
+                  replicationStates.forEach((state) => state.cancel());
                   throw new Error('Not authorized for Beta');
                 }
                 if (response.ok) {
@@ -67,6 +69,10 @@ export function useReplication(
                 }
                 return (await response.json()) as ReplicationPullHandlerResult<unknown, Checkpoint>;
               } catch (err) {
+                // If it's our specific error, don't set to offline (keep as error)
+                if (err instanceof Error && err.message === 'Not authorized for Beta') {
+                  throw err;
+                }
                 setSyncStatus('offline');
                 throw err;
               }
@@ -89,6 +95,8 @@ export function useReplication(
                 if (response.status === 403) {
                   localStorage.removeItem('job-tracker-beta-approved');
                   setSyncStatus('error');
+                  // Cancel all replications to stop retries
+                  replicationStates.forEach((state) => state.cancel());
                   throw new Error('Not authorized for Beta');
                 }
                 if (response.ok) {
@@ -98,6 +106,10 @@ export function useReplication(
                   _deleted: boolean;
                 }>;
               } catch (err) {
+                // If it's our specific error, don't set to offline (keep as error)
+                if (err instanceof Error && err.message === 'Not authorized for Beta') {
+                  throw err;
+                }
                 setSyncStatus('offline');
                 throw err;
               }
