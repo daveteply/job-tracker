@@ -34,7 +34,6 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     if (!toast) return;
 
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsVisible(true);
     const timer = setTimeout(() => {
       setIsVisible(false);

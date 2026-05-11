@@ -26,7 +26,6 @@ export function ErrorView({
   const [emoji, setEmoji] = useState(EMOJIS[0]);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setEmoji(EMOJIS[Math.floor(Math.random() * EMOJIS.length)]);
 
     if (error) {

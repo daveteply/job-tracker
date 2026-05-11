@@ -10,7 +10,6 @@ export function PageLoading({ entityName }: { entityName: string }) {
 
   useEffect(() => {
     const count = parseInt(t('count'), 10);
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setDisplayIndex(Math.floor(Math.random() * count));
   }, [t]);
 
