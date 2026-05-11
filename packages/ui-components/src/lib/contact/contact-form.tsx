@@ -73,46 +73,26 @@ export function ContactForm<T extends FieldValues>({
     }
   };
 
-  // Helper to render error messages cleanly
-  const ErrorMsg = ({ name }: { name: Path<T> }) => {
-    // Access nested errors (e.g., 'company.name')
-    const nameParts = (name as string).split('.');
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let error: any = errors;
-    for (const part of nameParts) {
-      if (!error) break;
-      error = error[part];
-    }
-
-    if (!error || !error.message) return null;
-    return (
-      <p className="text-error">
-        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-        <span>{tValidation(error.message.toString() as any)}</span>
-      </p>
-    );
-  };
-
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="px-12pt-6 mx-auto mb-4 max-w-md pb-32">
       <fieldset className="fieldset">
         <legend className="fieldset-legend">{t('formFirstName')}</legend>
         <input className="input" {...register('firstName' as Path<T>)} />
         <p className="label">{tCommon('required')}</p>
-        <ErrorMsg name={'firstName' as Path<T>} />
+        <ErrorMsg name={'firstName' as Path<T>} errors={errors} tValidation={tValidation} />
       </fieldset>
 
       <fieldset className="fieldset">
         <legend className="fieldset-legend">{t('formLastName')}</legend>
         <input className="input" {...register('lastName' as Path<T>)} />
         <p className="label">{tCommon('required')}</p>
-        <ErrorMsg name={'lastName' as Path<T>} />
+        <ErrorMsg name={'lastName' as Path<T>} errors={errors} tValidation={tValidation} />
       </fieldset>
 
       <fieldset className="fieldset">
         <legend className="fieldset-legend">{t('formTitle')}</legend>
         <input className="input" {...register('title' as Path<T>)} />
-        <ErrorMsg name={'title' as Path<T>} />
+        <ErrorMsg name={'title' as Path<T>} errors={errors} tValidation={tValidation} />
       </fieldset>
 
       <fieldset className="fieldset">
@@ -124,25 +104,25 @@ export function ContactForm<T extends FieldValues>({
           placeholder={companyPlaceholder}
           createNewLabel={createCompanyLabel}
         />
-        <ErrorMsg name={'company' as Path<T>} />
+        <ErrorMsg name={'company' as Path<T>} errors={errors} tValidation={tValidation} />
       </fieldset>
 
       <fieldset className="fieldset">
         <legend className="fieldset-legend">{t('formEmail')}</legend>
         <input className="input" {...register('email' as Path<T>)} />
-        <ErrorMsg name={'email' as Path<T>} />
+        <ErrorMsg name={'email' as Path<T>} errors={errors} tValidation={tValidation} />
       </fieldset>
 
       <fieldset className="fieldset">
         <legend className="fieldset-legend">{t('formPhone')}</legend>
         <input className="input" {...register('phoneNumber' as Path<T>)} />
-        <ErrorMsg name={'phoneNumber' as Path<T>} />
+        <ErrorMsg name={'phoneNumber' as Path<T>} errors={errors} tValidation={tValidation} />
       </fieldset>
 
       <fieldset className="fieldset">
         <legend className="fieldset-legend">{t('formLinkedInUrl')}</legend>
         <input className="input" {...register('linkedInUrl' as Path<T>)} />
-        <ErrorMsg name={'linkedInUrl' as Path<T>} />
+        <ErrorMsg name={'linkedInUrl' as Path<T>} errors={errors} tValidation={tValidation} />
       </fieldset>
 
       <fieldset className="fieldset">
@@ -155,13 +135,17 @@ export function ContactForm<T extends FieldValues>({
           />
           <span className="label-text">{t('formIsRecruiterCheckbox')}</span>
         </label>
-        <ErrorMsg name={'isPrimaryRecruiter' as Path<T>} />
+        <ErrorMsg
+          name={'isPrimaryRecruiter' as Path<T>}
+          errors={errors}
+          tValidation={tValidation}
+        />
       </fieldset>
 
       <fieldset className="fieldset">
         <legend className="fieldset-legend">{t('formNotes')}</legend>
         <textarea className="textarea" {...register('notes' as Path<T>)} />
-        <ErrorMsg name={'notes' as Path<T>} />
+        <ErrorMsg name={'notes' as Path<T>} errors={errors} tValidation={tValidation} />
       </fieldset>
 
       <FloatingButtonContainer>
@@ -175,5 +159,33 @@ export function ContactForm<T extends FieldValues>({
     </form>
   );
 }
+
+// Helper to render error messages cleanly
+const ErrorMsg = <T extends FieldValues>({
+  name,
+  errors,
+  tValidation,
+}: {
+  name: Path<T>;
+  errors: any;
+  tValidation: any;
+}) => {
+  // Access nested errors (e.g., 'company.name')
+  const nameParts = (name as string).split('.');
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let error: any = errors;
+  for (const part of nameParts) {
+    if (!error) break;
+    error = error[part];
+  }
+
+  if (!error || !error.message) return null;
+  return (
+    <p className="text-error">
+      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+      <span>{tValidation(error.message.toString() as any)}</span>
+    </p>
+  );
+};
 
 export default ContactForm;

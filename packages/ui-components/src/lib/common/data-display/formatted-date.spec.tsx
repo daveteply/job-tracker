@@ -2,6 +2,11 @@ import { render } from '@testing-library/react';
 
 import { FormattedDate } from './formatted-date';
 
+// Mock next-intl
+jest.mock('next-intl', () => ({
+  useLocale: () => 'en-US',
+}));
+
 describe('FormattedDate', () => {
   beforeEach(() => {
     jest.useFakeTimers();

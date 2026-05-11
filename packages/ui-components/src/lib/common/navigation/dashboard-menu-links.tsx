@@ -1,10 +1,6 @@
 'use client';
 
-import {
-  BellIcon,
-  BriefcaseIcon,
-  UserGroupIcon,
-} from '@heroicons/react/24/outline';
+import { BellIcon, BriefcaseIcon, UserGroupIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 
@@ -13,10 +9,7 @@ export interface DashboardMenuLinksProps {
   onItemClick?: () => void;
 }
 
-export function DashboardMenuLinks({
-  showIcons = false,
-  onItemClick,
-}: DashboardMenuLinksProps) {
+export function DashboardMenuLinks({ showIcons = false, onItemClick }: DashboardMenuLinksProps) {
   const t = useTranslations('Navigation');
 
   const links = [

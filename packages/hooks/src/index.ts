@@ -1,4 +1,6 @@
 export * from './lib/action-hooks';
+export * from './lib/beta-hooks';
+export * from './lib/client-hooks';
 export * from './lib/company-hooks';
 export * from './lib/contact-hooks';
 export * from './lib/event-hooks';

@@ -23,11 +23,11 @@ export function ErrorView({
   onBackHome,
   error,
 }: ErrorViewProps) {
-  const [emoji, setEmoji] = useState('🫠');
+  const [emoji, setEmoji] = useState(EMOJIS[0]);
 
   useEffect(() => {
-    const randomEmoji = EMOJIS[Math.floor(Math.random() * EMOJIS.length)];
-    setEmoji(randomEmoji);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setEmoji(EMOJIS[Math.floor(Math.random() * EMOJIS.length)]);
 
     if (error) {
       console.error(error);

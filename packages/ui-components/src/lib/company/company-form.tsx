@@ -65,49 +65,37 @@ export function CompanyForm<T extends FieldValues>({
     }
   };
 
-  // Helper to render error messages cleanly
-  const ErrorMsg = ({ name }: { name: Path<T> }) => {
-    const error = errors[name];
-    if (!error || !error.message) return null;
-    return (
-      <p className="text-error">
-        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-        <span>{tValidation(error.message.toString() as any)}</span>
-      </p>
-    );
-  };
-
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="px-12pt-6 mx-auto mb-4 max-w-md pb-32">
       <fieldset className="fieldset">
         <legend className="fieldset-legend">{t('formName')}</legend>
         <input className="input" {...register('name' as Path<T>)} />
         <p className="label">{tCommon('required')}</p>
-        <ErrorMsg name={'name' as Path<T>} />
+        <ErrorMsg name={'name' as Path<T>} errors={errors} tValidation={tValidation} />
       </fieldset>
 
       <fieldset className="fieldset">
         <legend className="fieldset-legend">{t('formWebsite')}</legend>
         <input className="input" {...register('website' as Path<T>)} />
-        <ErrorMsg name={'website' as Path<T>} />
+        <ErrorMsg name={'website' as Path<T>} errors={errors} tValidation={tValidation} />
       </fieldset>
 
       <fieldset className="fieldset">
         <legend className="fieldset-legend">{t('formIndustry')}</legend>
         <input className="input" {...register('industry' as Path<T>)} />
-        <ErrorMsg name={'industry' as Path<T>} />
+        <ErrorMsg name={'industry' as Path<T>} errors={errors} tValidation={tValidation} />
       </fieldset>
 
       <fieldset className="fieldset">
         <legend className="fieldset-legend">{t('formSizeRange')}</legend>
         <input className="input" {...register('sizeRange' as Path<T>)} />
-        <ErrorMsg name={'sizeRange' as Path<T>} />
+        <ErrorMsg name={'sizeRange' as Path<T>} errors={errors} tValidation={tValidation} />
       </fieldset>
 
       <fieldset className="fieldset">
         <legend className="fieldset-legend">{t('formNotes')}</legend>
         <textarea className="textarea" {...register('notes' as Path<T>)} />
-        <ErrorMsg name={'notes' as Path<T>} />
+        <ErrorMsg name={'notes' as Path<T>} errors={errors} tValidation={tValidation} />
       </fieldset>
 
       <FloatingButtonContainer>
@@ -121,5 +109,25 @@ export function CompanyForm<T extends FieldValues>({
     </form>
   );
 }
+
+// Helper to render error messages cleanly
+const ErrorMsg = <T extends FieldValues>({
+  name,
+  errors,
+  tValidation,
+}: {
+  name: Path<T>;
+  errors: any;
+  tValidation: any;
+}) => {
+  const error = errors[name];
+  if (!error || !error.message) return null;
+  return (
+    <p className="text-error">
+      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+      <span>{tValidation(error.message.toString() as any)}</span>
+    </p>
+  );
+};
 
 export default CompanyForm;

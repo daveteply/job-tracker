@@ -1,8 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-
 import { useLocale } from 'next-intl';
+
+import { useIsClient } from '@job-tracker/hooks';
 
 export interface FormattedDateProps {
   dateValue?: Date | string;
@@ -10,12 +10,8 @@ export interface FormattedDateProps {
 }
 
 export function FormattedDate({ dateValue, useRelativeTime = true }: FormattedDateProps) {
-  const [mounted, setMounted] = useState(false);
+  const mounted = useIsClient();
   const locale = useLocale();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   if (!mounted || !dateValue) return null;
 

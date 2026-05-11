@@ -13,6 +13,8 @@ import { usePathname } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 
+import { useBetaApproved } from '@job-tracker/hooks';
+
 import { UserMenu } from '../auth/user-menu';
 import { SyncIndicator } from '../feedback/sync-indicator';
 import { DashboardMenuLinks } from '../navigation/dashboard-menu-links';
@@ -25,7 +27,7 @@ export interface HeaderProps {
 
 export function Header({ title, iconSrc, homeHref = '/home' }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
-  const [isBetaApproved, setIsBetaApproved] = useState(false);
+  const isBetaApproved = useBetaApproved();
   const { data: session } = useSession();
   const pathname = usePathname();
   const t = useTranslations('Navigation');
@@ -35,11 +37,6 @@ export function Header({ title, iconSrc, homeHref = '/home' }: HeaderProps) {
       setScrolled(window.scrollY > 0);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
-    
-    // Check for beta approval
-    if (localStorage.getItem('job-tracker-beta-approved') === 'true') {
-      setIsBetaApproved(true);
-    }
 
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);

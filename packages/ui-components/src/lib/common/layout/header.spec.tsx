@@ -2,6 +2,8 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { usePathname } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 
+import { useBetaApproved } from '@job-tracker/hooks';
+
 import { Header } from './header';
 
 // Mock SyncIndicator
@@ -18,6 +20,12 @@ jest.mock('next/navigation', () => ({
 jest.mock('next-auth/react', () => ({
   useSession: jest.fn(),
   signOut: jest.fn(),
+}));
+
+// Mock @job-tracker/hooks
+jest.mock('@job-tracker/hooks', () => ({
+  useBetaApproved: jest.fn(),
+  useAvailableActions: () => [],
 }));
 
 // Mock next-intl
@@ -38,8 +46,20 @@ jest.mock('next-intl', () => ({
 
 // Mock Link from next/link
 jest.mock('next/link', () => {
-  return ({ children, href, onClick }: { children: React.ReactNode; href: string; onClick?: () => void }) => {
-    return <a href={href} onClick={onClick}>{children}</a>;
+  return ({
+    children,
+    href,
+    onClick,
+  }: {
+    children: React.ReactNode;
+    href: string;
+    onClick?: () => void;
+  }) => {
+    return (
+      <a href={href} onClick={onClick}>
+        {children}
+      </a>
+    );
   };
 });
 
@@ -47,6 +67,7 @@ describe('Header', () => {
   beforeEach(() => {
     (usePathname as jest.Mock).mockReturnValue('/current-path');
     (useSession as jest.Mock).mockReturnValue({ data: null, status: 'unauthenticated' });
+    (useBetaApproved as jest.Mock).mockReturnValue(true);
   });
 
   it('renders title correctly', () => {
