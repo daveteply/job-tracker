@@ -7,4 +7,5 @@ module.exports = {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../coverage/packages/ui-components',
+  transformIgnorePatterns: ['node_modules/(?!(next-intl|use-intl|@formatjs|next-auth|@auth)/)'],
 };

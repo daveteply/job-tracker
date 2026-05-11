@@ -75,33 +75,13 @@ export function RoleForm<T extends FieldValues>({
     }
   };
 
-  // Helper to render error messages cleanly
-  const ErrorMsg = ({ name }: { name: Path<T> }) => {
-    // Access nested errors (e.g., 'company.name')
-    const nameParts = (name as string).split('.');
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let error: any = errors;
-    for (const part of nameParts) {
-      if (!error) break;
-      error = error[part];
-    }
-
-    if (!error || !error.message) return null;
-    return (
-      <p className="text-error">
-        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-        <span>{tValidation(error.message.toString() as any)}</span>
-      </p>
-    );
-  };
-
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="px-12pt-6 mx-auto mb-4 max-w-md pb-32">
       <fieldset className="fieldset">
         <legend className="fieldset-legend">{t('formTitle')}</legend>
         <input className="input" {...register('title' as Path<T>)} />
         <p className="label">{tCommon('required')}</p>
-        <ErrorMsg name={'title' as Path<T>} />
+        <ErrorMsg name={'title' as Path<T>} errors={errors} tValidation={tValidation} />
       </fieldset>
 
       <fieldset className="fieldset">
@@ -113,7 +93,7 @@ export function RoleForm<T extends FieldValues>({
           placeholder={companyPlaceholder}
           createNewLabel={createCompanyLabel}
         />
-        <ErrorMsg name={'company' as Path<T>} />
+        <ErrorMsg name={'company' as Path<T>} errors={errors} tValidation={tValidation} />
       </fieldset>
 
       <fieldset className="fieldset w-full">
@@ -123,31 +103,31 @@ export function RoleForm<T extends FieldValues>({
           enumObject={RoleStatus}
           translationNamespace="RoleStatus"
         />
-        <ErrorMsg name={'status' as Path<T>} />
+        <ErrorMsg name={'status' as Path<T>} errors={errors} tValidation={tValidation} />
       </fieldset>
 
       <fieldset className="fieldset">
         <legend className="fieldset-legend">{t('formJobPostingUrl')}</legend>
         <input className="input" {...register('jobPostingUrl' as Path<T>)} />
-        <ErrorMsg name={'jobPostingUrl' as Path<T>} />
+        <ErrorMsg name={'jobPostingUrl' as Path<T>} errors={errors} tValidation={tValidation} />
       </fieldset>
 
       <fieldset className="fieldset">
         <legend className="fieldset-legend">{t('formLocation')}</legend>
         <input className="input" {...register('location' as Path<T>)} />
-        <ErrorMsg name={'location' as Path<T>} />
+        <ErrorMsg name={'location' as Path<T>} errors={errors} tValidation={tValidation} />
       </fieldset>
 
       <fieldset className="fieldset">
         <legend className="fieldset-legend">{t('formLevel')}</legend>
         <input className="input" {...register('level' as Path<T>)} />
-        <ErrorMsg name={'level' as Path<T>} />
+        <ErrorMsg name={'level' as Path<T>} errors={errors} tValidation={tValidation} />
       </fieldset>
 
       <fieldset className="fieldset">
         <legend className="fieldset-legend">{t('formSalaryRange')}</legend>
         <input className="input" {...register('salaryRange' as Path<T>)} />
-        <ErrorMsg name={'salaryRange' as Path<T>} />
+        <ErrorMsg name={'salaryRange' as Path<T>} errors={errors} tValidation={tValidation} />
       </fieldset>
 
       <FloatingButtonContainer>
@@ -161,5 +141,33 @@ export function RoleForm<T extends FieldValues>({
     </form>
   );
 }
+
+// Helper to render error messages cleanly
+const ErrorMsg = <T extends FieldValues>({
+  name,
+  errors,
+  tValidation,
+}: {
+  name: Path<T>;
+  errors: any;
+  tValidation: any;
+}) => {
+  // Access nested errors (e.g., 'company.name')
+  const nameParts = (name as string).split('.');
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let error: any = errors;
+  for (const part of nameParts) {
+    if (!error) break;
+    error = error[part];
+  }
+
+  if (!error || !error.message) return null;
+  return (
+    <p className="text-error">
+      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+      <span>{tValidation(error.message.toString() as any)}</span>
+    </p>
+  );
+};
 
 export default RoleForm;

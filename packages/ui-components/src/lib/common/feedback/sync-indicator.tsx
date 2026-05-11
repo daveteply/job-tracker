@@ -1,7 +1,5 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-
 import {
   CloudArrowUpIcon,
   CloudIcon,
@@ -13,18 +11,13 @@ import { usePathname } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 
 import { useSyncStatus } from '@job-tracker/data-access';
+import { useBetaApproved } from '@job-tracker/hooks';
 
 export const SyncIndicator = () => {
   const status = useSyncStatus();
   const pathname = usePathname();
   const { data: session } = useSession();
-  const [isBetaApproved, setIsBetaApproved] = useState(false);
-
-  useEffect(() => {
-    if (localStorage.getItem('job-tracker-beta-approved') === 'true') {
-      setIsBetaApproved(true);
-    }
-  }, []);
+  const isBetaApproved = useBetaApproved();
 
   const getSignInUrl = () => {
     const isBetaEnabled = process.env.NEXT_PUBLIC_ENABLE_BETA_GATE === 'true';

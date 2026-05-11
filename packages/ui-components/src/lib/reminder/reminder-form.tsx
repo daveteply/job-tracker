@@ -84,16 +84,6 @@ export function ReminderForm({
     }
   };
 
-  const ErrorMsg = ({ name }: { name: Path<ReminderInput> }) => {
-    const error = errors[name];
-    if (!error || !error.message) return null;
-    return (
-      <p className="text-error">
-        <span>{tValidation(error.message.toString() as any)}</span>
-      </p>
-    );
-  };
-
   return (
     <form
       onSubmit={handleSubmit(onSubmit as any)}
@@ -111,13 +101,13 @@ export function ReminderForm({
           {...register('remindAt')}
         />
         <p className="label">{tCommon('required')}</p>
-        <ErrorMsg name="remindAt" />
+        <ErrorMsg name="remindAt" errors={errors} tValidation={tValidation} />
       </fieldset>
 
       <fieldset className="fieldset">
         <legend className="fieldset-legend">{t('formCompletedAt')}</legend>
         <input className="input" type="date" {...register('completedAt')} />
-        <ErrorMsg name="completedAt" />
+        <ErrorMsg name="completedAt" errors={errors} tValidation={tValidation} />
       </fieldset>
 
       <FloatingButtonContainer>
@@ -131,5 +121,23 @@ export function ReminderForm({
     </form>
   );
 }
+
+const ErrorMsg = ({
+  name,
+  errors,
+  tValidation,
+}: {
+  name: Path<ReminderInput>;
+  errors: any;
+  tValidation: any;
+}) => {
+  const error = errors[name];
+  if (!error || !error.message) return null;
+  return (
+    <p className="text-error">
+      <span>{tValidation(error.message.toString() as any)}</span>
+    </p>
+  );
+};
 
 export default ReminderForm;
