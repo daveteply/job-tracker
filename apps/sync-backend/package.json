@@ -5,6 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/main.ts",
+    "build": "npx tsc && echo '{\"type\":\"module\"}' > ../../dist/apps/sync-backend/package.json",
+    "prisma:generate": "npx prisma generate",
+    "prisma:deploy": "npx prisma migrate deploy",
+    "deploy": "npm run prisma:generate && npm run prisma:deploy && npm run build",
     "beta:approve": "tsx scripts/approve-user.ts"
   }
 }
