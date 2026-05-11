@@ -16,7 +16,7 @@ The `apps/sync-backend` has been migrated from Java/Quarkus to Node.js/Fastify/P
 
 ### Prisma Setup
 
-- The Prisma client is generated into `apps/sync-backend/src/generated/prisma`.
+- The Prisma client is generated into the default location in `node_modules/@prisma/client`.
 - It uses the modern "client" engine architecture with the `pg` driver adapter.
 - Configuration for the adapter is located in `apps/sync-backend/src/plugins/prisma.ts`.
 

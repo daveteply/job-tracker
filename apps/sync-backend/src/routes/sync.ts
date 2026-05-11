@@ -1,7 +1,6 @@
+import { Prisma } from '@prisma/client';
 import { FastifyPluginAsync } from 'fastify';
 import { z } from 'zod';
-
-import { Prisma } from '../generated/prisma/index.js';
 
 const CheckpointSchema = z.object({
   serverTimestamp: z.union([z.string(), z.number(), z.bigint()]).transform((v) => BigInt(v)),

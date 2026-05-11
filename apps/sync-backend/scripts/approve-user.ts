@@ -1,10 +1,9 @@
 import { PrismaPg } from '@prisma/adapter-pg';
+import { PrismaClient } from '@prisma/client';
 import * as crypto from 'node:crypto';
 import pg from 'pg';
 
 import 'dotenv/config';
-
-import { PrismaClient } from '../src/generated/prisma/index.js';
 
 async function approveUser() {
   const email = process.argv[2];
