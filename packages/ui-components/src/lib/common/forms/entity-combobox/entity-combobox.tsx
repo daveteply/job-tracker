@@ -74,7 +74,6 @@ export function EntityCombobox<TEntity extends { id: string }, T extends FieldVa
       if (!value?.isNew) {
         const newQuery =
           value && !value.isNew ? config.getDisplayValue(value) : value?.displayValue || '';
-        // eslint-disable-next-line react-hooks/set-state-in-effect
         setQuery(newQuery);
       }
       lastExternalValueRef.current = value;
@@ -91,7 +90,6 @@ export function EntityCombobox<TEntity extends { id: string }, T extends FieldVa
   useEffect(() => {
     let active = true;
     if (!debouncedQuery) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSuggestions([]);
       return;
     }
@@ -146,7 +144,6 @@ export function EntityCombobox<TEntity extends { id: string }, T extends FieldVa
   //  Only show if the search takes longer than 250ms
   useEffect(() => {
     if (!isLoading) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setShowSpinner(false);
       return;
     }

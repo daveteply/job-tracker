@@ -26,7 +26,6 @@ export function FloatingActionButton() {
       const timer = setTimeout(() => setIsAnimating(true), 10);
       return () => clearTimeout(timer);
     }
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsAnimating(false);
     return undefined;
   }, [isOpen]);
