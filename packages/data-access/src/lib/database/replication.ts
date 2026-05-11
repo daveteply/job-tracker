@@ -5,7 +5,7 @@ import { replicateRxCollection, RxReplicationState } from 'rxdb/plugins/replicat
 
 import { TrackerDatabase } from './rx-database';
 
-const SYNC_URL = (process.env['NEXT_PUBLIC_BACKEND_URL'] || 'http://localhost:8080/') + 'sync';
+const SYNC_URL = (process.env['NEXT_PUBLIC_BACKEND_URL'] || '') ? (process.env['NEXT_PUBLIC_BACKEND_URL']?.replace(/\/$/, '') + '/sync') : '/api/sync';
 
 export type SyncStatus = 'synced' | 'syncing' | 'error' | 'offline';
 

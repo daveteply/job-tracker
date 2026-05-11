@@ -55,8 +55,8 @@ function BetaContent() {
     resolver: zodResolver(applySchema(t)),
   });
 
-  const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8080/';
-  const BETA_BASE_URL = `${BACKEND_URL.replace(/\/$/, '')}/beta`;
+  const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || '';
+  const BETA_BASE_URL = BACKEND_URL ? `${BACKEND_URL.replace(/\/$/, '')}/beta` : '/api/beta';
 
   const onApply = async (data: ApplyFormValues) => {
     setIsApplying(true);
