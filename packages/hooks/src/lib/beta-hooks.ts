@@ -1,6 +1,8 @@
 import { useSyncExternalStore } from 'react';
 
-const BETA_KEY = 'vireo-beta-approved';
+import { BRANDING } from '@job-tracker/domain';
+
+const BETA_KEY = BRANDING.betaGateStorageKey;
 
 function subscribe(callback: () => void) {
   window.addEventListener('storage', callback);

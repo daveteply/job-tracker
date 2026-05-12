@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import { ReplicationPullHandlerResult, ReplicationPushHandlerResult } from 'rxdb';
 import { replicateRxCollection, RxReplicationState } from 'rxdb/plugins/replication';
 
+import { BRANDING } from '@job-tracker/domain';
+
 import { TrackerDatabase } from './rx-database';
 
 const SYNC_URL =
@@ -61,14 +63,14 @@ export function useReplication(
                   }),
                 });
                 if (response.status === 403) {
-                  localStorage.removeItem('vireo-beta-approved');
+                  localStorage.removeItem(BRANDING.betaGateStorageKey);
                   setSyncStatus('error');
                   // Cancel all replications to stop retries
                   replicationStates.forEach((state) => state.cancel());
                   throw new Error('Not authorized for Beta');
                 }
                 if (response.ok) {
-                  localStorage.setItem('vireo-beta-approved', 'true');
+                  localStorage.setItem(BRANDING.betaGateStorageKey, 'true');
                 }
                 return (await response.json()) as ReplicationPullHandlerResult<unknown, Checkpoint>;
               } catch (err) {
@@ -96,14 +98,14 @@ export function useReplication(
                   body: JSON.stringify(rows),
                 });
                 if (response.status === 403) {
-                  localStorage.removeItem('vireo-beta-approved');
+                  localStorage.removeItem(BRANDING.betaGateStorageKey);
                   setSyncStatus('error');
                   // Cancel all replications to stop retries
                   replicationStates.forEach((state) => state.cancel());
                   throw new Error('Not authorized for Beta');
                 }
                 if (response.ok) {
-                  localStorage.setItem('vireo-beta-approved', 'true');
+                  localStorage.setItem(BRANDING.betaGateStorageKey, 'true');
                 }
                 return (await response.json()) as ReplicationPushHandlerResult<{
                   _deleted: boolean;

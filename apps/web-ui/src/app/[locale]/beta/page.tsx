@@ -15,6 +15,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import * as z from 'zod';
 
+import { BRANDING } from '@job-tracker/domain';
 import { useToast } from '@job-tracker/ui-components';
 
 import { Link } from '../../../i18n/routing';
@@ -96,7 +97,7 @@ function BetaContent() {
       }
 
       // Mark this device as approved to skip the gate in the future
-      localStorage.setItem('vireo-beta-approved', 'true');
+      localStorage.setItem(BRANDING.betaGateStorageKey, 'true');
 
       showToast(t('validationSuccess'), 'success');
       setTimeout(() => {
@@ -268,7 +269,7 @@ function BetaContent() {
                   href={`/auth/signin?callbackUrl=${encodeURIComponent(callbackUrl)}`}
                   className="btn btn-primary btn-wide group"
                   onClick={() => {
-                    localStorage.setItem('vireo-beta-approved', 'true');
+                    localStorage.setItem(BRANDING.betaGateStorageKey, 'true');
                   }}
                 >
                   <ArrowRightOnRectangleIcon className="h-5 w-5 transition-transform group-hover:translate-x-1" />

@@ -6,6 +6,7 @@ import { PlusIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
+import { BRANDING } from '@job-tracker/domain';
 import {
   useEventsWithChildren,
   useGroupedRoles,
@@ -67,7 +68,7 @@ export default function HomePage() {
           <div className="relative h-20 w-20">
             <Image
               src="/android-chrome-192x192.png"
-              alt="Vireo Logo"
+              alt={`${BRANDING.name} Logo`}
               fill
               sizes="80px"
               className="object-contain"
