@@ -21,10 +21,84 @@
       "count": "6"
     }
   },
+  "Navigation": {
+    "home": "Home",
+    "pipeline": "Jobs",
+    "activity": "Activity",
+    "companies": "Companies",
+    "contacts": "Contacts",
+    "reminders": "Reminders",
+    "roles": "Roles",
+    "settings": "Settings",
+    "signIn": "Sign In",
+    "signOut": "Sign Out",
+    "toggleMenu": "Toggle Menu",
+    "newEvent": "New Event",
+    "events": "Events",
+    "new": "New",
+    "edit": "Edit",
+    "delete": "Delete",
+    "actionNotSelected": "Status Update",
+    "actionNetworkingChat": "Networking Chat",
+    "actionInterviewCompleted": "Interview Completed",
+    "actionScheduledInterview": "Interview Scheduled",
+    "actionEmailReceived": "Email Received",
+    "actionSentFollowUp": "Follow-up Sent",
+    "actionRecruiterOutreach": "Recruiter Outreach",
+    "actionAppliedToRole": "Applied to Role"
+  },
   "IndexPage": {
     "title": "Vireo",
-    "description": "Vireo is a job seeker's tracking tool. Let's get you on your way to your next dream gig!",
-    "dashboardButton": "Go to my Jobs Dashboard"
+    "description": "Organize your job search. Stay productive — even offline.",
+    "subtext": "A local‑first job‑tracking app built for real‑world reliability.",
+    "dashboardButton": "Go to my Jobs Dashboard",
+    "features": {
+      "localFirst": {
+        "title": "Local‑First Architecture",
+        "description": "Your data stays on your device — fast, private, and reliable."
+      },
+      "offlineReady": {
+        "title": "Offline‑Ready PWA",
+        "description": "Install Vireo and work anywhere, even without internet.",
+        "learnMore": "Learn how to install"
+      },
+      "cloudSync": {
+        "title": "Cloud Sync (Beta)",
+        "description": "Seamless backup and multi‑device access coming soon."
+      },
+      "reminders": {
+        "title": "Smart Reminders",
+        "description": "Gentle nudges to follow up, apply, or prepare for interviews."
+      },
+      "crossPlatform": {
+        "title": "Cross‑Platform",
+        "description": "Works on desktop, tablet, and mobile — one experience everywhere."
+      }
+    },
+    "pwa": {
+      "title": "Install Vireo — your job search companion.",
+      "description": "Vireo is a Progressive Web App (PWA). You can install it directly from your browser for quick access — no app store required.",
+      "subtext": "It delivers the same fast, offline-ready experience you'd expect from a native app, but without the hassle of a traditional download.",
+      "installButton": "Install Vireo App",
+      "browserNotice": "Look for the install icon in your browser's address bar to add Vireo to your home screen."
+    },
+    "beta": {
+      "title": "Help shape the future of Vireo.",
+      "description": "Join our beta program to test cloud sync and new features. Your feedback helps us build a better experience for job seekers everywhere.",
+      "button": "Sign Up for Beta"
+    },
+    "about": {
+      "title": "Built by job seekers, for job seekers.",
+      "description": "Vireo was created to make job tracking simple, private, and empowering. We believe your data should stay yours — even offline."
+    },
+    "footer": {
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "contact": "Contact",
+      "github": "GitHub",
+      "beta": "Beta Signup",
+      "copyright": "© 2026 Vireo"
+    }
   },
   "HomePage": {
     "welcome": "Welcome to Vireo!",

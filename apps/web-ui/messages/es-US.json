@@ -21,10 +21,84 @@
       "count": "6"
     }
   },
+  "Navigation": {
+    "home": "Inicio",
+    "pipeline": "Empleos",
+    "activity": "Actividad",
+    "companies": "Empresas",
+    "contacts": "Contactos",
+    "reminders": "Recordatorios",
+    "roles": "Roles",
+    "settings": "Configuración",
+    "signIn": "Iniciar Sesión",
+    "signOut": "Cerrar Sesión",
+    "toggleMenu": "Alternar Menú",
+    "newEvent": "Nuevo Evento",
+    "events": "Eventos",
+    "new": "Nuevo",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "actionNotSelected": "Actualización de Estado",
+    "actionNetworkingChat": "Charla de Networking",
+    "actionInterviewCompleted": "Entrevista Completada",
+    "actionScheduledInterview": "Entrevista Programada",
+    "actionEmailReceived": "Correo Recibido",
+    "actionSentFollowUp": "Seguimiento Enviado",
+    "actionRecruiterOutreach": "Contacto de Reclutador",
+    "actionAppliedToRole": "Aplicación a Puesto"
+  },
   "IndexPage": {
     "title": "Vireo",
-    "description": "Vireo es una herramienta de seguimiento para buscadores de empleo. ¡Vamos a ponerte en camino hacia tu próximo trabajo ideal!",
-    "dashboardButton": "Ir a mi Dashboard de Empleos"
+    "description": "Organiza tu búsqueda de empleo. Mantente productivo, incluso sin conexión.",
+    "subtext": "Una aplicación de seguimiento de empleo local-first diseñada para la fiabilidad del mundo real.",
+    "dashboardButton": "Ir a mi Dashboard de Empleos",
+    "features": {
+      "localFirst": {
+        "title": "Arquitectura Local‑First",
+        "description": "Tus datos se quedan en tu dispositivo: rápidos, privados y confiables."
+      },
+      "offlineReady": {
+        "title": "PWA lista para usar sin conexión",
+        "description": "Instala Vireo y trabaja en cualquier lugar, incluso sin internet.",
+        "learnMore": "Aprende cómo instalar"
+      },
+      "cloudSync": {
+        "title": "Sincronización en la nube (Beta)",
+        "description": "Próximamente: copia de seguridad fluida y acceso desde múltiples dispositivos."
+      },
+      "reminders": {
+        "title": "Recordatorios inteligentes",
+        "description": "Pequeños avisos para dar seguimiento, aplicar o prepararte para entrevistas."
+      },
+      "crossPlatform": {
+        "title": "Multiplataforma",
+        "description": "Funciona en escritorio, tablet y móvil: una sola experiencia en todas partes."
+      }
+    },
+    "pwa": {
+      "title": "Instala Vireo, tu compañero de búsqueda de empleo.",
+      "description": "Vireo es una Aplicación Web Progresiva (PWA). Puedes instalarla directamente desde tu navegador para un acceso rápido, sin necesidad de tiendas de aplicaciones.",
+      "subtext": "Ofrece la misma experiencia rápida y lista para usar sin conexión que esperarías de una aplicación nativa, pero sin las complicaciones de una descarga tradicional.",
+      "installButton": "Instalar la App Vireo",
+      "browserNotice": "Busca el icono de instalación en la barra de direcciones de tu navegador para añadir Vireo a tu pantalla de inicio."
+    },
+    "beta": {
+      "title": "Ayuda a dar forma al futuro de Vireo.",
+      "description": "Únete a nuestro programa beta para probar la sincronización en la nube y nuevas funciones. Tus comentarios nos ayudan a construir una mejor experiencia para quienes buscan empleo en todo el mundo.",
+      "button": "Regístrate en la Beta"
+    },
+    "about": {
+      "title": "Creado por buscadores de empleo, para buscadores de empleo.",
+      "description": "Vireo fue creado para hacer el seguimiento de empleos algo simple, privado y empoderador. Creemos que tus datos deben seguir siendo tuyos, incluso sin conexión."
+    },
+    "footer": {
+      "privacy": "Política de Privacidad",
+      "terms": "Términos de Servicio",
+      "contact": "Contacto",
+      "github": "GitHub",
+      "beta": "Registro Beta",
+      "copyright": "© 2026 Vireo"
+    }
   },
   "HomePage": {
     "welcome": "¡Bienvenido a Vireo!",
