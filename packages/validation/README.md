@@ -1,6 +1,6 @@
 # 📦 validation
 
-The centralized validation layer for JobTracker, ensuring data integrity across the entire application.
+The centralized validation layer for Vireo, ensuring data integrity across the entire application.
 
 ## 🛠️ Tech Stack
 

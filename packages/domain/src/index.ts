@@ -1,3 +1,4 @@
+export * from './lib/branding';
 export * from './lib/common/action';
 export * from './lib/common/direction-type';
 export * from './lib/common/event-category-type';

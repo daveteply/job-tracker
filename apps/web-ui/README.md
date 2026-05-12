@@ -1,6 +1,6 @@
 # 🌐 Web UI
 
-The frontend application for JobTracker, providing a modern, responsive interface for managing job applications.
+The frontend application for Vireo, providing a modern, responsive interface for managing job applications.
 
 ## 🛠️ Tech Stack
 

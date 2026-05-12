@@ -1,6 +1,6 @@
 {
   "Common": {
-    "title": "Job Tracker",
+    "title": "Vireo",
     "cancel": "Cancel",
     "create": "Create",
     "update": "Update",
@@ -22,12 +22,12 @@
     }
   },
   "IndexPage": {
-    "title": "Job Tracker",
-    "description": "Job Tracker is a job seeker's tracking tool. Let's get you on your way to your next dream gig!",
+    "title": "Vireo",
+    "description": "Vireo is a job seeker's tracking tool. Let's get you on your way to your next dream gig!",
     "dashboardButton": "Go to my Jobs Dashboard"
   },
   "HomePage": {
-    "welcome": "Welcome to Job Tracker!",
+    "welcome": "Welcome to Vireo!",
     "emptyStateDescription": "Your command center is currently empty. Add your first event to start tracking your job search journey.",
     "addFirstEvent": "Add First Event",
     "reminders": "Reminders",
@@ -50,7 +50,7 @@
   "PrivacyPage": {
     "title": "Privacy Policy",
     "lastUpdated": "Last Updated: May 9, 2026",
-    "introduction": "This Privacy Policy describes how David Hamdan Teply ('we', 'us', or 'our') collects, uses, and shares your personal information when you use the Job Tracker application.",
+    "introduction": "This Privacy Policy describes how David Hamdan Teply ('we', 'us', or 'our') collects, uses, and shares your personal information when you use the Vireo application.",
     "dataCollection": "Information We Collect",
     "dataCollectionContent": "We collect information you provide directly to us when you create an account, such as your name and email address through Google or Facebook authentication. We also store the job search data you enter, including company names, roles, contacts, and events. This data is stored locally on your device and synchronized to our cloud storage if you are signed in.",
     "usageAnalytics": "Usage Analytics",
@@ -66,9 +66,9 @@
     "title": "Terms of Service",
     "lastUpdated": "Last Updated: May 9, 2026",
     "acceptance": "Acceptance of Terms",
-    "acceptanceContent": "By accessing or using Job Tracker, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use the application.",
+    "acceptanceContent": "By accessing or using Vireo, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use the application.",
     "description": "Description of Service",
-    "descriptionContent": "Job Tracker is a tool designed to help users track their job application progress. The service is provided 'as is' and we make no guarantees regarding the availability or accuracy of the service.",
+    "descriptionContent": "Vireo is a tool designed to help users track their job application progress. The service is provided 'as is' and we make no guarantees regarding the availability or accuracy of the service.",
     "userConduct": "User Conduct",
     "userConductContent": "You are responsible for your use of the application and for any content you provide. You agree not to use the application for any unlawful purposes or to interfere with the operation of the service.",
     "limitationOfLiability": "Limitation of Liability",
@@ -93,7 +93,7 @@
     "es-US": "Español"
   },
   "DashboardLayout": {
-    "title": "Job Tracker"
+    "title": "Vireo"
   },
   "Roles": {
     "listTitle": "Roles",
@@ -434,7 +434,7 @@
     "applyDescription": "Tell us a bit about yourself and why you'd like to join.",
     "emailLabel": "Email Address",
     "nameLabel": "Name (Optional)",
-    "reasonLabel": "What do you plan to do with Job Tracker? (Optional)",
+    "reasonLabel": "What do you plan to do with Vireo? (Optional)",
     "submitApplication": "Submit Application",
     "alreadyHaveCode": "Already have an Invite Code?",
     "codeLabel": "Invite Code",

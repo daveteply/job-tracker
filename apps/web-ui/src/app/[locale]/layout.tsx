@@ -3,14 +3,16 @@ import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 
+import { BRANDING } from '@job-tracker/domain';
+
 import { routing } from '../../i18n/routing';
 import { Providers } from '../providers';
 
 import '../global.css';
 
 export const metadata: Metadata = {
-  title: 'Job Tracker',
-  description: 'Track your career journey',
+  title: BRANDING.name,
+  description: `Track your career journey with ${BRANDING.name}`,
   manifest: '/site.webmanifest',
   other: {
     google: 'notranslate',
