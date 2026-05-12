@@ -451,6 +451,20 @@
     "signInToSync": "Inicia sesión para reanudar la sincronización",
     "signInNow": "Iniciar sesión ahora"
   },
+  "DataDeletionPage": {
+    "title": "Instrucciones para la eliminación de datos",
+    "lastUpdated": "Última actualización: 11 de mayo de 2026",
+    "introduction": "Valoramos su privacidad y ofrecemos un proceso sencillo para eliminar sus datos personales de Vireo.",
+    "howToDelete": "Cómo solicitar la eliminación de datos",
+    "howToDeleteContent": "Para eliminar su cuenta y todos los datos de búsqueda de empleo asociados (compañías, roles, contactos y eventos), siga estos pasos:",
+    "stepEmail": "Envíe un correo electrónico a davehamdan@gmail.com",
+    "stepSubject": "Use el asunto: 'Solicitud de eliminación de datos'",
+    "stepDetails": "Incluya la dirección de correo electrónico asociada a su cuenta de Google o Facebook.",
+    "processTime": "Tiempo de procesamiento",
+    "processTimeContent": "Una vez que recibamos su solicitud, verificaremos su identidad y eliminaremos permanentemente sus datos de nuestro almacenamiento seguro en la nube en un plazo de 30 días. Tenga en cuenta que los datos almacenados localmente en su navegador deben eliminarse manualmente utilizando la función 'Borrar datos de navegación' de su navegador.",
+    "contactUs": "Contacto",
+    "contactUsContent": "Si tiene alguna pregunta sobre este proceso, póngase en contacto con nosotros en davehamdan@gmail.com."
+  },
   "Error": {
     "title": "Vaya, esto es un poco incómodo.",
     "description": "Algo no salió como planeamos de nuestro lado. Por favor, inténtalo de nuevo en unos segundos.",

@@ -453,6 +453,20 @@
     "signInToSync": "Sign in to resume syncing",
     "signInNow": "Sign In Now"
   },
+  "DataDeletionPage": {
+    "title": "Data Deletion Instructions",
+    "lastUpdated": "Last Updated: May 11, 2026",
+    "introduction": "We value your privacy and provide a straightforward process for deleting your personal data from Vireo.",
+    "howToDelete": "How to Request Data Deletion",
+    "howToDeleteContent": "To delete your account and all associated job search data (companies, roles, contacts, and events), please follow these steps:",
+    "stepEmail": "Send an email to davehamdan@gmail.com",
+    "stepSubject": "Use the subject line: 'Data Deletion Request'",
+    "stepDetails": "Include the email address associated with your Google or Facebook account.",
+    "processTime": "Processing Time",
+    "processTimeContent": "Once we receive your request, we will verify your identity and permanently delete your data from our secure cloud storage within 30 days. Please note that data stored locally in your browser must be cleared manually using your browser's 'Clear Browsing Data' feature.",
+    "contactUs": "Contact Us",
+    "contactUsContent": "If you have any questions about this process, please contact us at davehamdan@gmail.com."
+  },
   "Error": {
     "title": "Well, this is awkward.",
     "description": "Something didn't go as planned on our end. Please try again in a few seconds.",
