@@ -1,5 +1,5 @@
 import NextAuth, { DefaultSession } from 'next-auth';
-import Facebook from 'next-auth/providers/facebook';
+// import Facebook from 'next-auth/providers/facebook';
 import Google from 'next-auth/providers/google';
 
 declare module 'next-auth' {
@@ -28,10 +28,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       clientId: process.env.AUTH_GOOGLE_ID || '',
       clientSecret: process.env.AUTH_GOOGLE_SECRET || '',
     }),
+    /*
     Facebook({
       clientId: process.env.AUTH_FACEBOOK_ID || '',
       clientSecret: process.env.AUTH_FACEBOOK_SECRET || '',
     }),
+    */
   ],
   pages: {
     signIn: '/auth/signin',

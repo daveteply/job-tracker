@@ -24,6 +24,7 @@ function SignInContent() {
       iconSrc: '/auth/google.svg',
       onSignIn: () => signIn('google', { callbackUrl }),
     },
+    /*
     {
       id: 'facebook',
       name: t('signInWithFacebook'),
@@ -31,6 +32,7 @@ function SignInContent() {
       className: 'border-transparent bg-facebook text-white hover:bg-facebook-hover',
       onSignIn: () => signIn('facebook', { callbackUrl }),
     },
+    */
   ];
 
   return (
