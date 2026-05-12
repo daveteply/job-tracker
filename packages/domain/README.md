@@ -1,6 +1,6 @@
 # 📦 domain
 
-The core library containing JobTracker's domain entities, TypeScript types, and RxDB schemas.
+The core library containing Vireo's domain entities, TypeScript types, and RxDB schemas.
 
 ## 🛠️ Tech Stack
 

@@ -1,7 +1,7 @@
 {
   "id": "/",
-  "name": "Job Tracker",
-  "short_name": "JobTracker",
+  "name": "Vireo",
+  "short_name": "Vireo",
   "description": "Track your career journey with an offline-first, local-first job application manager.",
   "categories": ["productivity", "utilities"],
   "start_url": "/",
@@ -47,14 +47,14 @@
       "sizes": "1280x720",
       "type": "image/png",
       "form_factor": "wide",
-      "label": "Job Tracker Desktop Home"
+      "label": "Vireo Desktop Home"
     },
     {
       "src": "/screenshots/mobile-home.png",
       "sizes": "750x1334",
       "type": "image/png",
       "form_factor": "narrow",
-      "label": "Job Tracker Mobile Home"
+      "label": "Vireo Mobile Home"
     }
   ],
   "shortcuts": [

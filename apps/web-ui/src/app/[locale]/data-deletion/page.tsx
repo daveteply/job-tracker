@@ -2,7 +2,11 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import { Link } from '../../../i18n/routing';
 
-export default async function DataDeletionPage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function DataDeletionPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations('DataDeletionPage');

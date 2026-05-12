@@ -1,6 +1,6 @@
 {
   "Common": {
-    "title": "Job Tracker",
+    "title": "Vireo",
     "cancel": "Cancelar",
     "create": "Crear",
     "update": "Actualizar",
@@ -22,12 +22,12 @@
     }
   },
   "IndexPage": {
-    "title": "Job Tracker",
-    "description": "Job Tracker es una herramienta de seguimiento para buscadores de empleo. ¡Vamos a ponerte en camino hacia tu próximo trabajo ideal!",
+    "title": "Vireo",
+    "description": "Vireo es una herramienta de seguimiento para buscadores de empleo. ¡Vamos a ponerte en camino hacia tu próximo trabajo ideal!",
     "dashboardButton": "Ir a mi Dashboard de Empleos"
   },
   "HomePage": {
-    "welcome": "¡Bienvenido a Job Tracker!",
+    "welcome": "¡Bienvenido a Vireo!",
     "emptyStateDescription": "Tu centro de mando está vacío actualmente. Agrega tu primer evento para comenzar a seguir tu búsqueda de empleo.",
     "addFirstEvent": "Agregar Primer Evento",
     "reminders": "Recordatorios",
@@ -50,7 +50,7 @@
   "PrivacyPage": {
     "title": "Política de Privacidad",
     "lastUpdated": "Última actualización: 9 de mayo de 2026",
-    "introduction": "Esta Política de Privacidad describe cómo David Hamdan Teply ('nosotros', 'nos' o 'nuestro') recopila, utiliza y comparte su información personal cuando utiliza la aplicación Job Tracker.",
+    "introduction": "Esta Política de Privacidad describe cómo David Hamdan Teply ('nosotros', 'nos' o 'nuestro') recopila, utiliza y comparte su información personal cuando utiliza la aplicación Vireo.",
     "dataCollection": "Información que recopilamos",
     "dataCollectionContent": "Recopilamos la información que nos proporciona directamente cuando crea una cuenta, como su nombre y dirección de correo electrónico a través de la autenticación de Google o Facebook. También almacenamos los datos de búsqueda de empleo que ingresa, incluidos nombres de empresas, roles, contactos y eventos. Estos datos se almacenan localmente en su dispositivo y se sincronizan con nuestro almacenamiento en la nube si ha iniciado sesión.",
     "usageAnalytics": "Analítica de uso",
@@ -66,9 +66,9 @@
     "title": "Términos de Servicio",
     "lastUpdated": "Última actualización: 9 de mayo de 2026",
     "acceptance": "Aceptación de los términos",
-    "acceptanceContent": "Al acceder o utilizar Job Tracker, usted acepta estar sujeto a estos Términos de Servicio. Si no está de acuerdo con estos términos, no utilice la aplicación.",
+    "acceptanceContent": "Al acceder o utilizar Vireo, usted acepta estar sujeto a estos Términos de Servicio. Si no está de acuerdo con estos términos, no utilice la aplicación.",
     "description": "Descripción del servicio",
-    "descriptionContent": "Job Tracker es una herramienta diseñada para ayudar a los usuarios a realizar un seguimiento del progreso de su solicitud de empleo. El servicio se proporciona 'tal cual' y no ofrecemos garantías con respecto a la disponibilidad o precisión del servicio.",
+    "descriptionContent": "Vireo es una herramienta diseñada para ayudar a los usuarios a realizar un seguimiento del progreso de su solicitud de empleo. El servicio se proporciona 'tal cual' y no ofrecemos garantías con respecto a la disponibilidad o precisión del servicio.",
     "userConduct": "Conducta del usuario",
     "userConductContent": "Usted es responsable de su uso de la aplicación y de cualquier contenido que proporcione. Acepta no utilizar la aplicación para fines ilegales o para interferir con el funcionamiento del servicio.",
     "limitationOfLiability": "Limitación de responsabilidad",
@@ -93,7 +93,7 @@
     "es-US": "Español"
   },
   "DashboardLayout": {
-    "title": "Job Tracker"
+    "title": "Vireo"
   },
   "Roles": {
     "listTitle": "Roles",
@@ -432,7 +432,7 @@
     "applyDescription": "Cuéntanos un poco sobre ti y por qué te gustaría unirte.",
     "emailLabel": "Correo electrónico",
     "nameLabel": "Nombre (Opcional)",
-    "reasonLabel": "¿Qué planeas hacer con Job Tracker? (Opcional)",
+    "reasonLabel": "¿Qué planeas hacer con Vireo? (Opcional)",
     "submitApplication": "Enviar solicitud",
     "alreadyHaveCode": "¿Ya tienes un código de invitación?",
     "codeLabel": "Código de invitación",

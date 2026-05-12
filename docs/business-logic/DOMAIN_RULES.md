@@ -1,6 +1,6 @@
 # Domain Rules & Business Logic
 
-This document serves as the "Source of Truth" for the business rules and domain constraints of the JobTracker application. Unlike technical documentation, this focuses on _what_ the system does and _why_, rather than _how_ it is implemented.
+This document serves as the "Source of Truth" for the business rules and domain constraints of the Vireo application. Unlike technical documentation, this focuses on _what_ the system does and _why_, rather than _how_ it is implemented.
 
 ---
 
@@ -97,7 +97,7 @@ Management of Companies, Roles, and Contacts.
 
 ### Context
 
-JobTracker is designed as a local-first application for speed and offline availability.
+Vireo is designed as a local-first application for speed and offline availability.
 
 ### Rules
 

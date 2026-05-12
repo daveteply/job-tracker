@@ -1,6 +1,6 @@
 # 📦 hooks
 
-A collection of reusable React hooks for JobTracker's frontend ecosystem.
+A collection of reusable React hooks for Vireo's frontend ecosystem.
 
 ## 🛠️ Tech Stack
 

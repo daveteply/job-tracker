@@ -9,8 +9,8 @@ import { Providers } from '../providers';
 import '../global.css';
 
 export const metadata: Metadata = {
-  title: 'Job Tracker',
-  description: 'Track your career journey',
+  title: 'Vireo',
+  description: 'Track your career journey with Vireo',
   manifest: '/site.webmanifest',
   other: {
     google: 'notranslate',

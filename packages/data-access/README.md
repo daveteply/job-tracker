@@ -1,6 +1,6 @@
 # 📦 data-access
 
-The data persistence layer for JobTracker, handling local database configuration and synchronization logic.
+The data persistence layer for Vireo, handling local database configuration and synchronization logic.
 
 ## 🛠️ Tech Stack
 

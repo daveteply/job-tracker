@@ -1,17 +1,17 @@
-# 🚀 JobTracker: Modern Job Application Management
+# 🚀 Vireo: Modern Job Application Management
 
 [![Nx](https://img.shields.io/badge/Nx-Workspace-blue?logo=nx)](https://nx.dev)
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)](https://nextjs.org)
 [![Fastify](https://img.shields.io/badge/Fastify-5.2-black?logo=fastify)](https://www.fastify.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**JobTracker** is a high-performance, offline-first monorepo application designed to streamline the job search process. Built with modern web technologies and a lightweight Fastify backend, it provides a seamless experience for tracking companies, contacts, roles, and interview events.
+**Vireo** is a high-performance, offline-first monorepo application designed to streamline the job search process. Built with modern web technologies and a lightweight Fastify backend, it provides a seamless experience for tracking companies, contacts, roles, and interview events.
 
 ---
 
 ## 🏗️ System Architecture
 
-JobTracker utilizes a modern, distributed architecture optimized for developer experience and offline resilience.
+Vireo utilizes a modern, distributed architecture optimized for developer experience and offline resilience.
 
 ```mermaid
 graph TD
@@ -85,7 +85,7 @@ This project is managed as an **Nx Monorepo**, providing a unified workflow for 
 
 ## 🐳 Containerization & Environment
 
-JobTracker is built to be "Environment Agnostic" using Docker and VS Code Dev Containers.
+Vireo is built to be "Environment Agnostic" using Docker and VS Code Dev Containers.
 
 ### 🛠️ Dev Containers (VS Code)
 
@@ -114,8 +114,8 @@ This project is optimized for development on **Windows 11 (WSL2)** or **Linux/ma
 
 1.  **Clone the Repository:**
     ```bash
-    git clone https://github.com/your-repo/job-tracker.git
-    cd job-tracker
+    git clone https://github.com/your-repo/vireo.git
+    cd vireo
     ```
 2.  **Open in VS Code:**
     - Launch VS Code in the project root.
@@ -153,11 +153,11 @@ npm start
 
 ### 📊 PGAdmin Server Registration
 
-The `docker-compose.yml` is configured to automatically register the "JobTracker DB" in PGAdmin.
+The `docker-compose.yml` is configured to automatically register the "Vireo DB" in PGAdmin.
 
 - **Login:** Use the credentials in your `.env` (default: `vscode@vscode.com` / `vscode`).
 - **Access:** http://localhost:5050
-- **Server:** "JobTracker DB" should already be listed in the left panel. (Note: You may still need to enter the database password `postgres_password` when first connecting).
+- **Server:** "Vireo DB" should already be listed in the left panel. (Note: You may still need to enter the database password `postgres_password` when first connecting).
 
 ---
 

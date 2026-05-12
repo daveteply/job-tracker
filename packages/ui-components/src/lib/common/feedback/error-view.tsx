@@ -24,9 +24,7 @@ export function ErrorView({
   error,
 }: ErrorViewProps) {
   // Use a stable random emoji that doesn't change on every re-render
-  const [emoji] = useState(
-    () => EMOJIS[Math.floor(Math.random() * EMOJIS.length)]
-  );
+  const [emoji] = useState(() => EMOJIS[Math.floor(Math.random() * EMOJIS.length)]);
 
   useEffect(() => {
     if (error) {

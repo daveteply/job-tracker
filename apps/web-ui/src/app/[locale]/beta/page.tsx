@@ -96,7 +96,7 @@ function BetaContent() {
       }
 
       // Mark this device as approved to skip the gate in the future
-      localStorage.setItem('job-tracker-beta-approved', 'true');
+      localStorage.setItem('vireo-beta-approved', 'true');
 
       showToast(t('validationSuccess'), 'success');
       setTimeout(() => {
@@ -268,7 +268,7 @@ function BetaContent() {
                   href={`/auth/signin?callbackUrl=${encodeURIComponent(callbackUrl)}`}
                   className="btn btn-primary btn-wide group"
                   onClick={() => {
-                    localStorage.setItem('job-tracker-beta-approved', 'true');
+                    localStorage.setItem('vireo-beta-approved', 'true');
                   }}
                 >
                   <ArrowRightOnRectangleIcon className="h-5 w-5 transition-transform group-hover:translate-x-1" />

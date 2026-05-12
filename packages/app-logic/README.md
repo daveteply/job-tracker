@@ -1,6 +1,6 @@
 # 📦 app-logic
 
-The core business logic layer for JobTracker, coordinating application-level state and processes.
+The core business logic layer for Vireo, coordinating application-level state and processes.
 
 ## 🛠️ Tech Stack
 

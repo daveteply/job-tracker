@@ -1,6 +1,6 @@
 import { useSyncExternalStore } from 'react';
 
-const BETA_KEY = 'job-tracker-beta-approved';
+const BETA_KEY = 'vireo-beta-approved';
 
 function subscribe(callback: () => void) {
   window.addEventListener('storage', callback);

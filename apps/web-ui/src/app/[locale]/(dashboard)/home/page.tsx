@@ -67,7 +67,7 @@ export default function HomePage() {
           <div className="relative h-20 w-20">
             <Image
               src="/android-chrome-192x192.png"
-              alt="Job Tracker Logo"
+              alt="Vireo Logo"
               fill
               sizes="80px"
               className="object-contain"

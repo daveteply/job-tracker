@@ -1,5 +1,5 @@
 {
-  "name": "Job Tracker App Workspace",
+  "name": "Vireo App Workspace",
   "dockerComposeFile": ["../docker-compose.yml"],
   "service": "dev",
   "workspaceFolder": "/workspace",

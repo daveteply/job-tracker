@@ -1,10 +1,10 @@
 # 🐳 Infrastructure Management
 
-This project manages the database and shared infrastructure for the JobTracker monorepo.
+This project manages the database and shared infrastructure for the Vireo monorepo.
 
 ## 🐘 Database Migrations
 
-JobTracker uses **Flyway** for database migrations. These are managed within the `apps/sync-backend` project to ensure the schema is always in sync with the backend application.
+Vireo uses **Flyway** for database migrations. These are managed within the `apps/sync-backend` project to ensure the schema is always in sync with the backend application.
 
 ### Location
 

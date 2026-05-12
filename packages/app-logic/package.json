@@ -6,6 +6,6 @@
   "main": "./src/index.js",
   "types": "./src/index.d.ts",
   "dependencies": {
-    "@job-tracker/domain": "0.0.1"
+    "@job-tracker/domain": "workspace:*"
   }
 }
