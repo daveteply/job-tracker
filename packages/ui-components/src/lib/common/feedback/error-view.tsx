@@ -23,11 +23,12 @@ export function ErrorView({
   onBackHome,
   error,
 }: ErrorViewProps) {
-  const [emoji, setEmoji] = useState(EMOJIS[0]);
+  // Use a stable random emoji that doesn't change on every re-render
+  const [emoji] = useState(
+    () => EMOJIS[Math.floor(Math.random() * EMOJIS.length)]
+  );
 
   useEffect(() => {
-    setEmoji(EMOJIS[Math.floor(Math.random() * EMOJIS.length)]);
-
     if (error) {
       console.error(error);
     }

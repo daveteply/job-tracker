@@ -1,17 +1,15 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { useTranslations } from 'next-intl';
 
 export function PageLoading({ entityName }: { entityName: string }) {
   const t = useTranslations('Common.Loading');
-  const [displayIndex, setDisplayIndex] = useState(0);
-
-  useEffect(() => {
+  const [displayIndex] = useState(() => {
     const count = parseInt(t('count'), 10);
-    setDisplayIndex(Math.floor(Math.random() * count));
-  }, [t]);
+    return Math.floor(Math.random() * count);
+  });
 
   return (
     <div className="absolute inset-0 z-50 flex items-center justify-center">
