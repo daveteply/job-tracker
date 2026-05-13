@@ -28,15 +28,14 @@ jobs:
       - name: Lint, Build, and Test (Affected Only)
         run: |
           npx nx affected -t lint build --base=origin/main --head=HEAD --parallel=3
-          npx nx affected -t test --base=origin/main --head=HEAD --coverage --parallel=3
+          npx nx affected -t test --base=origin/main --head=HEAD --coverage --parallel=3 --coverageReporters=json-summary --coverageReporters=text
+
+      - name: Generate Coverage Summary
+        run: node infrastructure/scripts/collect-coverage.mjs
+        if: github.event_name == 'pull_request'
 
       - name: Jest Coverage Report
         uses: marocchino/sticky-pull-request-comment@v2
         if: github.event_name == 'pull_request'
         with:
-          # We'll use a summary file if available, or just a custom message for now.
-          # Note: marocchino/sticky-pull-request-comment can also take raw text.
-          message: |
-            ### 📊 CI Status
-            - ✅ Lint, Build, and Tests passed.
-            - 📈 Code coverage reports generated (check individual package logs for details).
+          path: coverage-summary.md
