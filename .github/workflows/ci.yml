@@ -24,7 +24,7 @@ jobs:
 
       - name: Lint, Build, and Test (Affected Only)
         run: |
-          npx nx affected -t lint build test --coverage --parallel=3
+          npx nx affected -t lint build test --base=origin/main --head=HEAD --coverage --parallel=3
 
       - name: Jest Coverage Report
         uses: marocchino/sticky-pull-request-comment@v2
