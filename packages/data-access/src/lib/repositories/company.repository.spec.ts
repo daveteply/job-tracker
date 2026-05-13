@@ -9,39 +9,63 @@ describe('CompanyRepository', () => {
   beforeEach(() => {
     mockDb = {
       companies: {
-        findOne: jest.fn().mockReturnValue({
-          $: of({
-            id: '1',
-            name: 'Test Company',
-            toJSON: () => ({ id: '1', name: 'Test Company' }),
-          }),
-          exec: jest.fn().mockResolvedValue({
-            id: '1',
-            name: 'Test Company',
-            toJSON: () => ({ id: '1', name: 'Test Company' }),
-          }),
-        }),
-        find: jest.fn().mockReturnValue({
-          $: of([]),
-          exec: jest.fn().mockResolvedValue([]),
-        }),
+        findOne: jest.fn(),
+        find: jest.fn(),
+        insert: jest.fn(),
+        upsert: jest.fn(),
       },
     };
     repository = new CompanyRepository(mockDb as any);
   });
 
-  it('should get company by id as observable', async () => {
-    const company = await firstValueFrom(repository.getById$('1'));
-    expect(company).toBeDefined();
-    expect(company?.name).toBe('Test Company');
-    expect(mockDb.companies.findOne).toHaveBeenCalledWith('1');
+  describe('getById$', () => {
+    it('should get company by id as observable', async () => {
+      mockDb.companies.findOne.mockReturnValue({
+        $: of({
+          id: '1',
+          name: 'Test Company',
+          toJSON: () => ({ id: '1', name: 'Test Company', search: 'test company' }),
+        }),
+      });
+      const company = await firstValueFrom(repository.getById$('1'));
+      expect(company).toBeDefined();
+      expect(company?.name).toBe('Test Company');
+      expect(mockDb.companies.findOne).toHaveBeenCalledWith('1');
+    });
+
+    it('should return null if company not found as observable', async () => {
+      mockDb.companies.findOne.mockReturnValue({ $: of(null) });
+      const company = await firstValueFrom(repository.getById$('2'));
+      expect(company).toBeNull();
+    });
   });
 
-  it('should return null if company not found as observable', async () => {
-    mockDb.companies.findOne.mockReturnValue({
-      $: of(null),
+  describe('list$', () => {
+    it('should return list of companies', async () => {
+      mockDb.companies.find.mockReturnValue({
+        $: of([{ id: '1', name: 'C1', toJSON: () => ({ id: '1', name: 'C1', search: 'c1' }) }]),
+      });
+      const result = await firstValueFrom(repository.list$());
+      expect(result).toHaveLength(1);
     });
-    const company = await firstValueFrom(repository.getById$('2'));
-    expect(company).toBeNull();
+  });
+
+  describe('create', () => {
+    it('should insert new company', async () => {
+      mockDb.companies.insert.mockImplementation((doc: any) => Promise.resolve({ toJSON: () => doc }));
+      const result = await repository.create({ id: '1', name: 'New' });
+      expect(mockDb.companies.insert).toHaveBeenCalled();
+      expect(result.name).toBe('New');
+    });
+  });
+
+  describe('deleteById', () => {
+    it('should remove company if it exists', async () => {
+      const mockDoc = { remove: jest.fn() };
+      mockDb.companies.findOne.mockReturnValue({ exec: jest.fn().mockResolvedValue(mockDoc) });
+      const result = await repository.deleteById('1');
+      expect(mockDoc.remove).toHaveBeenCalled();
+      expect(result).toBe(true);
+    });
   });
 });
