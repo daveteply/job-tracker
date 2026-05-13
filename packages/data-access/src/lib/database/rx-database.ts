@@ -16,6 +16,12 @@ import {
   UserSettingsSchema,
 } from '@job-tracker/domain';
 
+import { CompanyDocument } from './documents/company.document';
+import { ContactDocument } from './documents/contact.document';
+import { EventDocument } from './documents/event.document';
+import { EventTypeDocument } from './documents/event-type.document';
+import { ReminderDocument } from './documents/reminder.document';
+import { RoleDocument } from './documents/role.document';
 import { UserSettingsDocument } from './documents/user-settings.document';
 import { seedEventTypes } from './seed-data';
 
@@ -51,7 +57,7 @@ if (!_global.__rxdb_plugins_added) {
   _global.__rxdb_plugins_added = true;
 }
 
-export function getStorage(): RxStorage<any, any> {
+export function getStorage(): RxStorage<unknown, unknown> {
   if (!_global.__rxdb_storage) {
     const baseStorage = getRxStorageDexie();
     if (!baseStorage) {
@@ -60,13 +66,13 @@ export function getStorage(): RxStorage<any, any> {
 
     if (process.env['NODE_ENV'] === 'development') {
       try {
-        _global.__rxdb_storage = wrappedValidateAjvStorage({ storage: baseStorage });
-      } catch (err) {
-        console.error('[DB] Failed to wrap storage with AJV validation:', err);
-        _global.__rxdb_storage = baseStorage;
+        _global.__rxdb_storage = wrappedValidateAjvStorage({ storage: baseStorage }) as RxStorage<unknown, unknown>;
+      } catch {
+        console.error('[DB] Failed to wrap storage with AJV validation');
+        _global.__rxdb_storage = baseStorage as RxStorage<unknown, unknown>;
       }
     } else {
-      _global.__rxdb_storage = baseStorage;
+      _global.__rxdb_storage = baseStorage as RxStorage<unknown, unknown>;
     }
   }
   return _global.__rxdb_storage;
@@ -80,12 +86,12 @@ const dbPromises: Map<string, Promise<TrackerDatabase>> = _global.__rxdb_promise
 export type UserSettingsCollection = RxCollection<UserSettingsDocument>;
 
 export interface TrackerCollections {
-  companies: RxCollection<any>;
-  contacts: RxCollection<any>;
-  roles: RxCollection<any>;
-  events: RxCollection<any>;
-  eventTypes: RxCollection<any>;
-  reminders: RxCollection<any>;
+  companies: RxCollection<CompanyDocument>;
+  contacts: RxCollection<ContactDocument>;
+  roles: RxCollection<RoleDocument>;
+  events: RxCollection<EventDocument>;
+  eventTypes: RxCollection<EventTypeDocument>;
+  reminders: RxCollection<ReminderDocument>;
   userSettings: UserSettingsCollection;
 }
 
@@ -134,11 +140,13 @@ export async function initRxDatabase(name: string): Promise<TrackerDatabase> {
             schema: UserSettingsSchema,
             migrationStrategies: {
               // 1: Add locale field
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Migration docs represent historical data and can have any shape.
               1: (oldDoc: any) => {
                 oldDoc.locale = 'en-US';
                 return oldDoc;
               },
               // 2: Add appearance field
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Migration docs represent historical data and can have any shape.
               2: (oldDoc: any) => {
                 oldDoc.appearance = 'system';
                 return oldDoc;
@@ -147,6 +155,7 @@ export async function initRxDatabase(name: string): Promise<TrackerDatabase> {
           },
         });
       }
+
 
       // Seed data if needed
       const eventTypeCount = await db.eventTypes.count().exec();

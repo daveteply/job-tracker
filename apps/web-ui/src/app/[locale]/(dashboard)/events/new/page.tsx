@@ -62,7 +62,7 @@ export default function EventsNewPage() {
   }, [step]);
 
   const methods = useForm<EventCreateWithReminder>({
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- zodResolver can have subtle mismatches with complex schemas and default values.
     resolver: zodResolver(EventCreateWithReminderSchema as any),
     mode: 'onChange',
     defaultValues: {
@@ -382,8 +382,7 @@ export default function EventsNewPage() {
                       onClick={async () => {
                         const isFormValid = await trigger();
                         if (isFormValid) {
-                          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                          await handleSubmit(onSubmit as any)();
+                          await handleSubmit(onSubmit)();
                         }
                       }}
                     >

@@ -46,7 +46,7 @@ export default function SettingsPage({ params }: { params: Promise<{ locale: str
                 onClick={() => updateSettings({ locale: loc })}
                 disabled={isLoading}
               >
-                {tLang(loc as any)}
+                {tLang(loc)}
               </button>
             ))}
           </div>
