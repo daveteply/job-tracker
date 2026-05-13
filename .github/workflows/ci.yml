@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint, Build, and Test (Affected Only)
+        run: |
+          npx nx affected -t lint build test --coverage --parallel=3
+
+      - name: Jest Coverage Report
+        uses: marocchino/sticky-pull-request-comment@v2
+        if: github.event_name == 'pull_request'
+        with:
+          # We'll use a summary file if available, or just a custom message for now.
+          # Note: marocchino/sticky-pull-request-comment can also take raw text.
+          message: |
+            ### 📊 CI Status
+            - ✅ Lint, Build, and Tests passed.
+            - 📈 Code coverage reports generated (check individual package logs for details).
