@@ -21,6 +21,7 @@ import {
 
 import { useToast } from '../common/feedback/toast-context';
 import { EnumSelector } from '../common/forms/enum-selector';
+import { ErrorMsg } from '../common/forms/error-msg';
 import { FloatingButtonContainer } from '../common/layout/floating-button-container';
 import CompanyCombobox from '../company/company-combobox';
 import ContactCombobox from '../contact/contact-combobox';
@@ -111,7 +112,7 @@ export function EventForm<T extends EventFormValues>({
     getFieldState,
     formState: { errors, isSubmitting },
   } = useForm<T>({
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- zodResolver with generic types often fails to overlap sufficiently in TS.
     resolver: zodResolver(schema as any),
     defaultValues: formatInitialData(initialData),
   });
@@ -121,39 +122,42 @@ export function EventForm<T extends EventFormValues>({
   const currentSource = watch('source' as Path<T>);
   const contact = watch('contact' as Path<T>) as (ContactDTO & { company?: CompanyDTO }) | null;
   const role = watch('role' as Path<T>) as (RoleDTO & { company?: CompanyDTO }) | null;
-  const company = watch('company' as Path<T>);
+  const company = watch('company' as Path<T>) as CompanyDTO | null;
   const summaryValue = watch('summary' as Path<T>);
 
-  const { isDirty: isSummaryDirty } = getFieldState(
-    'summary' as Path<T>,
-    { errors, isSubmitting } as any,
-  );
+  const { isDirty: isSummaryDirty } = getFieldState('summary' as Path<T>, {
+    errors,
+    isSubmitting,
+  } as any); // eslint-disable-line @typescript-eslint/no-explicit-any -- getFieldState state argument is complex to type manually
 
   const prevContactRef = useRef(contact);
   const prevRoleRef = useRef(role);
   const prevCompanyRef = useRef(company);
 
   useEffect(() => {
-    const currentCompanyId = (company as any)?.id;
-    const prevCompanyId = (prevCompanyRef.current as any)?.id;
+    const currentCompanyId = company?.id;
+    const prevCompanyId = prevCompanyRef.current?.id;
 
     // If role changed and has an associated company, it takes precedence
     if (role?.id !== prevRoleRef.current?.id) {
       if (role?.company) {
-        setValue('company' as Path<T>, role.company as any, { shouldValidate: true });
+        setValue('company' as Path<T>, role.company as PathValue<T, Path<T>>, {
+          shouldValidate: true,
+        });
       }
     }
     // If contact changed and has an associated company, only fill if company is currently empty
     else if (contact?.id !== prevContactRef.current?.id) {
       if (contact?.company && !company) {
-        setValue('company' as Path<T>, contact.company as any, { shouldValidate: true });
+        setValue('company' as Path<T>, contact.company as PathValue<T, Path<T>>, {
+          shouldValidate: true,
+        });
       }
     }
     // If company changed, clear the role if it doesn't match the new company
     else if (currentCompanyId !== prevCompanyId) {
       if (role && role.companyId !== currentCompanyId) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        setValue('role' as Path<T>, null as any, { shouldValidate: true });
+        setValue('role' as Path<T>, null as PathValue<T, Path<T>>, { shouldValidate: true });
       }
     }
 
@@ -185,28 +189,12 @@ export function EventForm<T extends EventFormValues>({
     }
   };
 
-  // Helper to render error messages cleanly
-  const ErrorMsg = ({ name }: { name: Path<T> }) => {
-    // Access nested errors (e.g., 'contact.firstName')
-    const nameParts = (name as string).split('.');
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let error: any = errors;
-    for (const part of nameParts) {
-      if (!error) break;
-      error = error[part];
-    }
-
-    if (!error || !error.message) return null;
-    return (
-      <p className="text-error">
-        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-        <span>{tValidation(error.message.toString() as any)}</span>
-      </p>
-    );
-  };
-
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="px-12pt-6 mx-auto mb-4 max-w-md pb-32">
+    <form
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- onSubmit with generic T doesn't perfectly match the expected SubmitHandler.
+      onSubmit={handleSubmit(onSubmit as any)}
+      className="px-12pt-6 mx-auto mb-4 max-w-md pb-32"
+    >
       <fieldset className="fieldset">
         <legend className="fieldset-legend">{t('formEventType')}</legend>
         <Controller
@@ -243,7 +231,7 @@ export function EventForm<T extends EventFormValues>({
           useButtons={true}
           translationNamespace="DirectionType"
         />
-        <ErrorMsg name={'direction' as Path<T>} />
+        <ErrorMsg name={'direction' as Path<T>} errors={errors} tValidation={tValidation} />
       </fieldset>
 
       <fieldset className="fieldset w-full">
@@ -253,7 +241,7 @@ export function EventForm<T extends EventFormValues>({
           enumObject={SourceType}
           translationNamespace="SourceType"
         />
-        <ErrorMsg name={'source' as Path<T>} />
+        <ErrorMsg name={'source' as Path<T>} errors={errors} tValidation={tValidation} />
       </fieldset>
 
       <fieldset className="fieldset">
@@ -265,7 +253,7 @@ export function EventForm<T extends EventFormValues>({
           placeholder={companyPlaceholder}
           createNewLabel={createCompanyLabel}
         />
-        <ErrorMsg name={'company' as Path<T>} />
+        <ErrorMsg name={'company' as Path<T>} errors={errors} tValidation={tValidation} />
       </fieldset>
 
       <fieldset className="fieldset">
@@ -278,8 +266,8 @@ export function EventForm<T extends EventFormValues>({
           createNewLabel={createContactLabel}
           validateNewEntity={validateContact}
         />
-        <ErrorMsg name={'contact.firstName' as Path<T>} />
-        <ErrorMsg name={'contact.lastName' as Path<T>} />
+        <ErrorMsg name={'contact.firstName' as Path<T>} errors={errors} tValidation={tValidation} />
+        <ErrorMsg name={'contact.lastName' as Path<T>} errors={errors} tValidation={tValidation} />
       </fieldset>
 
       <fieldset className="fieldset">
@@ -287,11 +275,11 @@ export function EventForm<T extends EventFormValues>({
         <RoleCombobox
           control={control}
           name={'role' as Path<T>}
-          onSearch={(query) => onSearchRole(query, (company as any)?.id)}
+          onSearch={(query) => onSearchRole(query, company?.id)}
           placeholder={rolePlaceholder}
           createNewLabel={createRoleLabel}
         />
-        <ErrorMsg name={'title' as Path<T>} />
+        <ErrorMsg name={'title' as Path<T>} errors={errors} tValidation={tValidation} />
       </fieldset>
 
       <fieldset className="fieldset">
@@ -301,7 +289,7 @@ export function EventForm<T extends EventFormValues>({
           className="input"
           {...register('occurredAt' as Path<T>, { valueAsDate: true })}
         />
-        <ErrorMsg name={'occurredAt' as Path<T>} />
+        <ErrorMsg name={'occurredAt' as Path<T>} errors={errors} tValidation={tValidation} />
       </fieldset>
 
       <fieldset className="fieldset">
@@ -320,13 +308,13 @@ export function EventForm<T extends EventFormValues>({
           />
         </legend>
         <input className="input" {...register('summary' as Path<T>)} />
-        <ErrorMsg name={'summary' as Path<T>} />
+        <ErrorMsg name={'summary' as Path<T>} errors={errors} tValidation={tValidation} />
       </fieldset>
 
       <fieldset className="fieldset">
         <legend className="fieldset-legend">{t('formDetails')}</legend>
         <textarea className="textarea" {...register('details' as Path<T>)} />
-        <ErrorMsg name={'details' as Path<T>} />
+        <ErrorMsg name={'details' as Path<T>} errors={errors} tValidation={tValidation} />
       </fieldset>
 
       <FloatingButtonContainer>

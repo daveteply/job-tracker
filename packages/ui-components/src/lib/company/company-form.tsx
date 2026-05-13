@@ -11,6 +11,7 @@ import { useTranslations } from 'next-intl';
 import { CompanyCreateSchema, CompanyUpdateSchema } from '@job-tracker/validation';
 
 import { useToast } from '../common/feedback/toast-context';
+import { ErrorMsg } from '../common/forms/error-msg';
 import { FloatingButtonContainer } from '../common/layout/floating-button-container';
 
 interface CompanyFormProps<T extends FieldValues> {
@@ -39,7 +40,7 @@ export function CompanyForm<T extends FieldValues>({
     reset,
     formState: { errors, isSubmitting },
   } = useForm<T>({
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- zodResolver with generic types often fails to overlap sufficiently in TS.
     resolver: zodResolver(schema as any),
     defaultValues: initialData,
   });
@@ -109,25 +110,5 @@ export function CompanyForm<T extends FieldValues>({
     </form>
   );
 }
-
-// Helper to render error messages cleanly
-const ErrorMsg = <T extends FieldValues>({
-  name,
-  errors,
-  tValidation,
-}: {
-  name: Path<T>;
-  errors: any;
-  tValidation: any;
-}) => {
-  const error = errors[name];
-  if (!error || !error.message) return null;
-  return (
-    <p className="text-error">
-      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-      <span>{tValidation(error.message.toString() as any)}</span>
-    </p>
-  );
-};
 
 export default CompanyForm;

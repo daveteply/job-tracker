@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { DefaultValues, Path, useForm } from 'react-hook-form';
+import { DefaultValues, useForm } from 'react-hook-form';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
@@ -11,6 +11,7 @@ import { useTranslations } from 'next-intl';
 import { ReminderInput, ReminderInputSchema, ReminderUpdateSchema } from '@job-tracker/validation';
 
 import { useToast } from '../common/feedback/toast-context';
+import { ErrorMsg } from '../common/forms/error-msg';
 import { FloatingButtonContainer } from '../common/layout/floating-button-container';
 
 interface ReminderFormProps {
@@ -58,6 +59,7 @@ export function ReminderForm({
     reset,
     formState: { errors, isSubmitting },
   } = useForm<ReminderInput>({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- zodResolver can sometimes have subtle mismatches with coerced types.
     resolver: zodResolver(schema as any),
     defaultValues: getFormattedValues(initialData),
   });
@@ -86,6 +88,7 @@ export function ReminderForm({
 
   return (
     <form
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- onSubmit with ReminderInput doesn't perfectly match the generic TFieldValues.
       onSubmit={handleSubmit(onSubmit as any)}
       className="px-12pt-6 mx-auto mb-4 max-w-md pb-32"
     >
@@ -121,23 +124,5 @@ export function ReminderForm({
     </form>
   );
 }
-
-const ErrorMsg = ({
-  name,
-  errors,
-  tValidation,
-}: {
-  name: Path<ReminderInput>;
-  errors: any;
-  tValidation: any;
-}) => {
-  const error = errors[name];
-  if (!error || !error.message) return null;
-  return (
-    <p className="text-error">
-      <span>{tValidation(error.message.toString() as any)}</span>
-    </p>
-  );
-};
 
 export default ReminderForm;

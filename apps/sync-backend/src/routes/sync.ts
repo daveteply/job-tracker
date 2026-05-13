@@ -14,8 +14,8 @@ const PullRequestSchema = z.object({
 });
 
 const PushRowSchema = z.object({
-  newDocumentState: z.record(z.string(), z.any()),
-  assumedMasterState: z.record(z.string(), z.any()).nullable().optional(),
+  newDocumentState: z.record(z.string(), z.unknown()),
+  assumedMasterState: z.record(z.string(), z.unknown()).nullable().optional(),
 });
 
 const PushRequestSchema = z.array(PushRowSchema);

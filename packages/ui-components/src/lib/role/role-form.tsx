@@ -13,6 +13,7 @@ import { CompanyDTO, RoleCreateSchema, RoleUpdateSchema } from '@job-tracker/val
 
 import { useToast } from '../common/feedback/toast-context';
 import EnumSelector from '../common/forms/enum-selector';
+import { ErrorMsg } from '../common/forms/error-msg';
 import { FloatingButtonContainer } from '../common/layout/floating-button-container';
 import CompanyCombobox from '../company/company-combobox';
 
@@ -49,7 +50,7 @@ export function RoleForm<T extends FieldValues>({
     control,
     formState: { errors, isSubmitting },
   } = useForm<T>({
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- zodResolver with generic types often fails to overlap sufficiently in TS.
     resolver: zodResolver(schema as any),
     defaultValues: initialData,
   });
@@ -141,33 +142,5 @@ export function RoleForm<T extends FieldValues>({
     </form>
   );
 }
-
-// Helper to render error messages cleanly
-const ErrorMsg = <T extends FieldValues>({
-  name,
-  errors,
-  tValidation,
-}: {
-  name: Path<T>;
-  errors: any;
-  tValidation: any;
-}) => {
-  // Access nested errors (e.g., 'company.name')
-  const nameParts = (name as string).split('.');
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let error: any = errors;
-  for (const part of nameParts) {
-    if (!error) break;
-    error = error[part];
-  }
-
-  if (!error || !error.message) return null;
-  return (
-    <p className="text-error">
-      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-      <span>{tValidation(error.message.toString() as any)}</span>
-    </p>
-  );
-};
 
 export default RoleForm;

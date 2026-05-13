@@ -20,9 +20,9 @@ import { useToast } from '@job-tracker/ui-components';
 
 import { Link } from '../../../i18n/routing';
 
-const applySchema = (t: any) =>
+const applySchema = (t: (key: string, values?: Record<string, any>) => string) =>
   z.object({
-    email: z.email(t('invalidEmail')),
+    email: z.string().email(t('invalidEmail')),
     name: z.string().optional(),
     reason: z.string().optional(),
   });
@@ -103,10 +103,10 @@ function BetaContent() {
       setTimeout(() => {
         router.push(`/auth/signin?callbackUrl=${encodeURIComponent(callbackUrl)}`);
       }, 1500);
-    } catch (error: any) {
+    } catch (error: unknown) {
       // Safely attempt to translate the error code, fallback to validationError
       let message = t('validationError');
-      const errorCode = error.message;
+      const errorCode = error instanceof Error ? error.message : String(error);
 
       // Handle common network/fastify errors that might not be in our explicit list
       const normalizedCode = errorCode === 'Not Found' ? 'notFound' : errorCode;

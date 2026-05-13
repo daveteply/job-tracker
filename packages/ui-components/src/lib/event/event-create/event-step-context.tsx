@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { Control, FieldValues, Path, useFormContext } from 'react-hook-form';
+import { Control, FieldValues, Path, PathValue, useFormContext } from 'react-hook-form';
 
 import { useTranslations } from 'next-intl';
 
@@ -62,8 +62,7 @@ export function EventStepContext<T extends FieldValues = FieldValues>({
           isNew: false,
           shouldRemove: false,
         };
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        setValue('company' as Path<T>, selection as any, { shouldValidate: true });
+        setValue('company' as Path<T>, selection as PathValue<T, Path<T>>, { shouldValidate: true });
       }
     }
     // If contact changed and has an associated company, only fill if company is currently empty
@@ -74,15 +73,13 @@ export function EventStepContext<T extends FieldValues = FieldValues>({
           isNew: false,
           shouldRemove: false,
         };
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        setValue('company' as Path<T>, selection as any, { shouldValidate: true });
+        setValue('company' as Path<T>, selection as PathValue<T, Path<T>>, { shouldValidate: true });
       }
     }
     // If company changed, clear the role if it doesn't match the new company
     else if (currentCompanyId !== prevCompanyId) {
       if (role && role.companyId !== currentCompanyId) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        setValue('role' as Path<T>, null as any, { shouldValidate: true });
+        setValue('role' as Path<T>, null as PathValue<T, Path<T>>, { shouldValidate: true });
       }
     }
 
