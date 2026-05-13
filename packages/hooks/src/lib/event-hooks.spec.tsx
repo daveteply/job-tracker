@@ -94,40 +94,108 @@ describe('event-hooks', () => {
   });
 
   describe('useEventActions', () => {
-    it('should upsert event', async () => {
-      const mockEventRepo = {
-        upsert: jest.fn().mockResolvedValue({ id: '1' }),
-      };
-      (dataAccess.EventRepository as jest.Mock).mockImplementation(() => mockEventRepo);
-      (dataAccess.EventTypeRepository as jest.Mock).mockImplementation(() => ({
-        getById: jest.fn().mockResolvedValue({}),
-      }));
-      (dataAccess.CompanyRepository as jest.Mock).mockImplementation(() => ({
-        upsert: jest.fn().mockResolvedValue({ id: 'c1' }),
-      }));
-      (dataAccess.ContactRepository as jest.Mock).mockImplementation(() => ({
-        upsert: jest.fn().mockResolvedValue({ id: 'co1' }),
-      }));
-      (dataAccess.RoleRepository as jest.Mock).mockImplementation(() => ({
-        upsert: jest.fn().mockResolvedValue({ id: 'r1' }),
-        getById: jest.fn().mockResolvedValue({}),
-      }));
-      (dataAccess.ReminderRepository as jest.Mock).mockImplementation(() => ({
-        getByEventId: jest.fn(),
-        upsert: jest.fn().mockResolvedValue({ id: 'rem1' }),
-      }));
-
+    it('should return error if database not initialized', async () => {
+      (dataAccess.useDb as jest.Mock).mockReturnValue(null);
       const { result } = renderHook(() => useEventActions());
       let actionResult: any;
       await act(async () => {
-        actionResult = await result.current.upsertEvent({
-          occurredAt: new Date().toISOString(),
+        actionResult = await result.current.upsertEvent({} as any);
+      });
+      expect(actionResult.success).toBe(false);
+      expect(actionResult.message).toBe('Database not initialized');
+    });
+
+    it('should return error if eventTypeId is missing', async () => {
+      const mockEventRepo = {
+        upsert: jest.fn(),
+      };
+      (dataAccess.EventRepository as jest.Mock).mockImplementation(() => mockEventRepo);
+      const { result } = renderHook(() => useEventActions());
+      let actionResult: any;
+      await act(async () => {
+        actionResult = await result.current.upsertEvent({} as any);
+      });
+      expect(actionResult.success).toBe(false);
+      expect(actionResult.message).toBe('Event type is required');
+    });
+
+    it('should upsert event and handle reminder', async () => {
+      const mockEventRepo = {
+        upsert: jest.fn().mockResolvedValue({ id: '1' }),
+      };
+      const mockReminderRepo = {
+        getByEventId: jest.fn().mockResolvedValue({ id: 'rem1' }),
+        upsert: jest.fn().mockResolvedValue({}),
+      };
+      (dataAccess.EventRepository as jest.Mock).mockImplementation(() => mockEventRepo);
+      (dataAccess.ReminderRepository as jest.Mock).mockImplementation(() => mockReminderRepo);
+      (dataAccess.EventTypeRepository as jest.Mock).mockImplementation(() => ({
+        getById: jest.fn().mockResolvedValue({}),
+      }));
+
+      const { result } = renderHook(() => useEventActions());
+      await act(async () => {
+        await result.current.upsertEvent({
+          id: '1',
           eventTypeId: 'et1',
+          hasReminder: true,
+          remindAt: new Date().toISOString(),
         } as any);
       });
 
       expect(mockEventRepo.upsert).toHaveBeenCalled();
+      expect(mockReminderRepo.upsert).toHaveBeenCalled();
+    });
+
+    it('should delete reminder if hasReminder is false', async () => {
+      const mockEventRepo = {
+        upsert: jest.fn().mockResolvedValue({ id: '1' }),
+      };
+      const mockReminderRepo = {
+        getByEventId: jest.fn().mockResolvedValue({ id: 'rem1' }),
+        deleteById: jest.fn().mockResolvedValue(true),
+      };
+      (dataAccess.EventRepository as jest.Mock).mockImplementation(() => mockEventRepo);
+      (dataAccess.ReminderRepository as jest.Mock).mockImplementation(() => mockReminderRepo);
+
+      const { result } = renderHook(() => useEventActions());
+      await act(async () => {
+        await result.current.upsertEvent({
+          id: '1',
+          eventTypeId: 'et1',
+          hasReminder: false,
+        } as any);
+      });
+
+      expect(mockReminderRepo.deleteById).toHaveBeenCalledWith('rem1');
+    });
+
+    it('should handle error during upsert', async () => {
+      const mockEventRepo = {
+        upsert: jest.fn().mockRejectedValue(new Error('Fail')),
+      };
+      (dataAccess.EventRepository as jest.Mock).mockImplementation(() => mockEventRepo);
+      const { result } = renderHook(() => useEventActions());
+      let actionResult: any;
+      await act(async () => {
+        actionResult = await result.current.upsertEvent({ eventTypeId: 'et1' } as any);
+      });
+      expect(actionResult.success).toBe(false);
+      expect(actionResult.message).toBe('Failed to save Event');
+    });
+
+    it('should remove event', async () => {
+      const mockEventRepo = {
+        deleteById: jest.fn().mockResolvedValue(true),
+      };
+      (dataAccess.EventRepository as jest.Mock).mockImplementation(() => mockEventRepo);
+      const { result } = renderHook(() => useEventActions());
+      let actionResult: any;
+      await act(async () => {
+        actionResult = await result.current.removeEvent('1');
+      });
       expect(actionResult.success).toBe(true);
+      expect(mockEventRepo.deleteById).toHaveBeenCalledWith('1');
     });
   });
 });

@@ -20,6 +20,14 @@
         "cwd": "apps/sync-backend"
       }
     },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/apps/sync-backend"],
+      "options": {
+        "jestConfig": "apps/sync-backend/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
     "prisma-generate": {
       "executor": "nx:run-commands",
       "options": {
