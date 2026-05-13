@@ -4,7 +4,6 @@
     "noEmit": true,
     "incremental": true,
     "tsBuildInfoFile": "../../tmp/tsc/domain.tsbuildinfo",
-    "rootDir": "src",
     "types": ["node"]
   },
   "include": ["src/**/*.ts"],

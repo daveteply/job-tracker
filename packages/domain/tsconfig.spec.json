@@ -4,9 +4,10 @@
     "outDir": "./out-tsc/jest",
     "module": "commonjs",
     "moduleResolution": "node",
-    "rootDir": ".",
+    "rootDir": "../../",
     "types": ["jest", "node"]
   },
+  "exclude": [],
   "include": [
     "jest.config.ts",
     "jest.config.cts",
