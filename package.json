@@ -7,7 +7,8 @@
     "clear-target": "rm -rf apps/sync-backend/target",
     "start": "npx nx run-many -t dev -p web-ui sync-backend",
     "start:backend": "npx nx run sync-backend:dev",
-    "beta:approve": "npm run beta:approve --prefix apps/sync-backend"
+    "beta:approve": "npm run beta:approve --prefix apps/sync-backend",
+    "test:coverage": "npx nx run-many -t test --coverage --coverageReporters='text'"
   },
   "private": true,
   "dependencies": {

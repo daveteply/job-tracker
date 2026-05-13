@@ -7,4 +7,11 @@ module.exports = {
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: '../../coverage/packages/app-logic',
+  collectCoverageFrom: [
+    'src/**/*.ts',
+    '!src/**/*.d.ts',
+    '!src/**/*.spec.ts',
+    '!src/**/*.test.ts',
+    '!src/**/index.ts',
+  ],
 };

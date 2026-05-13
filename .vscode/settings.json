@@ -1,0 +1,10 @@
+{
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.expand": false,
+  "explorer.fileNesting.patterns": {
+    "*.ts": "${capture}.spec.ts, ${capture}.test.ts, ${capture}.spec.tsx, ${capture}.test.tsx",
+    "*.tsx": "${capture}.spec.tsx, ${capture}.test.tsx, ${capture}.spec.ts, ${capture}.test.ts",
+    "*.js": "${capture}.spec.js, ${capture}.test.js, ${capture}.spec.jsx, ${capture}.test.jsx",
+    "*.jsx": "${capture}.spec.jsx, ${capture}.test.jsx, ${capture}.spec.js, ${capture}.test.js"
+  }
+}
