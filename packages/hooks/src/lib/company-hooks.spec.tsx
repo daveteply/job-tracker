@@ -177,6 +177,17 @@ describe('company-hooks', () => {
   });
 
   describe('useCompanyActions', () => {
+    it('should return error if database not initialized', async () => {
+      (dataAccess.useDb as jest.Mock).mockReturnValue(null);
+      const { result } = renderHook(() => useCompanyActions());
+      let actionResult: any;
+      await act(async () => {
+        actionResult = await result.current.upsertCompany({ name: 'New' });
+      });
+      expect(actionResult.success).toBe(false);
+      expect(actionResult.message).toBe('Database not initialized');
+    });
+
     it('should upsert company', async () => {
       const mockRepo = {
         upsert: jest.fn().mockResolvedValue({ id: '1' }),
@@ -193,6 +204,21 @@ describe('company-hooks', () => {
       expect(actionResult.success).toBe(true);
     });
 
+    it('should handle error during upsert', async () => {
+      const mockRepo = {
+        upsert: jest.fn().mockRejectedValue(new Error('Fail')),
+      };
+      (dataAccess.CompanyRepository as jest.Mock).mockImplementation(() => mockRepo);
+
+      const { result } = renderHook(() => useCompanyActions());
+      let actionResult: any;
+      await act(async () => {
+        actionResult = await result.current.upsertCompany({ name: 'New' });
+      });
+      expect(actionResult.success).toBe(false);
+      expect(actionResult.message).toBe('Failed to save company');
+    });
+
     it('should remove company', async () => {
       const mockRepo = {
         deleteById: jest.fn().mockResolvedValue(true),
@@ -207,6 +233,21 @@ describe('company-hooks', () => {
 
       expect(mockRepo.deleteById).toHaveBeenCalledWith('1');
       expect(actionResult.success).toBe(true);
+    });
+
+    it('should handle error during remove', async () => {
+      const mockRepo = {
+        deleteById: jest.fn().mockRejectedValue(new Error('Fail')),
+      };
+      (dataAccess.CompanyRepository as jest.Mock).mockImplementation(() => mockRepo);
+
+      const { result } = renderHook(() => useCompanyActions());
+      let actionResult: any;
+      await act(async () => {
+        actionResult = await result.current.removeCompany('1');
+      });
+      expect(actionResult.success).toBe(false);
+      expect(actionResult.message).toBe('Failed to remove company');
     });
   });
 });
