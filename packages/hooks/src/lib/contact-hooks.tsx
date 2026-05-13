@@ -47,11 +47,11 @@ export function useContactWithCompany(id: string) {
     );
   }, [contactRepository, companyRepository, id]);
 
-  const contact = useObservable<ContactWithCompanyDTO | null>(contactWithCompany$, null);
+  const [contact, observableLoading] = useObservable<ContactWithCompanyDTO | null>(contactWithCompany$, null);
 
   return {
     contact,
-    loading: !contactRepository || !companyRepository || (!!id && !contact),
+    loading: !contactRepository || !companyRepository || (!!id && observableLoading),
   };
 }
 
@@ -62,11 +62,11 @@ export function useContactsByCompany(companyId: string) {
     return repository?.listByCompanyId$(companyId);
   }, [repository, companyId]);
 
-  const contacts = useObservable<ContactDTO[]>(contacts$, []);
+  const [contacts, observableLoading] = useObservable<ContactDTO[]>(contacts$, []);
 
   return {
     contacts,
-    loading: !repository,
+    loading: !repository || observableLoading,
   };
 }
 
@@ -95,11 +95,11 @@ export function useContactsWithCompany() {
     );
   }, [contactRepository, companyRepository]);
 
-  const contacts = useObservable<ContactWithCompanyDTO[]>(contactsWithCompany$, []);
+  const [contacts, observableLoading] = useObservable<ContactWithCompanyDTO[]>(contactsWithCompany$, []);
 
   return {
     contacts,
-    loading: !contactRepository || !companyRepository,
+    loading: !contactRepository || !companyRepository || observableLoading,
   };
 }
 

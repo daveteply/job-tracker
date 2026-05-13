@@ -5,7 +5,7 @@ import { BuildingOfficeIcon } from '@heroicons/react/24/outline';
 import { useTranslations } from 'next-intl';
 
 import { useCompaniesWithChildren, useGroupedCompanies } from '@job-tracker/hooks';
-import { CompanyList, EmptyState, PageHeader, PageLoading } from '@job-tracker/ui-components';
+import { CompanyList, EmptyState, ListSkeleton, PageHeader } from '@job-tracker/ui-components';
 
 import { Link } from '../../../../i18n/routing';
 
@@ -14,7 +14,7 @@ export default function CompaniesListPage() {
   const { companies, loading } = useCompaniesWithChildren();
   const { active, inactive } = useGroupedCompanies(companies);
 
-  if (loading) return <PageLoading entityName={t('companiesEntityName')} />;
+  if (loading) return <ListSkeleton />;
 
   return (
     <>

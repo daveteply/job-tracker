@@ -25,7 +25,9 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: false,
   },
-  experimental: {},
+  experimental: {
+    viewTransition: true,
+  },
   images: {
     remotePatterns: [
       {

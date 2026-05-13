@@ -5,7 +5,7 @@ import { BriefcaseIcon } from '@heroicons/react/24/outline';
 import { useTranslations } from 'next-intl';
 
 import { useGroupedRoles, useRolesWithEvents } from '@job-tracker/hooks';
-import { EmptyState, PageHeader, PageLoading, RoleList } from '@job-tracker/ui-components';
+import { EmptyState, ListSkeleton, PageHeader, RoleList } from '@job-tracker/ui-components';
 
 import { Link } from '../../../../i18n/routing';
 
@@ -16,7 +16,7 @@ export default function RoleListPage() {
 
   // This is the job pipeline view.
 
-  if (loading) return <PageLoading entityName={t('rolesEntityName')} />;
+  if (loading) return <ListSkeleton />;
 
   return (
     <>

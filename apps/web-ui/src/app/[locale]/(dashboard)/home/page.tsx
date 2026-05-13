@@ -14,7 +14,7 @@ import {
   useRolesWithEvents,
   useUserSettings,
 } from '@job-tracker/hooks';
-import { EmptyState, EventList, ReminderList, RoleList } from '@job-tracker/ui-components';
+import { EmptyState, EventList, HomeSkeleton, ReminderList, RoleList } from '@job-tracker/ui-components';
 
 import { Link } from '../../../../i18n/routing';
 
@@ -26,12 +26,6 @@ export default function HomePage() {
   const { roles, loading: loadingRoles } = useRolesWithEvents();
   const { settings, updateSettings } = useUserSettings();
   const { pipeline: activeRoles } = useGroupedRoles(roles);
-
-  const showFullEvents = settings?.showFullEventList ?? false;
-
-  const handleToggleEvents = async () => {
-    await updateSettings({ showFullEventList: !showFullEvents });
-  };
 
   const activeReminders = useMemo(() => {
     return reminders
@@ -60,6 +54,16 @@ export default function HomePage() {
     events.length,
     roles.length,
   ]);
+
+  if (loadingReminders || loadingEvents || loadingRoles) {
+    return <HomeSkeleton />;
+  }
+
+  const showFullEvents = settings?.showFullEventList ?? false;
+
+  const handleToggleEvents = async () => {
+    await updateSettings({ showFullEventList: !showFullEvents });
+  };
 
   if (isEmpty) {
     return (

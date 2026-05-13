@@ -4,7 +4,7 @@ import { ArchiveBoxIcon, PlusIcon } from '@heroicons/react/24/outline';
 import { useTranslations } from 'next-intl';
 
 import { useEventsWithChildren, useUserSettings } from '@job-tracker/hooks';
-import { EmptyState, EventList, PageHeader } from '@job-tracker/ui-components';
+import { EmptyState, EventList, ListSkeleton, PageHeader } from '@job-tracker/ui-components';
 
 import { Link } from '../../../../i18n/routing';
 
@@ -12,6 +12,8 @@ export default function ActivityPage() {
   const t = useTranslations('Activity');
   const { events, loading } = useEventsWithChildren();
   const { settings, updateSettings } = useUserSettings();
+
+  if (loading) return <ListSkeleton />;
 
   const showFullEvents = settings?.showFullEventList ?? false;
 
@@ -22,14 +24,15 @@ export default function ActivityPage() {
   return (
     <>
       <PageHeader title={t('listTitle')}>
-        {loading && <span className="loading loading-spinner loading-sm opacity-20"></span>}
-        <Link href="/events/new" className="btn btn-sm text-primary" title={t('addFirstEvent')}>
-          <PlusIcon className="size-5" />
-          {t('addFirstEvent')}
-        </Link>
+        {events.length === 0 && (
+          <Link href="/events/new" className="btn btn-sm text-primary" title={t('addFirstEvent')}>
+            <PlusIcon className="size-5" />
+            {t('addFirstEvent')}
+          </Link>
+        )}
       </PageHeader>
 
-      {!loading && events.length === 0 ? (
+      {events.length === 0 ? (
         <EmptyState
           icon={<ArchiveBoxIcon className="h-16 w-16" />}
           title={t('noActivityYet')}

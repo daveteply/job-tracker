@@ -55,6 +55,7 @@ export function RoleInfoCard({
       detailsUrl={`/roles/${role.id}`}
       showChevron={showChevron}
       showFull={showFull}
+      transitionName={`role-${role.id}`}
     >
       <div className="flex flex-col gap-3">
         <ul>

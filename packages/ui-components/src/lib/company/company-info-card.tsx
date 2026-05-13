@@ -76,6 +76,7 @@ export function CompanyInfoCard({
       detailsUrl={`/companies/${company.id}`}
       showChevron={showChevron}
       showFull={showFull}
+      transitionName={`company-${company.id}`}
     >
       <div className="flex flex-col gap-3">
         <ul>

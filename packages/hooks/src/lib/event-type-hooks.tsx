@@ -23,11 +23,11 @@ export function useEventTypes() {
     return repository?.list$();
   }, [repository]);
 
-  const eventTypes = useObservable<EventTypeDTO[]>(eventTypes$, []);
+  const [eventTypes, observableLoading] = useObservable<EventTypeDTO[]>(eventTypes$, []);
 
   return {
     eventTypes,
-    loading: !repository,
+    loading: !repository || observableLoading,
   };
 }
 

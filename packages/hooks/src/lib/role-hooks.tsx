@@ -88,11 +88,11 @@ export function useRoleWithCompany(id: string) {
     );
   }, [roleRepository, companyRepository, eventRepository, id]);
 
-  const role = useObservable<RoleWithEventsDTO | null>(roleWithEvents$, null);
+  const [role, observableLoading] = useObservable<RoleWithEventsDTO | null>(roleWithEvents$, null);
 
   return {
     role,
-    loading: !roleRepository || !companyRepository || !eventRepository || (!!id && !role),
+    loading: !roleRepository || !companyRepository || !eventRepository || (!!id && observableLoading),
   };
 }
 
@@ -103,11 +103,11 @@ export function useRolesByCompany(companyId: string) {
     return repository?.listByCompanyId$(companyId);
   }, [repository, companyId]);
 
-  const roles = useObservable<RoleDTO[]>(roles$, []);
+  const [roles, observableLoading] = useObservable<RoleDTO[]>(roles$, []);
 
   return {
     roles,
-    loading: !repository,
+    loading: !repository || observableLoading,
   };
 }
 
@@ -136,11 +136,11 @@ export function useRolesWithCompany() {
     );
   }, [roleRepository, companyRepository]);
 
-  const roles = useObservable<RoleWithCompanyDTO[]>(rolesWithCompany$, []);
+  const [roles, observableLoading] = useObservable<RoleWithCompanyDTO[]>(rolesWithCompany$, []);
 
   return {
     roles,
-    loading: !roleRepository || !companyRepository,
+    loading: !roleRepository || !companyRepository || observableLoading,
   };
 }
 
@@ -175,11 +175,11 @@ export function useRolesWithEvents() {
     );
   }, [roleRepository, companyRepository, eventRepository]);
 
-  const roles = useObservable<RoleWithEventsDTO[]>(rolesWithEvents$, []);
+  const [roles, observableLoading] = useObservable<RoleWithEventsDTO[]>(rolesWithEvents$, []);
 
   return {
     roles,
-    loading: !roleRepository || !companyRepository || !eventRepository,
+    loading: !roleRepository || !companyRepository || !eventRepository || observableLoading,
   };
 }
 

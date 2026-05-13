@@ -35,7 +35,8 @@ export function useRecentEventTypeIds(limit = 10) {
     return repository?.listRecentEventTypeIds$(limit);
   }, [repository, limit]);
 
-  return useObservable<string[]>(eventTypeIds$, []);
+  const [ids] = useObservable<string[]>(eventTypeIds$, []);
+  return ids;
 }
 
 export function useEventWithChildren(id: string) {
@@ -120,11 +121,11 @@ export function useEventWithChildren(id: string) {
     id,
   ]);
 
-  const event = useObservable<EventWithChildrenDTO | null>(eventWithChildren$, null);
+  const [event, observableLoading] = useObservable<EventWithChildrenDTO | null>(eventWithChildren$, null);
 
   return {
     event,
-    loading: !eventRepository || !eventTypeRepository || (!!id && !event),
+    loading: !eventRepository || !eventTypeRepository || (!!id && observableLoading),
   };
 }
 
@@ -202,11 +203,11 @@ export function useEventsWithChildren() {
     reminderRepository,
   ]);
 
-  const events = useObservable<EventWithChildrenDTO[]>(eventsWithChildren$, []);
+  const [events, observableLoading] = useObservable<EventWithChildrenDTO[]>(eventsWithChildren$, []);
 
   return {
     events,
-    loading: !eventRepository || !companyRepository,
+    loading: !eventRepository || !companyRepository || observableLoading,
   };
 }
 

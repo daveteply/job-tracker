@@ -29,11 +29,11 @@ export function useCompany(id: string) {
     return repository?.getById$(id);
   }, [repository, id]);
 
-  const company = useObservable<CompanyDTO | null>(company$, null);
+  const [company, observableLoading] = useObservable<CompanyDTO | null>(company$, null);
 
   return {
     company,
-    loading: !repository || (!!id && !company),
+    loading: !repository || (!!id && observableLoading),
   };
 }
 
@@ -44,11 +44,11 @@ export function useCompanies() {
     return repository?.list$();
   }, [repository]);
 
-  const companies = useObservable<CompanyDTO[]>(companies$, []);
+  const [companies, observableLoading] = useObservable<CompanyDTO[]>(companies$, []);
 
   return {
     companies,
-    loading: !repository,
+    loading: !repository || observableLoading,
   };
 }
 
@@ -98,11 +98,14 @@ export function useCompaniesWithChildren() {
     );
   }, [companyRepository, roleRepository, contactRepository]);
 
-  const companies = useObservable<CompanyWithChildrenDTO[]>(companiesWithChildren$, []);
+  const [companies, observableLoading] = useObservable<CompanyWithChildrenDTO[]>(
+    companiesWithChildren$,
+    [],
+  );
 
   return {
     companies,
-    loading: !companyRepository || !roleRepository || !contactRepository,
+    loading: !companyRepository || !roleRepository || !contactRepository || observableLoading,
   };
 }
 
