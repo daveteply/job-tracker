@@ -41,7 +41,7 @@ export default function RoleDetailsPage({ params }: { params: Promise<{ id: stri
       <RoleInfoCard role={role} events={role.events} showControls={false} showChevron={false} />
 
       <div className="mt-5">
-        <Link className="btn" href="/roles">
+        <Link className="btn" href="/roles" transitionTypes={['nav-back']}>
           {t('backToRoles')}
         </Link>
       </div>

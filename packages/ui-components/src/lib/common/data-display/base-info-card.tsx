@@ -1,6 +1,5 @@
 'use client';
-
-import { ReactNode } from 'react';
+import { ReactNode, ViewTransition } from 'react';
 
 import { ChevronRightIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
@@ -14,6 +13,7 @@ export interface BaseInfoCardProps {
   showChevron?: boolean;
   className?: string;
   showFull?: boolean;
+  transitionName?: string;
 }
 
 export function BaseInfoCard({
@@ -25,17 +25,25 @@ export function BaseInfoCard({
   showChevron = true,
   className = '',
   showFull = true,
+  transitionName,
 }: BaseInfoCardProps) {
   const cardClasses = className.includes('card')
     ? className
     : `card bg-base-300 card-sm shadow-sm ${className}`;
+
+  const titleContent =
+    typeof title === 'string' ? <h2 className="card-title truncate">{title}</h2> : title;
 
   return (
     <div className={cardClasses}>
       <div className="card-body">
         <div className="flex items-start justify-between gap-2">
           <div className="flex min-w-0 flex-1 items-center gap-2">
-            {typeof title === 'string' ? <h2 className="card-title truncate">{title}</h2> : title}
+            {transitionName ? (
+              <ViewTransition name={transitionName}>{titleContent}</ViewTransition>
+            ) : (
+              titleContent
+            )}
             {header}
           </div>
           <div className="flex shrink-0 items-center gap-1">
@@ -45,6 +53,7 @@ export function BaseInfoCard({
                 href={detailsUrl}
                 className="btn btn-ghost btn-xs btn-circle"
                 aria-label="View Details"
+                transitionTypes={['nav-forward']}
               >
                 <ChevronRightIcon className="size-5" />
               </Link>

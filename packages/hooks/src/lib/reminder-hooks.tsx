@@ -37,11 +37,11 @@ export function useReminder(id: string) {
     return repository?.getById$(id);
   }, [repository, id]);
 
-  const reminder = useObservable<ReminderDTO | null>(reminder$, null);
+  const [reminder, observableLoading] = useObservable<ReminderDTO | null>(reminder$, null);
 
   return {
     reminder,
-    loading: !repository || (!!id && !reminder),
+    loading: !repository || (!!id && observableLoading),
   };
 }
 
@@ -52,11 +52,11 @@ export function useReminders() {
     return repository?.list$();
   }, [repository]);
 
-  const reminders = useObservable<ReminderDTO[]>(reminders$, []);
+  const [reminders, observableLoading] = useObservable<ReminderDTO[]>(reminders$, []);
 
   return {
     reminders,
-    loading: !repository,
+    loading: !repository || observableLoading,
   };
 }
 
@@ -144,11 +144,11 @@ export function useRemindersWithChildren() {
     roleRepository,
   ]);
 
-  const reminders = useObservable<ReminderWithChildrenDTO[]>(remindersWithChildren$, []);
+  const [reminders, observableLoading] = useObservable<ReminderWithChildrenDTO[]>(remindersWithChildren$, []);
 
   return {
     reminders,
-    loading: !reminderRepository,
+    loading: !reminderRepository || observableLoading,
   };
 }
 

@@ -15,6 +15,7 @@ export * from './lib/common/data-display/formatted-date';
 // Feedback
 export * from './lib/common/feedback/error-view';
 export * from './lib/common/feedback/page-loading';
+export * from './lib/common/feedback/skeletons';
 export * from './lib/common/feedback/sync-indicator';
 export * from './lib/common/feedback/toast-context';
 

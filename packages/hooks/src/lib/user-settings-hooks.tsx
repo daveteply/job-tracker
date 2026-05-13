@@ -24,7 +24,7 @@ export function useUserSettings() {
     return repository?.getById$();
   }, [repository]);
 
-  const settings = useObservable<UserSettingsDTO | null>(settings$, null);
+  const [settings, observableLoading] = useObservable<UserSettingsDTO | null>(settings$, null);
 
   // Sync locale to cookie when it changes in RxDB
   useMemo(() => {
@@ -44,6 +44,6 @@ export function useUserSettings() {
   return {
     settings,
     updateSettings,
-    isLoading: settings === null && !!repository,
+    isLoading: !!repository && (observableLoading || settings === null),
   };
 }

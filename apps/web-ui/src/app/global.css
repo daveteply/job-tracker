@@ -20,4 +20,64 @@
   html {
     scroll-behavior: smooth;
   }
+
+  @keyframes loading-progress {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(300%); }
+  }
+
+  /* View Transitions */
+  @keyframes slide-in-right {
+    from { transform: translateX(100%); }
+  }
+  @keyframes slide-out-left {
+    to { transform: translateX(-30%); opacity: 0; }
+  }
+  @keyframes slide-in-left {
+    from { transform: translateX(-30%); opacity: 0; }
+    to { transform: translateX(0); }
+  }
+  @keyframes slide-out-right {
+    to { transform: translateX(100%); }
+  }
+  @keyframes fade-in {
+    from { opacity: 0; }
+  }
+  @keyframes fade-out {
+    to { opacity: 0; }
+  }
+
+  /* Anchor static UI elements */
+  .main-header { view-transition-name: main-header; }
+  .bottom-nav { view-transition-name: bottom-nav; }
+  .breadcrumbs-nav { view-transition-name: breadcrumbs-nav; }
+  .fab-container { view-transition-name: fab-container; }
+
+  ::view-transition-group(main-header),
+  ::view-transition-group(bottom-nav),
+  ::view-transition-group(breadcrumbs-nav),
+  ::view-transition-group(fab-container) {
+    animation: none !important;
+  }
+
+  ::view-transition-old(root) {
+    animation: 0.15s cubic-bezier(0.4, 0, 1, 1) both fade-out;
+  }
+  ::view-transition-new(root) {
+    animation: 0.2s cubic-bezier(0, 0, 0.2, 1) both fade-in;
+  }
+
+  /* Shared element transitions - ensure they are above the page transitions */
+  ::view-transition-group(*) {
+    animation-duration: 0.25s;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-group(*),
+    ::view-transition-old(*),
+    ::view-transition-new(*) {
+      animation: none !important;
+    }
+  }
 }

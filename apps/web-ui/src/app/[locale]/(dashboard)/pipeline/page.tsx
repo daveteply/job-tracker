@@ -3,11 +3,13 @@
 import { useTranslations } from 'next-intl';
 
 import { useRolesWithCompany } from '@job-tracker/hooks';
-import { Pipeline } from '@job-tracker/ui-components';
+import { Pipeline, PipelineSkeleton } from '@job-tracker/ui-components';
 
 export default function PipelinePage() {
   const t = useTranslations('Pipeline');
   const { roles, loading: loadingRoles } = useRolesWithCompany();
+
+  if (loadingRoles) return <PipelineSkeleton />;
 
   return (
     <div className="flex h-full flex-col">

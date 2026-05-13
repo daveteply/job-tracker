@@ -6,7 +6,7 @@ import { BellIcon, PlusIcon } from '@heroicons/react/24/outline';
 import { useTranslations } from 'next-intl';
 
 import { useRemindersWithChildren } from '@job-tracker/hooks';
-import { EmptyState, PageHeader, PageLoading, ReminderList } from '@job-tracker/ui-components';
+import { EmptyState, ListSkeleton, PageHeader, ReminderList } from '@job-tracker/ui-components';
 
 import { Link } from '../../../../i18n/routing';
 
@@ -20,7 +20,7 @@ export default function ReminderListPage() {
       .sort((a, b) => a.remindAt.getTime() - b.remindAt.getTime());
   }, [reminders]);
 
-  if (loading) return <PageLoading entityName={t('listTitle')} />;
+  if (loading) return <ListSkeleton />;
 
   return (
     <>

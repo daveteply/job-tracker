@@ -49,10 +49,10 @@ export default function CompanyDetailPage({ params }: { params: Promise<{ id: st
       />
 
       <div className="mt-5">
-        <Link className="btn mr-3" href="/companies">
+        <Link className="btn mr-3" href="/companies" transitionTypes={['nav-back']}>
           {t('backToCompanies')}
         </Link>
-        <Link className="btn" href="/activity">
+        <Link className="btn" href="/activity" transitionTypes={['nav-back']}>
           {t('backToActivity')}
         </Link>
       </div>

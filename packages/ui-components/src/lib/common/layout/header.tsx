@@ -55,7 +55,7 @@ export function Header({ title, iconSrc, homeHref = '/home' }: HeaderProps) {
 
   return (
     <header
-      className={`bg-primary text-primary-content sticky top-0 z-50 p-4 transition-shadow duration-300 ${
+      className={`main-header bg-primary text-primary-content sticky top-0 z-50 p-4 transition-shadow duration-300 ${
         scrolled ? 'shadow-lg' : 'shadow-none'
       }`}
     >
