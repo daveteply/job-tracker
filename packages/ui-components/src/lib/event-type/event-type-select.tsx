@@ -28,7 +28,7 @@ export function EventTypeSelect({
     if (type.isSystemDefined && type.translationKey) {
       try {
         return t(type.translationKey);
-      } catch (e) {
+      } catch {
         return type.name;
       }
     }

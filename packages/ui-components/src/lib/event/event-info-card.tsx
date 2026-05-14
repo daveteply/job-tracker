@@ -47,7 +47,7 @@ export function EventInfoCard({
   if (event.eventType?.isSystemDefined && event.eventType?.translationKey) {
     try {
       eventName = tEvent(event.eventType.translationKey);
-    } catch (e) {
+    } catch {
       // Fallback to name if translation key is missing (legacy data)
       console.warn(`Missing translation for ${event.eventType.translationKey}`);
     }

@@ -95,7 +95,7 @@ export function EventStepType({
     if (type.isSystemDefined && type.translationKey) {
       try {
         return tEvent(type.translationKey);
-      } catch (e) {
+      } catch {
         return type.name;
       }
     }

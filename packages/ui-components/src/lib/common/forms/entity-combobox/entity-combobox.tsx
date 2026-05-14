@@ -62,23 +62,32 @@ export function EntityCombobox<TEntity extends { id: string }, T extends FieldVa
   const [isOpen, setIsOpen] = useState(false);
   const [validationError, setValidationError] = useState<string | null>(null);
   const [showSpinner, setShowSpinner] = useState(false);
+  const [prevValue, setPrevValue] = useState(value);
 
   const containerRef = useRef<HTMLDivElement>(null);
-  const lastExternalValueRef = useRef(value);
 
-  // Sync internal query state with external form value changes
-  useEffect(() => {
-    // Only sync if the value is different AND it's not a 'new' entity being typed
-    // or if the change is definitely external (lastExternalValueRef check)
-    if (value !== lastExternalValueRef.current) {
-      if (!value?.isNew) {
-        const newQuery =
-          value && !value.isNew ? config.getDisplayValue(value) : value?.displayValue || '';
+  // Sync internal query state with external form value changes during render
+  if (value !== prevValue) {
+    if (!value?.isNew) {
+      const newQuery =
+        value && !value.isNew ? config.getDisplayValue(value) : value?.displayValue || '';
+      if (query !== newQuery) {
         setQuery(newQuery);
       }
-      lastExternalValueRef.current = value;
     }
-  }, [value, config]);
+    setPrevValue(value);
+  }
+
+  // Clear suggestions when query is empty during render
+  if (!debouncedQuery && suggestions.length > 0) {
+    setSuggestions([]);
+  }
+
+  // Reduce the flicker of the loading indicator
+  //  Only show if the search takes longer than 250ms
+  if (!isLoading && showSpinner) {
+    setShowSpinner(false);
+  }
 
   // Debounce
   useEffect(() => {
@@ -90,7 +99,6 @@ export function EntityCombobox<TEntity extends { id: string }, T extends FieldVa
   useEffect(() => {
     let active = true;
     if (!debouncedQuery) {
-      setSuggestions([]);
       return;
     }
 
@@ -140,11 +148,8 @@ export function EntityCombobox<TEntity extends { id: string }, T extends FieldVa
     };
   }, []);
 
-  // Reduce the flicker of the loading indicator
-  //  Only show if the search takes longer than 250ms
   useEffect(() => {
     if (!isLoading) {
-      setShowSpinner(false);
       return;
     }
 
