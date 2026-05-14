@@ -3,6 +3,7 @@ export * from './lib/common/auth/sign-in-view';
 export * from './lib/common/auth/user-menu';
 
 // Navigation
+export * from './lib/common/navigation/back-button';
 export * from './lib/common/navigation/dashboard-menu-links';
 
 // Data Display
@@ -50,6 +51,7 @@ export * from './lib/event/event-create/event-step-type';
 export * from './lib/event/event-form';
 export * from './lib/event/event-info-card';
 export * from './lib/event/event-list';
+export * from './lib/event/event-list-expand-toggle';
 export * from './lib/event/event-summary-generator';
 export * from './lib/event-type/event-type-info-card';
 export * from './lib/event-type/event-type-select';

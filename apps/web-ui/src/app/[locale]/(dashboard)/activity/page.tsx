@@ -4,7 +4,13 @@ import { ArchiveBoxIcon, PlusIcon } from '@heroicons/react/24/outline';
 import { useTranslations } from 'next-intl';
 
 import { useEventsWithChildren, useUserSettings } from '@job-tracker/hooks';
-import { EmptyState, EventList, ListSkeleton, PageHeader } from '@job-tracker/ui-components';
+import {
+  EmptyState,
+  EventList,
+  EventListExpandToggle,
+  ListSkeleton,
+  PageHeader,
+} from '@job-tracker/ui-components';
 
 import { Link } from '../../../../i18n/routing';
 
@@ -24,6 +30,7 @@ export default function ActivityPage() {
   return (
     <>
       <PageHeader title={t('listTitle')}>
+        <EventListExpandToggle showFull={showFullEvents} onToggleShowFull={handleToggleEvents} />
         {events.length === 0 && (
           <Link href="/events/new" className="btn btn-sm text-primary" title={t('addFirstEvent')}>
             <PlusIcon className="size-5" />
@@ -45,12 +52,7 @@ export default function ActivityPage() {
           }
         />
       ) : (
-        <EventList
-          events={events}
-          showFull={showFullEvents}
-          onToggleShowFull={handleToggleEvents}
-          showExpandToggle={true}
-        />
+        <EventList events={events} showFull={showFullEvents} />
       )}
     </>
   );

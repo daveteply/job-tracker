@@ -7,6 +7,9 @@ import {
   ArrowRightOnRectangleIcon,
   Bars3Icon,
   Cog8ToothIcon,
+  DocumentTextIcon,
+  InformationCircleIcon,
+  ShieldCheckIcon,
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -122,6 +125,25 @@ export function Header({ title, iconSrc, homeHref = '/home' }: HeaderProps) {
               </li>
               <div className="divider my-0 opacity-50"></div>
               <DashboardMenuLinks showIcons onItemClick={closeMenu} />
+              <div className="divider my-0 opacity-50"></div>
+              <li>
+                <Link href="/" onClick={closeMenu}>
+                  <InformationCircleIcon className="h-5 w-5" />
+                  {t('about')}
+                </Link>
+              </li>
+              <li>
+                <Link href="/privacy" onClick={closeMenu}>
+                  <ShieldCheckIcon className="h-5 w-5" />
+                  {t('privacy')}
+                </Link>
+              </li>
+              <li>
+                <Link href="/terms" onClick={closeMenu}>
+                  <DocumentTextIcon className="h-5 w-5" />
+                  {t('terms')}
+                </Link>
+              </li>
               {session && (
                 <>
                   <div className="divider my-0 opacity-50"></div>

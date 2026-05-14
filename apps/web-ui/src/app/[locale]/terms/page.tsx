@@ -1,6 +1,6 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
-import { Link } from '../../../i18n/routing';
+import { BackButton } from '@job-tracker/ui-components';
 
 export default async function TermsPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -11,12 +11,7 @@ export default async function TermsPage({ params }: { params: Promise<{ locale: 
     <div className="bg-base-100 min-h-screen px-4 py-12 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-3xl">
         <div className="mb-8">
-          <Link
-            href="/auth/signin"
-            className="text-primary mb-4 inline-block text-sm hover:underline"
-          >
-            &larr; Back to Sign In
-          </Link>
+          <BackButton />
           <h1 className="text-base-content mb-2 text-4xl font-extrabold">{t('title')}</h1>
           <p className="text-base-content/60 text-sm">{t('lastUpdated')}</p>
         </div>
