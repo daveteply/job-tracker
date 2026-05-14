@@ -34,7 +34,6 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     if (!toast) return;
 
-    setIsVisible(true);
     const timer = setTimeout(() => {
       setIsVisible(false);
     }, 3000);
@@ -52,6 +51,7 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
 
   const showToast = useCallback((message: string, type: ToastType = 'info') => {
     setToast({ message, type });
+    setIsVisible(true);
   }, []);
 
   const handleManualClose = () => {

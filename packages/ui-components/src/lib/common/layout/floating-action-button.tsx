@@ -26,9 +26,12 @@ export function FloatingActionButton() {
       const timer = setTimeout(() => setIsAnimating(true), 10);
       return () => clearTimeout(timer);
     }
-    setIsAnimating(false);
     return undefined;
   }, [isOpen]);
+
+  if (!isOpen && isAnimating) {
+    setIsAnimating(false);
+  }
 
   // Determine context based on current route
   const contextParams = useMemo(() => {

@@ -119,7 +119,7 @@ export function Breadcrumbs() {
       return t(translationKey as Parameters<typeof t>[0], {
         defaultValue: decodedSeg.charAt(0).toUpperCase() + decodedSeg.slice(1),
       });
-    } catch (e) {
+    } catch {
       return <span className="capitalize">{decodedSeg}</span>;
     }
   };

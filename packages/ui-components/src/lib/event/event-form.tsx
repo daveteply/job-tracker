@@ -131,7 +131,7 @@ export function EventForm<T extends EventFormValues>({
       errors,
       isSubmitting,
     } as any,
-  ); // eslint-disable-line @typescript-eslint/no-explicit-any -- getFieldState state argument is complex to type manually
+  );  
 
   const prevContactRef = useRef(contact);
   const prevRoleRef = useRef(role);
