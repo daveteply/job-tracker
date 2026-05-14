@@ -123,12 +123,12 @@
   },
   "PrivacyPage": {
     "title": "Privacy Policy",
-    "lastUpdated": "Last Updated: May 9, 2026",
+    "lastUpdated": "Last Updated: May 13, 2026",
     "introduction": "This Privacy Policy describes how David Hamdan Teply ('we', 'us', or 'our') collects, uses, and shares your personal information when you use the Vireo application.",
     "dataCollection": "Information We Collect",
     "dataCollectionContent": "We collect information you provide directly to us when you create an account, such as your name and email address through Google or Facebook authentication. We also store the job search data you enter, including company names, roles, contacts, and events. This data is stored locally on your device and synchronized to our cloud storage if you are signed in.",
-    "usageAnalytics": "Usage Analytics",
-    "usageAnalyticsContent": "We use analytics services to help us understand how users interact with the application, which allows us to improve our services. These services may collect information sent by your browser as part of a web page request, such as cookies or your IP address.",
+    "usageAnalytics": "Usage Analytics & Error Reporting",
+    "usageAnalyticsContent": "We use analytics services and error reporting tools (such as PostHog) to help us understand how users interact with the application and to identify and fix technical issues. These services collect anonymous information such as browser type, page views, and error logs. This data helps us ensure app stability and improve the overall user experience. If you are offline, these reports are queued locally and sent when you reconnect.",
     "dataStorage": "Data Storage and Security",
     "dataStorageContent": "Your data is primarily stored locally in your browser. When signed in, your data is synchronized with our secure cloud database. We take reasonable measures to protect your information from unauthorized access or disclosure.",
     "yourRights": "Your Rights",
@@ -138,7 +138,7 @@
   },
   "TermsPage": {
     "title": "Terms of Service",
-    "lastUpdated": "Last Updated: May 9, 2026",
+    "lastUpdated": "Last Updated: May 13, 2026",
     "acceptance": "Acceptance of Terms",
     "acceptanceContent": "By accessing or using Vireo, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use the application.",
     "description": "Description of Service",
@@ -545,6 +545,11 @@
     "title": "Well, this is awkward.",
     "description": "Something didn't go as planned on our end. Please try again in a few seconds.",
     "tryAgain": "Try again",
+    "backHome": "Back to Home"
+  },
+  "NotFound": {
+    "title": "Page not found",
+    "description": "The page you're looking for doesn't exist or has been moved.",
     "backHome": "Back to Home"
   }
 }

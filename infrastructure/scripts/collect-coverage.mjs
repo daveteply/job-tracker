@@ -5,7 +5,10 @@ import { execSync } from 'child_process';
 const coverageDir = 'coverage';
 let summaryFiles = [];
 try {
-  summaryFiles = execSync(`find ${coverageDir} -name "coverage-summary.json"`).toString().split('\n').filter(Boolean);
+  summaryFiles = execSync(`find ${coverageDir} -name "coverage-summary.json"`)
+    .toString()
+    .split('\n')
+    .filter(Boolean);
 } catch (e) {
   // coverage dir might not exist
 }
@@ -19,12 +22,12 @@ if (summaryFiles.length === 0) {
   markdown += '| Project | Statements | Branches | Functions | Lines |\n';
   markdown += '| :--- | :--- | :--- | :--- | :--- |\n';
 
-  summaryFiles.sort().forEach(file => {
+  summaryFiles.sort().forEach((file) => {
     try {
       const content = JSON.parse(fs.readFileSync(file, 'utf8'));
       const projectName = path.relative(coverageDir, path.dirname(file));
       const total = content.total;
-      
+
       if (total) {
         markdown += `| **${projectName}** | ${total.statements.pct}% | ${total.branches.pct}% | ${total.functions.pct}% | ${total.lines.pct}% |\n`;
       }

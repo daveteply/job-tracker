@@ -22,36 +22,64 @@
   }
 
   @keyframes loading-progress {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(300%); }
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(300%);
+    }
   }
 
   /* View Transitions */
   @keyframes slide-in-right {
-    from { transform: translateX(100%); }
+    from {
+      transform: translateX(100%);
+    }
   }
   @keyframes slide-out-left {
-    to { transform: translateX(-30%); opacity: 0; }
+    to {
+      transform: translateX(-30%);
+      opacity: 0;
+    }
   }
   @keyframes slide-in-left {
-    from { transform: translateX(-30%); opacity: 0; }
-    to { transform: translateX(0); }
+    from {
+      transform: translateX(-30%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+    }
   }
   @keyframes slide-out-right {
-    to { transform: translateX(100%); }
+    to {
+      transform: translateX(100%);
+    }
   }
   @keyframes fade-in {
-    from { opacity: 0; }
+    from {
+      opacity: 0;
+    }
   }
   @keyframes fade-out {
-    to { opacity: 0; }
+    to {
+      opacity: 0;
+    }
   }
 
   /* Anchor static UI elements */
-  .main-header { view-transition-name: main-header; }
-  .bottom-nav { view-transition-name: bottom-nav; }
-  .breadcrumbs-nav { view-transition-name: breadcrumbs-nav; }
-  .fab-container { view-transition-name: fab-container; }
+  .main-header {
+    view-transition-name: main-header;
+  }
+  .bottom-nav {
+    view-transition-name: bottom-nav;
+  }
+  .breadcrumbs-nav {
+    view-transition-name: breadcrumbs-nav;
+  }
+  .fab-container {
+    view-transition-name: fab-container;
+  }
 
   ::view-transition-group(main-header),
   ::view-transition-group(bottom-nav),

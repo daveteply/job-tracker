@@ -7,7 +7,7 @@ const { execSync } = require('child_process');
 let version = new Date().toISOString().split('T')[0].replace(/-/g, '.');
 try {
   version = execSync('git log -1 --format=%cd --date=format:%Y.%m.%d').toString().trim();
-} catch (e) {
+} catch (_e) {
   // Fallback to current date if git fails
 }
 
@@ -52,6 +52,18 @@ const nextConfig = {
     '@job-tracker/domain',
     '@job-tracker/app-logic',
   ],
+  async rewrites() {
+    return [
+      {
+        source: '/ingest/static/:path*',
+        destination: 'https://us-assets.i.posthog.com/static/:path*',
+      },
+      {
+        source: '/ingest/:path*',
+        destination: 'https://us.i.posthog.com/:path*',
+      },
+    ];
+  },
 };
 
 const plugins = [

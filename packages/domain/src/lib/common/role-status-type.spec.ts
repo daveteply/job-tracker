@@ -1,4 +1,9 @@
-import { ACTIVE_STATUSES, INACTIVE_STATUSES, PIPELINE_STATUSES, RoleStatus } from './role-status-type';
+import {
+  ACTIVE_STATUSES,
+  INACTIVE_STATUSES,
+  PIPELINE_STATUSES,
+  RoleStatus,
+} from './role-status-type';
 
 describe('RoleStatus', () => {
   it('should have all expected statuses in either active or inactive lists', () => {

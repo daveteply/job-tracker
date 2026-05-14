@@ -66,7 +66,10 @@ export function getStorage(): RxStorage<unknown, unknown> {
 
     if (process.env['NODE_ENV'] === 'development') {
       try {
-        _global.__rxdb_storage = wrappedValidateAjvStorage({ storage: baseStorage }) as RxStorage<unknown, unknown>;
+        _global.__rxdb_storage = wrappedValidateAjvStorage({ storage: baseStorage }) as RxStorage<
+          unknown,
+          unknown
+        >;
       } catch {
         console.error('[DB] Failed to wrap storage with AJV validation');
         _global.__rxdb_storage = baseStorage as RxStorage<unknown, unknown>;
@@ -155,7 +158,6 @@ export async function initRxDatabase(name: string): Promise<TrackerDatabase> {
           },
         });
       }
-
 
       // Seed data if needed
       const eventTypeCount = await db.eventTypes.count().exec();

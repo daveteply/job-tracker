@@ -147,7 +147,14 @@ describe('UI Components Coverage', () => {
     render(<RoleList activeRoles={[]} />);
     render(<EventList events={[]} />);
     render(<ReminderList reminders={[]} />);
-    render(<EventTypeSelect options={[]} onChange={() => {/* no-op */}} />);
+    render(
+      <EventTypeSelect
+        options={[]}
+        onChange={() => {
+          /* no-op */
+        }}
+      />,
+    );
     render(<Pipeline roles={[]} />);
     render(
       <EntityDelete
