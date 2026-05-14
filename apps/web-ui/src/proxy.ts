@@ -13,6 +13,7 @@ export const config = {
   // - /api (API routes)
   // - /_next (Next.js internals)
   // - /_static (inside /public)
+  // - /ingest (PostHog proxy)
   // - all root files inside /public (e.g. /favicon.ico)
-  matcher: ['/((?!api|_next|_static|_vercel|.*\\..*).*)'],
+  matcher: ['/((?!api|_next|ingest|_static|_vercel|.*\\..*).*)'],
 };

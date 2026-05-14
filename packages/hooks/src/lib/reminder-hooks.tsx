@@ -144,7 +144,10 @@ export function useRemindersWithChildren() {
     roleRepository,
   ]);
 
-  const [reminders, observableLoading] = useObservable<ReminderWithChildrenDTO[]>(remindersWithChildren$, []);
+  const [reminders, observableLoading] = useObservable<ReminderWithChildrenDTO[]>(
+    remindersWithChildren$,
+    [],
+  );
 
   return {
     reminders,

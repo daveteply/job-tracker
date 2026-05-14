@@ -43,7 +43,7 @@ export function PipelineSkeleton() {
       <div className="-mx-1 flex flex-col items-start gap-6 px-1 pb-8 sm:flex-row sm:overflow-x-auto">
         {[1, 2, 3].map((i) => (
           <div key={i} className="w-full shrink-0 sm:w-72 md:w-80">
-            <div className="bg-base-200/40 flex h-full flex-col gap-4 rounded-2xl border border-base-300/30 p-4 shadow-sm">
+            <div className="bg-base-200/40 border-base-300/30 flex h-full flex-col gap-4 rounded-2xl border p-4 shadow-sm">
               <div className="flex items-center justify-between px-1">
                 <div className="skeleton h-6 w-32"></div>
                 <div className="skeleton h-4 w-8 rounded-full"></div>
@@ -64,17 +64,17 @@ export function PipelineSkeleton() {
 export function HomeSkeleton() {
   return (
     <div className="space-y-8 pb-8">
-      <div className="skeleton h-10 w-48 ml-1"></div>
+      <div className="skeleton ml-1 h-10 w-48"></div>
 
       <section>
-        <div className="skeleton mb-4 h-8 w-32 ml-1"></div>
+        <div className="skeleton mb-4 ml-1 h-8 w-32"></div>
         <div className="space-y-3">
           <div className="skeleton h-24 w-full"></div>
         </div>
       </section>
 
       <section>
-        <div className="skeleton mb-4 h-8 w-48 ml-1"></div>
+        <div className="skeleton mb-4 ml-1 h-8 w-48"></div>
         <div className="space-y-3">
           <div className="skeleton h-24 w-full"></div>
           <div className="skeleton h-24 w-full"></div>
@@ -82,7 +82,7 @@ export function HomeSkeleton() {
       </section>
 
       <section>
-        <div className="mb-4 flex items-center justify-between ml-1">
+        <div className="mb-4 ml-1 flex items-center justify-between">
           <div className="skeleton h-8 w-40"></div>
           <div className="skeleton h-6 w-24"></div>
         </div>

@@ -123,12 +123,12 @@
   },
   "PrivacyPage": {
     "title": "Política de Privacidad",
-    "lastUpdated": "Última actualización: 9 de mayo de 2026",
+    "lastUpdated": "Última actualización: 13 de mayo de 2026",
     "introduction": "Esta Política de Privacidad describe cómo David Hamdan Teply ('nosotros', 'nos' o 'nuestro') recopila, utiliza y comparte su información personal cuando utiliza la aplicación Vireo.",
     "dataCollection": "Información que recopilamos",
     "dataCollectionContent": "Recopilamos la información que nos proporciona directamente cuando crea una cuenta, como su nombre y dirección de correo electrónico a través de la autenticación de Google o Facebook. También almacenamos los datos de búsqueda de empleo que ingresa, incluidos nombres de empresas, roles, contactos y eventos. Estos datos se almacenan localmente en su dispositivo y se sincronizan con nuestro almacenamiento en la nube si ha iniciado sesión.",
-    "usageAnalytics": "Analítica de uso",
-    "usageAnalyticsContent": "Utilizamos servicios de analítica para ayudarnos a comprender cómo interactúan los usuarios con la aplicación, lo que nos permite mejorar nuestros servicios. Estos servicios pueden recopilar información enviada por su navegador como parte de una solicitud de página web, como cookies o su dirección IP.",
+    "usageAnalytics": "Analítica de uso e informes de errores",
+    "usageAnalyticsContent": "Utilizamos servicios de analítica y herramientas de informes de errores (como PostHog) para ayudarnos a comprender cómo interactúan los usuarios con la aplicación y para identificar y corregir problemas técnicos. Estos servicios recopilan información anónima como el tipo de navegador, vistas de página y registros de errores. Estos datos nos ayudan a garantizar la estabilidad de la app y mejorar la experiencia general del usuario. Si no tienes conexión, estos informes se guardan localmente y se envían cuando te vuelvas a conectar.",
     "dataStorage": "Almacenamiento y seguridad de datos",
     "dataStorageContent": "Sus datos se almacenan principalmente de forma local en su navegador. Cuando inicia sesión, sus datos se sincronizan con nuestra base de datos segura en la nube. Tomamos medidas razonables para proteger su información del acceso o divulgación no autorizados.",
     "yourRights": "Sus derechos",
@@ -138,7 +138,7 @@
   },
   "TermsPage": {
     "title": "Términos de Servicio",
-    "lastUpdated": "Última actualización: 9 de mayo de 2026",
+    "lastUpdated": "Última actualización: 13 de mayo de 2026",
     "acceptance": "Aceptación de los términos",
     "acceptanceContent": "Al acceder o utilizar Vireo, usted acepta estar sujeto a estos Términos de Servicio. Si no está de acuerdo con estos términos, no utilice la aplicación.",
     "description": "Descripción del servicio",
@@ -543,6 +543,11 @@
     "title": "Vaya, esto es un poco incómodo.",
     "description": "Algo no salió como planeamos de nuestro lado. Por favor, inténtalo de nuevo en unos segundos.",
     "tryAgain": "Intentar de nuevo",
-    "backHome": "Volver al Inicio"
+    "backHome": "Volver al inicio"
+  },
+  "NotFound": {
+    "title": "Página no encontrada",
+    "description": "La página que buscas no existe o ha sido movida.",
+    "backHome": "Volver al inicio"
   }
 }

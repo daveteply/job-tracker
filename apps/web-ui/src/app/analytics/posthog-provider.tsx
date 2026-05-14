@@ -9,11 +9,11 @@ import { usePostHog } from 'posthog-js/react';
 
 if (typeof window !== 'undefined') {
   const key = process.env.NEXT_PUBLIC_POSTHOG_KEY;
-  const host = process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://us.i.posthog.com';
 
   if (key) {
     posthog.init(key, {
-      api_host: host,
+      api_host: '/ingest',
+      ui_host: 'https://us.i.posthog.com',
       person_profiles: 'identified_only',
       capture_pageview: false, // Disable automatic pageview capture, as we use manual capture below
     });
@@ -33,6 +33,8 @@ function PostHogPageView(): null {
       }
       posthog.capture('$pageview', {
         $current_url: url,
+        environment: process.env.NODE_ENV,
+        vercel_env: process.env.NEXT_PUBLIC_VERCEL_ENV || 'development',
       });
     }
   }, [pathname, searchParams, posthog]);

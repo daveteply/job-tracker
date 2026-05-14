@@ -62,7 +62,9 @@ export function EventStepContext<T extends FieldValues = FieldValues>({
           isNew: false,
           shouldRemove: false,
         };
-        setValue('company' as Path<T>, selection as PathValue<T, Path<T>>, { shouldValidate: true });
+        setValue('company' as Path<T>, selection as PathValue<T, Path<T>>, {
+          shouldValidate: true,
+        });
       }
     }
     // If contact changed and has an associated company, only fill if company is currently empty
@@ -73,7 +75,9 @@ export function EventStepContext<T extends FieldValues = FieldValues>({
           isNew: false,
           shouldRemove: false,
         };
-        setValue('company' as Path<T>, selection as PathValue<T, Path<T>>, { shouldValidate: true });
+        setValue('company' as Path<T>, selection as PathValue<T, Path<T>>, {
+          shouldValidate: true,
+        });
       }
     }
     // If company changed, clear the role if it doesn't match the new company

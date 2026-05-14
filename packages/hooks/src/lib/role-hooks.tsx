@@ -92,7 +92,8 @@ export function useRoleWithCompany(id: string) {
 
   return {
     role,
-    loading: !roleRepository || !companyRepository || !eventRepository || (!!id && observableLoading),
+    loading:
+      !roleRepository || !companyRepository || !eventRepository || (!!id && observableLoading),
   };
 }
 

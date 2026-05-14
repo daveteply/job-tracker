@@ -109,7 +109,14 @@ describe('reminder-hooks', () => {
   describe('useRemindersWithChildren', () => {
     it('should return reminders with children', () => {
       const mockReminderWithEvent = { ...mockReminder, eventId: 'event1' };
-      const mockEvent = { id: 'event1', title: 'Test Event', eventTypeId: 'et1', companyId: 'c1', contactId: 'co1', roleId: 'r1' };
+      const mockEvent = {
+        id: 'event1',
+        title: 'Test Event',
+        eventTypeId: 'et1',
+        companyId: 'c1',
+        contactId: 'co1',
+        roleId: 'r1',
+      };
       const mockEventType = { id: 'et1', name: 'Test ET' };
       const mockCompany = { id: 'c1', name: 'Test Company' };
       const mockContact = { id: 'co1', name: 'Test Contact' };
@@ -135,7 +142,7 @@ describe('reminder-hooks', () => {
       }));
 
       const { result } = renderHook(() => useRemindersWithChildren());
-      
+
       expect(result.current.reminders).toHaveLength(1);
       const reminder = result.current.reminders[0];
       expect(reminder.event).toBeDefined();
@@ -169,7 +176,7 @@ describe('reminder-hooks', () => {
       }));
 
       const { result } = renderHook(() => useRemindersWithChildren());
-      
+
       expect(result.current.reminders[0].event?.eventType).toBeNull();
     });
 

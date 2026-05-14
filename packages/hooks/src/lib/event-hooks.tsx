@@ -121,7 +121,10 @@ export function useEventWithChildren(id: string) {
     id,
   ]);
 
-  const [event, observableLoading] = useObservable<EventWithChildrenDTO | null>(eventWithChildren$, null);
+  const [event, observableLoading] = useObservable<EventWithChildrenDTO | null>(
+    eventWithChildren$,
+    null,
+  );
 
   return {
     event,
@@ -203,7 +206,10 @@ export function useEventsWithChildren() {
     reminderRepository,
   ]);
 
-  const [events, observableLoading] = useObservable<EventWithChildrenDTO[]>(eventsWithChildren$, []);
+  const [events, observableLoading] = useObservable<EventWithChildrenDTO[]>(
+    eventsWithChildren$,
+    [],
+  );
 
   return {
     events,

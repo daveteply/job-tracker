@@ -44,7 +44,7 @@ describe('upsertEntity', () => {
     options.update.mockResolvedValue(null);
 
     await expect(upsertEntity(input, options)).rejects.toThrow(
-      'Failed to update TestEntity with id "1"'
+      'Failed to update TestEntity with id "1"',
     );
   });
 });

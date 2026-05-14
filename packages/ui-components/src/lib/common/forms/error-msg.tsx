@@ -6,11 +6,7 @@ interface ErrorMsgProps<T extends FieldValues> {
   tValidation: (key: string) => string;
 }
 
-export function ErrorMsg<T extends FieldValues>({
-  name,
-  errors,
-  tValidation,
-}: ErrorMsgProps<T>) {
+export function ErrorMsg<T extends FieldValues>({ name, errors, tValidation }: ErrorMsgProps<T>) {
   const nameParts = (name as string).split('.');
 
   // Traverse the errors object to find the specific field error

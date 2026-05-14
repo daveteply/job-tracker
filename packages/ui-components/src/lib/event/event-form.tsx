@@ -125,10 +125,13 @@ export function EventForm<T extends EventFormValues>({
   const company = watch('company' as Path<T>) as CompanyDTO | null;
   const summaryValue = watch('summary' as Path<T>);
 
-  const { isDirty: isSummaryDirty } = getFieldState('summary' as Path<T>, {
-    errors,
-    isSubmitting,
-  } as any); // eslint-disable-line @typescript-eslint/no-explicit-any -- getFieldState state argument is complex to type manually
+  const { isDirty: isSummaryDirty } = getFieldState(
+    'summary' as Path<T>,
+    {
+      errors,
+      isSubmitting,
+    } as any,
+  ); // eslint-disable-line @typescript-eslint/no-explicit-any -- getFieldState state argument is complex to type manually
 
   const prevContactRef = useRef(contact);
   const prevRoleRef = useRef(role);

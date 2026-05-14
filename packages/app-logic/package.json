@@ -6,6 +6,7 @@
   "main": "./src/index.js",
   "types": "./src/index.d.ts",
   "dependencies": {
-    "@job-tracker/domain": "workspace:*"
+    "@job-tracker/domain": "workspace:*",
+    "posthog-js": "^1.372.1"
   }
 }

@@ -47,7 +47,10 @@ export function useContactWithCompany(id: string) {
     );
   }, [contactRepository, companyRepository, id]);
 
-  const [contact, observableLoading] = useObservable<ContactWithCompanyDTO | null>(contactWithCompany$, null);
+  const [contact, observableLoading] = useObservable<ContactWithCompanyDTO | null>(
+    contactWithCompany$,
+    null,
+  );
 
   return {
     contact,
@@ -95,7 +98,10 @@ export function useContactsWithCompany() {
     );
   }, [contactRepository, companyRepository]);
 
-  const [contacts, observableLoading] = useObservable<ContactWithCompanyDTO[]>(contactsWithCompany$, []);
+  const [contacts, observableLoading] = useObservable<ContactWithCompanyDTO[]>(
+    contactsWithCompany$,
+    [],
+  );
 
   return {
     contacts,

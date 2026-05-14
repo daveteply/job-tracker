@@ -1,6 +1,7 @@
 export * from './lib/actions';
 export * from './lib/deletion';
 export * from './lib/event-logic';
+export * from './lib/logger';
 export * from './lib/relations';
 export * from './lib/search';
 export * from './lib/timestamps';

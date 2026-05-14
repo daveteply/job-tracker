@@ -1,8 +1,4 @@
-import {
-  deriveEventCompanyId,
-  resolveCompanyId,
-  resolveEntityId,
-} from './relations';
+import { deriveEventCompanyId, resolveCompanyId, resolveEntityId } from './relations';
 
 describe('relations', () => {
   describe('deriveEventCompanyId', () => {
@@ -12,7 +8,7 @@ describe('relations', () => {
           roleCompanyId: 'role-1',
           contactCompanyId: 'contact-1',
           explicitCompanyId: 'explicit-1',
-        })
+        }),
       ).toBe('role-1');
     });
 
@@ -22,7 +18,7 @@ describe('relations', () => {
           roleCompanyId: null,
           contactCompanyId: 'contact-1',
           explicitCompanyId: 'explicit-1',
-        })
+        }),
       ).toBe('contact-1');
     });
 
@@ -32,7 +28,7 @@ describe('relations', () => {
           roleCompanyId: null,
           contactCompanyId: null,
           explicitCompanyId: 'explicit-1',
-        })
+        }),
       ).toBe('explicit-1');
     });
 
@@ -42,7 +38,7 @@ describe('relations', () => {
           roleCompanyId: null,
           contactCompanyId: null,
           explicitCompanyId: null,
-        })
+        }),
       ).toBeNull();
     });
   });
@@ -132,7 +128,7 @@ describe('relations', () => {
       await expect(
         resolveEntityId({
           selection: { name: 'New', isNew: true, shouldRemove: false },
-        })
+        }),
       ).rejects.toThrow('Repository upsert is required to create a new entity');
     });
 
