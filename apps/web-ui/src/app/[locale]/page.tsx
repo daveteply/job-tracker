@@ -169,7 +169,7 @@ export default async function IndexPage({ params }: { params: Promise<{ locale: 
           <a className="link link-hover" href="mailto:davehamdan@gmail.com">
             {t('footer.contact')}
           </a>
-          <a className="link link-hover" href="https://github.com/davehamdan/job-tracker">
+          <a className="link link-hover" href="https://github.com/daveteply/job-tracker">
             {t('footer.github')}
           </a>
           <Link href="/beta" className="link link-hover">

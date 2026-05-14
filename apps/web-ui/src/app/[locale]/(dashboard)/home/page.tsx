@@ -17,6 +17,7 @@ import {
 import {
   EmptyState,
   EventList,
+  EventListExpandToggle,
   HomeSkeleton,
   ReminderList,
   RoleList,
@@ -113,19 +114,16 @@ export default function HomePage() {
       </section>
 
       <section>
-        <h2 className="mb-4 px-1 text-xl font-bold">{t('recentActivity')}</h2>
+        <div className="mb-4 flex flex-row items-center justify-between md:justify-start md:gap-4 px-1">
+          <h2 className="text-xl font-bold">{t('recentActivity')}</h2>
+          <EventListExpandToggle showFull={showFullEvents} onToggleShowFull={handleToggleEvents} />
+        </div>
         {loadingEvents ? (
           <div className="flex justify-center p-4">
             <span className="loading loading-spinner loading-md"></span>
           </div>
         ) : (
-          <EventList
-            events={recentEvents}
-            showControls={true}
-            showFull={showFullEvents}
-            onToggleShowFull={handleToggleEvents}
-            showExpandToggle={true}
-          />
+          <EventList events={recentEvents} showControls={true} showFull={showFullEvents} />
         )}
       </section>
 

@@ -1,6 +1,7 @@
 {
   "Common": {
     "title": "Vireo",
+    "back": "Back",
     "cancel": "Cancel",
     "create": "Create",
     "update": "Update",
@@ -30,6 +31,9 @@
     "reminders": "Reminders",
     "roles": "Roles",
     "settings": "Settings",
+    "about": "About Vireo",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
     "signIn": "Sign In",
     "signOut": "Sign Out",
     "toggleMenu": "Toggle Menu",
@@ -377,6 +381,9 @@
     "edit": "Edit",
     "delete": "Delete",
     "settings": "Settings",
+    "about": "About Vireo",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
     "signOut": "Sign Out",
     "signIn": "Enable Sync",
     "newEvent": "New Event",

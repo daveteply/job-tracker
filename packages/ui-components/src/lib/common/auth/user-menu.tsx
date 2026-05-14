@@ -1,6 +1,6 @@
 'use client';
 
-import { CogIcon } from '@heroicons/react/24/outline';
+import { UserCircleIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
@@ -48,7 +48,7 @@ export function UserMenu() {
               />
             ) : (
               <div className="bg-neutral text-neutral-content flex h-full w-full items-center justify-center font-bold">
-                {session?.user?.name?.[0] ?? <CogIcon />}
+                {session?.user?.name?.[0] ?? <UserCircleIcon className="h-8 w-8" />}
               </div>
             )}
           </div>
@@ -76,6 +76,16 @@ export function UserMenu() {
           </li>
           <div className="divider my-0"></div>
           <DashboardMenuLinks />
+          <div className="divider my-0"></div>
+          <li>
+            <Link href="/">{t('about')}</Link>
+          </li>
+          <li>
+            <Link href="/privacy">{t('privacy')}</Link>
+          </li>
+          <li>
+            <Link href="/terms">{t('terms')}</Link>
+          </li>
           {session && (
             <>
               <div className="divider my-0"></div>
