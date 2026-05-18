@@ -118,6 +118,7 @@ export default function EventsNewPage() {
             setValue('hasReminder', true);
             setValue('remindAt', formatDateForInput(remindAt) as unknown as Date);
           }
+          setStep(2);
           hasDefaulted.current = true;
           return;
         }

@@ -59,10 +59,13 @@
     "description": "Organiza tu búsqueda de empleo. Mantente productivo, incluso sin conexión.",
     "subtext": "Una aplicación de seguimiento de empleo local-first diseñada para la fiabilidad del mundo real.",
     "dashboardButton": "Ir a mi Dashboard de Empleos",
+    "microBenefit": "Sin registro. Funciona sin conexión al instante.",
+    "meetPip": "¿Quién es Pip?",
     "features": {
       "localFirst": {
         "title": "Arquitectura Local‑First",
-        "description": "Tus datos se quedan en tu dispositivo: rápidos, privados y confiables."
+        "description": "Tus datos se quedan en tu dispositivo: rápidos, privados y confiables.",
+        "learnMore": "Por qué es importante"
       },
       "offlineReady": {
         "title": "PWA lista para usar sin conexión",
@@ -82,11 +85,28 @@
         "description": "Funciona en escritorio, tablet y móvil: una sola experiencia en todas partes."
       }
     },
+    "localFirstDetail": {
+      "title": "Por qué lo local-first importa",
+      "description": "Las aplicaciones tradicionales esperan a los servidores. Las aplicaciones local-first no esperan a nadie. Al priorizar tu dispositivo local, Vireo ofrece una experiencia fluida, segura y ultrarrápida.",
+      "privacy": {
+        "title": "Privacidad Total",
+        "description": "Tu búsqueda de empleo es personal. Local-first significa que tus datos permanecen en tu dispositivo por defecto."
+      },
+      "speed": {
+        "title": "Velocidad Nativa",
+        "description": "Sin indicadores de carga. Cada acción es instantánea porque ocurre localmente primero."
+      },
+      "offline": {
+        "title": "Siempre Listo",
+        "description": "Trabaja en cualquier lugar: en un avión, un tren o en una cafetería con Wi-Fi inestable."
+      }
+    },
     "pwa": {
       "title": "Instala Vireo, tu compañero de búsqueda de empleo.",
       "description": "Vireo es una Aplicación Web Progresiva (PWA). Puedes instalarla directamente desde tu navegador para un acceso rápido, sin necesidad de tiendas de aplicaciones.",
       "subtext": "Ofrece la misma experiencia rápida y lista para usar sin conexión que esperarías de una aplicación nativa, pero sin las complicaciones de una descarga tradicional.",
       "installButton": "Instalar la App Vireo",
+      "platforms": "Funciona en iOS, Android y navegadores de escritorio",
       "browserNotice": "Busca el icono de instalación en la barra de direcciones de tu navegador para añadir Vireo a tu pantalla de inicio."
     },
     "beta": {
@@ -94,9 +114,18 @@
       "description": "Únete a nuestro programa beta para probar la sincronización en la nube y nuevas funciones. Tus comentarios nos ayudan a construir una mejor experiencia para quienes buscan empleo en todo el mundo.",
       "button": "Regístrate en la Beta"
     },
+    "pip": {
+      "title": "Conoce a Pip, tu guía de búsqueda de empleo.",
+      "description": "Pip está aquí para mantener tu búsqueda organizada, enfocada y libre de estrés. Piensa en Pip como tu compañero personal, ayudándote a seguir cada oportunidad y dar seguimiento con confianza.",
+      "tagline": "Siempre local, siempre confiable."
+    },
     "about": {
       "title": "Creado por buscadores de empleo, para buscadores de empleo.",
       "description": "Vireo fue creado para hacer el seguimiento de empleos algo simple, privado y empoderador. Creemos que tus datos deben seguir siendo tuyos, incluso sin conexión."
+    },
+    "finalCta": {
+      "title": "¿Listo para organizarte?",
+      "button": "Ir a mi Dashboard de Empleos"
     },
     "footer": {
       "privacy": "Política de Privacidad",

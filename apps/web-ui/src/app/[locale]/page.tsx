@@ -33,7 +33,7 @@ export default async function IndexPage({ params }: { params: Promise<{ locale: 
                 src="/vireo-logo-1t.png"
                 alt={`${BRANDING.name} Logo`}
                 fill
-                className="object-contain blur-[0.1px] drop-shadow-[0_10px_20px_rgba(0,0,0,0.15)]"
+                className="object-contain blur-[0.1px] drop-shadow-[0_10px_30px_rgba(0,0,0,0.15)] dark:drop-shadow-[0_0_20px_rgba(255,255,255,0.15)]"
                 priority
                 sizes="(max-width: 768px) 192px, 256px"
               />
@@ -46,6 +46,13 @@ export default async function IndexPage({ params }: { params: Promise<{ locale: 
             >
               {t('dashboardButton')}
             </Link>
+            <p className="mt-4 text-sm font-medium opacity-70">{t('microBenefit')}</p>
+            <a
+              href="#meet-pip"
+              className="mt-6 text-sm font-semibold text-primary/70 hover:text-primary transition-colors hover:underline"
+            >
+              {t('meetPip')}
+            </a>
           </div>
         </div>
       </section>
@@ -72,13 +79,13 @@ export default async function IndexPage({ params }: { params: Promise<{ locale: 
                   {t(`features.${key}.title`)}
                 </h2>
                 <p className="text-base-content/80">{t(`features.${key}.description`)}</p>
-                {key === 'offlineReady' && (
+                {(key === 'offlineReady' || key === 'localFirst') && (
                   <div className="card-actions mt-4 justify-end">
                     <a
-                      href="#pwa-install"
+                      href={key === 'offlineReady' ? '#pwa-install' : '#local-first-matters'}
                       className="btn btn-link btn-xs text-primary p-0 font-semibold no-underline hover:underline"
                     >
-                      {t('features.offlineReady.learnMore')} →
+                      {t(`features.${key}.learnMore`)} →
                     </a>
                   </div>
                 )}
@@ -86,9 +93,112 @@ export default async function IndexPage({ params }: { params: Promise<{ locale: 
             </div>
           ))}
         </div>
-      </section>
+        </section>
 
-      {/* Beta Program Section */}
+        {/* Pip Section */}
+        <section id="meet-pip" className="bg-base-200/50 scroll-mt-20 overflow-hidden px-4 py-24">
+        <div className="mx-auto flex max-w-5xl flex-col items-center gap-12 text-center lg:flex-row lg:text-left">
+          <div className="flex-1 order-2 lg:order-1">
+            <div className="bg-primary/10 text-primary mb-6 inline-block rounded-full px-4 py-1 text-sm font-bold uppercase tracking-wider">
+              {t('pip.tagline')}
+            </div>
+            <h2 className="mb-8 text-4xl font-bold md:text-5xl">{t('pip.title')}</h2>
+            <p className="text-base-content/80 text-xl leading-relaxed">
+              {t('pip.description')}
+            </p>
+          </div>
+          <div className="flex-1 flex justify-center order-1 lg:order-2">
+            <div className="group relative">
+              <div className="bg-primary/10 absolute inset-0 scale-110 rounded-full blur-3xl transition-transform duration-700 group-hover:scale-125"></div>
+              <div className="relative h-64 w-64 md:h-80 md:w-80 overflow-hidden rounded-full border-4 border-base-100 shadow-2xl transition-transform duration-500 group-hover:scale-105 group-hover:rotate-2">
+                <Image
+                  src="/mascot/Pip512.png"
+                  alt="Pip the Mascot"
+                  fill
+                  sizes="(max-width: 768px) 256px, 320px"
+                  className="object-cover"
+                  priority
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        </section>
+
+        {/* Why Local-First Section */}        <section id="local-first-matters" className="bg-base-100 scroll-mt-20 px-4 py-24">
+        <div className="mx-auto max-w-5xl">
+          <div className="mb-16 text-center">
+            <h2 className="mb-6 text-3xl font-bold md:text-5xl">{t('localFirstDetail.title')}</h2>
+            <p className="mx-auto max-w-3xl text-xl opacity-80">
+              {t('localFirstDetail.description')}
+            </p>
+          </div>
+
+          <div className="grid gap-8 md:grid-cols-3">
+            <div className="bg-base-200 rounded-3xl p-8 transition-transform hover:-translate-y-1">
+              <div className="bg-primary/10 mb-6 flex h-12 w-12 items-center justify-center rounded-2xl">
+                <svg
+                  className="text-primary h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                  />
+                </svg>
+              </div>
+              <h3 className="mb-4 text-xl font-bold">{t('localFirstDetail.privacy.title')}</h3>
+              <p className="opacity-70">{t('localFirstDetail.privacy.description')}</p>
+            </div>
+
+            <div className="bg-base-200 rounded-3xl p-8 transition-transform hover:-translate-y-1">
+              <div className="bg-secondary/10 mb-6 flex h-12 w-12 items-center justify-center rounded-2xl">
+                <svg
+                  className="text-secondary h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M13 10V3L4 14h7v7l9-11h-7z"
+                  />
+                </svg>
+              </div>
+              <h3 className="mb-4 text-xl font-bold">{t('localFirstDetail.speed.title')}</h3>
+              <p className="opacity-70">{t('localFirstDetail.speed.description')}</p>
+            </div>
+
+            <div className="bg-base-200 rounded-3xl p-8 transition-transform hover:-translate-y-1">
+              <div className="bg-accent/10 mb-6 flex h-12 w-12 items-center justify-center rounded-2xl">
+                <svg
+                  className="text-accent h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"
+                  />
+                </svg>
+              </div>
+              <h3 className="mb-4 text-xl font-bold">{t('localFirstDetail.offline.title')}</h3>
+              <p className="opacity-70">{t('localFirstDetail.offline.description')}</p>
+            </div>
+          </div>
+        </div>
+        </section>
+
+        {/* Beta Program Section */}
       <section className="bg-primary text-primary-content relative overflow-hidden px-4 py-24">
         {/* Subtle decorative elements */}
         <div className="absolute -top-20 -right-20 h-64 w-64 rounded-full bg-white/10 blur-3xl"></div>
@@ -116,7 +226,10 @@ export default async function IndexPage({ params }: { params: Promise<{ locale: 
             <h2 className="mb-8 text-3xl font-bold md:text-4xl">{t('pwa.title')}</h2>
             <p className="text-base-content/90 mb-4 text-lg">{t('pwa.description')}</p>
             <p className="mb-10 text-sm italic opacity-70">{t('pwa.subtext')}</p>
-            <PwaInstallButton />
+            <div className="flex flex-col items-center gap-4 lg:items-start">
+              <PwaInstallButton />
+              <p className="text-xs font-medium opacity-60">{t('pwa.platforms')}</p>
+            </div>
           </div>
           <div className="flex flex-1 justify-center">
             <div className="group relative">
@@ -157,28 +270,67 @@ export default async function IndexPage({ params }: { params: Promise<{ locale: 
         </div>
       </section>
 
+      {/* Final CTA Section */}
+      <section className="bg-base-100 px-4 py-24 text-center">
+        <div className="mx-auto max-w-2xl">
+          <h2 className="mb-8 text-3xl font-bold md:text-5xl">{t('finalCta.title')}</h2>
+          <Link
+            className="btn btn-primary btn-lg px-12 shadow-xl transition-transform hover:scale-105"
+            href="/home"
+          >
+            {t('finalCta.button')}
+          </Link>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="footer footer-center bg-base-300 text-base-content p-10">
-        <nav className="flex flex-col gap-4 md:flex-row md:gap-8">
-          <Link href="/privacy" className="link link-hover">
+        <aside className="flex flex-col items-center md:flex-row md:gap-4">
+          <Image
+            src="/favicon-32x32.png"
+            alt={`${BRANDING.name} Icon`}
+            width={32}
+            height={32}
+            className="opacity-80 mb-2 md:mb-0"
+          />
+          <div className="flex flex-col items-center md:flex-row md:gap-2">
+            <p className="font-bold">{BRANDING.name}</p>
+            <p className="hidden md:block opacity-20">|</p>
+            <p className="text-sm opacity-60">{t('footer.copyright')}</p>
+          </div>
+        </aside>
+        <nav className="flex flex-wrap justify-center gap-2 md:gap-8">
+          <Link
+            href="/privacy"
+            className="bg-base-100/40 hover:bg-base-100/60 md:hover:bg-transparent px-4 py-2 rounded-full text-sm font-medium transition-all active:scale-95 md:bg-transparent md:p-0 md:text-base md:font-normal md:active:scale-100 md:link md:link-hover"
+          >
             {t('footer.privacy')}
           </Link>
-          <Link href="/terms" className="link link-hover">
+          <Link
+            href="/terms"
+            className="bg-base-100/40 hover:bg-base-100/60 md:hover:bg-transparent px-4 py-2 rounded-full text-sm font-medium transition-all active:scale-95 md:bg-transparent md:p-0 md:text-base md:font-normal md:active:scale-100 md:link md:link-hover"
+          >
             {t('footer.terms')}
           </Link>
-          <a className="link link-hover" href="mailto:davehamdan@gmail.com">
+          <a
+            href="mailto:davehamdan@gmail.com"
+            className="bg-base-100/40 hover:bg-base-100/60 md:hover:bg-transparent px-4 py-2 rounded-full text-sm font-medium transition-all active:scale-95 md:bg-transparent md:p-0 md:text-base md:font-normal md:active:scale-100 md:link md:link-hover"
+          >
             {t('footer.contact')}
           </a>
-          <a className="link link-hover" href="https://github.com/daveteply/job-tracker">
+          <a
+            href="https://github.com/daveteply/job-tracker"
+            className="bg-base-100/40 hover:bg-base-100/60 md:hover:bg-transparent px-4 py-2 rounded-full text-sm font-medium transition-all active:scale-95 md:bg-transparent md:p-0 md:text-base md:font-normal md:active:scale-100 md:link md:link-hover"
+          >
             {t('footer.github')}
           </a>
-          <Link href="/beta" className="link link-hover">
+          <Link
+            href="/beta"
+            className="bg-base-100/40 hover:bg-base-100/60 md:hover:bg-transparent px-4 py-2 rounded-full text-sm font-medium transition-all active:scale-95 md:bg-transparent md:p-0 md:text-base md:font-normal md:active:scale-100 md:link md:link-hover"
+          >
             {t('footer.beta')}
           </Link>
         </nav>
-        <aside>
-          <p>{t('footer.copyright')}</p>
-        </aside>
       </footer>
       <ScrollToTopButton />
     </div>
