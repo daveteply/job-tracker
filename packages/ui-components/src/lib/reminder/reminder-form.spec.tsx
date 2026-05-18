@@ -83,6 +83,7 @@ describe('ReminderForm', () => {
     mockOnSubmitAction.mockResolvedValue({ success: true });
     
     const initialData = {
+      eventId: 'evt-1',
       remindAt: new Date('2026-05-15'),
     };
 
@@ -94,7 +95,7 @@ describe('ReminderForm', () => {
       />
     );
 
-    fireEvent.click(getByText('create'));
+    fireEvent.submit(getByText('create').closest('form')!);
 
     await waitFor(() => {
       expect(mockOnSubmitAction).toHaveBeenCalled();
@@ -107,6 +108,7 @@ describe('ReminderForm', () => {
     mockOnSubmitAction.mockResolvedValue({ success: false, message: 'Error occurred' });
     
     const initialData = {
+      eventId: 'evt-1',
       remindAt: new Date('2026-05-15'),
     };
 
@@ -118,7 +120,7 @@ describe('ReminderForm', () => {
       />
     );
 
-    fireEvent.click(getByText('create'));
+    fireEvent.submit(getByText('create').closest('form')!);
 
     await waitFor(() => {
       expect(mockShowToast).toHaveBeenCalledWith('Error occurred', 'error');

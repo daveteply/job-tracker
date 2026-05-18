@@ -22,6 +22,11 @@ jest.mock('next-intl', () => ({
 // Mock @job-tracker/hooks
 jest.mock('@job-tracker/hooks', () => ({
   useAvailableActions: jest.fn(),
+  ACTION_CONSTRAINTS: {
+    roles: ['applied-to-role'],
+    contacts: ['networking-chat'],
+    companies: ['applied-to-role'],
+  },
 }));
 
 // Mock ../context/floating-ui-context
@@ -40,7 +45,7 @@ jest.mock('next/link', () => {
 
 describe('FloatingActionButton', () => {
   const mockT = jest.fn((key) => key);
-  const mockActions = [{ id: 'action-1', nameKey: 'action1', iconName: 'PhoneIcon' }];
+  const mockActions = [{ id: 'applied-to-role', nameKey: 'action1', iconName: 'PhoneIcon' }];
 
   beforeEach(() => {
     (usePathname as jest.Mock).mockReturnValue('/dashboard');
@@ -82,8 +87,33 @@ describe('FloatingActionButton', () => {
       expect(newEventLink.getAttribute('href')).toBe('/events/new?roleId=123');
 
       const actionLink = getByRole('link', { name: 'action1' });
-      expect(actionLink.getAttribute('href')).toBe('/events/new?roleId=123&action=action-1');
+      expect(actionLink.getAttribute('href')).toBe('/events/new?roleId=123&action=applied-to-role');
     });
+  });
+
+  it('should filter actions based on the route', async () => {
+    (usePathname as jest.Mock).mockReturnValue('/contacts');
+    const mockAllActions = [
+      { id: 'networking-chat', nameKey: 'actionNetworkingChat', iconName: 'UserGroupIcon' },
+      { id: 'applied-to-role', nameKey: 'actionAppliedToRole', iconName: 'DocumentPlusIcon' },
+    ];
+    (useAvailableActions as jest.Mock).mockReturnValue(mockAllActions);
+
+    const { getByLabelText, getByText, queryByText } = render(<FloatingActionButton />);
+    fireEvent.click(getByLabelText('toggleMenu'));
+
+    await waitFor(() => {
+      expect(getByText('actionNetworkingChat')).toBeTruthy();
+      expect(queryByText('actionAppliedToRole')).toBeNull();
+    });
+  });
+
+  it('should render contextual label on detail routes', async () => {
+    (usePathname as jest.Mock).mockReturnValue('/roles/123');
+    (useParams as jest.Mock).mockReturnValue({ id: '123' });
+
+    const { getByText } = render(<FloatingActionButton />);
+    expect(getByText('addActivityRole')).toBeTruthy();
   });
 
   it('should close menu when a link is clicked', async () => {

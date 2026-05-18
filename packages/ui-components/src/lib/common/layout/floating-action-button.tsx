@@ -8,7 +8,7 @@ import Link from 'next/link';
 import { useParams, usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 
-import { useAvailableActions } from '@job-tracker/hooks';
+import { ACTION_CONSTRAINTS, useAvailableActions } from '@job-tracker/hooks';
 
 import { useFloatingUI } from '../context/floating-ui-context';
 
@@ -18,6 +18,7 @@ export function FloatingActionButton() {
   const { isContainerActive } = useFloatingUI();
   const [isOpen, setIsOpen] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [showLabel, setShowLabel] = useState(false);
   const pathname = usePathname();
   const params = useParams();
 
@@ -32,6 +33,39 @@ export function FloatingActionButton() {
   if (!isOpen && isAnimating) {
     setIsAnimating(false);
   }
+
+  const labelKey = useMemo(() => {
+    const id = params?.id;
+    if (!id) return null;
+
+    if (pathname.includes('/companies/')) return 'addActivityCompany';
+    if (pathname.includes('/roles/')) return 'addActivityRole';
+    if (pathname.includes('/contacts/')) return 'addActivityContact';
+
+    return null;
+  }, [pathname, params]);
+
+  useEffect(() => {
+    if (labelKey && !isOpen) {
+      const timer = setTimeout(() => setShowLabel(true), 1000);
+      return () => clearTimeout(timer);
+    } else {
+      setShowLabel(false);
+      return undefined;
+    }
+  }, [labelKey, isOpen]);
+
+  const filteredActions = useMemo(() => {
+    const segments = pathname.split('/');
+    const route = segments.find((s) => Object.keys(ACTION_CONSTRAINTS).includes(s));
+
+    if (!route || !ACTION_CONSTRAINTS[route]) {
+      return actions;
+    }
+
+    const allowedIds = ACTION_CONSTRAINTS[route];
+    return actions.filter((action) => allowedIds.includes(action.id));
+  }, [pathname, actions]);
 
   // Determine context based on current route
   const contextParams = useMemo(() => {
@@ -78,7 +112,7 @@ export function FloatingActionButton() {
             className={`flex items-center gap-3 transition-all duration-300 ease-out ${
               isAnimating ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
             }`}
-            style={{ transitionDelay: `${actions.length * 40}ms` }}
+            style={{ transitionDelay: `${filteredActions.length * 40}ms` }}
           >
             <span className="bg-base-100 text-base-content rounded-md px-2 py-1 text-sm font-medium shadow-sm">
               {t('newEvent')}
@@ -93,7 +127,7 @@ export function FloatingActionButton() {
             </Link>
           </div>
 
-          {actions.map((action, index) => {
+          {filteredActions.map((action, index) => {
             const Icon = HeroIcons[action.iconName as keyof typeof HeroIcons];
             return (
               <div
@@ -101,7 +135,7 @@ export function FloatingActionButton() {
                 className={`flex items-center gap-3 transition-all duration-300 ease-out ${
                   isAnimating ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
                 }`}
-                style={{ transitionDelay: `${(actions.length - 1 - index) * 40}ms` }}
+                style={{ transitionDelay: `${(filteredActions.length - 1 - index) * 40}ms` }}
               >
                 <span className="bg-base-100 text-base-content rounded-md px-2 py-1 text-sm font-medium shadow-sm">
                   {t(action.nameKey)}
@@ -121,15 +155,28 @@ export function FloatingActionButton() {
       )}
 
       {/* Main Trigger Button */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className={`btn btn-circle btn-lg shadow-2xl transition-all duration-300 ${
-          isOpen ? 'btn-neutral rotate-90' : 'btn-primary'
-        }`}
-        aria-label={t('toggleMenu')}
-      >
-        {isOpen ? <XMarkIcon className="h-8 w-8" /> : <PlusIcon className="h-8 w-8" />}
-      </button>
+      <div className="relative flex items-center justify-end">
+        {labelKey && (
+          <div
+            className={`absolute right-2 whitespace-nowrap pointer-events-none transition-all duration-700 ease-out z-[-1] ${
+              showLabel ? '-translate-x-16 opacity-100' : 'translate-x-0 opacity-0'
+            }`}
+          >
+            <span className="bg-info text-info-content rounded-full px-4 py-2 text-sm font-semibold shadow-lg">
+              {t(labelKey)}
+            </span>
+          </div>
+        )}
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className={`btn btn-circle btn-lg shadow-2xl transition-all duration-300 ${
+            isOpen ? 'btn-neutral rotate-90' : 'btn-primary'
+          }`}
+          aria-label={t('toggleMenu')}
+        >
+          {isOpen ? <XMarkIcon className="h-8 w-8" /> : <PlusIcon className="h-8 w-8" />}
+        </button>
+      </div>
 
       {isOpen && (
         <div
