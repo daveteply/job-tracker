@@ -81,6 +81,12 @@ jest.mock('@job-tracker/hooks', () => ({
   useRoleWithCompany: () => ({ role: null, loading: false }),
   useEventWithChildren: () => ({ event: null, loading: false }),
   useReminder: () => ({ reminder: null, loading: false }),
+  useAvailableActions: () => [],
+  ACTION_CONSTRAINTS: {
+    roles: [],
+    contacts: [],
+    companies: [],
+  },
   useAvailableActions: () => ({
     canAddCompany: true,
     canAddContact: true,

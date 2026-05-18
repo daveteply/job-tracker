@@ -87,3 +87,16 @@ export const AVAILABLE_ACTIONS: Action[] = [
     },
   },
 ];
+
+export const ACTION_CONSTRAINTS: Record<string, string[]> = {
+  roles: [
+    'applied-to-role',
+    'scheduled-interview',
+    'interview-completed',
+    'sent-follow-up',
+    'email-received',
+    'recruiter-outreach',
+  ],
+  contacts: ['networking-chat', 'email-received', 'sent-follow-up', 'recruiter-outreach'],
+  companies: ['applied-to-role', 'recruiter-outreach', 'email-received'],
+};
