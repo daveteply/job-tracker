@@ -59,10 +59,13 @@
     "description": "Organize your job search. Stay productive — even offline.",
     "subtext": "A local‑first job‑tracking app built for real‑world reliability.",
     "dashboardButton": "Go to my Jobs Dashboard",
+    "microBenefit": "No signup required. Works offline instantly.",
+    "meetPip": "Who's Pip?",
     "features": {
       "localFirst": {
         "title": "Local‑First Architecture",
-        "description": "Your data stays on your device — fast, private, and reliable."
+        "description": "Your data stays on your device — fast, private, and reliable.",
+        "learnMore": "Learn why it matters"
       },
       "offlineReady": {
         "title": "Offline‑Ready PWA",
@@ -82,11 +85,28 @@
         "description": "Works on desktop, tablet, and mobile — one experience everywhere."
       }
     },
+    "localFirstDetail": {
+      "title": "Why local‑first matters",
+      "description": "Traditional apps wait for servers. Local‑first apps wait for no one. By prioritizing your local device, Vireo provides a seamless, secure, and blazing-fast experience.",
+      "privacy": {
+        "title": "Complete Privacy",
+        "description": "Your job search is personal. Local‑first means your data stays on your device by default."
+      },
+      "speed": {
+        "title": "Native Speed",
+        "description": "No loading spinners. Every action is instantaneous because it happens locally first."
+      },
+      "offline": {
+        "title": "Always Ready",
+        "description": "Work anywhere — on a plane, a train, or in a coffee shop with spotty Wi-Fi."
+      }
+    },
     "pwa": {
       "title": "Install Vireo — your job search companion.",
       "description": "Vireo is a Progressive Web App (PWA). You can install it directly from your browser for quick access — no app store required.",
       "subtext": "It delivers the same fast, offline-ready experience you'd expect from a native app, but without the hassle of a traditional download.",
       "installButton": "Install Vireo App",
+      "platforms": "Works on iOS, Android, and desktop browsers",
       "browserNotice": "Look for the install icon in your browser's address bar to add Vireo to your home screen."
     },
     "beta": {
@@ -94,9 +114,18 @@
       "description": "Join our beta program to test cloud sync and new features. Your feedback helps us build a better experience for job seekers everywhere.",
       "button": "Sign Up for Beta"
     },
+    "pip": {
+      "title": "Meet Pip — your job search guide.",
+      "description": "Pip is here to keep your search organized, focused, and stress‑free. Think of Pip as your personal companion, helping you track every lead and follow up with confidence.",
+      "tagline": "Always local, always reliable."
+    },
     "about": {
       "title": "Built by job seekers, for job seekers.",
       "description": "Vireo was created to make job tracking simple, private, and empowering. We believe your data should stay yours — even offline."
+    },
+    "finalCta": {
+      "title": "Ready to get organized?",
+      "button": "Go to my Jobs Dashboard"
     },
     "footer": {
       "privacy": "Privacy Policy",
