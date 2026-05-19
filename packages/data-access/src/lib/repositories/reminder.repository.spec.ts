@@ -129,14 +129,14 @@ describe('ReminderRepository', () => {
         Promise.resolve({ toJSON: () => doc }),
       );
 
-      const result = await repository.update('1', { note: 'remind me' });
+      const result = await repository.update('1', { remindAt: new Date() });
       expect(result?.id).toBe('1');
       expect(mockDb.reminders.upsert).toHaveBeenCalled();
     });
 
     it('should return null if reminder to update not found', async () => {
       mockDb.reminders.findOne.mockReturnValue({ exec: jest.fn().mockResolvedValue(null) });
-      const result = await repository.update('1', { note: 'remind me' });
+      const result = await repository.update('1', { remindAt: new Date() });
       expect(result).toBeNull();
     });
   });

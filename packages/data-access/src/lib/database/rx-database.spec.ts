@@ -1,7 +1,6 @@
-import { addRxPlugin, createRxDatabase } from 'rxdb';
+import { createRxDatabase } from 'rxdb';
 
 import { getStorage, initRxDatabase } from './rx-database';
-import * as seedData from './seed-data';
 
 jest.mock('rxdb', () => ({
   createRxDatabase: jest.fn(),
