@@ -65,12 +65,12 @@ describe('CompanyForm', () => {
   });
 
   it('should call onSubmitAction on form submission', async () => {
-    const { getByText, getByDisplayValue } = render(
+    const { getByText } = render(
       <CompanyForm
         onSubmitAction={mockOnSubmitAction}
         postActionRoute="/companies"
         initialData={{ name: 'Acme' } as any}
-      />,
+      />
     );
 
     fireEvent.submit(getByText('create').closest('form')!);

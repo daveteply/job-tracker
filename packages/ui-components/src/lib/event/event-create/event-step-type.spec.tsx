@@ -30,6 +30,7 @@ describe('EventStepType', () => {
       category: EventCategoryType.Application,
       isSystemDefined: false,
       isCommon: false,
+      targetStatus: null,
     },
     {
       id: '2',
@@ -37,6 +38,7 @@ describe('EventStepType', () => {
       category: EventCategoryType.Interview,
       isSystemDefined: false,
       isCommon: true,
+      targetStatus: null,
     },
     {
       id: '3',
@@ -44,6 +46,7 @@ describe('EventStepType', () => {
       category: EventCategoryType.Application,
       isSystemDefined: false,
       isCommon: false,
+      targetStatus: null,
     },
   ];
 

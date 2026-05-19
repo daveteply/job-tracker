@@ -31,7 +31,7 @@ describe('EventStepDetails', () => {
   });
 
   it('renders successfully', () => {
-    const { getByText, getByTestId, getByPlaceholderText } = render(
+    const { getByText, getByTestId } = render(
       <Wrapper>
         <EventStepDetails
           register={jest.fn() as any}
