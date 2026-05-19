@@ -1,4 +1,4 @@
-import { FormProvider, useForm, useFormContext } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 
 import { render } from '@testing-library/react';
 import { useTranslations } from 'next-intl';
@@ -21,7 +21,14 @@ jest.mock('react-hook-form', () => ({
   useFormContext: jest.fn(),
 }));
 
-const TestComponent = ({ control, onSearchCompany, onSearchContact, onSearchRole, watchValue, customSetValue }: any) => {
+const TestComponent = ({
+  control,
+  onSearchCompany,
+  onSearchContact,
+  onSearchRole,
+  watchValue,
+  customSetValue,
+}: any) => {
   (useFormContext as jest.Mock).mockReturnValue({
     watch: ((name: any) => watchValue?.[name]) as any,
     setValue: customSetValue || jest.fn(),
@@ -52,7 +59,7 @@ describe('EventStepContext', () => {
         onSearchCompany={mockOnSearch}
         onSearchContact={mockOnSearch}
         onSearchRole={mockOnSearch}
-      />
+      />,
     );
 
     expect(getByText('contextTitle')).toBeTruthy();
@@ -73,7 +80,7 @@ describe('EventStepContext', () => {
         onSearchRole={mockOnSearch}
         customSetValue={mockSetValue}
         watchValue={{ role: null, contact: null, company: null }}
-      />
+      />,
     );
 
     rerender(
@@ -84,10 +91,14 @@ describe('EventStepContext', () => {
         onSearchRole={mockOnSearch}
         customSetValue={mockSetValue}
         watchValue={{ role: roleWithCompany, contact: null, company: null }}
-      />
+      />,
     );
 
-    expect(mockSetValue).toHaveBeenCalledWith('company', expect.objectContaining({ id: 'comp-1' }), expect.any(Object));
+    expect(mockSetValue).toHaveBeenCalledWith(
+      'company',
+      expect.objectContaining({ id: 'comp-1' }),
+      expect.any(Object),
+    );
   });
 
   it('clears role when company changes to non-matching one', () => {
@@ -104,7 +115,7 @@ describe('EventStepContext', () => {
         onSearchRole={mockOnSearch}
         customSetValue={mockSetValue}
         watchValue={{ role, contact: null, company: initialCompany }}
-      />
+      />,
     );
 
     rerender(
@@ -115,7 +126,7 @@ describe('EventStepContext', () => {
         onSearchRole={mockOnSearch}
         customSetValue={mockSetValue}
         watchValue={{ role, contact: null, company: newCompany }}
-      />
+      />,
     );
 
     expect(mockSetValue).toHaveBeenCalledWith('role', null, expect.any(Object));

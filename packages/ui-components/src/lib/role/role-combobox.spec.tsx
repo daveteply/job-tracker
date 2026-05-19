@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { render } from '@testing-library/react';
 
 import { RoleCombobox } from './role-combobox';
@@ -21,7 +19,7 @@ describe('RoleCombobox', () => {
         placeholder="Select role"
       />,
     );
-    
+
     const combobox = getByTestId('entity-combobox');
     expect(combobox).toBeTruthy();
     expect(combobox.textContent).toContain('role');

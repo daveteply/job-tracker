@@ -46,7 +46,7 @@ describe('event-hooks', () => {
   const mockDb = {} as any;
   const mockEvent: EventDTO = {
     id: '1',
-    occurredAt: new Date().toISOString(),
+    occurredAt: new Date(),
     eventTypeId: 'et1',
     companyId: 'c1',
     contactId: 'co1',

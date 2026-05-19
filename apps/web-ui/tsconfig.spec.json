@@ -4,7 +4,7 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "rootDir": "../../",
-    "jsx": "react",
+    "jsx": "react-jsx",
     "types": ["jest", "node"]
   },
   "exclude": [],

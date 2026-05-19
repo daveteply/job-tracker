@@ -17,7 +17,14 @@ export const metadata: Metadata = {
     template: `%s | ${BRANDING.name}`,
   },
   description: BRANDING.tagline,
-  keywords: ['job tracker', 'career management', 'local-first', 'offline-ready', 'PWA', 'job search organizer'],
+  keywords: [
+    'job tracker',
+    'career management',
+    'local-first',
+    'offline-ready',
+    'PWA',
+    'job search organizer',
+  ],
   manifest: '/site.webmanifest',
   alternates: {
     canonical: '/',

@@ -31,14 +31,14 @@ describe('EventStepDetails', () => {
   });
 
   it('renders successfully', () => {
-    const { getByText, getByTestId, getByPlaceholderText } = render(
+    const { getByText, getByTestId } = render(
       <Wrapper>
         <EventStepDetails
           register={jest.fn() as any}
           watch={jest.fn() as any}
           setValue={jest.fn() as any}
         />
-      </Wrapper>
+      </Wrapper>,
     );
 
     expect(getByText('detailsTitle')).toBeTruthy();
@@ -54,7 +54,7 @@ describe('EventStepDetails', () => {
           watch={((name: string) => (name === 'direction' ? 'Inbound' : 'Direct')) as any}
           setValue={mockSetValue}
         />
-      </Wrapper>
+      </Wrapper>,
     );
 
     // Direction buttons

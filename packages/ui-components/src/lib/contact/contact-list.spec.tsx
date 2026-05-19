@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { render } from '@testing-library/react';
 import { useTranslations } from 'next-intl';
 
@@ -27,7 +25,10 @@ describe('ContactList', () => {
   });
 
   it('should render contact cards', () => {
-    const mockContacts = [{ id: '1', firstName: 'John' }, { id: '2', firstName: 'Jane' }];
+    const mockContacts = [
+      { id: '1', firstName: 'John' },
+      { id: '2', firstName: 'Jane' },
+    ];
     const { getAllByTestId } = render(<ContactList contacts={mockContacts as any} />);
     expect(getAllByTestId('contact-card')).toHaveLength(2);
   });

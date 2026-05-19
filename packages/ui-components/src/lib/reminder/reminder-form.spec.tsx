@@ -50,10 +50,7 @@ describe('ReminderForm', () => {
 
   it('renders successfully for creation', () => {
     const { getByText } = render(
-      <ReminderForm
-        onSubmitAction={mockOnSubmitAction}
-        postActionRoute="/target"
-      />
+      <ReminderForm onSubmitAction={mockOnSubmitAction} postActionRoute="/target" />,
     );
 
     expect(getByText('create')).toBeTruthy();
@@ -73,7 +70,7 @@ describe('ReminderForm', () => {
         initialData={initialData as any}
         isEdit={true}
         postActionRoute="/target"
-      />
+      />,
     );
 
     expect(getByText('update')).toBeTruthy();
@@ -81,7 +78,7 @@ describe('ReminderForm', () => {
 
   it('handles successful submission', async () => {
     mockOnSubmitAction.mockResolvedValue({ success: true });
-    
+
     const initialData = {
       eventId: 'evt-1',
       remindAt: new Date('2026-05-15'),
@@ -92,21 +89,24 @@ describe('ReminderForm', () => {
         onSubmitAction={mockOnSubmitAction}
         initialData={initialData as any}
         postActionRoute="/target"
-      />
+      />,
     );
 
     fireEvent.submit(getByText('create').closest('form')!);
 
     await waitFor(() => {
       expect(mockOnSubmitAction).toHaveBeenCalled();
-      expect(mockShowToast).toHaveBeenCalledWith(expect.stringContaining('successfully'), 'success');
+      expect(mockShowToast).toHaveBeenCalledWith(
+        expect.stringContaining('successfully'),
+        'success',
+      );
       expect(mockPush).toHaveBeenCalledWith('/target');
     });
   });
 
   it('handles failed submission', async () => {
     mockOnSubmitAction.mockResolvedValue({ success: false, message: 'Error occurred' });
-    
+
     const initialData = {
       eventId: 'evt-1',
       remindAt: new Date('2026-05-15'),
@@ -117,7 +117,7 @@ describe('ReminderForm', () => {
         onSubmitAction={mockOnSubmitAction}
         initialData={initialData as any}
         postActionRoute="/target"
-      />
+      />,
     );
 
     fireEvent.submit(getByText('create').closest('form')!);

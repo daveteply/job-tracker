@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { render } from '@testing-library/react';
 
 import { ContactCombobox } from './contact-combobox';
@@ -21,7 +19,7 @@ describe('ContactCombobox', () => {
         placeholder="Select contact"
       />,
     );
-    
+
     const combobox = getByTestId('entity-combobox');
     expect(combobox).toBeTruthy();
     expect(combobox.textContent).toContain('contact');

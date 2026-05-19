@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { render } from '@testing-library/react';
 import { usePathname } from 'next/navigation';
 import { useSession } from 'next-auth/react';

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { render } from '@testing-library/react';
 
 import { PageHeader } from './page-header';
@@ -21,7 +19,10 @@ describe('PageHeader', () => {
 
   it('should apply custom className', () => {
     const { container } = render(<PageHeader title="Test Title" className="custom-margin" />);
-    expect(container.firstChild).toHaveProperty('className', expect.stringContaining('custom-margin'));
+    expect(container.firstChild).toHaveProperty(
+      'className',
+      expect.stringContaining('custom-margin'),
+    );
   });
 
   it('should have default className if not provided', () => {

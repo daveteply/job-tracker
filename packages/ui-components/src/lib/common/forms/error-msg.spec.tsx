@@ -1,4 +1,3 @@
-import React from 'react';
 import { FieldErrors } from 'react-hook-form';
 
 import { render } from '@testing-library/react';

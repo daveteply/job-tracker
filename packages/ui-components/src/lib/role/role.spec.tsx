@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { fireEvent, render } from '@testing-library/react';
 import { useTranslations } from 'next-intl';
 
@@ -70,15 +68,13 @@ describe('Role components', () => {
       company: { name: 'Acme Corp' },
     };
 
-    const mockEvents = [
-      { id: 'evt-1', occurredAt: new Date('2023-01-01'), summary: 'Applied' },
-    ];
+    const mockEvents = [{ id: 'evt-1', occurredAt: new Date('2023-01-01'), summary: 'Applied' }];
 
     it('should render role information successfully', () => {
       const { getByText, getByTestId } = render(
         <RoleInfoCard role={mockRole as any} events={mockEvents as any} />,
       );
-      
+
       expect(getByTestId('card-title').textContent).toBe('Software Engineer');
       expect(getByText('Acme Corp')).toBeTruthy();
       expect(getByText('Senior')).toBeTruthy();
@@ -108,7 +104,7 @@ describe('Role components', () => {
       const { getByText, getByRole } = render(
         <RoleList activeRoles={[]} inactiveRoles={mockInactiveRoles as any} />,
       );
-      
+
       expect(getByText(/inactiveRoles/)).toBeTruthy();
       fireEvent.click(getByRole('button'));
       expect(mockUpdateSettings).toHaveBeenCalledWith({ showInactiveRoles: true });

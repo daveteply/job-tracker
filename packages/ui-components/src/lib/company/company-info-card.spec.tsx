@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { render } from '@testing-library/react';
 
 import { useUserSettings } from '@job-tracker/hooks';
@@ -41,10 +39,12 @@ describe('CompanyInfoCard', () => {
   const mockCompany = {
     id: 'comp-1',
     name: 'Acme Corp',
+    search: 'acme corp',
     website: 'https://acme.com',
     industry: 'Software',
     sizeRange: '100-500',
     notes: 'Some notes',
+    version: 1,
   };
 
   const mockRoles = [
@@ -52,9 +52,7 @@ describe('CompanyInfoCard', () => {
     { id: 'role-2', title: 'Senior Engineer', status: 'Not Selected' }, // Not Selected is inactive
   ];
 
-  const mockContacts = [
-    { id: 'cont-1', firstName: 'John', lastName: 'Doe', title: 'Recruiter' },
-  ];
+  const mockContacts = [{ id: 'cont-1', firstName: 'John', lastName: 'Doe', title: 'Recruiter' }];
 
   beforeEach(() => {
     (useUserSettings as jest.Mock).mockReturnValue({
@@ -68,7 +66,7 @@ describe('CompanyInfoCard', () => {
 
   it('should render basic company information', () => {
     const { getByText, getByTestId } = render(<CompanyInfoCard company={mockCompany} />);
-    
+
     expect(getByTestId('card-title').textContent).toBe('Acme Corp');
     expect(getByText('Software')).toBeTruthy();
     expect(getByText('100-500')).toBeTruthy();
@@ -78,9 +76,13 @@ describe('CompanyInfoCard', () => {
 
   it('should render roles and contacts', () => {
     const { getByText } = render(
-      <CompanyInfoCard company={mockCompany} roles={mockRoles as any} contacts={mockContacts as any} />,
+      <CompanyInfoCard
+        company={mockCompany}
+        roles={mockRoles as any}
+        contacts={mockContacts as any}
+      />,
     );
-    
+
     expect(getByText('Software Engineer')).toBeTruthy();
     expect(getByText('(Applied)')).toBeTruthy();
     expect(getByText('John Doe')).toBeTruthy();
@@ -88,8 +90,10 @@ describe('CompanyInfoCard', () => {
   });
 
   it('should filter inactive roles by default', () => {
-    const { queryByText } = render(<CompanyInfoCard company={mockCompany} roles={mockRoles as any} />);
-    
+    const { queryByText } = render(
+      <CompanyInfoCard company={mockCompany} roles={mockRoles as any} />,
+    );
+
     expect(queryByText('Senior Engineer')).toBeNull();
   });
 
@@ -98,13 +102,17 @@ describe('CompanyInfoCard', () => {
       settings: { showInactiveRoles: true },
     });
 
-    const { getByText } = render(<CompanyInfoCard company={mockCompany} roles={mockRoles as any} />);
-    
+    const { getByText } = render(
+      <CompanyInfoCard company={mockCompany} roles={mockRoles as any} />,
+    );
+
     expect(getByText('Senior Engineer')).toBeTruthy();
   });
 
   it('should show controls when showControls and showFull are true', () => {
-    const { getByTestId } = render(<CompanyInfoCard company={mockCompany} showControls={true} showFull={true} />);
+    const { getByTestId } = render(
+      <CompanyInfoCard company={mockCompany} showControls={true} showFull={true} />,
+    );
     const controls = getByTestId('card-controls');
     expect(controls.querySelector('a[href="/companies/comp-1/edit"]')).toBeTruthy();
     expect(controls.querySelector('a[href="/companies/comp-1/delete"]')).toBeTruthy();

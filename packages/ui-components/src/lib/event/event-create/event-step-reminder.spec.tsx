@@ -40,8 +40,8 @@ describe('EventStepReminder', () => {
 
   const TestComponent = ({ hasReminder, customSetValue }: any) => {
     (useWatch as jest.Mock).mockImplementation(({ name }) => {
-        if (name === 'hasReminder') return hasReminder;
-        return undefined;
+      if (name === 'hasReminder') return hasReminder;
+      return undefined;
     });
 
     const methods = useForm({ defaultValues: { hasReminder } });
@@ -72,10 +72,7 @@ describe('EventStepReminder', () => {
   it('handles business day buttons', () => {
     const mockSetValue = jest.fn();
     const { getByText } = render(
-      <TestComponent 
-        hasReminder={true} 
-        customSetValue={mockSetValue}
-      />
+      <TestComponent hasReminder={true} customSetValue={mockSetValue} />,
     );
 
     fireEvent.click(getByText('fiveBusinessDays'));

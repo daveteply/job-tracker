@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { fireEvent, render } from '@testing-library/react';
 import { useTranslations } from 'next-intl';
 
@@ -26,13 +24,9 @@ describe('CompanyList', () => {
   const mockT = jest.fn((key) => key);
   const mockUpdateSettings = jest.fn();
 
-  const mockActiveCompanies = [
-    { id: '1', name: 'Active Corp', roles: [], contacts: [] },
-  ];
+  const mockActiveCompanies = [{ id: '1', name: 'Active Corp', roles: [], contacts: [] }];
 
-  const mockInactiveCompanies = [
-    { id: '2', name: 'Inactive Corp', roles: [], contacts: [] },
-  ];
+  const mockInactiveCompanies = [{ id: '2', name: 'Inactive Corp', roles: [], contacts: [] }];
 
   beforeEach(() => {
     (useTranslations as jest.Mock).mockReturnValue(mockT);
@@ -60,7 +54,9 @@ describe('CompanyList', () => {
   });
 
   it('should render custom empty message', () => {
-    const { getByText } = render(<CompanyList activeCompanies={[]} noCompaniesMessage="Nothing here" />);
+    const { getByText } = render(
+      <CompanyList activeCompanies={[]} noCompaniesMessage="Nothing here" />,
+    );
     expect(getByText('Nothing here')).toBeTruthy();
   });
 
