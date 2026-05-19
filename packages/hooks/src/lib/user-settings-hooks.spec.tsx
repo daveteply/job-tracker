@@ -23,7 +23,6 @@ describe('user-settings-hooks', () => {
     locale: 'en-US',
     showFullEventList: false,
     showInactiveRoles: false,
-    version: 1,
   };
 
   beforeEach(() => {

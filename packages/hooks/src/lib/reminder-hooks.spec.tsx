@@ -43,8 +43,8 @@ describe('reminder-hooks', () => {
   const mockDb = {} as any;
   const mockReminder: ReminderDTO = {
     id: '1',
-    title: 'Test Reminder',
-    remindAt: new Date().toISOString(),
+    eventId: 'e1',
+    remindAt: new Date(),
     version: 1,
   };
 
@@ -200,7 +200,7 @@ describe('reminder-hooks', () => {
       await act(async () => {
         actionResult = await result.current.upsertReminder({
           title: 'New Reminder',
-          remindAt: new Date().toISOString(),
+          remindAt: new Date(),
         } as any);
       });
 

@@ -43,6 +43,7 @@ describe('role-hooks', () => {
   const mockRole: RoleDTO = {
     id: '1',
     title: 'Test Role',
+    search: 'test role',
     status: RoleStatus.Applied,
     companyId: 'c1',
     version: 1,
@@ -165,7 +166,7 @@ describe('role-hooks', () => {
       await act(async () => {
         actionResult = await result.current.upsertRole({
           title: 'New Role',
-          company: { displayValue: 'Test Company' },
+          company: { displayValue: 'Test Company', isNew: true, shouldRemove: false },
         });
       });
 

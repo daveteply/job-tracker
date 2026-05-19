@@ -29,7 +29,9 @@ describe('event-type-hooks', () => {
     id: '1',
     name: 'Test Event Type',
     category: 'Interview' as any,
-    version: 1,
+    targetStatus: null,
+    isSystemDefined: false,
+    isCommon: false,
   };
 
   beforeEach(() => {
