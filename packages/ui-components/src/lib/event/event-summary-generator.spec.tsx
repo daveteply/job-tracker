@@ -15,8 +15,20 @@ describe('EventSummaryGenerator', () => {
   const mockSetValue = jest.fn();
 
   const mockEventTypes = [
-    { id: '1', name: 'Interview', category: 'Interview', isSystemDefined: true, translationKey: 'interview' },
-    { id: '2', name: 'Email', category: 'Communication', isSystemDefined: true, translationKey: 'email' },
+    {
+      id: '1',
+      name: 'Interview',
+      category: 'Interview',
+      isSystemDefined: true,
+      translationKey: 'interview',
+    },
+    {
+      id: '2',
+      name: 'Email',
+      category: 'Communication',
+      isSystemDefined: true,
+      translationKey: 'email',
+    },
   ];
 
   beforeEach(() => {

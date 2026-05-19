@@ -49,14 +49,13 @@ export default async function IndexPage({ params }: { params: Promise<{ locale: 
             <p className="mt-4 text-sm font-medium opacity-70">{t('microBenefit')}</p>
             <a
               href="#meet-pip"
-              className="mt-6 text-sm font-semibold text-primary/70 hover:text-primary transition-colors hover:underline"
+              className="text-primary/70 hover:text-primary mt-6 text-sm font-semibold transition-colors hover:underline"
             >
               {t('meetPip')}
             </a>
           </div>
         </div>
       </section>
-
       {/* Features Section */}
       <section className="mx-auto max-w-6xl px-4 py-12">
         <div className="flex flex-wrap justify-center gap-12">
@@ -93,24 +92,21 @@ export default async function IndexPage({ params }: { params: Promise<{ locale: 
             </div>
           ))}
         </div>
-        </section>
-
-        {/* Pip Section */}
-        <section id="meet-pip" className="bg-base-200/50 scroll-mt-20 overflow-hidden px-4 py-24">
+      </section>
+      {/* Pip Section */}
+      <section id="meet-pip" className="bg-base-200/50 scroll-mt-20 overflow-hidden px-4 py-24">
         <div className="mx-auto flex max-w-5xl flex-col items-center gap-12 text-center lg:flex-row lg:text-left">
-          <div className="flex-1 order-2 lg:order-1">
-            <div className="bg-primary/10 text-primary mb-6 inline-block rounded-full px-4 py-1 text-sm font-bold uppercase tracking-wider">
+          <div className="order-2 flex-1 lg:order-1">
+            <div className="bg-primary/10 text-primary mb-6 inline-block rounded-full px-4 py-1 text-sm font-bold tracking-wider uppercase">
               {t('pip.tagline')}
             </div>
             <h2 className="mb-8 text-4xl font-bold md:text-5xl">{t('pip.title')}</h2>
-            <p className="text-base-content/80 text-xl leading-relaxed">
-              {t('pip.description')}
-            </p>
+            <p className="text-base-content/80 text-xl leading-relaxed">{t('pip.description')}</p>
           </div>
-          <div className="flex-1 flex justify-center order-1 lg:order-2">
+          <div className="order-1 flex flex-1 justify-center lg:order-2">
             <div className="group relative">
               <div className="bg-primary/10 absolute inset-0 scale-110 rounded-full blur-3xl transition-transform duration-700 group-hover:scale-125"></div>
-              <div className="relative h-64 w-64 md:h-80 md:w-80 overflow-hidden rounded-full border-4 border-base-100 shadow-2xl transition-transform duration-500 group-hover:scale-105 group-hover:rotate-2">
+              <div className="border-base-100 relative h-64 w-64 overflow-hidden rounded-full border-4 shadow-2xl transition-transform duration-500 group-hover:scale-105 group-hover:rotate-2 md:h-80 md:w-80">
                 <Image
                   src="/mascot/Pip512.png"
                   alt="Pip the Mascot"
@@ -123,9 +119,9 @@ export default async function IndexPage({ params }: { params: Promise<{ locale: 
             </div>
           </div>
         </div>
-        </section>
-
-        {/* Why Local-First Section */}        <section id="local-first-matters" className="bg-base-100 scroll-mt-20 px-4 py-24">
+      </section>
+      {/* Why Local-First Section */}{' '}
+      <section id="local-first-matters" className="bg-base-100 scroll-mt-20 px-4 py-24">
         <div className="mx-auto max-w-5xl">
           <div className="mb-16 text-center">
             <h2 className="mb-6 text-3xl font-bold md:text-5xl">{t('localFirstDetail.title')}</h2>
@@ -196,9 +192,8 @@ export default async function IndexPage({ params }: { params: Promise<{ locale: 
             </div>
           </div>
         </div>
-        </section>
-
-        {/* Beta Program Section */}
+      </section>
+      {/* Beta Program Section */}
       <section className="bg-primary text-primary-content relative overflow-hidden px-4 py-24">
         {/* Subtle decorative elements */}
         <div className="absolute -top-20 -right-20 h-64 w-64 rounded-full bg-white/10 blur-3xl"></div>
@@ -215,7 +210,6 @@ export default async function IndexPage({ params }: { params: Promise<{ locale: 
           </Link>
         </div>
       </section>
-
       {/* PWA Install Section */}
       <section id="pwa-install" className="bg-base-200 scroll-mt-20 px-4 py-24">
         <div className="mx-auto flex max-w-5xl flex-col items-center gap-16 lg:flex-row">
@@ -247,7 +241,6 @@ export default async function IndexPage({ params }: { params: Promise<{ locale: 
           </div>
         </div>
       </section>
-
       {/* About Section */}
       <section className="mx-auto max-w-5xl px-4 py-24 text-center">
         <h2 className="mb-12 text-3xl font-bold">{t('about.title')}</h2>
@@ -269,7 +262,6 @@ export default async function IndexPage({ params }: { params: Promise<{ locale: 
           </div>
         </div>
       </section>
-
       {/* Final CTA Section */}
       <section className="bg-base-100 px-4 py-24 text-center">
         <div className="mx-auto max-w-2xl">
@@ -282,7 +274,6 @@ export default async function IndexPage({ params }: { params: Promise<{ locale: 
           </Link>
         </div>
       </section>
-
       {/* Footer */}
       <footer className="footer footer-center bg-base-300 text-base-content p-10">
         <aside className="flex flex-col items-center md:flex-row md:gap-4">
@@ -291,42 +282,42 @@ export default async function IndexPage({ params }: { params: Promise<{ locale: 
             alt={`${BRANDING.name} Icon`}
             width={32}
             height={32}
-            className="opacity-80 mb-2 md:mb-0"
+            className="mb-2 opacity-80 md:mb-0"
           />
           <div className="flex flex-col items-center md:flex-row md:gap-2">
             <p className="font-bold">{BRANDING.name}</p>
-            <p className="hidden md:block opacity-20">|</p>
+            <p className="hidden opacity-20 md:block">|</p>
             <p className="text-sm opacity-60">{t('footer.copyright')}</p>
           </div>
         </aside>
         <nav className="flex flex-wrap justify-center gap-2 md:gap-8">
           <Link
             href="/privacy"
-            className="bg-base-100/40 hover:bg-base-100/60 md:hover:bg-transparent px-4 py-2 rounded-full text-sm font-medium transition-all active:scale-95 md:bg-transparent md:p-0 md:text-base md:font-normal md:active:scale-100 md:link md:link-hover"
+            className="bg-base-100/40 hover:bg-base-100/60 md:link md:link-hover rounded-full px-4 py-2 text-sm font-medium transition-all active:scale-95 md:bg-transparent md:p-0 md:text-base md:font-normal md:hover:bg-transparent md:active:scale-100"
           >
             {t('footer.privacy')}
           </Link>
           <Link
             href="/terms"
-            className="bg-base-100/40 hover:bg-base-100/60 md:hover:bg-transparent px-4 py-2 rounded-full text-sm font-medium transition-all active:scale-95 md:bg-transparent md:p-0 md:text-base md:font-normal md:active:scale-100 md:link md:link-hover"
+            className="bg-base-100/40 hover:bg-base-100/60 md:link md:link-hover rounded-full px-4 py-2 text-sm font-medium transition-all active:scale-95 md:bg-transparent md:p-0 md:text-base md:font-normal md:hover:bg-transparent md:active:scale-100"
           >
             {t('footer.terms')}
           </Link>
           <a
             href="mailto:davehamdan@gmail.com"
-            className="bg-base-100/40 hover:bg-base-100/60 md:hover:bg-transparent px-4 py-2 rounded-full text-sm font-medium transition-all active:scale-95 md:bg-transparent md:p-0 md:text-base md:font-normal md:active:scale-100 md:link md:link-hover"
+            className="bg-base-100/40 hover:bg-base-100/60 md:link md:link-hover rounded-full px-4 py-2 text-sm font-medium transition-all active:scale-95 md:bg-transparent md:p-0 md:text-base md:font-normal md:hover:bg-transparent md:active:scale-100"
           >
             {t('footer.contact')}
           </a>
           <a
             href="https://github.com/daveteply/job-tracker"
-            className="bg-base-100/40 hover:bg-base-100/60 md:hover:bg-transparent px-4 py-2 rounded-full text-sm font-medium transition-all active:scale-95 md:bg-transparent md:p-0 md:text-base md:font-normal md:active:scale-100 md:link md:link-hover"
+            className="bg-base-100/40 hover:bg-base-100/60 md:link md:link-hover rounded-full px-4 py-2 text-sm font-medium transition-all active:scale-95 md:bg-transparent md:p-0 md:text-base md:font-normal md:hover:bg-transparent md:active:scale-100"
           >
             {t('footer.github')}
           </a>
           <Link
             href="/beta"
-            className="bg-base-100/40 hover:bg-base-100/60 md:hover:bg-transparent px-4 py-2 rounded-full text-sm font-medium transition-all active:scale-95 md:bg-transparent md:p-0 md:text-base md:font-normal md:active:scale-100 md:link md:link-hover"
+            className="bg-base-100/40 hover:bg-base-100/60 md:link md:link-hover rounded-full px-4 py-2 text-sm font-medium transition-all active:scale-95 md:bg-transparent md:p-0 md:text-base md:font-normal md:hover:bg-transparent md:active:scale-100"
           >
             {t('footer.beta')}
           </Link>

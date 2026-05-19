@@ -15,6 +15,7 @@ The `domain` package serves as the single source of truth for the entire applica
 ## 🧪 Testing
 
 Run unit tests for this package:
+
 ```bash
 npx nx test domain
 ```

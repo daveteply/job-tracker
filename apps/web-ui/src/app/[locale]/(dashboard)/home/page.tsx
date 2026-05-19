@@ -114,7 +114,7 @@ export default function HomePage() {
       </section>
 
       <section>
-        <div className="mb-4 flex flex-row items-center justify-between md:justify-start md:gap-4 px-1">
+        <div className="mb-4 flex flex-row items-center justify-between px-1 md:justify-start md:gap-4">
           <h2 className="text-xl font-bold">{t('recentActivity')}</h2>
           <EventListExpandToggle showFull={showFullEvents} onToggleShowFull={handleToggleEvents} />
         </div>

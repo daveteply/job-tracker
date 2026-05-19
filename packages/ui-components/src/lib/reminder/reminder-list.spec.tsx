@@ -21,10 +21,7 @@ describe('ReminderList', () => {
   });
 
   it('renders a list of reminders', () => {
-    const mockReminders = [
-      { id: 'rem-1' },
-      { id: 'rem-2' },
-    ] as any;
+    const mockReminders = [{ id: 'rem-1' }, { id: 'rem-2' }] as any;
 
     const { getAllByTestId } = render(<ReminderList reminders={mockReminders} />);
     const cards = getAllByTestId('reminder-card');
@@ -39,7 +36,9 @@ describe('ReminderList', () => {
   });
 
   it('renders custom empty message', () => {
-    const { getByText } = render(<ReminderList reminders={[]} noRemindersMessage="Custom Empty Message" />);
+    const { getByText } = render(
+      <ReminderList reminders={[]} noRemindersMessage="Custom Empty Message" />,
+    );
     expect(getByText('Custom Empty Message')).toBeTruthy();
   });
 });

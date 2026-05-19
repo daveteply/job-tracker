@@ -21,7 +21,7 @@ describe('CompanyCombobox', () => {
         placeholder="Select company"
       />,
     );
-    
+
     const combobox = getByTestId('entity-combobox');
     expect(combobox).toBeTruthy();
     expect(combobox.textContent).toContain('company');

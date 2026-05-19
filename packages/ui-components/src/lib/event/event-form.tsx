@@ -131,7 +131,7 @@ export function EventForm<T extends EventFormValues>({
       errors,
       isSubmitting,
     } as any,
-  );  
+  );
 
   const prevContactRef = useRef(contact);
   const prevRoleRef = useRef(role);

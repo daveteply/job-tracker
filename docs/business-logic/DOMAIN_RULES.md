@@ -20,12 +20,14 @@ Events are the primary way users track their job search progress. The applicatio
 ### Multi-Step Event Creation
 
 The "New Event" process is a 4-step guided workflow:
+
 - **Step 1: Type** (Select the kind of event)
 - **Step 2: Context** (Select Company, Role, and Contact)
 - **Step 3: Details** (Set direction, source, date, and summary)
 - **Step 4: Reminder** (Optionally set a follow-up reminder)
 
 #### Entry Rules:
+
 1.  **Pre-defined Actions:** If a specific action (e.g., "Applied") is selected from the FAB, the process **starts on Step 2**.
 2.  **Backward Navigation:** Even if starting on Step 2, users can navigate back to Step 1 at any time to change the event type.
 3.  **Inbound/Outbound Defaults:**
@@ -35,16 +37,16 @@ The "New Event" process is a 4-step guided workflow:
 
 ### Available Actions & Defaults
 
-| Action | Event Type | Default Direction | Default Source |
-| :--- | :--- | :--- | :--- |
-| **Not Selected** | Not Selected | Inbound | Email |
-| **Networking/Coffee Chat** | Networking/Coffee Chat | Outbound | LinkedIn |
-| **Interview Completed** | Interview Completed | Outbound | Website |
-| **Interview Scheduled** | Interview Scheduled | Inbound | Email |
-| **Email Received** | Email Received | Inbound | Email |
-| **Follow-up Sent** | Follow-up Sent | Outbound | Email |
-| **Recruiter Outreach** | Recruiter Outreach | Inbound | LinkedIn |
-| **Applied** | Applied | Outbound | Website |
+| Action                     | Event Type             | Default Direction | Default Source |
+| :------------------------- | :--------------------- | :---------------- | :------------- |
+| **Not Selected**           | Not Selected           | Inbound           | Email          |
+| **Networking/Coffee Chat** | Networking/Coffee Chat | Outbound          | LinkedIn       |
+| **Interview Completed**    | Interview Completed    | Outbound          | Website        |
+| **Interview Scheduled**    | Interview Scheduled    | Inbound           | Email          |
+| **Email Received**         | Email Received         | Inbound           | Email          |
+| **Follow-up Sent**         | Follow-up Sent         | Outbound          | Email          |
+| **Recruiter Outreach**     | Recruiter Outreach     | Inbound           | LinkedIn       |
+| **Applied**                | Applied                | Outbound          | Website        |
 
 ---
 

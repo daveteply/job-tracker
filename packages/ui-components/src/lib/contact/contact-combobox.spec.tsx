@@ -21,7 +21,7 @@ describe('ContactCombobox', () => {
         placeholder="Select contact"
       />,
     );
-    
+
     const combobox = getByTestId('entity-combobox');
     expect(combobox).toBeTruthy();
     expect(combobox.textContent).toContain('contact');

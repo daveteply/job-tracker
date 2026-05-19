@@ -66,7 +66,7 @@ describe('FloatingUIContext', () => {
       result.current.setIsContainerActive(true);
     });
     expect(result.current.isContainerActive).toBe(true);
-    
+
     act(() => {
       result.current.setIsContainerActive(false);
     });
@@ -76,11 +76,11 @@ describe('FloatingUIContext', () => {
   it('should throw error when useFloatingUI is used outside FloatingUIProvider', () => {
     // Silence console.error for this test as we expect an error to be thrown
     const consoleSpy = jest.spyOn(console, 'error').mockImplementation(jest.fn());
-    
+
     expect(() => renderHook(() => useFloatingUI())).toThrow(
-      'useFloatingUI must be used within a FloatingUIProvider'
+      'useFloatingUI must be used within a FloatingUIProvider',
     );
-    
+
     consoleSpy.mockRestore();
   });
 
@@ -88,7 +88,7 @@ describe('FloatingUIContext', () => {
     const { getByText } = render(
       <FloatingUIProvider>
         <div>Test Child</div>
-      </FloatingUIProvider>
+      </FloatingUIProvider>,
     );
     expect(getByText('Test Child')).toBeTruthy();
   });

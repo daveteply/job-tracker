@@ -4,12 +4,7 @@ import { PlusIcon } from '@heroicons/react/24/outline';
 import { useTranslations } from 'next-intl';
 
 import { useRolesWithCompany } from '@job-tracker/hooks';
-import {
-  EmptyState,
-  PageHeader,
-  Pipeline,
-  PipelineSkeleton,
-} from '@job-tracker/ui-components';
+import { EmptyState, PageHeader, Pipeline, PipelineSkeleton } from '@job-tracker/ui-components';
 
 import { Link } from '../../../../i18n/routing';
 

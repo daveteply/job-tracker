@@ -53,29 +53,35 @@ describe('ContactInfoCard', () => {
   };
 
   it('should render contact information successfully', () => {
-    const { getByText, getByTestId, getAllByTestId } = render(<ContactInfoCard contact={mockContact as any} />);
-    
+    const { getByText, getByTestId, getAllByTestId } = render(
+      <ContactInfoCard contact={mockContact as any} />,
+    );
+
     expect(getByTestId('card-title').textContent).toBe('John Doe');
     expect(getByText('Recruiter')).toBeTruthy();
     expect(getByText('Acme Corp')).toBeTruthy();
     expect(getByText('Good contact')).toBeTruthy();
     expect(getByText('(Primary Recruiter)')).toBeTruthy();
-    
+
     const externalLinks = getAllByTestId('external-link');
-    expect(externalLinks.map(l => l.textContent)).toContain('john@example.com');
-    expect(externalLinks.map(l => l.textContent)).toContain('123456789');
-    expect(externalLinks.map(l => l.textContent)).toContain('https://linkedin.com/in/johndoe');
+    expect(externalLinks.map((l) => l.textContent)).toContain('john@example.com');
+    expect(externalLinks.map((l) => l.textContent)).toContain('123456789');
+    expect(externalLinks.map((l) => l.textContent)).toContain('https://linkedin.com/in/johndoe');
   });
 
   it('should show controls when showControls and renderFull are true', () => {
-    const { getByTestId } = render(<ContactInfoCard contact={mockContact as any} showControls={true} renderFull={true} />);
+    const { getByTestId } = render(
+      <ContactInfoCard contact={mockContact as any} showControls={true} renderFull={true} />,
+    );
     const controls = getByTestId('card-controls');
     expect(controls.querySelector('a[href="/contacts/cont-1/edit"]')).toBeTruthy();
     expect(controls.querySelector('a[href="/contacts/cont-1/delete"]')).toBeTruthy();
   });
 
   it('should hide controls when showControls is false', () => {
-    const { getByTestId } = render(<ContactInfoCard contact={mockContact as any} showControls={false} />);
+    const { getByTestId } = render(
+      <ContactInfoCard contact={mockContact as any} showControls={false} />,
+    );
     expect(getByTestId('card-controls').textContent).toBe('');
   });
 });

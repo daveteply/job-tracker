@@ -158,7 +158,7 @@ export function FloatingActionButton() {
       <div className="relative flex items-center justify-end">
         {labelKey && (
           <div
-            className={`absolute right-2 whitespace-nowrap pointer-events-none transition-all duration-700 ease-out z-[-1] ${
+            className={`pointer-events-none absolute right-2 z-[-1] whitespace-nowrap transition-all duration-700 ease-out ${
               showLabel ? '-translate-x-16 opacity-100' : 'translate-x-0 opacity-0'
             }`}
           >

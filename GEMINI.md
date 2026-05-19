@@ -21,6 +21,7 @@ The `apps/sync-backend` has been migrated from Java/Quarkus to Node.js/Fastify/P
 - Configuration for the adapter is located in `apps/sync-backend/src/plugins/prisma.ts`.
 
 - **Minimize `any`:** Avoid using the `any` type. Prefer explicit types, interfaces, or generics. If a type is unknown, use `unknown`.
+
 ### Administrative Tasks
 
 Administrative tasks like approving beta users or disabling sync can be performed via manual GitHub Actions or local scripts:
