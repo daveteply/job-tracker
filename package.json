@@ -8,6 +8,8 @@
     "start:backend": "npx nx run sync-backend:dev",
     "beta:approve": "npm run beta:approve --prefix apps/sync-backend",
     "beta:disable": "npm run beta:disable --prefix apps/sync-backend",
+    "lighthouse:web-ui": "lhci collect --config=apps/web-ui/.lighthouserc.js",
+    "lighthouse:web-ui:prod": "lhci collect --config=apps/web-ui/.lighthouserc.prod.js",
     "test:coverage": "npx nx run-many -t test --coverage --coverageReporters='text'"
   },
   "private": true,

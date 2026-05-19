@@ -108,7 +108,7 @@ export default async function IndexPage({ params }: { params: Promise<{ locale: 
               <div className="bg-primary/10 absolute inset-0 scale-110 rounded-full blur-3xl transition-transform duration-700 group-hover:scale-125"></div>
               <div className="border-base-100 relative h-64 w-64 overflow-hidden rounded-full border-4 shadow-2xl transition-transform duration-500 group-hover:scale-105 group-hover:rotate-2 md:h-80 md:w-80">
                 <Image
-                  src="/mascot/Pip512.png"
+                  src="/mascot/Pip512.webp"
                   alt="Pip the Mascot"
                   fill
                   sizes="(max-width: 768px) 256px, 320px"
