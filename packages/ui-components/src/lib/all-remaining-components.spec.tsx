@@ -81,7 +81,6 @@ jest.mock('@job-tracker/hooks', () => ({
   useRoleWithCompany: () => ({ role: null, loading: false }),
   useEventWithChildren: () => ({ event: null, loading: false }),
   useReminder: () => ({ reminder: null, loading: false }),
-  useAvailableActions: () => [],
   ACTION_CONSTRAINTS: {
     roles: [],
     contacts: [],
@@ -110,11 +109,19 @@ jest.mock('./common/feedback/toast-context', () => ({
 }));
 
 describe('UI Components Coverage', () => {
-  it('renders common components', () => {
-    render(<ExternalLink href="https://test.com">Link</ExternalLink>);
+  it('should render common components', () => {
+    render(<ExternalLink url="https://test.com" linkText="Link" />);
     render(<Skeletons.CardSkeleton />);
-    render(<SyncIndicator status="synced" />);
-    render(<SignInView providers={[]} />);
+    render(<SyncIndicator />);
+    render(
+      <SignInView
+        title="Sign In"
+        description="Test description"
+        appName="Vireo"
+        appIconSrc="/icon.png"
+        providers={[]}
+      />,
+    );
     render(<FloatingButtonContainer>Child</FloatingButtonContainer>);
     render(<PageHeader title="Test" />);
     render(<BottomNav />);
@@ -128,7 +135,7 @@ describe('UI Components Coverage', () => {
       />,
     );
     render(<DashboardMenuLinks />);
-    render(<Header />);
+    render(<Header title="Vireo" />);
   });
 
   it('renders entity cards', () => {

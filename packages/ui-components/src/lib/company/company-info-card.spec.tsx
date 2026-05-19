@@ -39,10 +39,12 @@ describe('CompanyInfoCard', () => {
   const mockCompany = {
     id: 'comp-1',
     name: 'Acme Corp',
+    search: 'acme corp',
     website: 'https://acme.com',
     industry: 'Software',
     sizeRange: '100-500',
     notes: 'Some notes',
+    version: 1,
   };
 
   const mockRoles = [
