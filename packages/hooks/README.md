@@ -1,11 +1,20 @@
 # 📦 hooks
 
-A collection of reusable React hooks for Vireo's frontend ecosystem.
-
-## 🛠️ Tech Stack
-
-- **Framework:** React
+Shared React hooks for data access, application state, and reactive streams in Vireo.
 
 ## 🏗️ Purpose
 
-This package provides a set of reusable, high-level React hooks for common application patterns, ensuring logic is easily shared across the web interface and future React-based platforms.
+The `hooks` package provides a set of reusable React hooks that abstract away the complexity of interacting with the local RxDB database, managing reactive state with RxJS, and handling common UI patterns.
+
+## 🛠️ Tech Stack
+
+- **Library:** React (Hooks API)
+- **Reactive Extensions:** [RxJS](https://rxjs.dev/) for handling data streams.
+- **Data Integration:** Closely tied with `data-access` and `domain`.
+
+## 🧪 Testing
+
+Run unit tests for this package:
+```bash
+npx nx test hooks
+```

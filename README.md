@@ -1,8 +1,8 @@
 # 🚀 Vireo: Modern Job Application Management
 
 [![Nx](https://img.shields.io/badge/Nx-Workspace-blue?logo=nx)](https://nx.dev)
-[![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)](https://nextjs.org)
-[![Fastify](https://img.shields.io/badge/Fastify-5.2-black?logo=fastify)](https://www.fastify.io/)
+[![Next.js](https://img.shields.io/badge/Next.js-16.2-black?logo=next.js)](https://nextjs.org)
+[![Fastify](https://img.shields.io/badge/Fastify-5.8-black?logo=fastify)](https://www.fastify.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **Vireo** is a high-performance, offline-first monorepo application designed to streamline the job search process. Built with modern web technologies and a lightweight Fastify backend, it provides a seamless experience for tracking companies, contacts, roles, and interview events.
@@ -132,8 +132,7 @@ For the best experience within the VS Code Dev Container, use these integrated c
 
 ```bash
 # 1. First-time setup (install deps + generate Prisma client)
-npm install
-npx nx run sync-backend:prisma-generate
+npm run setup
 
 # 2. Start both Frontend and Backend
 npm start

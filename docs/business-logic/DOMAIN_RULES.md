@@ -8,32 +8,43 @@ This document serves as the "Source of Truth" for the business rules and domain 
 
 ### Context
 
-Events are the primary way users track their job search progress. The application provides a set of pre-defined "Event Actions" to streamline data entry.
+Events are the primary way users track their job search progress. The application provides a set of pre-defined "Event Actions" and a global Floating Action Button (FAB) to streamline data entry.
 
-### Rules
+### Floating Action Button (FAB)
 
-1. **Event Action Menu:** A global action menu (Floating Action Button) is available throughout most of the application to quickly initiate common events.
-2. **Contextual Availability:** The Event Action menu is hidden when a user is actively entering an Event to prevent nested entry or state conflicts.
-3. **Available Actions:**
-   - **Not Selected:** For rejection notices (Inbound/Email).
-   - **Networking/Coffee Chat:** For networking activities (Outbound/LinkedIn).
-   - **Interview Completed:** Records a finished interview (Outbound/Website).
-   - **Interview Scheduled:** Records an upcoming interview (Inbound/Email).
-   - **Email Received:** General incoming communication (Inbound/Email).
-   - **Follow-up Sent:** Outgoing follow-up messages (Outbound/Email).
-   - **Recruiter Outreach:** Incoming recruiter contact (Inbound/LinkedIn).
-   - **Applied:** The initial application (Outbound/Website).
+1.  **Global Access:** The FAB is available throughout the application (except during active event entry) to initiate common actions.
+2.  **Contextual Filtering:** When viewed on an entity detail page (Company, Contact, or Role), the FAB filters the available actions to only show those relevant to the current route.
+3.  **Contextual Suggestions:** On detail pages, the FAB displays a "nudge" message (e.g., "Add Activity for this Role") after a 1-second delay to suggest ways to simplify data entry by automatically linking the activity to the current entity.
+4.  **Automatic Context Population:** Initiating an event from an entity page or using the contextual FAB actions automatically populates the Company, Contact, and/or Role fields in the event form.
 
-4. **Action Defaults:** Each action provides default values for:
-   - Event Type
-   - Direction (Inbound/Outbound)
-   - Source Type (Email, LinkedIn, Website, etc.)
-     _Note: Users can manually override these defaults during entry._
+### Multi-Step Event Creation
 
-### Context-Aware Entry
+The "New Event" process is a 4-step guided workflow:
+- **Step 1: Type** (Select the kind of event)
+- **Step 2: Context** (Select Company, Role, and Contact)
+- **Step 3: Details** (Set direction, source, date, and summary)
+- **Step 4: Reminder** (Optionally set a follow-up reminder)
 
-- **Automatic Population:** When initiated from a specific **Company** or **Role** detail page, the Event entry form automatically populates the corresponding Company and/or Role fields.
-- **Cascading Selection:** If a Role is selected that has an associated Company, the Company field is automatically populated.
+#### Entry Rules:
+1.  **Pre-defined Actions:** If a specific action (e.g., "Applied") is selected from the FAB, the process **starts on Step 2**.
+2.  **Backward Navigation:** Even if starting on Step 2, users can navigate back to Step 1 at any time to change the event type.
+3.  **Inbound/Outbound Defaults:**
+    - Each pre-defined action comes with a default direction (e.g., "Applied" defaults to Outbound; "Email Received" defaults to Inbound).
+    - If a user manually selects an Event Type in Step 1, the system **infers and sets a default direction** based on the event type name (e.g., types containing "Sent" or "Applied" default to Outbound; "Received" or "Outreach" default to Inbound).
+    - Users can always manually override these defaults in Step 3.
+
+### Available Actions & Defaults
+
+| Action | Event Type | Default Direction | Default Source |
+| :--- | :--- | :--- | :--- |
+| **Not Selected** | Not Selected | Inbound | Email |
+| **Networking/Coffee Chat** | Networking/Coffee Chat | Outbound | LinkedIn |
+| **Interview Completed** | Interview Completed | Outbound | Website |
+| **Interview Scheduled** | Interview Scheduled | Inbound | Email |
+| **Email Received** | Email Received | Inbound | Email |
+| **Follow-up Sent** | Follow-up Sent | Outbound | Email |
+| **Recruiter Outreach** | Recruiter Outreach | Inbound | LinkedIn |
+| **Applied** | Applied | Outbound | Website |
 
 ---
 

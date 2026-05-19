@@ -1,12 +1,19 @@
 # 📦 app-logic
 
-The core business logic layer for Vireo, coordinating application-level state and processes.
-
-## 🛠️ Tech Stack
-
-- **Framework:** TypeScript
-- **State Management:** Reactive business rules and application state.
+Core business logic and process coordination for the Vireo application.
 
 ## 🏗️ Purpose
 
-This package provides a central location for the application's complex logic, separating it from the UI layer to improve maintainability and testability.
+The `app-logic` package contains the high-level business rules and workflows that are independent of specific UI components or data persistence details. It orchestrates complex operations that involve multiple domain entities.
+
+## 🛠️ Tech Stack
+
+- **Language:** TypeScript
+- **Patterns:** Service objects, domain services, and functional business logic.
+
+## 🧪 Testing
+
+Run unit tests for this package:
+```bash
+npx nx test app-logic
+```
