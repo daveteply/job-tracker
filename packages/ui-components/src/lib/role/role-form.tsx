@@ -80,7 +80,11 @@ export function RoleForm<T extends FieldValues>({
     <form onSubmit={handleSubmit(onSubmit)} className="px-12pt-6 mx-auto mb-4 max-w-md pb-32">
       <fieldset className="fieldset">
         <legend className="fieldset-legend">{t('formTitle')}</legend>
-        <input className="input" {...register('title' as Path<T>)} />
+        <input
+          className="input"
+          autoComplete="organization-title"
+          {...register('title' as Path<T>)}
+        />
         <p className="label">{tCommon('required')}</p>
         <ErrorMsg name={'title' as Path<T>} errors={errors} tValidation={tValidation} />
       </fieldset>
@@ -115,7 +119,7 @@ export function RoleForm<T extends FieldValues>({
 
       <fieldset className="fieldset">
         <legend className="fieldset-legend">{t('formLocation')}</legend>
-        <input className="input" {...register('location' as Path<T>)} />
+        <input className="input" autoComplete="address-level2" {...register('location' as Path<T>)} />
         <ErrorMsg name={'location' as Path<T>} errors={errors} tValidation={tValidation} />
       </fieldset>
 

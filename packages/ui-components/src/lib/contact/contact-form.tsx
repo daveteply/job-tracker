@@ -78,21 +78,25 @@ export function ContactForm<T extends FieldValues>({
     <form onSubmit={handleSubmit(onSubmit)} className="px-12pt-6 mx-auto mb-4 max-w-md pb-32">
       <fieldset className="fieldset">
         <legend className="fieldset-legend">{t('formFirstName')}</legend>
-        <input className="input" {...register('firstName' as Path<T>)} />
+        <input className="input" autoComplete="given-name" {...register('firstName' as Path<T>)} />
         <p className="label">{tCommon('required')}</p>
         <ErrorMsg name={'firstName' as Path<T>} errors={errors} tValidation={tValidation} />
       </fieldset>
 
       <fieldset className="fieldset">
         <legend className="fieldset-legend">{t('formLastName')}</legend>
-        <input className="input" {...register('lastName' as Path<T>)} />
+        <input className="input" autoComplete="family-name" {...register('lastName' as Path<T>)} />
         <p className="label">{tCommon('required')}</p>
         <ErrorMsg name={'lastName' as Path<T>} errors={errors} tValidation={tValidation} />
       </fieldset>
 
       <fieldset className="fieldset">
         <legend className="fieldset-legend">{t('formTitle')}</legend>
-        <input className="input" {...register('title' as Path<T>)} />
+        <input
+          className="input"
+          autoComplete="organization-title"
+          {...register('title' as Path<T>)}
+        />
         <ErrorMsg name={'title' as Path<T>} errors={errors} tValidation={tValidation} />
       </fieldset>
 
@@ -110,13 +114,13 @@ export function ContactForm<T extends FieldValues>({
 
       <fieldset className="fieldset">
         <legend className="fieldset-legend">{t('formEmail')}</legend>
-        <input className="input" {...register('email' as Path<T>)} />
+        <input className="input" autoComplete="email" {...register('email' as Path<T>)} />
         <ErrorMsg name={'email' as Path<T>} errors={errors} tValidation={tValidation} />
       </fieldset>
 
       <fieldset className="fieldset">
         <legend className="fieldset-legend">{t('formPhone')}</legend>
-        <input className="input" {...register('phoneNumber' as Path<T>)} />
+        <input className="input" autoComplete="tel" {...register('phoneNumber' as Path<T>)} />
         <ErrorMsg name={'phoneNumber' as Path<T>} errors={errors} tValidation={tValidation} />
       </fieldset>
 
