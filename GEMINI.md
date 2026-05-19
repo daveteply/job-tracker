@@ -21,4 +21,11 @@ The `apps/sync-backend` has been migrated from Java/Quarkus to Node.js/Fastify/P
 - Configuration for the adapter is located in `apps/sync-backend/src/plugins/prisma.ts`.
 
 - **Minimize `any`:** Avoid using the `any` type. Prefer explicit types, interfaces, or generics. If a type is unknown, use `unknown`.
-- **Type Safety:** Prioritize structural integrity and type safety. Use type guards and explicit language features instead of casting or suppressing warnings.
+### Administrative Tasks
+
+Administrative tasks like approving beta users or disabling sync can be performed via manual GitHub Actions or local scripts:
+
+- **Approve Beta User**: Runs `npm run beta:approve <email>`. Moves an applicant from `PENDING` to `APPROVED` and generates a `BetaToken`.
+- **Disable User Sync**: Runs `npm run beta:disable <email>`. Sets the `isActive` flag to `false` on the User record, which blocks the `/sync` endpoint with a 403 error.
+
+These are available as **GitHub Actions** (under the "Actions" tab in your repository) for secure management without local `.env` configuration.
