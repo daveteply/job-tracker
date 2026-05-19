@@ -9,6 +9,7 @@
     "prisma:generate": "npx prisma generate",
     "prisma:deploy": "npx prisma migrate deploy",
     "deploy": "npm run prisma:generate && npm run prisma:deploy && npm run build",
-    "beta:approve": "tsx scripts/approve-user.ts"
+    "beta:approve": "tsx scripts/approve-user.ts",
+    "beta:disable": "tsx scripts/disable-user.ts"
   }
 }

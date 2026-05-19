@@ -1,0 +1,32 @@
+name: Approve Beta User
+
+on:
+  workflow_dispatch:
+    inputs:
+      email:
+        description: 'The email address of the beta applicant to approve'
+        required: true
+        type: string
+
+jobs:
+  approve:
+    name: Approve User
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate Prisma Client
+        run: npx nx run sync-backend:prisma-generate
+
+      - name: Run Approval Script
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: npm run beta:approve ${{ github.event.inputs.email }}
