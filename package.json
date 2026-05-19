@@ -3,8 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "setup": "npm run clear-target && npx nx run-many -t build -p sync-backend",
-    "clear-target": "rm -rf apps/sync-backend/target",
+    "setup": "npm install && npx nx run sync-backend:prisma-generate",
     "start": "npx nx run-many -t dev -p web-ui sync-backend",
     "start:backend": "npx nx run sync-backend:dev",
     "beta:approve": "npm run beta:approve --prefix apps/sync-backend",
