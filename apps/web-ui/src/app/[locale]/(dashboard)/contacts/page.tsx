@@ -1,7 +1,7 @@
 'use client';
 
-import { PlusCircleIcon } from '@heroicons/react/16/solid';
-import { UserGroupIcon } from '@heroicons/react/24/outline';
+import PlusCircleIcon from '@heroicons/react/16/solid/PlusCircleIcon';
+import UserGroupIcon from '@heroicons/react/24/outline/UserGroupIcon';
 import { useTranslations } from 'next-intl';
 
 import { useContactsWithCompany } from '@job-tracker/hooks';

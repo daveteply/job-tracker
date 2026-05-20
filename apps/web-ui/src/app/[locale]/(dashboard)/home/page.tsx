@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react';
 
-import { PlusIcon } from '@heroicons/react/24/outline';
+import PlusIcon from '@heroicons/react/24/outline/PlusIcon';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 

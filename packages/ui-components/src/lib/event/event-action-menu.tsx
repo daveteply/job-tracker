@@ -2,8 +2,10 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-import { BellIcon } from '@heroicons/react/24/outline';
-import { EllipsisVerticalIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/solid';
+import BellIcon from '@heroicons/react/24/outline/BellIcon';
+import EllipsisVerticalIcon from '@heroicons/react/24/solid/EllipsisVerticalIcon';
+import PencilIcon from '@heroicons/react/24/solid/PencilIcon';
+import TrashIcon from '@heroicons/react/24/solid/TrashIcon';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 

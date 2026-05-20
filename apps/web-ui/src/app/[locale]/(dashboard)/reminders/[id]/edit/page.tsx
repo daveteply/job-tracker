@@ -2,7 +2,8 @@
 
 import { use, useMemo } from 'react';
 
-import { CheckCircleIcon, TrashIcon } from '@heroicons/react/24/solid';
+import CheckCircleIcon from '@heroicons/react/24/solid/CheckCircleIcon';
+import TrashIcon from '@heroicons/react/24/solid/TrashIcon';
 import { useTranslations } from 'next-intl';
 
 import { useReminder, useReminderActions } from '@job-tracker/hooks';

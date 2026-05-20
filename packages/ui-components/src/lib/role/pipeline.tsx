@@ -2,16 +2,14 @@
 
 import { useMemo } from 'react';
 
-import {
-  ArchiveBoxIcon,
-  BriefcaseIcon,
-  ChatBubbleLeftRightIcon,
-  CheckCircleIcon,
-  EyeSlashIcon,
-  RocketLaunchIcon,
-  UserGroupIcon,
-  XCircleIcon,
-} from '@heroicons/react/24/outline';
+import ArchiveBoxIcon from '@heroicons/react/24/outline/ArchiveBoxIcon';
+import BriefcaseIcon from '@heroicons/react/24/outline/BriefcaseIcon';
+import ChatBubbleLeftRightIcon from '@heroicons/react/24/outline/ChatBubbleLeftRightIcon';
+import CheckCircleIcon from '@heroicons/react/24/outline/CheckCircleIcon';
+import EyeSlashIcon from '@heroicons/react/24/outline/EyeSlashIcon';
+import RocketLaunchIcon from '@heroicons/react/24/outline/RocketLaunchIcon';
+import UserGroupIcon from '@heroicons/react/24/outline/UserGroupIcon';
+import XCircleIcon from '@heroicons/react/24/outline/XCircleIcon';
 import { useTranslations } from 'next-intl';
 
 import { RoleStatus } from '@job-tracker/domain';

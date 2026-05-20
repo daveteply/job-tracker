@@ -136,6 +136,10 @@ npm run setup
 
 # 2. Start both Frontend and Backend
 npm start
+
+# 3. Performance Auditing (Lighthouse)
+npm run lighthouse:web-ui        # Audit local build
+npm run lighthouse:web-ui:prod   # Audit live site (tryvireo.app)
 ```
 
 ---

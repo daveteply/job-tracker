@@ -1,6 +1,7 @@
 'use client';
 
-import { ArchiveBoxIcon, PlusIcon } from '@heroicons/react/24/outline';
+import ArchiveBoxIcon from '@heroicons/react/24/outline/ArchiveBoxIcon';
+import PlusIcon from '@heroicons/react/24/outline/PlusIcon';
 import { useTranslations } from 'next-intl';
 
 import { useEventsWithChildren, useUserSettings } from '@job-tracker/hooks';

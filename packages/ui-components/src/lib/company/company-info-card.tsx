@@ -1,6 +1,7 @@
 'use client';
 
-import { PencilIcon, TrashIcon } from '@heroicons/react/24/solid';
+import PencilIcon from '@heroicons/react/24/solid/PencilIcon';
+import TrashIcon from '@heroicons/react/24/solid/TrashIcon';
 import Link from 'next/link';
 
 import { INACTIVE_STATUSES } from '@job-tracker/domain';

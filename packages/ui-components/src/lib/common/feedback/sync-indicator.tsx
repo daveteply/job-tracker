@@ -1,11 +1,9 @@
 'use client';
 
-import {
-  CloudArrowUpIcon,
-  CloudIcon,
-  ExclamationCircleIcon,
-  SignalSlashIcon,
-} from '@heroicons/react/24/outline';
+import CloudArrowUpIcon from '@heroicons/react/24/outline/CloudArrowUpIcon';
+import CloudIcon from '@heroicons/react/24/outline/CloudIcon';
+import ExclamationCircleIcon from '@heroicons/react/24/outline/ExclamationCircleIcon';
+import SignalSlashIcon from '@heroicons/react/24/outline/SignalSlashIcon';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useSession } from 'next-auth/react';

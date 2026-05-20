@@ -1,6 +1,8 @@
 'use client';
 
-import { BellIcon, BriefcaseIcon, UserGroupIcon } from '@heroicons/react/24/outline';
+import BellIcon from '@heroicons/react/24/outline/BellIcon';
+import BriefcaseIcon from '@heroicons/react/24/outline/BriefcaseIcon';
+import UserGroupIcon from '@heroicons/react/24/outline/UserGroupIcon';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 

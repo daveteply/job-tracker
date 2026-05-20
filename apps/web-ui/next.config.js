@@ -26,6 +26,7 @@ const nextConfig = {
     ignoreBuildErrors: false,
   },
   experimental: {
+    optimizePackageImports: ['@heroicons/react'],
     viewTransition: true,
   },
   images: {

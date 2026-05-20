@@ -2,8 +2,16 @@
 
 import { useEffect, useMemo, useState } from 'react';
 
-import * as HeroIcons from '@heroicons/react/24/outline';
-import { PlusIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import CalendarIcon from '@heroicons/react/24/outline/CalendarIcon';
+import ChatBubbleLeftEllipsisIcon from '@heroicons/react/24/outline/ChatBubbleLeftEllipsisIcon';
+import ClipboardDocumentCheckIcon from '@heroicons/react/24/outline/ClipboardDocumentCheckIcon';
+import DocumentPlusIcon from '@heroicons/react/24/outline/DocumentPlusIcon';
+import EnvelopeIcon from '@heroicons/react/24/outline/EnvelopeIcon';
+import PaperAirplaneIcon from '@heroicons/react/24/outline/PaperAirplaneIcon';
+import PlusIcon from '@heroicons/react/24/outline/PlusIcon';
+import UserGroupIcon from '@heroicons/react/24/outline/UserGroupIcon';
+import XCircleIcon from '@heroicons/react/24/outline/XCircleIcon';
+import XMarkIcon from '@heroicons/react/24/outline/XMarkIcon';
 import Link from 'next/link';
 import { useParams, usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
@@ -11,6 +19,17 @@ import { useTranslations } from 'next-intl';
 import { ACTION_CONSTRAINTS, useAvailableActions } from '@job-tracker/hooks';
 
 import { useFloatingUI } from '../context/floating-ui-context';
+
+const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+  CalendarIcon,
+  ChatBubbleLeftEllipsisIcon,
+  ClipboardDocumentCheckIcon,
+  DocumentPlusIcon,
+  EnvelopeIcon,
+  PaperAirplaneIcon,
+  UserGroupIcon,
+  XCircleIcon,
+};
 
 export function FloatingActionButton() {
   const t = useTranslations('Navigation');
@@ -48,11 +67,12 @@ export function FloatingActionButton() {
   useEffect(() => {
     if (labelKey && !isOpen) {
       const timer = setTimeout(() => setShowLabel(true), 1000);
-      return () => clearTimeout(timer);
-    } else {
-      setShowLabel(false);
-      return undefined;
+      return () => {
+        clearTimeout(timer);
+        setShowLabel(false);
+      };
     }
+    return undefined;
   }, [labelKey, isOpen]);
 
   const filteredActions = useMemo(() => {
@@ -128,7 +148,7 @@ export function FloatingActionButton() {
           </div>
 
           {filteredActions.map((action, index) => {
-            const Icon = HeroIcons[action.iconName as keyof typeof HeroIcons];
+            const Icon = iconMap[action.iconName];
             return (
               <div
                 key={action.id}

@@ -4,12 +4,10 @@ import { Suspense, useState } from 'react';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
-import {
-  ArrowRightOnRectangleIcon,
-  EnvelopeIcon,
-  KeyIcon,
-  UserIcon,
-} from '@heroicons/react/24/outline';
+import ArrowRightOnRectangleIcon from '@heroicons/react/24/outline/ArrowRightOnRectangleIcon';
+import EnvelopeIcon from '@heroicons/react/24/outline/EnvelopeIcon';
+import KeyIcon from '@heroicons/react/24/outline/KeyIcon';
+import UserIcon from '@heroicons/react/24/outline/UserIcon';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
