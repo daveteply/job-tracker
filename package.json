@@ -10,6 +10,7 @@
     "beta:disable": "npm run beta:disable --prefix apps/sync-backend",
     "lighthouse:web-ui": "lhci collect --config=apps/web-ui/.lighthouserc.js",
     "lighthouse:web-ui:prod": "lhci collect --config=apps/web-ui/.lighthouserc.prod.js",
+    "analyze:web-ui": "cd apps/web-ui && next experimental-analyze --port 8080",
     "test:coverage": "npx nx run-many -t test --coverage --coverageReporters='text'"
   },
   "private": true,
@@ -41,6 +42,7 @@
     "@babel/preset-react": "^7.28.5",
     "@eslint/js": "^9.39.4",
     "@lhci/cli": "^0.15.1",
+    "@next/bundle-analyzer": "^16.2.6",
     "@next/eslint-plugin-next": "^16.2.4",
     "@nx/devkit": "22.7.1",
     "@nx/eslint": "22.7.1",

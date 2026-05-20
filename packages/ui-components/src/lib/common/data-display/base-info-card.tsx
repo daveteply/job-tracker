@@ -1,7 +1,7 @@
 'use client';
 import { ReactNode, ViewTransition } from 'react';
 
-import { ChevronRightIcon } from '@heroicons/react/24/solid';
+import ChevronRightIcon from '@heroicons/react/24/solid/ChevronRightIcon';
 import Link from 'next/link';
 
 export interface BaseInfoCardProps {

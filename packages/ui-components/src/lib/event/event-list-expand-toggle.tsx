@@ -1,6 +1,7 @@
 'use client';
 
-import { ArrowsPointingInIcon, ArrowsPointingOutIcon } from '@heroicons/react/24/outline';
+import ArrowsPointingInIcon from '@heroicons/react/24/outline/ArrowsPointingInIcon';
+import ArrowsPointingOutIcon from '@heroicons/react/24/outline/ArrowsPointingOutIcon';
 import { useTranslations } from 'next-intl';
 
 export interface EventListExpandToggleProps {

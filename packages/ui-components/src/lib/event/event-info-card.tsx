@@ -1,6 +1,7 @@
 'use client';
 
-import { ChevronDoubleLeftIcon, ChevronDoubleRightIcon } from '@heroicons/react/24/solid';
+import ChevronDoubleLeftIcon from '@heroicons/react/24/solid/ChevronDoubleLeftIcon';
+import ChevronDoubleRightIcon from '@heroicons/react/24/solid/ChevronDoubleRightIcon';
 import { useTranslations } from 'next-intl';
 
 import { DirectionType } from '@job-tracker/domain';

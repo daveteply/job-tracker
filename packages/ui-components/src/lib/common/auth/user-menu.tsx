@@ -1,6 +1,6 @@
 'use client';
 
-import { UserCircleIcon } from '@heroicons/react/24/outline';
+import UserCircleIcon from '@heroicons/react/24/outline/UserCircleIcon';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';

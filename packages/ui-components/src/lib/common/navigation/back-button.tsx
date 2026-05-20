@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowLeftIcon } from '@heroicons/react/24/outline';
+import ArrowLeftIcon from '@heroicons/react/24/outline/ArrowLeftIcon';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-import { ChevronUpIcon } from '@heroicons/react/24/solid';
+import ChevronUpIcon from '@heroicons/react/24/solid/ChevronUpIcon';
 
 export function ScrollToTopButton() {
   const [isVisible, setIsVisible] = useState(false);

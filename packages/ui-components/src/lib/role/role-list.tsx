@@ -1,6 +1,7 @@
 'use client';
 
-import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
+import ChevronDownIcon from '@heroicons/react/24/outline/ChevronDownIcon';
+import ChevronRightIcon from '@heroicons/react/24/outline/ChevronRightIcon';
 import { useTranslations } from 'next-intl';
 
 import { useUserSettings } from '@job-tracker/hooks';

@@ -1,6 +1,8 @@
 'use client';
 
-import { ArrowTopRightOnSquareIcon, EnvelopeIcon, PhoneIcon } from '@heroicons/react/24/solid';
+import ArrowTopRightOnSquareIcon from '@heroicons/react/24/solid/ArrowTopRightOnSquareIcon';
+import EnvelopeIcon from '@heroicons/react/24/solid/EnvelopeIcon';
+import PhoneIcon from '@heroicons/react/24/solid/PhoneIcon';
 
 export enum ExternalLinkType {
   Link,

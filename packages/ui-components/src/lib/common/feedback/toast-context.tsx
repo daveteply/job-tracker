@@ -2,7 +2,7 @@
 
 import { createContext, ReactNode, useCallback, useContext, useEffect, useState } from 'react';
 
-import { XMarkIcon } from '@heroicons/react/24/outline';
+import XMarkIcon from '@heroicons/react/24/outline/XMarkIcon';
 
 type ToastType = 'info' | 'success' | 'warning' | 'error';
 

@@ -3,7 +3,8 @@
 import { useCallback, useEffect } from 'react';
 import { FieldValues, Path, PathValue, UseFormSetValue } from 'react-hook-form';
 
-import { InformationCircleIcon, LightBulbIcon } from '@heroicons/react/24/outline';
+import InformationCircleIcon from '@heroicons/react/24/outline/InformationCircleIcon';
+import LightBulbIcon from '@heroicons/react/24/outline/LightBulbIcon';
 import { useTranslations } from 'next-intl';
 
 import { CompanyDTO, ContactDTO, EventTypeDTO, RoleDTO } from '@job-tracker/validation';

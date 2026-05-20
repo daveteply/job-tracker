@@ -1,7 +1,7 @@
 'use client';
 
-import { PlusCircleIcon } from '@heroicons/react/16/solid';
-import { BuildingOfficeIcon } from '@heroicons/react/24/outline';
+import PlusCircleIcon from '@heroicons/react/16/solid/PlusCircleIcon';
+import BuildingOfficeIcon from '@heroicons/react/24/outline/BuildingOfficeIcon';
 import { useTranslations } from 'next-intl';
 
 import { useCompaniesWithChildren, useGroupedCompanies } from '@job-tracker/hooks';

@@ -2,15 +2,13 @@
 
 import { useEffect, useState } from 'react';
 
-import {
-  ArrowLeftOnRectangleIcon,
-  ArrowRightOnRectangleIcon,
-  Bars3Icon,
-  Cog8ToothIcon,
-  DocumentTextIcon,
-  InformationCircleIcon,
-  ShieldCheckIcon,
-} from '@heroicons/react/24/outline';
+import ArrowLeftOnRectangleIcon from '@heroicons/react/24/outline/ArrowLeftOnRectangleIcon';
+import ArrowRightOnRectangleIcon from '@heroicons/react/24/outline/ArrowRightOnRectangleIcon';
+import Bars3Icon from '@heroicons/react/24/outline/Bars3Icon';
+import Cog8ToothIcon from '@heroicons/react/24/outline/Cog8ToothIcon';
+import DocumentTextIcon from '@heroicons/react/24/outline/DocumentTextIcon';
+import InformationCircleIcon from '@heroicons/react/24/outline/InformationCircleIcon';
+import ShieldCheckIcon from '@heroicons/react/24/outline/ShieldCheckIcon';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';

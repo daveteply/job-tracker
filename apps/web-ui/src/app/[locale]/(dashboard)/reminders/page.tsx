@@ -2,7 +2,8 @@
 
 import { useMemo } from 'react';
 
-import { BellIcon, PlusIcon } from '@heroicons/react/24/outline';
+import BellIcon from '@heroicons/react/24/outline/BellIcon';
+import PlusIcon from '@heroicons/react/24/outline/PlusIcon';
 import { useTranslations } from 'next-intl';
 
 import { useRemindersWithChildren } from '@job-tracker/hooks';

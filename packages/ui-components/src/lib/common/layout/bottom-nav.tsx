@@ -1,11 +1,9 @@
 'use client';
 
-import {
-  BuildingOfficeIcon,
-  ChartBarIcon,
-  HomeIcon,
-  QueueListIcon,
-} from '@heroicons/react/16/solid';
+import BuildingOfficeIcon from '@heroicons/react/16/solid/BuildingOfficeIcon';
+import ChartBarIcon from '@heroicons/react/16/solid/ChartBarIcon';
+import HomeIcon from '@heroicons/react/16/solid/HomeIcon';
+import QueueListIcon from '@heroicons/react/16/solid/QueueListIcon';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';

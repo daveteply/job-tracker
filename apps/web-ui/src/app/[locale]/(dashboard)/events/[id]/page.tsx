@@ -2,7 +2,8 @@
 
 import { use } from 'react';
 
-import { PencilIcon, TrashIcon } from '@heroicons/react/16/solid';
+import PencilIcon from '@heroicons/react/16/solid/PencilIcon';
+import TrashIcon from '@heroicons/react/16/solid/TrashIcon';
 import { useTranslations } from 'next-intl';
 
 import { useEventWithChildren } from '@job-tracker/hooks';

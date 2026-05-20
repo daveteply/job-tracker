@@ -1,7 +1,7 @@
 'use client';
 
-import { PlusCircleIcon } from '@heroicons/react/16/solid';
-import { BriefcaseIcon } from '@heroicons/react/24/outline';
+import PlusCircleIcon from '@heroicons/react/16/solid/PlusCircleIcon';
+import BriefcaseIcon from '@heroicons/react/24/outline/BriefcaseIcon';
 import { useTranslations } from 'next-intl';
 
 import { useGroupedRoles, useRolesWithEvents } from '@job-tracker/hooks';
