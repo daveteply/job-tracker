@@ -22,6 +22,27 @@ The `apps/sync-backend` has been migrated from Java/Quarkus to Node.js/Fastify/P
 
 - **Minimize `any`:** Avoid using the `any` type. Prefer explicit types, interfaces, or generics. If a type is unknown, use `unknown`.
 
+## Frontend Optimization
+
+### Heroicons Usage
+
+To maintain a small bundle size and ensure effective tree-shaking, always use **direct file path imports** for Heroicons. Avoid top-level imports from the icon sets.
+
+**Preferred:**
+```tsx
+import PlusIcon from '@heroicons/react/24/outline/PlusIcon';
+import TrashIcon from '@heroicons/react/16/solid/TrashIcon';
+```
+
+**Avoid:**
+```tsx
+import { PlusIcon } from '@heroicons/react/24/outline';
+```
+
+### Next.js Configuration
+
+The `apps/web-ui/next.config.js` is configured with `optimizePackageImports: ['@heroicons/react']`. This provides a fallback optimization, but direct imports remain the primary standard for the codebase to ensure consistency across both apps and packages.
+
 ### Administrative Tasks
 
 Administrative tasks like approving beta users or disabling sync can be performed via manual GitHub Actions or local scripts:
