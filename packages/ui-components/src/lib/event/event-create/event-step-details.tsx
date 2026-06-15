@@ -10,6 +10,8 @@ import {
   UseFormWatch,
 } from 'react-hook-form';
 
+import InboxArrowDownIcon from '@heroicons/react/24/outline/InboxArrowDownIcon';
+import PaperAirplaneIcon from '@heroicons/react/24/outline/PaperAirplaneIcon';
 import { useTranslations } from 'next-intl';
 
 import { DirectionType, SourceType } from '@job-tracker/domain';
@@ -53,21 +55,31 @@ export function EventStepDetails<T extends FieldValues = FieldValues>({
           <label className="label">
             <span className="label-text text-base-content font-medium">{t('formDirection')}</span>
           </label>
-          <div className="flex flex-wrap gap-2">
-            {Object.entries(DirectionType).map(([key, value]) => (
-              <button
-                key={key}
-                type="button"
-                onClick={() =>
-                  setValue('direction' as Path<T>, value as PathValue<T, Path<T>>, {
-                    shouldValidate: true,
-                  })
-                }
-                className={`badge ${currentDirection === value ? 'badge-primary' : 'badge-ghost'}`}
-              >
-                {tEnum(`DirectionType.${key}`)}
-              </button>
-            ))}
+          <div className="join w-full">
+            <button
+              type="button"
+              onClick={() =>
+                setValue('direction' as Path<T>, DirectionType.Outbound as PathValue<T, Path<T>>, {
+                  shouldValidate: true,
+                })
+              }
+              className={`join-item btn btn-sm flex-1 gap-2 ${currentDirection === DirectionType.Outbound ? 'btn-primary' : 'btn-ghost bg-base-200'}`}
+            >
+              <PaperAirplaneIcon className="size-4" />
+              {tEnum('DirectionType.Outbound')}
+            </button>
+            <button
+              type="button"
+              onClick={() =>
+                setValue('direction' as Path<T>, DirectionType.Inbound as PathValue<T, Path<T>>, {
+                  shouldValidate: true,
+                })
+              }
+              className={`join-item btn btn-sm flex-1 gap-2 ${currentDirection === DirectionType.Inbound ? 'btn-primary' : 'btn-ghost bg-base-200'}`}
+            >
+              <InboxArrowDownIcon className="size-4" />
+              {tEnum('DirectionType.Inbound')}
+            </button>
           </div>
         </div>
 

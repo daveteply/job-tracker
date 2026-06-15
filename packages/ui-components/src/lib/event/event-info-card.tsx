@@ -1,7 +1,7 @@
 'use client';
 
-import ChevronDoubleLeftIcon from '@heroicons/react/24/solid/ChevronDoubleLeftIcon';
-import ChevronDoubleRightIcon from '@heroicons/react/24/solid/ChevronDoubleRightIcon';
+import InboxArrowDownIcon from '@heroicons/react/24/solid/InboxArrowDownIcon';
+import PaperAirplaneIcon from '@heroicons/react/24/solid/PaperAirplaneIcon';
 import { useTranslations } from 'next-intl';
 
 import { DirectionType } from '@job-tracker/domain';
@@ -55,23 +55,26 @@ export function EventInfoCard({
   }
 
   const title = (
-    <div className="flex min-w-0 items-center">
-      <span className="badge badge-info mr-1 truncate text-xs">{eventName}</span>
-      <span className="tooltip shrink-0" data-tip={tEnum(`DirectionType.${event.direction}`)}>
+    <div className="flex min-w-0 items-center gap-1.5">
+      <span className="badge badge-info truncate text-xs font-semibold">{eventName}</span>
+      <span
+        className="tooltip flex shrink-0 items-center"
+        data-tip={tEnum(`DirectionType.${event.direction}`)}
+      >
         {event.direction === DirectionType.Inbound ? (
-          <div className="flex items-center text-xs">
-            <ChevronDoubleRightIcon className="size-4" />
-            <span className="ml-1 hidden sm:inline">{tEnum('DirectionType.Inbound')}</span>
+          <div className="bg-success/20 text-success flex items-center rounded-full px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider">
+            <InboxArrowDownIcon className="mr-1 size-3.5" />
+            <span>{tEnum('DirectionType.Inbound')}</span>
           </div>
         ) : (
-          <div className="flex items-center text-xs">
-            <ChevronDoubleLeftIcon className="size-4" />
-            <span className="ml-1 hidden sm:inline">{tEnum('DirectionType.Outbound')}</span>
+          <div className="bg-primary/20 text-primary flex items-center rounded-full px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider">
+            <PaperAirplaneIcon className="mr-1 size-3.5" />
+            <span>{tEnum('DirectionType.Outbound')}</span>
           </div>
         )}
       </span>
       {reminderCount > 0 && (!showFull || !showReminders) && (
-        <span className="badge badge-ghost badge-sm ml-2">{reminderCount} reminders</span>
+        <span className="badge badge-ghost badge-sm ml-1">{reminderCount}</span>
       )}
     </div>
   );
