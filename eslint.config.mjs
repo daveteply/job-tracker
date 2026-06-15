@@ -1,10 +1,12 @@
 import nx from '@nx/eslint-plugin';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import jsxA11y from 'eslint-plugin-jsx-a11y';
 
 export default [
   ...nx.configs['flat/base'],
   ...nx.configs['flat/typescript'],
   ...nx.configs['flat/javascript'],
+  jsxA11y.flatConfigs.recommended,
   {
     ignores: [
       '**/dist',

@@ -26,7 +26,7 @@ export default async function DashboardLayout({
             <Breadcrumbs />
           </div>
         </nav>
-        <main className="mx-auto w-full max-w-screen-xl grow p-4">
+        <main id="main-content" className="mx-auto w-full max-w-screen-xl grow p-4">
           <ViewTransition
             enter={{
               'nav-forward': 'slide-in-right',
