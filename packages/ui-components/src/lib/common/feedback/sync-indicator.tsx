@@ -1,6 +1,6 @@
 'use client';
 
-import CloudArrowUpIcon from '@heroicons/react/24/outline/CloudArrowUpIcon';
+import ArrowPathIcon from '@heroicons/react/24/outline/ArrowPathIcon';
 import CloudIcon from '@heroicons/react/24/outline/CloudIcon';
 import ExclamationCircleIcon from '@heroicons/react/24/outline/ExclamationCircleIcon';
 import SignalSlashIcon from '@heroicons/react/24/outline/SignalSlashIcon';
@@ -26,7 +26,7 @@ export const SyncIndicator = () => {
   const getIcon = () => {
     switch (status) {
       case 'syncing':
-        return <CloudArrowUpIcon className="text-info h-5 w-5 animate-pulse" />;
+        return <ArrowPathIcon className="text-info h-5 w-5 animate-spin" />;
       case 'synced':
         return <CloudIcon className="text-success h-5 w-5" />;
       case 'error':

@@ -128,7 +128,7 @@ export default function HomePage() {
       </section>
 
       <section>
-        <div className="mb-4 flex items-center justify-between px-1">
+        <div className="mb-4 flex items-center justify-between px-1 md:justify-start md:gap-4">
           <h2 className="text-xl font-bold">{t('activeRoles')}</h2>
           <Link href="/roles" className="btn btn-ghost btn-sm text-primary gap-1 px-2">
             {t('seeAllRoles')}
