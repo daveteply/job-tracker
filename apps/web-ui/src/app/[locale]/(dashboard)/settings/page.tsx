@@ -4,8 +4,9 @@ import { use } from 'react';
 
 import { useTranslations } from 'next-intl';
 
+import { useDb } from '@job-tracker/data-access';
 import { useUserSettings } from '@job-tracker/hooks';
-import { ContentCard } from '@job-tracker/ui-components';
+import { ContentCard, DataManagement } from '@job-tracker/ui-components';
 
 import { routing, useRouter } from '../../../../i18n/routing';
 
@@ -15,6 +16,7 @@ export default function SettingsPage({ params }: { params: Promise<{ locale: str
   const tLang = useTranslations('Languages');
   const router = useRouter();
   const { settings, updateSettings, isLoading } = useUserSettings();
+  const db = useDb();
 
   const handleApplyLocale = async (newLocale: string) => {
     if (newLocale === currentLocale) return;
@@ -25,10 +27,14 @@ export default function SettingsPage({ params }: { params: Promise<{ locale: str
     router.replace('/settings', { locale: newLocale });
   };
 
+  const handleClearDataClick = () => {
+    router.push('/settings/clear-data');
+  };
+
   const selectedLocale = settings?.locale || currentLocale;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 pb-20">
       <div>
         <h1 className="text-3xl font-bold">{t('title')}</h1>
         <p className="text-base-content/60 mt-2">{t('description')}</p>
@@ -95,6 +101,20 @@ export default function SettingsPage({ params }: { params: Promise<{ locale: str
           </button>
         </div>
       </ContentCard>
+
+      <DataManagement
+        db={db}
+        onClearDataClick={handleClearDataClick}
+        translations={{
+          title: t('dataManagementTitle'),
+          exportExcel: t('exportExcel'),
+          exportDescription: t('exportDescription'),
+          exporting: t('exporting'),
+          clearDataTitle: t('clearDataTitle'),
+          clearDataDescription: t('clearDataDescription'),
+          clearDataButton: t('clearDataButton'),
+        }}
+      />
     </div>
   );
 }

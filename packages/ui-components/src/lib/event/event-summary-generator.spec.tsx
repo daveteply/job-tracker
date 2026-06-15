@@ -41,7 +41,7 @@ describe('EventSummaryGenerator', () => {
     const { container } = render(
       <EventSummaryGenerator
         eventTypeId={null}
-        role={null}
+        jobRole={null}
         company={null}
         currentSource=""
         setValue={mockSetValue}
@@ -55,7 +55,7 @@ describe('EventSummaryGenerator', () => {
       <EventSummaryGenerator
         eventTypeId="1"
         eventTypes={mockEventTypes as any}
-        role={{ title: 'Engineer' } as any}
+        jobRole={{ title: 'Engineer' } as any}
         company={{ name: 'Acme' } as any}
         currentSource="Email"
         setValue={mockSetValue}
@@ -69,7 +69,7 @@ describe('EventSummaryGenerator', () => {
       <EventSummaryGenerator
         eventTypeId="1"
         eventTypes={mockEventTypes as any}
-        role={{ title: 'Engineer' } as any}
+        jobRole={{ title: 'Engineer' } as any}
         company={{ name: 'Acme' } as any}
         currentSource="Email"
         setValue={mockSetValue}
@@ -108,7 +108,7 @@ describe('EventSummaryGenerator', () => {
         contact={{ firstName: 'John', lastName: 'Doe' } as any}
         currentSource="Email"
         currentDirection="Inbound"
-        role={null}
+        jobRole={null}
         company={null}
         setValue={mockSetValue}
       />,
@@ -130,7 +130,7 @@ describe('EventSummaryGenerator', () => {
         contact={{ firstName: 'John', lastName: 'Doe' } as any}
         currentSource="Email"
         currentDirection="Outbound"
-        role={null}
+        jobRole={null}
         company={null}
         setValue={mockSetValue}
       />,
@@ -149,7 +149,7 @@ describe('EventSummaryGenerator', () => {
       <EventSummaryGenerator
         eventTypeId="1"
         eventTypes={mockEventTypes as any}
-        role={{ title: 'Engineer' } as any}
+        jobRole={{ title: 'Engineer' } as any}
         company={{ name: 'Acme' } as any}
         currentSource="Email"
         setValue={mockSetValue}

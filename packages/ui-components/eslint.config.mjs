@@ -3,12 +3,10 @@ import baseConfig from '../../eslint.config.mjs';
 
 export default [
   ...baseConfig,
-  ...nx.configs['flat/react'],
+  ...nx.configs['flat/react-typescript'],
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
     // Override or add rules here
-    rules: {
-      'react-hooks/set-state-in-effect': 'warn',
-    },
+    rules: {},
   },
 ];

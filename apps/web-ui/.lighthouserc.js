@@ -8,7 +8,8 @@ module.exports = {
       numberOfRuns: 1,
       settings: {
         // Chromium on Linux in a container often needs these flags
-        chromeFlags: '--no-sandbox --disable-setuid-sandbox --headless --disable-gpu --disable-dev-shm-usage --remote-debugging-port=9222',
+        chromeFlags:
+          '--no-sandbox --disable-setuid-sandbox --headless --disable-gpu --disable-dev-shm-usage --remote-debugging-port=9222',
       },
     },
     assert: {

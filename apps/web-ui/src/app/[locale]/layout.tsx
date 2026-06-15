@@ -127,7 +127,7 @@ export default async function RootLayout({
       <body className="bg-base-100 text-base-content min-h-screen font-sans antialiased">
         <a
           href="#main-content"
-          className="bg-primary text-primary-content absolute left-4 top-4 z-[100] -translate-y-20 rounded p-2 transition-transform focus:translate-y-0"
+          className="bg-primary text-primary-content absolute top-4 left-4 z-[100] -translate-y-20 rounded p-2 transition-transform focus:translate-y-0"
         >
           Skip to main content
         </a>

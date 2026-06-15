@@ -119,7 +119,11 @@ export function RoleForm<T extends FieldValues>({
 
       <fieldset className="fieldset">
         <legend className="fieldset-legend">{t('formLocation')}</legend>
-        <input className="input" autoComplete="address-level2" {...register('location' as Path<T>)} />
+        <input
+          className="input"
+          autoComplete="address-level2"
+          {...register('location' as Path<T>)}
+        />
         <ErrorMsg name={'location' as Path<T>} errors={errors} tValidation={tValidation} />
       </fieldset>
 

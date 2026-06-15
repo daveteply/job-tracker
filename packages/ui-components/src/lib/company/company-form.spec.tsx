@@ -70,7 +70,7 @@ describe('CompanyForm', () => {
         onSubmitAction={mockOnSubmitAction}
         postActionRoute="/companies"
         initialData={{ name: 'Acme' } as any}
-      />
+      />,
     );
 
     fireEvent.submit(getByText('create').closest('form')!);

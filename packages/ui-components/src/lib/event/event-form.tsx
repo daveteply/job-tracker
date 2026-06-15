@@ -301,7 +301,7 @@ export function EventForm<T extends EventFormValues>({
           <EventSummaryGenerator
             eventTypeId={eventTypeId}
             eventTypes={eventTypes}
-            role={role}
+            jobRole={role}
             company={company}
             contact={contact}
             currentSource={currentSource}

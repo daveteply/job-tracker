@@ -62,12 +62,12 @@ export function EventInfoCard({
         data-tip={tEnum(`DirectionType.${event.direction}`)}
       >
         {event.direction === DirectionType.Inbound ? (
-          <div className="bg-success/20 text-success flex items-center rounded-full px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider">
+          <div className="bg-success/20 text-success flex items-center rounded-full px-1.5 py-0.5 text-[10px] font-bold tracking-wider uppercase">
             <InboxArrowDownIcon className="mr-1 size-3.5" />
             <span>{tEnum('DirectionType.Inbound')}</span>
           </div>
         ) : (
-          <div className="bg-primary/20 text-primary flex items-center rounded-full px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider">
+          <div className="bg-primary/20 text-primary flex items-center rounded-full px-1.5 py-0.5 text-[10px] font-bold tracking-wider uppercase">
             <PaperAirplaneIcon className="mr-1 size-3.5" />
             <span>{tEnum('DirectionType.Outbound')}</span>
           </div>

@@ -15,6 +15,8 @@ async function main() {
   // Register Plugins
   await server.register(cors, {
     origin: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'X-User-Id', 'X-User-Email'],
   });
 
   await server.register(swagger, {

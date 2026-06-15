@@ -29,12 +29,14 @@ The `apps/sync-backend` has been migrated from Java/Quarkus to Node.js/Fastify/P
 To maintain a small bundle size and ensure effective tree-shaking, always use **direct file path imports** for Heroicons. Avoid top-level imports from the icon sets.
 
 **Preferred:**
+
 ```tsx
 import PlusIcon from '@heroicons/react/24/outline/PlusIcon';
 import TrashIcon from '@heroicons/react/16/solid/TrashIcon';
 ```
 
 **Avoid:**
+
 ```tsx
 import { PlusIcon } from '@heroicons/react/24/outline';
 ```

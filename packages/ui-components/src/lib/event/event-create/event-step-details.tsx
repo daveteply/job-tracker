@@ -125,7 +125,7 @@ export function EventStepDetails<T extends FieldValues = FieldValues>({
           <EventSummaryGenerator
             eventTypeId={eventTypeId}
             eventTypes={eventTypes}
-            role={role}
+            jobRole={role}
             company={company}
             contact={contact}
             currentSource={currentSource}

@@ -121,4 +121,7 @@ export const useSyncStatus = () => {
 };
 
 export type { SyncStatus } from './replication';
+export { SYNC_URL } from './replication';
 export type { TrackerCollections, TrackerDatabase } from './rx-database';
+export { getStorage } from './rx-database';
+export { removeRxDatabase } from 'rxdb';

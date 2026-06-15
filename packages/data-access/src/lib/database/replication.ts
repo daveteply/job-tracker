@@ -7,7 +7,7 @@ import { BRANDING } from '@job-tracker/domain';
 
 import { TrackerDatabase } from './rx-database';
 
-const SYNC_URL =
+export const SYNC_URL =
   process.env['NEXT_PUBLIC_BACKEND_URL'] || ''
     ? process.env['NEXT_PUBLIC_BACKEND_URL']?.replace(/\/$/, '') + '/sync'
     : '/api/sync';

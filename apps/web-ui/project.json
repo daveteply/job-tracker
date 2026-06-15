@@ -17,9 +17,7 @@
     },
     "lighthouse": {
       "command": "lhci autorun --config=apps/web-ui/.lighthouserc.js",
-      "dependsOn": [
-        "build"
-      ]
+      "dependsOn": ["build"]
     }
   },
   "overrides": {

@@ -87,6 +87,7 @@ export function Header({ title, iconSrc, homeHref = '/home' }: HeaderProps) {
             </div>
             <ul
               tabIndex={0}
+              role="menu"
               className="dropdown-content menu bg-base-100 rounded-box text-base-content z-[1] mt-3 w-56 p-2 shadow"
             >
               {session ? (

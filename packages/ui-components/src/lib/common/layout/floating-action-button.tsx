@@ -202,6 +202,14 @@ export function FloatingActionButton() {
         <div
           className="fixed inset-0 z-[-1] bg-black/20 backdrop-blur-[2px] transition-all"
           onClick={() => setIsOpen(false)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              setIsOpen(false);
+            }
+          }}
+          role="button"
+          tabIndex={-1}
+          aria-label="Close menu"
         />
       )}
     </div>

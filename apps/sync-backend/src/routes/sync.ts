@@ -150,6 +150,16 @@ const syncRoutes: FastifyPluginAsync = async (server) => {
 
     return [];
   });
+
+  server.delete('/wipe', async (request, reply) => {
+    const userId = request.headers['x-user-id'] as string;
+
+    await server.prisma.syncEvent.deleteMany({
+      where: { userId },
+    });
+
+    return { success: true };
+  });
 };
 
 export default syncRoutes;

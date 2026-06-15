@@ -12,7 +12,7 @@ import { CompanyDTO, ContactDTO, EventTypeDTO, RoleDTO } from '@job-tracker/vali
 export interface EventSummaryGeneratorProps<T extends FieldValues = FieldValues> {
   eventTypeId: string | null;
   eventTypes?: EventTypeDTO[];
-  role: RoleDTO | null;
+  jobRole: RoleDTO | null;
   company: CompanyDTO | null;
   contact?: ContactDTO | null;
   currentSource: string;
@@ -25,7 +25,7 @@ export interface EventSummaryGeneratorProps<T extends FieldValues = FieldValues>
 export function EventSummaryGenerator<T extends FieldValues = FieldValues>({
   eventTypeId,
   eventTypes,
-  role,
+  jobRole,
   company,
   contact,
   currentSource,
@@ -51,7 +51,7 @@ export function EventSummaryGenerator<T extends FieldValues = FieldValues>({
       }
     }
 
-    const roleTitle = role?.title;
+    const roleTitle = jobRole?.title;
     const companyName = company?.name;
     const contactName = contact ? `${contact.firstName} ${contact.lastName}` : null;
     const sourceLabel = currentSource ? tEnum(`SourceType.${currentSource as string}`) : '';
@@ -87,7 +87,7 @@ export function EventSummaryGenerator<T extends FieldValues = FieldValues>({
     return summary;
   }, [
     eventTypes,
-    role?.title,
+    jobRole?.title,
     company?.name,
     contact,
     currentSource,
@@ -119,7 +119,7 @@ export function EventSummaryGenerator<T extends FieldValues = FieldValues>({
     }
   }, [autoGenerate, eventTypeId, generateSummary]);
 
-  const canGenerate = !!eventTypeId && (!!role || !!company || !!currentSource);
+  const canGenerate = !!eventTypeId && (!!jobRole || !!company || !!currentSource);
 
   if (!canGenerate) return null;
 
