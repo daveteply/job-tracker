@@ -1,4 +1,10 @@
-import { Action, DirectionType, SourceType } from '@job-tracker/domain';
+import {
+  Action,
+  DirectionType,
+  SYSTEM_SOURCE_EMAIL_ID,
+  SYSTEM_SOURCE_LINKEDIN_ID,
+  SYSTEM_SOURCE_WEBSITE_ID,
+} from '@job-tracker/domain';
 
 export const AVAILABLE_ACTIONS: Action[] = [
   {
@@ -8,7 +14,7 @@ export const AVAILABLE_ACTIONS: Action[] = [
     defaults: {
       eventTypeName: 'Not Selected',
       direction: DirectionType.Inbound,
-      source: SourceType.Email,
+      sourceTypeId: SYSTEM_SOURCE_EMAIL_ID,
     },
   },
   {
@@ -18,7 +24,7 @@ export const AVAILABLE_ACTIONS: Action[] = [
     defaults: {
       eventTypeName: 'Networking/Coffee Chat',
       direction: DirectionType.Outbound,
-      source: SourceType.LinkedIn,
+      sourceTypeId: SYSTEM_SOURCE_LINKEDIN_ID,
     },
   },
   {
@@ -28,7 +34,7 @@ export const AVAILABLE_ACTIONS: Action[] = [
     defaults: {
       eventTypeName: 'Interview Completed',
       direction: DirectionType.Outbound,
-      source: SourceType.Website,
+      sourceTypeId: SYSTEM_SOURCE_WEBSITE_ID,
       suggestReminderDays: 1,
     },
   },
@@ -39,7 +45,7 @@ export const AVAILABLE_ACTIONS: Action[] = [
     defaults: {
       eventTypeName: 'Interview Scheduled',
       direction: DirectionType.Inbound,
-      source: SourceType.Email,
+      sourceTypeId: SYSTEM_SOURCE_EMAIL_ID,
       suggestReminderDays: -1,
       suggestReminderRelativeToEvent: true,
     },
@@ -51,7 +57,7 @@ export const AVAILABLE_ACTIONS: Action[] = [
     defaults: {
       eventTypeName: 'Email Received',
       direction: DirectionType.Inbound,
-      source: SourceType.Email,
+      sourceTypeId: SYSTEM_SOURCE_EMAIL_ID,
     },
   },
   {
@@ -61,7 +67,7 @@ export const AVAILABLE_ACTIONS: Action[] = [
     defaults: {
       eventTypeName: 'Follow-up Sent',
       direction: DirectionType.Outbound,
-      source: SourceType.Email,
+      sourceTypeId: SYSTEM_SOURCE_EMAIL_ID,
       suggestReminderDays: 5,
     },
   },
@@ -72,7 +78,7 @@ export const AVAILABLE_ACTIONS: Action[] = [
     defaults: {
       eventTypeName: 'Recruiter Outreach',
       direction: DirectionType.Inbound,
-      source: SourceType.LinkedIn,
+      sourceTypeId: SYSTEM_SOURCE_LINKEDIN_ID,
     },
   },
   {
@@ -82,7 +88,7 @@ export const AVAILABLE_ACTIONS: Action[] = [
     defaults: {
       eventTypeName: 'Applied',
       direction: DirectionType.Outbound,
-      source: SourceType.Website,
+      sourceTypeId: SYSTEM_SOURCE_WEBSITE_ID,
       suggestReminderDays: 5,
     },
   },

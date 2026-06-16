@@ -1,10 +1,9 @@
 import { z } from 'zod';
 
-import { DirectionType, EventCategoryType, SourceType } from '@job-tracker/domain';
+import { DirectionType, EventCategoryType } from '@job-tracker/domain';
 import { RoleStatus } from '@job-tracker/domain';
 
 const directionSchema = z.enum(Object.values(DirectionType));
-const sourceSchema = z.enum(Object.values(SourceType));
 const eventCategorySchema = z.enum(Object.values(EventCategoryType));
 const roleStatusSchema = z.enum(Object.values(RoleStatus));
 
@@ -13,13 +12,6 @@ export const DirectionTypeSchema = z
   .or(z.literal(''))
   .refine((val) => val !== '', {
     message: 'selectDirection',
-  });
-
-export const SourceTypeSchema = z
-  .enum(sourceSchema.options)
-  .or(z.literal(''))
-  .refine((val) => val !== '', {
-    message: 'selectSource',
   });
 
 export const EventCategoryTypeSchema = z

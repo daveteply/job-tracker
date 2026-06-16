@@ -53,6 +53,7 @@ export * from './lib/event/event-info-card';
 export * from './lib/event/event-list';
 export * from './lib/event/event-list-expand-toggle';
 export * from './lib/event/event-summary-generator';
+export * from './lib/event/source-type-selector';
 export * from './lib/event-type/event-type-info-card';
 export * from './lib/event-type/event-type-select';
 export * from './lib/reminder/reminder-form';

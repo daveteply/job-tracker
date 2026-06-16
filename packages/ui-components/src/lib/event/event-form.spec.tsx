@@ -2,7 +2,7 @@ import { fireEvent, render, waitFor } from '@testing-library/react';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 
-import { DirectionType, SourceType } from '@job-tracker/domain';
+import { DirectionType, SYSTEM_SOURCE_EMAIL_ID } from '@job-tracker/domain';
 
 import { useToast } from '../common/feedback/toast-context';
 
@@ -35,6 +35,15 @@ jest.mock('../common/forms/error-msg', () => ({
 
 jest.mock('../common/forms/enum-selector', () => ({
   EnumSelector: () => <div data-testid="enum-selector" />,
+}));
+
+jest.mock('./source-type-selector', () => {
+  return () => <div data-testid="source-type-selector" />;
+});
+
+jest.mock('@job-tracker/hooks', () => ({
+  ...jest.requireActual('@job-tracker/hooks'),
+  useSourceTypes: jest.fn().mockReturnValue({ sourceTypes: [], loading: false }),
 }));
 
 jest.mock('../common/layout/floating-button-container', () => ({
@@ -125,7 +134,7 @@ describe('EventForm', () => {
           {
             summary: 'Test Summary',
             eventTypeId: '1',
-            source: SourceType.Email,
+            sourceTypeId: SYSTEM_SOURCE_EMAIL_ID,
             direction: DirectionType.Inbound,
           } as any
         }
@@ -139,7 +148,7 @@ describe('EventForm', () => {
         expect.objectContaining({
           summary: 'Test Summary',
           eventTypeId: '1',
-          source: SourceType.Email,
+          sourceTypeId: SYSTEM_SOURCE_EMAIL_ID,
           direction: DirectionType.Inbound,
         }),
       );

@@ -8,8 +8,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 
-import { DirectionType, SourceType } from '@job-tracker/domain';
-import { inferDirectionFromEventType } from '@job-tracker/hooks';
+import { DirectionType } from '@job-tracker/domain';
+import { inferDirectionFromEventType, useSourceTypes } from '@job-tracker/hooks';
 import {
   CompanyDTO,
   ContactDTO,
@@ -29,6 +29,7 @@ import EventTypeSelect from '../event-type/event-type-select';
 import RoleCombobox from '../role/role-combobox';
 
 import EventSummaryGenerator from './event-summary-generator';
+import SourceTypeSelector from './source-type-selector';
 
 interface EventFormValues extends FieldValues {
   occurredAt?: Date | string | null;
@@ -117,9 +118,12 @@ export function EventForm<T extends EventFormValues>({
     defaultValues: formatInitialData(initialData),
   });
 
+  const { sourceTypes, loading: sourceTypesLoading } = useSourceTypes();
+
   const eventTypeId = watch('eventTypeId' as Path<T>);
   const currentDirection = watch('direction' as Path<T>);
-  const currentSource = watch('source' as Path<T>);
+  const sourceTypeId = watch('sourceTypeId' as Path<T>);
+  const sourceCustomName = watch('sourceCustomName' as Path<T>);
   const contact = watch('contact' as Path<T>) as (ContactDTO & { company?: CompanyDTO }) | null;
   const role = watch('role' as Path<T>) as (RoleDTO & { company?: CompanyDTO }) | null;
   const company = watch('company' as Path<T>) as CompanyDTO | null;
@@ -239,12 +243,14 @@ export function EventForm<T extends EventFormValues>({
 
       <fieldset className="fieldset w-full">
         <legend className="fieldset-legend">{t('formSource')}</legend>
-        <EnumSelector
-          register={register('source' as Path<T>)}
-          enumObject={SourceType}
-          translationNamespace="SourceType"
+        <SourceTypeSelector
+          sourceTypes={sourceTypes}
+          loading={sourceTypesLoading}
+          form={{ register, watch, setValue, control } as any}
+          sourceTypeIdField="sourceTypeId"
+          sourceCustomNameField="sourceCustomName"
         />
-        <ErrorMsg name={'source' as Path<T>} errors={errors} tValidation={tValidation} />
+        <ErrorMsg name={'sourceTypeId' as Path<T>} errors={errors} tValidation={tValidation} />
       </fieldset>
 
       <fieldset className="fieldset">
@@ -304,7 +310,9 @@ export function EventForm<T extends EventFormValues>({
             jobRole={role}
             company={company}
             contact={contact}
-            currentSource={currentSource}
+            sourceTypeId={sourceTypeId}
+            sourceCustomName={sourceCustomName}
+            sourceTypes={sourceTypes}
             currentDirection={currentDirection}
             setValue={setValue}
             autoGenerate={!isSummaryDirty || !summaryValue}

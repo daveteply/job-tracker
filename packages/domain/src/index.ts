@@ -12,6 +12,8 @@ export * from './lib/event/event.entity';
 export * from './lib/event/event.schema';
 export * from './lib/event/event-type.entity';
 export * from './lib/event/event-type.schema';
+export * from './lib/event/source-type.entity';
+export * from './lib/event/source-type.schema';
 export * from './lib/reminder/reminder.entity';
 export * from './lib/reminder/reminder.schema';
 export * from './lib/role/role.entity';

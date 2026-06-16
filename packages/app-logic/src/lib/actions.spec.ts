@@ -20,7 +20,7 @@ describe('AVAILABLE_ACTIONS', () => {
       expect(action.defaults).toBeDefined();
       expect(action.defaults.eventTypeName).toBeDefined();
       expect(action.defaults.direction).toBeDefined();
-      expect(action.defaults.source).toBeDefined();
+      expect(action.defaults.sourceTypeId).toBeDefined();
     });
   });
 });

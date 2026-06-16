@@ -14,10 +14,12 @@ import InboxArrowDownIcon from '@heroicons/react/24/outline/InboxArrowDownIcon';
 import PaperAirplaneIcon from '@heroicons/react/24/outline/PaperAirplaneIcon';
 import { useTranslations } from 'next-intl';
 
-import { DirectionType, SourceType } from '@job-tracker/domain';
+import { DirectionType } from '@job-tracker/domain';
+import { useSourceTypes } from '@job-tracker/hooks';
 import { CompanyDTO, ContactDTO, EventTypeDTO, RoleDTO } from '@job-tracker/validation';
 
 import EventSummaryGenerator from '../event-summary-generator';
+import SourceTypeSelector from '../source-type-selector';
 
 export interface EventStepDetailsProps<T extends FieldValues = FieldValues> {
   register: UseFormRegister<T>;
@@ -35,11 +37,14 @@ export function EventStepDetails<T extends FieldValues = FieldValues>({
   const t = useTranslations('Events');
   const tEnum = useTranslations('Enums');
 
-  const { getFieldState, formState } = useFormContext<T>();
+  const { getFieldState, formState, ...form } = useFormContext<T>();
   const { isDirty } = getFieldState('summary' as Path<T>, formState);
   const summaryValue = watch('summary' as Path<T>);
 
-  const currentSource = watch('source' as Path<T>);
+  const { sourceTypes, loading: sourceTypesLoading } = useSourceTypes();
+
+  const sourceTypeId = watch('sourceTypeId' as Path<T>);
+  const sourceCustomName = watch('sourceCustomName' as Path<T>);
   const currentDirection = watch('direction' as Path<T>);
   const eventTypeId = watch('eventTypeId' as Path<T>);
   const role = watch('role' as Path<T>) as RoleDTO | null;
@@ -87,22 +92,13 @@ export function EventStepDetails<T extends FieldValues = FieldValues>({
           <label className="label">
             <span className="label-text text-base-content font-medium">{t('formSource')}</span>
           </label>
-          <div className="flex flex-wrap gap-2">
-            {Object.entries(SourceType).map(([key, value]) => (
-              <button
-                key={key}
-                type="button"
-                onClick={() =>
-                  setValue('source' as Path<T>, value as PathValue<T, Path<T>>, {
-                    shouldValidate: true,
-                  })
-                }
-                className={`badge ${currentSource === value ? 'badge-primary' : 'badge-ghost'}`}
-              >
-                {tEnum(`SourceType.${key}`)}
-              </button>
-            ))}
-          </div>
+          <SourceTypeSelector
+            sourceTypes={sourceTypes}
+            loading={sourceTypesLoading}
+            form={form as any}
+            sourceTypeIdField="sourceTypeId"
+            sourceCustomNameField="sourceCustomName"
+          />
         </div>
       </div>
 
@@ -128,7 +124,9 @@ export function EventStepDetails<T extends FieldValues = FieldValues>({
             jobRole={role}
             company={company}
             contact={contact}
-            currentSource={currentSource}
+            sourceTypeId={sourceTypeId}
+            sourceCustomName={sourceCustomName}
+            sourceTypes={sourceTypes}
             currentDirection={currentDirection}
             setValue={setValue}
             autoGenerate={!isDirty || !summaryValue}

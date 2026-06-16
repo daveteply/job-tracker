@@ -3,7 +3,7 @@ import { of } from 'rxjs';
 
 import * as dataAccess from '@job-tracker/data-access';
 import { RoleStatus } from '@job-tracker/domain';
-import { CompanyDTO, CompanyWithChildrenDTO } from '@job-tracker/validation';
+import { CompanyDTO, CompanyWithChildrenDTO, RoleDTO } from '@job-tracker/validation';
 
 import {
   useCompanies,
@@ -39,7 +39,7 @@ jest.mock('./role-hooks', () => ({
 }));
 
 describe('company-hooks', () => {
-  const mockDb = {} as any;
+  const mockDb = {} as unknown as dataAccess.TrackerDatabase;
   const mockCompany: CompanyDTO = {
     id: '1',
     name: 'Test Company',
@@ -114,16 +114,16 @@ describe('company-hooks', () => {
           id: '1',
           name: 'Active Company',
           roles: [
-            { id: 'r1', status: RoleStatus.Applied, companyId: '1' } as any,
-            { id: 'r2', status: RoleStatus.NotSelected, companyId: '1' } as any,
+            { id: 'r1', status: RoleStatus.Applied, companyId: '1' } as unknown as RoleDTO,
+            { id: 'r2', status: RoleStatus.NotSelected, companyId: '1' } as unknown as RoleDTO,
           ],
         },
         {
           id: '2',
           name: 'Inactive Company',
           roles: [
-            { id: 'r3', status: RoleStatus.NotSelected, companyId: '2' } as any,
-            { id: 'r4', status: RoleStatus.Withdrawn, companyId: '2' } as any,
+            { id: 'r3', status: RoleStatus.NotSelected, companyId: '2' } as unknown as RoleDTO,
+            { id: 'r4', status: RoleStatus.Withdrawn, companyId: '2' } as unknown as RoleDTO,
           ],
         },
         {
@@ -134,7 +134,7 @@ describe('company-hooks', () => {
         {
           id: '4',
           name: 'Company with only active roles',
-          roles: [{ id: 'r5', status: RoleStatus.Offer, companyId: '4' } as any],
+          roles: [{ id: 'r5', status: RoleStatus.Offer, companyId: '4' } as unknown as RoleDTO],
         },
       ];
 
@@ -180,7 +180,7 @@ describe('company-hooks', () => {
     it('should return error if database not initialized', async () => {
       (dataAccess.useDb as jest.Mock).mockReturnValue(null);
       const { result } = renderHook(() => useCompanyActions());
-      let actionResult: any;
+      let actionResult: { success: boolean; message?: string; id?: string };
       await act(async () => {
         actionResult = await result.current.upsertCompany({ name: 'New' });
       });
@@ -195,7 +195,7 @@ describe('company-hooks', () => {
       (dataAccess.CompanyRepository as jest.Mock).mockImplementation(() => mockRepo);
 
       const { result } = renderHook(() => useCompanyActions());
-      let actionResult: any;
+      let actionResult: { success: boolean; message?: string; id?: string };
       await act(async () => {
         actionResult = await result.current.upsertCompany({ name: 'New Company' });
       });
@@ -211,7 +211,7 @@ describe('company-hooks', () => {
       (dataAccess.CompanyRepository as jest.Mock).mockImplementation(() => mockRepo);
 
       const { result } = renderHook(() => useCompanyActions());
-      let actionResult: any;
+      let actionResult: { success: boolean; message?: string; id?: string };
       await act(async () => {
         actionResult = await result.current.upsertCompany({ name: 'New' });
       });
@@ -226,7 +226,7 @@ describe('company-hooks', () => {
       (dataAccess.CompanyRepository as jest.Mock).mockImplementation(() => mockRepo);
 
       const { result } = renderHook(() => useCompanyActions());
-      let actionResult: any;
+      let actionResult: { success: boolean; message?: string; id?: string };
       await act(async () => {
         actionResult = await result.current.removeCompany('1');
       });
@@ -242,7 +242,7 @@ describe('company-hooks', () => {
       (dataAccess.CompanyRepository as jest.Mock).mockImplementation(() => mockRepo);
 
       const { result } = renderHook(() => useCompanyActions());
-      let actionResult: any;
+      let actionResult: { success: boolean; message?: string; id?: string };
       await act(async () => {
         actionResult = await result.current.removeCompany('1');
       });

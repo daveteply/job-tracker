@@ -3,7 +3,7 @@ import { of } from 'rxjs';
 
 import * as dataAccess from '@job-tracker/data-access';
 import { RoleStatus } from '@job-tracker/domain';
-import { RoleDTO, RoleWithEventsDTO } from '@job-tracker/validation';
+import { RoleDTO, RoleWithCompanyDTO, RoleWithEventsDTO } from '@job-tracker/validation';
 
 import {
   useGroupedRoles,
@@ -39,7 +39,7 @@ jest.mock('./event-hooks', () => ({
 }));
 
 describe('role-hooks', () => {
-  const mockDb = {} as any;
+  const mockDb = {} as unknown as dataAccess.TrackerDatabase;
   const mockRole: RoleDTO = {
     id: '1',
     title: 'Test Role',
@@ -102,7 +102,7 @@ describe('role-hooks', () => {
       (dataAccess.CompanyRepository as jest.Mock).mockReturnValue(mockCompanyRepo);
 
       const { result } = renderHook(() => useRoleSearch());
-      let searchResult: any[] = [];
+      let searchResult: RoleWithCompanyDTO[] = [];
       await act(async () => {
         searchResult = await result.current.searchRoles('test');
       });
@@ -162,7 +162,7 @@ describe('role-hooks', () => {
       (dataAccess.CompanyRepository as jest.Mock).mockImplementation(() => mockCompanyRepo);
 
       const { result } = renderHook(() => useRoleActions());
-      let actionResult: any;
+      let actionResult: { success: boolean; message?: string; id?: string };
       await act(async () => {
         actionResult = await result.current.upsertRole({
           title: 'New Role',

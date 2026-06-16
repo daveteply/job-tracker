@@ -1,4 +1,8 @@
-import { DirectionType, SourceType } from '@job-tracker/domain';
+import {
+  DirectionType,
+  SYSTEM_SOURCE_EMAIL_ID,
+  SYSTEM_SOURCE_LINKEDIN_ID,
+} from '@job-tracker/domain';
 import { EventDTO } from '@job-tracker/validation';
 
 import { EventDocument } from '../database/documents/event.document';
@@ -18,7 +22,7 @@ describe('EventMapper', () => {
     contactId: 'co1',
     roleId: 'r1',
     occurredAt: mockDate.toISOString(),
-    source: SourceType.LinkedIn,
+    sourceTypeId: SYSTEM_SOURCE_LINKEDIN_ID,
     direction: DirectionType.Inbound,
     summary: 'Initial reach out',
     details: 'Details about the reach out',
@@ -35,7 +39,7 @@ describe('EventMapper', () => {
     contactId: 'co1',
     roleId: 'r1',
     occurredAt: mockDate,
-    source: SourceType.LinkedIn,
+    sourceTypeId: SYSTEM_SOURCE_LINKEDIN_ID,
     direction: DirectionType.Inbound,
     summary: 'Initial reach out',
     details: 'Details about the reach out',
@@ -45,7 +49,7 @@ describe('EventMapper', () => {
     const entity = EventMapper.toEntity(mockDoc);
     expect(entity.id).toBe(mockDoc.id);
     expect(entity.occurredAt).toEqual(mockDate);
-    expect(entity.source).toBe(SourceType.LinkedIn);
+    expect(entity.sourceTypeId).toBe(SYSTEM_SOURCE_LINKEDIN_ID);
   });
 
   it('should map document to DTO', () => {
@@ -64,7 +68,7 @@ describe('EventMapper', () => {
     const doc = EventMapper.toDocument(minimalDto);
     expect(doc.id).toBe('2');
     expect(doc.companyId).toBe('');
-    expect(doc.source).toBe(SourceType.Email);
+    expect(doc.sourceTypeId).toBe(SYSTEM_SOURCE_EMAIL_ID);
     expect(doc.direction).toBe(DirectionType.Inbound);
   });
 });

@@ -1,4 +1,4 @@
-import { DirectionType, EventEntity, SourceType } from '@job-tracker/domain';
+import { DirectionType, EventEntity, SYSTEM_SOURCE_EMAIL_ID } from '@job-tracker/domain';
 import { EventDTO } from '@job-tracker/validation';
 
 import { EventDocument } from '../database/documents/event.document';
@@ -13,12 +13,12 @@ export class EventMapper {
       createdAt: doc.createdAt,
 
       eventTypeId: doc.eventTypeId,
+      sourceTypeId: doc.sourceTypeId || SYSTEM_SOURCE_EMAIL_ID,
       companyId: doc.companyId || undefined,
       contactId: doc.contactId || undefined,
       roleId: doc.roleId || undefined,
 
       occurredAt: new Date(doc.occurredAt),
-      source: doc.source || SourceType.Email,
       direction: doc.direction || DirectionType.Inbound,
       summary: doc.summary || undefined,
       details: doc.details || undefined,
@@ -32,6 +32,7 @@ export class EventMapper {
       version: doc.version,
 
       eventTypeId: doc.eventTypeId,
+      sourceTypeId: doc.sourceTypeId,
       companyId: doc.companyId || null,
       contactId: doc.contactId || null,
       roleId: doc.roleId || null,
@@ -39,7 +40,6 @@ export class EventMapper {
       createdAt: doc.createdAt,
 
       occurredAt: new Date(doc.occurredAt),
-      source: doc.source,
       direction: doc.direction,
       summary: doc.summary,
       details: doc.details,
@@ -61,6 +61,7 @@ export class EventMapper {
       contactId: entity.contactId ?? '',
       roleId: entity.roleId ?? '',
       eventTypeId: entity.eventTypeId ?? '',
+      sourceTypeId: entity.sourceTypeId ?? SYSTEM_SOURCE_EMAIL_ID,
 
       occurredAt: (entity.occurredAt instanceof Date
         ? entity.occurredAt
@@ -68,7 +69,6 @@ export class EventMapper {
           ? new Date(entity.occurredAt)
           : now
       ).toISOString(),
-      source: entity.source ?? SourceType.Email,
       direction: entity.direction ?? DirectionType.Inbound,
       summary: entity.summary ?? null,
       details: entity.details ?? null,

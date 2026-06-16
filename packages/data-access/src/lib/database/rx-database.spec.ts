@@ -51,6 +51,10 @@ describe('rx-database', () => {
         count: jest.fn().mockReturnValue({ exec: jest.fn().mockResolvedValue(1) }),
         bulkInsert: jest.fn().mockResolvedValue(undefined),
       },
+      sourceTypes: {
+        count: jest.fn().mockReturnValue({ exec: jest.fn().mockResolvedValue(1) }),
+        bulkInsert: jest.fn().mockResolvedValue(undefined),
+      },
       userSettings: {
         count: jest.fn().mockReturnValue({ exec: jest.fn().mockResolvedValue(1) }),
         insert: jest.fn().mockResolvedValue(undefined),
@@ -90,6 +94,14 @@ describe('rx-database', () => {
     await initRxDatabase('test-db-seed-event');
 
     expect(mockDb.eventTypes.bulkInsert).toHaveBeenCalled();
+  });
+
+  it('should seed data if sourceTypes is empty', async () => {
+    mockDb.sourceTypes.count.mockReturnValue({ exec: jest.fn().mockResolvedValue(0) });
+
+    await initRxDatabase('test-db-seed-source');
+
+    expect(mockDb.sourceTypes.bulkInsert).toHaveBeenCalled();
   });
 
   it('should seed userSettings if empty', async () => {

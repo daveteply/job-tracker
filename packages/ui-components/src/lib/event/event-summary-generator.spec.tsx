@@ -29,6 +29,14 @@ describe('EventSummaryGenerator', () => {
     },
   ];
 
+  const mockSourceTypes = [
+    {
+      id: 's1',
+      name: 'Email',
+      isSystemDefined: true,
+    },
+  ];
+
   beforeEach(() => {
     (useTranslations as jest.Mock).mockReturnValue(mockT);
   });
@@ -43,7 +51,7 @@ describe('EventSummaryGenerator', () => {
         eventTypeId={null}
         jobRole={null}
         company={null}
-        currentSource=""
+        sourceTypeId={null}
         setValue={mockSetValue}
       />,
     );
@@ -57,7 +65,8 @@ describe('EventSummaryGenerator', () => {
         eventTypes={mockEventTypes as any}
         jobRole={{ title: 'Engineer' } as any}
         company={{ name: 'Acme' } as any}
-        currentSource="Email"
+        sourceTypeId="s1"
+        sourceTypes={mockSourceTypes as any}
         setValue={mockSetValue}
       />,
     );
@@ -71,7 +80,8 @@ describe('EventSummaryGenerator', () => {
         eventTypes={mockEventTypes as any}
         jobRole={{ title: 'Engineer' } as any}
         company={{ name: 'Acme' } as any}
-        currentSource="Email"
+        sourceTypeId="s1"
+        sourceTypes={mockSourceTypes as any}
         setValue={mockSetValue}
       />,
     );
@@ -106,7 +116,8 @@ describe('EventSummaryGenerator', () => {
         eventTypeId="2"
         eventTypes={mockEventTypes as any}
         contact={{ firstName: 'John', lastName: 'Doe' } as any}
-        currentSource="Email"
+        sourceTypeId="s1"
+        sourceTypes={mockSourceTypes as any}
         currentDirection="Inbound"
         jobRole={null}
         company={null}
@@ -128,7 +139,8 @@ describe('EventSummaryGenerator', () => {
         eventTypeId="2"
         eventTypes={mockEventTypes as any}
         contact={{ firstName: 'John', lastName: 'Doe' } as any}
-        currentSource="Email"
+        sourceTypeId="s1"
+        sourceTypes={mockSourceTypes as any}
         currentDirection="Outbound"
         jobRole={null}
         company={null}
@@ -151,7 +163,8 @@ describe('EventSummaryGenerator', () => {
         eventTypes={mockEventTypes as any}
         jobRole={{ title: 'Engineer' } as any}
         company={{ name: 'Acme' } as any}
-        currentSource="Email"
+        sourceTypeId="s1"
+        sourceTypes={mockSourceTypes as any}
         setValue={mockSetValue}
         autoGenerate={true}
       />,

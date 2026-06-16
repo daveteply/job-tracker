@@ -7,4 +7,5 @@ export * from './lib/event-hooks';
 export * from './lib/event-type-hooks';
 export * from './lib/reminder-hooks';
 export * from './lib/role-hooks';
+export * from './lib/source-type-hooks';
 export * from './lib/user-settings-hooks';

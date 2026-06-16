@@ -13,6 +13,12 @@ import {
   EventTypeSchema,
   ReminderSchema,
   RoleSchema,
+  SourceTypeSchema,
+  SYSTEM_SOURCE_EMAIL_ID,
+  SYSTEM_SOURCE_LINKEDIN_ID,
+  SYSTEM_SOURCE_RECRUITER_ID,
+  SYSTEM_SOURCE_REFERRAL_ID,
+  SYSTEM_SOURCE_WEBSITE_ID,
   UserSettingsSchema,
 } from '@job-tracker/domain';
 
@@ -22,8 +28,9 @@ import { EventDocument } from './documents/event.document';
 import { EventTypeDocument } from './documents/event-type.document';
 import { ReminderDocument } from './documents/reminder.document';
 import { RoleDocument } from './documents/role.document';
+import { SourceTypeDocument } from './documents/source-type.document';
 import { UserSettingsDocument } from './documents/user-settings.document';
-import { seedEventTypes } from './seed-data';
+import { seedEventTypes, seedSourceTypes } from './seed-data';
 
 interface GlobalRxDB {
   __rxdb_plugins_added?: boolean;
@@ -94,6 +101,7 @@ export interface TrackerCollections {
   roles: RxCollection<RoleDocument>;
   events: RxCollection<EventDocument>;
   eventTypes: RxCollection<EventTypeDocument>;
+  sourceTypes: RxCollection<SourceTypeDocument>;
   reminders: RxCollection<ReminderDocument>;
   userSettings: UserSettingsCollection;
 }
@@ -136,8 +144,28 @@ export async function initRxDatabase(name: string): Promise<TrackerDatabase> {
           companies: { schema: CompanySchema },
           contacts: { schema: ContactSchema },
           roles: { schema: RoleSchema },
-          events: { schema: EventSchema },
+          events: {
+            schema: EventSchema,
+            migrationStrategies: {
+              // Move source (enum) to sourceTypeId (reference)
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Migration docs represent historical data and can have any shape.
+              1: (oldDoc: any) => {
+                const sourceMap: Record<string, string> = {
+                  Email: SYSTEM_SOURCE_EMAIL_ID,
+                  LinkedIn: SYSTEM_SOURCE_LINKEDIN_ID,
+                  Website: SYSTEM_SOURCE_WEBSITE_ID,
+                  Recruiter: SYSTEM_SOURCE_RECRUITER_ID,
+                  Referral: SYSTEM_SOURCE_REFERRAL_ID,
+                };
+
+                oldDoc.sourceTypeId = sourceMap[oldDoc.source] || SYSTEM_SOURCE_EMAIL_ID;
+                delete oldDoc.source;
+                return oldDoc;
+              },
+            },
+          },
           eventTypes: { schema: EventTypeSchema },
+          sourceTypes: { schema: SourceTypeSchema },
           reminders: { schema: ReminderSchema },
           userSettings: {
             schema: UserSettingsSchema,
@@ -163,6 +191,11 @@ export async function initRxDatabase(name: string): Promise<TrackerDatabase> {
       const eventTypeCount = await db.eventTypes.count().exec();
       if (eventTypeCount === 0) {
         await db.eventTypes.bulkInsert(seedEventTypes);
+      }
+
+      const sourceTypeCount = await db.sourceTypes.count().exec();
+      if (sourceTypeCount === 0) {
+        await db.sourceTypes.bulkInsert(seedSourceTypes);
       }
 
       const settingsCount = await db.userSettings.count().exec();
