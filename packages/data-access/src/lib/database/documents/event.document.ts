@@ -1,4 +1,4 @@
-import { DirectionType, SourceType } from '@job-tracker/domain';
+import { DirectionType } from '@job-tracker/domain';
 
 export interface EventDocument {
   id: string;
@@ -8,6 +8,7 @@ export interface EventDocument {
   createdAt?: string;
 
   eventTypeId: string;
+  sourceTypeId: string;
   companyId?: string | null;
   contactId?: string | null;
   roleId?: string | null;
@@ -15,6 +16,5 @@ export interface EventDocument {
   occurredAt: string;
   summary?: string | null;
   details?: string | null;
-  source: SourceType;
   direction: DirectionType;
 }

@@ -7,7 +7,13 @@ import InformationCircleIcon from '@heroicons/react/24/outline/InformationCircle
 import LightBulbIcon from '@heroicons/react/24/outline/LightBulbIcon';
 import { useTranslations } from 'next-intl';
 
-import { CompanyDTO, ContactDTO, EventTypeDTO, RoleDTO } from '@job-tracker/validation';
+import {
+  CompanyDTO,
+  ContactDTO,
+  EventTypeDTO,
+  RoleDTO,
+  SourceTypeDTO,
+} from '@job-tracker/validation';
 
 export interface EventSummaryGeneratorProps<T extends FieldValues = FieldValues> {
   eventTypeId: string | null;
@@ -15,7 +21,9 @@ export interface EventSummaryGeneratorProps<T extends FieldValues = FieldValues>
   jobRole: RoleDTO | null;
   company: CompanyDTO | null;
   contact?: ContactDTO | null;
-  currentSource: string;
+  sourceTypeId: string | null;
+  sourceCustomName?: string | null;
+  sourceTypes?: SourceTypeDTO[];
   currentDirection?: string;
   setValue: UseFormSetValue<T>;
   autoGenerate?: boolean;
@@ -28,7 +36,9 @@ export function EventSummaryGenerator<T extends FieldValues = FieldValues>({
   jobRole,
   company,
   contact,
-  currentSource,
+  sourceTypeId,
+  sourceCustomName,
+  sourceTypes,
   currentDirection,
   setValue,
   autoGenerate = false,
@@ -54,7 +64,18 @@ export function EventSummaryGenerator<T extends FieldValues = FieldValues>({
     const roleTitle = jobRole?.title;
     const companyName = company?.name;
     const contactName = contact ? `${contact.firstName} ${contact.lastName}` : null;
-    const sourceLabel = currentSource ? tEnum(`SourceType.${currentSource as string}`) : '';
+
+    let sourceLabel = '';
+    if (sourceCustomName) {
+      sourceLabel = sourceCustomName;
+    } else if (sourceTypeId && sourceTypes) {
+      const selectedSource = sourceTypes.find((st) => st.id === sourceTypeId);
+      if (selectedSource) {
+        sourceLabel = selectedSource.isSystemDefined
+          ? tEnum(`SourceType.${selectedSource.name}`)
+          : selectedSource.name;
+      }
+    }
 
     let summary = eventTypeName;
 
@@ -90,7 +111,9 @@ export function EventSummaryGenerator<T extends FieldValues = FieldValues>({
     jobRole?.title,
     company?.name,
     contact,
-    currentSource,
+    sourceTypeId,
+    sourceCustomName,
+    sourceTypes,
     tEnum,
     eventTypeId,
     tEvent,
@@ -119,7 +142,8 @@ export function EventSummaryGenerator<T extends FieldValues = FieldValues>({
     }
   }, [autoGenerate, eventTypeId, generateSummary]);
 
-  const canGenerate = !!eventTypeId && (!!jobRole || !!company || !!currentSource);
+  const canGenerate =
+    !!eventTypeId && (!!jobRole || !!company || !!sourceTypeId || !!sourceCustomName);
 
   if (!canGenerate) return null;
 

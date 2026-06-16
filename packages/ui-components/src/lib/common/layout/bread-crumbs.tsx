@@ -52,7 +52,7 @@ function EventLabel({ id, fallback }: { id: string; fallback: React.ReactNode })
     }
   }
 
-  return `${eventName} (${event.source}, ${event.occurredAt.toLocaleDateString()})`;
+  return `${eventName} (${event.sourceType?.name ?? ''}, ${event.occurredAt.toLocaleDateString()})`;
 }
 
 function ReminderLabel({ id, fallback }: { id: string; fallback: React.ReactNode }) {

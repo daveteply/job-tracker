@@ -1,4 +1,4 @@
-import { DirectionType, SourceType } from '@job-tracker/domain';
+import { DirectionType, SYSTEM_SOURCE_EMAIL_ID } from '@job-tracker/domain';
 
 import { EventCreateWithReminderSchema } from './event-schema';
 
@@ -6,7 +6,7 @@ describe('EventCreateWithReminderSchema', () => {
   const validBaseData = {
     eventTypeId: 'type-1',
     occurredAt: new Date(),
-    source: SourceType.Email,
+    sourceTypeId: SYSTEM_SOURCE_EMAIL_ID,
     direction: DirectionType.Inbound,
     summary: 'Test summary',
   };

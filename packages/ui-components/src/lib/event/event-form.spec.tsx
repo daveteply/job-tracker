@@ -2,7 +2,8 @@ import { fireEvent, render, waitFor } from '@testing-library/react';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 
-import { DirectionType, SourceType } from '@job-tracker/domain';
+import { DirectionType, SYSTEM_SOURCE_EMAIL_ID } from '@job-tracker/domain';
+import { EventTypeDTO } from '@job-tracker/validation';
 
 import { useToast } from '../common/feedback/toast-context';
 
@@ -20,6 +21,7 @@ jest.mock('next/navigation', () => ({
 
 // Mock next/link
 jest.mock('next/link', () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return ({ children, href }: any) => <a href={href}>{children}</a>;
 });
 
@@ -37,7 +39,17 @@ jest.mock('../common/forms/enum-selector', () => ({
   EnumSelector: () => <div data-testid="enum-selector" />,
 }));
 
+jest.mock('./source-type-selector', () => {
+  return () => <div data-testid="source-type-selector" />;
+});
+
+jest.mock('@job-tracker/hooks', () => ({
+  ...jest.requireActual('@job-tracker/hooks'),
+  useSourceTypes: jest.fn().mockReturnValue({ sourceTypes: [], loading: false }),
+}));
+
 jest.mock('../common/layout/floating-button-container', () => ({
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   FloatingButtonContainer: ({ children }: any) => <div>{children}</div>,
 }));
 
@@ -98,8 +110,9 @@ describe('EventForm', () => {
         onSearchCompany={mockOnSearchCompany}
         onSearchContact={mockOnSearchContact}
         onSearchRole={mockOnSearchRole}
-        eventTypes={mockEventTypes as any}
+        eventTypes={mockEventTypes as unknown as EventTypeDTO[]}
         postActionRoute="/events"
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         initialData={{ summary: 'Test Summary' } as any}
       />,
     );
@@ -119,14 +132,15 @@ describe('EventForm', () => {
         onSearchCompany={mockOnSearchCompany}
         onSearchContact={mockOnSearchContact}
         onSearchRole={mockOnSearchRole}
-        eventTypes={mockEventTypes as any}
+        eventTypes={mockEventTypes as unknown as EventTypeDTO[]}
         postActionRoute="/events"
         initialData={
           {
             summary: 'Test Summary',
             eventTypeId: '1',
-            source: SourceType.Email,
+            sourceTypeId: SYSTEM_SOURCE_EMAIL_ID,
             direction: DirectionType.Inbound,
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
           } as any
         }
       />,
@@ -139,7 +153,7 @@ describe('EventForm', () => {
         expect.objectContaining({
           summary: 'Test Summary',
           eventTypeId: '1',
-          source: SourceType.Email,
+          sourceTypeId: SYSTEM_SOURCE_EMAIL_ID,
           direction: DirectionType.Inbound,
         }),
       );
@@ -155,7 +169,7 @@ describe('EventForm', () => {
         onSearchCompany={mockOnSearchCompany}
         onSearchContact={mockOnSearchContact}
         onSearchRole={mockOnSearchRole}
-        eventTypes={mockEventTypes as any}
+        eventTypes={mockEventTypes as unknown as EventTypeDTO[]}
         postActionRoute="/events"
         isEdit={true}
       />,

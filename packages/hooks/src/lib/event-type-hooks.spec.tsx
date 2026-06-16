@@ -2,6 +2,7 @@ import { act, renderHook } from '@testing-library/react';
 import { of } from 'rxjs';
 
 import * as dataAccess from '@job-tracker/data-access';
+import { EventCategoryType } from '@job-tracker/domain';
 import { EventTypeDTO } from '@job-tracker/validation';
 
 import {
@@ -24,14 +25,16 @@ jest.mock('@job-tracker/data-access', () => ({
 }));
 
 describe('event-type-hooks', () => {
-  const mockDb = {} as any;
+  const mockDb = {} as unknown as dataAccess.TrackerDatabase;
   const mockEventType: EventTypeDTO = {
     id: '1',
     name: 'Test Event Type',
-    category: 'Interview' as any,
+    category: EventCategoryType.Interview,
     targetStatus: null,
     isSystemDefined: false,
     isCommon: false,
+    version: 1,
+    search: 'test event type',
   };
 
   beforeEach(() => {
@@ -79,7 +82,7 @@ describe('event-type-hooks', () => {
       (dataAccess.EventTypeRepository as jest.Mock).mockImplementation(() => mockRepo);
 
       const { result } = renderHook(() => useEventTypeSearch());
-      let searchResult: any;
+      let searchResult: EventTypeDTO[];
       await act(async () => {
         searchResult = await result.current.searchEventTypes('test');
       });
@@ -91,7 +94,7 @@ describe('event-type-hooks', () => {
     it('should return empty array when repository is not available', async () => {
       (dataAccess.useDb as jest.Mock).mockReturnValue(null);
       const { result } = renderHook(() => useEventTypeSearch());
-      let searchResult: any;
+      let searchResult: EventTypeDTO[];
       await act(async () => {
         searchResult = await result.current.searchEventTypes('test');
       });
@@ -107,7 +110,7 @@ describe('event-type-hooks', () => {
       (dataAccess.EventTypeRepository as jest.Mock).mockImplementation(() => mockRepo);
 
       const { result } = renderHook(() => useEventTypeActions());
-      let actionResult: any;
+      let actionResult: { success: boolean; message?: string; id?: string };
       await act(async () => {
         actionResult = await result.current.upsertEventType({ name: 'New ET' });
       });
@@ -123,7 +126,7 @@ describe('event-type-hooks', () => {
       (dataAccess.EventTypeRepository as jest.Mock).mockImplementation(() => mockRepo);
 
       const { result } = renderHook(() => useEventTypeActions());
-      let actionResult: any;
+      let actionResult: { success: boolean; message?: string; id?: string };
       await act(async () => {
         actionResult = await result.current.upsertEventType({ name: 'New ET' });
       });
@@ -133,7 +136,7 @@ describe('event-type-hooks', () => {
 
     it('should return error when name is missing', async () => {
       const { result } = renderHook(() => useEventTypeActions());
-      let actionResult: any;
+      let actionResult: { success: boolean; message?: string; id?: string };
       await act(async () => {
         actionResult = await result.current.upsertEventType({});
       });
@@ -144,7 +147,7 @@ describe('event-type-hooks', () => {
     it('should return error when repository is not available for upsert', async () => {
       (dataAccess.useDb as jest.Mock).mockReturnValue(null);
       const { result } = renderHook(() => useEventTypeActions());
-      let actionResult: any;
+      let actionResult: { success: boolean; message?: string; id?: string };
       await act(async () => {
         actionResult = await result.current.upsertEventType({ name: 'New ET' });
       });
@@ -158,7 +161,7 @@ describe('event-type-hooks', () => {
       (dataAccess.EventTypeRepository as jest.Mock).mockImplementation(() => mockRepo);
 
       const { result } = renderHook(() => useEventTypeActions());
-      let actionResult: any;
+      let actionResult: { success: boolean; message?: string; id?: string };
       await act(async () => {
         actionResult = await result.current.removeEventType('1');
       });
@@ -174,7 +177,7 @@ describe('event-type-hooks', () => {
       (dataAccess.EventTypeRepository as jest.Mock).mockImplementation(() => mockRepo);
 
       const { result } = renderHook(() => useEventTypeActions());
-      let actionResult: any;
+      let actionResult: { success: boolean; message?: string; id?: string };
       await act(async () => {
         actionResult = await result.current.removeEventType('1');
       });
@@ -185,7 +188,7 @@ describe('event-type-hooks', () => {
     it('should return error when repository is not available for remove', async () => {
       (dataAccess.useDb as jest.Mock).mockReturnValue(null);
       const { result } = renderHook(() => useEventTypeActions());
-      let actionResult: any;
+      let actionResult: { success: boolean; message?: string; id?: string };
       await act(async () => {
         actionResult = await result.current.removeEventType('1');
       });

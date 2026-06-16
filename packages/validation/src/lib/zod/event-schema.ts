@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { DirectionType, SourceType } from '@job-tracker/domain';
+import { DirectionType } from '@job-tracker/domain';
 
 import {
   CompanySelectionSchema,
@@ -12,39 +12,45 @@ import {
 
 import { CompanyDTO } from './company-schema';
 import { ContactDTO } from './contact-schema';
-import { DirectionTypeSchema, SourceTypeSchema } from './enum-schema';
+import { DirectionTypeSchema } from './enum-schema';
 import { EventTypeDTO } from './event-type-schema';
 import { ReminderDTO } from './reminder-schema';
 import { RoleDTO } from './role-schema';
+import { SourceTypeDTO } from './source-type-schema';
 
-export const EventCreateSchema = z.object({
-  // Relations: Optional and Composable to match Role/Contact patterns
-  company: CompanySelectionSchema.or(z.null()).optional(),
-  contact: ContactSelectionSchema.or(z.null()).optional(),
-  role: RoleSelectionSchema.or(z.null()).optional(),
+export const EventCreateSchema = z
+  .object({
+    // Relations: Optional and Composable to match Role/Contact patterns
+    company: CompanySelectionSchema.or(z.null()).optional(),
+    contact: ContactSelectionSchema.or(z.null()).optional(),
+    role: RoleSelectionSchema.or(z.null()).optional(),
 
-  // Event specifics
-  eventTypeId: z
-    .string({ message: 'selectEventType' })
-    .nullable()
-    .refine((val) => val !== null && val.length > 0, {
-      message: 'selectEventType',
+    // Event specifics
+    eventTypeId: z
+      .string({ message: 'selectEventType' })
+      .nullable()
+      .refine((val) => val !== null && val.length > 0, {
+        message: 'selectEventType',
+      }),
+
+    sourceTypeId: z.string().nullable().optional(),
+    sourceCustomName: z.string().max(100).optional(),
+
+    occurredAt: z.coerce.date({ message: 'invalidDate' }),
+
+    // Text fields aligned with RxDB schema
+    summary: emptyToUndefined(z.string().max(500).optional()),
+    details: emptyToUndefined(z.string().optional()),
+
+    // Enums
+    direction: DirectionTypeSchema.nullable().refine((val) => val !== null, {
+      message: 'selectDirection',
     }),
-
-  occurredAt: z.coerce.date({ message: 'invalidDate' }),
-
-  // Text fields aligned with RxDB schema
-  summary: emptyToUndefined(z.string().max(500).optional()),
-  details: emptyToUndefined(z.string().optional()),
-
-  // Enums
-  source: SourceTypeSchema.nullable().refine((val) => val !== null, {
+  })
+  .refine((data) => data.sourceTypeId || data.sourceCustomName, {
     message: 'selectSource',
-  }),
-  direction: DirectionTypeSchema.nullable().refine((val) => val !== null, {
-    message: 'selectDirection',
-  }),
-});
+    path: ['sourceTypeId'],
+  });
 
 export const EventCreateWithReminderSchema = EventCreateSchema.extend({
   hasReminder: z.boolean().default(false),
@@ -69,10 +75,11 @@ export const EventUpdateSchema = z
     role: RoleSelectionSchema.or(z.null()).optional(),
 
     eventTypeId: z.string().nullable().optional(),
+    sourceTypeId: z.string().nullable().optional(),
+    sourceCustomName: z.string().max(100).optional(),
     occurredAt: z.coerce.date().optional(),
     summary: updateOptionalString(500),
     details: updateOptionalString(10000), // High limit for "unlimited" notes
-    source: SourceTypeSchema.optional(),
     direction: DirectionTypeSchema.optional(),
 
     // Reminder handling
@@ -89,6 +96,7 @@ export const EventDTOSchema = z.object({
   createdAt: z.string().optional(),
 
   eventTypeId: z.string(),
+  sourceTypeId: z.string(),
   companyId: z.string().nullable().optional(),
   contactId: z.string().nullable().optional(),
   roleId: z.string().nullable().optional(),
@@ -96,9 +104,6 @@ export const EventDTOSchema = z.object({
   occurredAt: z.date(),
   summary: z.string().nullable().optional(),
   details: z.string().nullable().optional(),
-  source: z
-    .enum(Object.values(SourceType) as [string, ...string[]])
-    .transform((val) => val as SourceType),
   direction: z
     .enum(Object.values(DirectionType) as [string, ...string[]])
     .transform((val) => val as DirectionType),
@@ -111,6 +116,7 @@ export type EventDTO = z.infer<typeof EventDTOSchema>;
 
 export interface EventWithChildrenDTO extends EventDTO {
   eventType: EventTypeDTO | null;
+  sourceType: SourceTypeDTO | null;
   company?: CompanyDTO | null;
   contact?: ContactDTO | null;
   role?: RoleDTO | null;

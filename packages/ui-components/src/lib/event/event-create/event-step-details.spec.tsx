@@ -13,7 +13,31 @@ jest.mock('next-intl', () => ({
 // Mock EventSummaryGenerator
 jest.mock('../event-summary-generator', () => () => <div data-testid="summary-generator" />);
 
-const Wrapper = ({ children, defaultValues }: any) => {
+// Mock SourceTypeSelector
+jest.mock('../source-type-selector', () => () => <div data-testid="source-type-selector" />);
+
+// Mock hooks
+jest.mock('@job-tracker/hooks', () => ({
+  useSourceTypes: jest.fn().mockReturnValue({
+    sourceTypes: [
+      {
+        id: 'system_source_referral',
+        name: 'Referral',
+        isSystemDefined: true,
+      },
+    ],
+    loading: false,
+  }),
+}));
+
+const Wrapper = ({
+  children,
+  defaultValues,
+}: {
+  children: React.ReactNode;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  defaultValues?: any;
+}) => {
   const methods = useForm({ defaultValues });
   return <FormProvider {...methods}>{children}</FormProvider>;
 };
@@ -34,8 +58,11 @@ describe('EventStepDetails', () => {
     const { getByText, getByTestId } = render(
       <Wrapper>
         <EventStepDetails
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
           register={jest.fn() as any}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           watch={jest.fn() as any}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           setValue={jest.fn() as any}
         />
       </Wrapper>,
@@ -45,13 +72,15 @@ describe('EventStepDetails', () => {
     expect(getByTestId('summary-generator')).toBeTruthy();
   });
 
-  it('allows selecting direction and source', () => {
+  it('allows selecting direction', () => {
     const mockSetValue = jest.fn();
-    const { getByText } = render(
-      <Wrapper defaultValues={{ direction: 'Inbound', source: 'Direct' }}>
+    const { getByText, getByTestId } = render(
+      <Wrapper defaultValues={{ direction: 'Inbound', sourceTypeId: 's1' }}>
         <EventStepDetails
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           register={jest.fn() as any}
-          watch={((name: string) => (name === 'direction' ? 'Inbound' : 'Direct')) as any}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          watch={((name: string) => (name === 'direction' ? 'Inbound' : 's1')) as any}
           setValue={mockSetValue}
         />
       </Wrapper>,
@@ -61,8 +90,7 @@ describe('EventStepDetails', () => {
     fireEvent.click(getByText('DirectionType.Outbound'));
     expect(mockSetValue).toHaveBeenCalledWith('direction', 'Outbound', expect.any(Object));
 
-    // Source buttons
-    fireEvent.click(getByText('SourceType.Referral'));
-    expect(mockSetValue).toHaveBeenCalledWith('source', 'Referral', expect.any(Object));
+    // Source selector
+    expect(getByTestId('source-type-selector')).toBeTruthy();
   });
 });

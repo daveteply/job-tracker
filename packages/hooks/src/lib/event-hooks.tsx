@@ -12,9 +12,10 @@ import {
   EventTypeRepository,
   ReminderRepository,
   RoleRepository,
+  SourceTypeRepository,
   useDb,
 } from '@job-tracker/data-access';
-import { DirectionType, RoleStatus, SourceType } from '@job-tracker/domain';
+import { DirectionType, RoleStatus } from '@job-tracker/domain';
 import { ContactDTO, EventDTO, EventWithChildrenDTO, RoleDTO } from '@job-tracker/validation';
 
 import { useObservable } from './use-observable';
@@ -48,6 +49,11 @@ export function useEventWithChildren(id: string) {
     return new EventTypeRepository(db);
   }, [db]);
 
+  const sourceTypeRepository = useMemo(() => {
+    if (!db) return null;
+    return new SourceTypeRepository(db);
+  }, [db]);
+
   const companyRepository = useMemo(() => {
     if (!db) return null;
     return new CompanyRepository(db);
@@ -72,6 +78,7 @@ export function useEventWithChildren(id: string) {
     if (
       !eventRepository ||
       !eventTypeRepository ||
+      !sourceTypeRepository ||
       !companyRepository ||
       !contactRepository ||
       !roleRepository ||
@@ -84,15 +91,17 @@ export function useEventWithChildren(id: string) {
     return combineLatest([
       eventRepository.getById$(id),
       eventTypeRepository.list$(),
+      sourceTypeRepository.list$(),
       companyRepository.list$(),
       contactRepository.list$(),
       roleRepository.list$(),
       reminderRepository.listByEventId$(id),
     ]).pipe(
-      map(([event, eventTypes, companies, contacts, roles, reminders]) => {
+      map(([event, eventTypes, sourceTypes, companies, contacts, roles, reminders]) => {
         if (!event) return null;
 
         const eventType = eventTypes.find((et) => et.id === event.eventTypeId) || null;
+        const sourceType = sourceTypes.find((st) => st.id === event.sourceTypeId) || null;
         const company = event.companyId
           ? companies.find((c) => c.id === event.companyId) || null
           : null;
@@ -104,6 +113,7 @@ export function useEventWithChildren(id: string) {
         return {
           ...event,
           eventType,
+          sourceType,
           company,
           contact,
           role,
@@ -114,6 +124,7 @@ export function useEventWithChildren(id: string) {
   }, [
     eventRepository,
     eventTypeRepository,
+    sourceTypeRepository,
     companyRepository,
     contactRepository,
     roleRepository,
@@ -141,6 +152,11 @@ export function useEventsWithChildren() {
     return new EventTypeRepository(db);
   }, [db]);
 
+  const sourceTypeRepository = useMemo(() => {
+    if (!db) return null;
+    return new SourceTypeRepository(db);
+  }, [db]);
+
   const companyRepository = useMemo(() => {
     if (!db) return null;
     return new CompanyRepository(db);
@@ -165,6 +181,7 @@ export function useEventsWithChildren() {
     if (
       !eventRepository ||
       !eventTypeRepository ||
+      !sourceTypeRepository ||
       !companyRepository ||
       !contactRepository ||
       !roleRepository ||
@@ -176,20 +193,25 @@ export function useEventsWithChildren() {
     return combineLatest([
       eventRepository.list$(),
       eventTypeRepository.list$(),
+      sourceTypeRepository.list$(),
       companyRepository.list$(),
       contactRepository?.list$(),
       roleRepository?.list$(),
       reminderRepository?.list$(),
     ]).pipe(
-      map(([events, eventTypes, companies, contacts, roles, reminders]) => {
-        const eventTypeId = new Map(eventTypes.map((eventType) => [eventType.id, eventType]));
+      map(([events, eventTypes, sourceTypes, companies, contacts, roles, reminders]) => {
+        const eventTypeById = new Map(eventTypes.map((eventType) => [eventType.id, eventType]));
+        const sourceTypeById = new Map(
+          sourceTypes.map((sourceType) => [sourceType.id, sourceType]),
+        );
         const companiesById = new Map(companies.map((company) => [company.id, company]));
         const contactsById = new Map(contacts.map((contact) => [contact.id, contact]));
         const rolesById = new Map(roles.map((role) => [role.id, role]));
 
         return events.map<EventWithChildrenDTO>((event) => ({
           ...event,
-          eventType: event.eventTypeId ? (eventTypeId.get(event.eventTypeId) ?? null) : null,
+          eventType: event.eventTypeId ? (eventTypeById.get(event.eventTypeId) ?? null) : null,
+          sourceType: event.sourceTypeId ? (sourceTypeById.get(event.sourceTypeId) ?? null) : null,
           company: event.companyId ? (companiesById.get(event.companyId) ?? null) : null,
           contact: event.contactId ? (contactsById.get(event.contactId) ?? null) : null,
           role: event.roleId ? (rolesById.get(event.roleId) ?? null) : null,
@@ -200,6 +222,7 @@ export function useEventsWithChildren() {
   }, [
     eventRepository,
     eventTypeRepository,
+    sourceTypeRepository,
     companyRepository,
     contactRepository,
     roleRepository,
@@ -226,6 +249,11 @@ export function useEventActions() {
     return new EventTypeRepository(db);
   }, [db]);
 
+  const sourceTypeRepository = useMemo(() => {
+    if (!db) return null;
+    return new SourceTypeRepository(db);
+  }, [db]);
+
   const companyRepository = useMemo(() => {
     if (!db) return null;
     return new CompanyRepository(db);
@@ -248,7 +276,7 @@ export function useEventActions() {
 
   type EventUpsertInput = Omit<
     Partial<EventDTO>,
-    'eventTypeId' | 'source' | 'direction' | 'remindAt' | 'companyId' | 'contactId' | 'roleId'
+    'eventTypeId' | 'sourceTypeId' | 'direction' | 'remindAt' | 'companyId' | 'contactId' | 'roleId'
   > & {
     company?: EntitySelection | null;
     contact?: EntitySelection | null;
@@ -256,7 +284,8 @@ export function useEventActions() {
     hasReminder?: boolean;
     remindAt?: Date | string | null;
     eventTypeId?: string | null;
-    source?: SourceType | null | '';
+    sourceTypeId?: string | null;
+    sourceCustomName?: string | null;
     direction?: DirectionType | null | '';
     companyId?: string | null;
     contactId?: string | null;
@@ -270,7 +299,8 @@ export function useEventActions() {
       }
 
       try {
-        const { company, contact, role, hasReminder, remindAt, ...eventData } = event;
+        const { company, contact, role, hasReminder, remindAt, sourceCustomName, ...eventData } =
+          event;
 
         const resolvedCompanyId = await resolveCompanyId({
           selection: company,
@@ -328,6 +358,24 @@ export function useEventActions() {
           return { success: false, message: 'Event type is required' };
         }
 
+        let resolvedSourceTypeId = eventData.sourceTypeId;
+        if (sourceCustomName && sourceTypeRepository) {
+          const existingSource = await sourceTypeRepository.findByName(sourceCustomName);
+          if (existingSource) {
+            resolvedSourceTypeId = existingSource.id;
+          } else {
+            const newSource = await sourceTypeRepository.create({
+              name: sourceCustomName,
+              isSystemDefined: false,
+            });
+            resolvedSourceTypeId = newSource.id;
+          }
+        }
+
+        if (!resolvedSourceTypeId) {
+          return { success: false, message: 'Source is required' };
+        }
+
         await repository.upsert({
           ...eventData,
           id,
@@ -335,7 +383,7 @@ export function useEventActions() {
           contactId: resolvedContactId || '',
           roleId: resolvedRoleId || '',
           eventTypeId: eventData.eventTypeId || undefined,
-          source: (eventData.source || undefined) as SourceType | undefined,
+          sourceTypeId: resolvedSourceTypeId,
           direction: (eventData.direction || undefined) as DirectionType | undefined,
         });
 

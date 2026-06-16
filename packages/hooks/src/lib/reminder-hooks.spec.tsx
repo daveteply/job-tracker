@@ -2,7 +2,7 @@ import { act, renderHook } from '@testing-library/react';
 import { of } from 'rxjs';
 
 import * as dataAccess from '@job-tracker/data-access';
-import { ReminderDTO } from '@job-tracker/validation';
+import { ReminderDTO, ReminderInput } from '@job-tracker/validation';
 
 import {
   useReminder,
@@ -23,24 +23,27 @@ jest.mock('@job-tracker/data-access', () => ({
     update: jest.fn(),
   })),
   EventRepository: jest.fn().mockImplementation(() => ({
-    list$: jest.fn(),
+    list$: jest.fn().mockReturnValue(require('rxjs').of([])),
   })),
   EventTypeRepository: jest.fn().mockImplementation(() => ({
-    list$: jest.fn(),
+    list$: jest.fn().mockReturnValue(require('rxjs').of([])),
   })),
   CompanyRepository: jest.fn().mockImplementation(() => ({
-    list$: jest.fn(),
+    list$: jest.fn().mockReturnValue(require('rxjs').of([])),
   })),
   ContactRepository: jest.fn().mockImplementation(() => ({
-    list$: jest.fn(),
+    list$: jest.fn().mockReturnValue(require('rxjs').of([])),
   })),
   RoleRepository: jest.fn().mockImplementation(() => ({
-    list$: jest.fn(),
+    list$: jest.fn().mockReturnValue(require('rxjs').of([])),
+  })),
+  SourceTypeRepository: jest.fn().mockImplementation(() => ({
+    list$: jest.fn().mockReturnValue(require('rxjs').of([])),
   })),
 }));
 
 describe('reminder-hooks', () => {
-  const mockDb = {} as any;
+  const mockDb = {} as unknown as dataAccess.TrackerDatabase;
   const mockReminder: ReminderDTO = {
     id: '1',
     eventId: 'e1',
@@ -163,16 +166,16 @@ describe('reminder-hooks', () => {
         list$: jest.fn().mockReturnValue(of([mockEvent])),
       }));
       (dataAccess.EventTypeRepository as jest.Mock).mockImplementation(() => ({
-        list$: jest.fn().mockReturnValue(of([])),
+        list$: jest.fn().mockReturnValue(require('rxjs').of([])),
       }));
       (dataAccess.CompanyRepository as jest.Mock).mockImplementation(() => ({
-        list$: jest.fn().mockReturnValue(of([])),
+        list$: jest.fn().mockReturnValue(require('rxjs').of([])),
       }));
       (dataAccess.ContactRepository as jest.Mock).mockImplementation(() => ({
-        list$: jest.fn().mockReturnValue(of([])),
+        list$: jest.fn().mockReturnValue(require('rxjs').of([])),
       }));
       (dataAccess.RoleRepository as jest.Mock).mockImplementation(() => ({
-        list$: jest.fn().mockReturnValue(of([])),
+        list$: jest.fn().mockReturnValue(require('rxjs').of([])),
       }));
 
       const { result } = renderHook(() => useRemindersWithChildren());
@@ -196,12 +199,12 @@ describe('reminder-hooks', () => {
       (dataAccess.ReminderRepository as jest.Mock).mockImplementation(() => mockRepo);
 
       const { result } = renderHook(() => useReminderActions());
-      let actionResult: any;
+      let actionResult: { success: boolean; message?: string; id?: string };
       await act(async () => {
         actionResult = await result.current.upsertReminder({
           title: 'New Reminder',
           remindAt: new Date(),
-        } as any);
+        } as unknown as ReminderInput);
       });
 
       expect(mockRepo.upsert).toHaveBeenCalled();
@@ -215,7 +218,7 @@ describe('reminder-hooks', () => {
       (dataAccess.ReminderRepository as jest.Mock).mockImplementation(() => mockRepo);
 
       const { result } = renderHook(() => useReminderActions());
-      let actionResult: any;
+      let actionResult: { success: boolean; message?: string; id?: string };
       await act(async () => {
         actionResult = await result.current.upsertReminder(mockReminder);
       });
@@ -226,7 +229,7 @@ describe('reminder-hooks', () => {
     it('should return error when repository is not available for upsert', async () => {
       (dataAccess.useDb as jest.Mock).mockReturnValue(null);
       const { result } = renderHook(() => useReminderActions());
-      let actionResult: any;
+      let actionResult: { success: boolean; message?: string; id?: string };
       await act(async () => {
         actionResult = await result.current.upsertReminder(mockReminder);
       });
@@ -241,7 +244,7 @@ describe('reminder-hooks', () => {
       (dataAccess.ReminderRepository as jest.Mock).mockImplementation(() => mockRepo);
 
       const { result } = renderHook(() => useReminderActions());
-      let actionResult: any;
+      let actionResult: { success: boolean; message?: string; id?: string };
       await act(async () => {
         actionResult = await result.current.removeReminder('1');
       });
@@ -257,7 +260,7 @@ describe('reminder-hooks', () => {
       (dataAccess.ReminderRepository as jest.Mock).mockImplementation(() => mockRepo);
 
       const { result } = renderHook(() => useReminderActions());
-      let actionResult: any;
+      let actionResult: { success: boolean; message?: string; id?: string };
       await act(async () => {
         actionResult = await result.current.removeReminder('1');
       });
@@ -268,7 +271,7 @@ describe('reminder-hooks', () => {
     it('should return error when repository is not available for remove', async () => {
       (dataAccess.useDb as jest.Mock).mockReturnValue(null);
       const { result } = renderHook(() => useReminderActions());
-      let actionResult: any;
+      let actionResult: { success: boolean; message?: string; id?: string };
       await act(async () => {
         actionResult = await result.current.removeReminder('1');
       });
@@ -282,7 +285,7 @@ describe('reminder-hooks', () => {
       (dataAccess.ReminderRepository as jest.Mock).mockImplementation(() => mockRepo);
 
       const { result } = renderHook(() => useReminderActions());
-      let actionResult: any;
+      let actionResult: { success: boolean; message?: string; id?: string };
       await act(async () => {
         actionResult = await result.current.completeReminder('1');
       });
@@ -298,7 +301,7 @@ describe('reminder-hooks', () => {
       (dataAccess.ReminderRepository as jest.Mock).mockImplementation(() => mockRepo);
 
       const { result } = renderHook(() => useReminderActions());
-      let actionResult: any;
+      let actionResult: { success: boolean; message?: string; id?: string };
       await act(async () => {
         actionResult = await result.current.completeReminder('1');
       });
@@ -309,7 +312,7 @@ describe('reminder-hooks', () => {
     it('should return error when repository is not available for complete', async () => {
       (dataAccess.useDb as jest.Mock).mockReturnValue(null);
       const { result } = renderHook(() => useReminderActions());
-      let actionResult: any;
+      let actionResult: { success: boolean; message?: string; id?: string };
       await act(async () => {
         actionResult = await result.current.completeReminder('1');
       });

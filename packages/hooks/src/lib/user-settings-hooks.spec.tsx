@@ -16,7 +16,7 @@ jest.mock('@job-tracker/data-access', () => ({
 }));
 
 describe('user-settings-hooks', () => {
-  const mockDb = {} as any;
+  const mockDb = {} as unknown as dataAccess.TrackerDatabase;
   const mockSettings: UserSettingsDTO = {
     id: 'current',
     appearance: 'system',

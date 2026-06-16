@@ -307,7 +307,9 @@
     "formEventType": "Tipo de Evento",
     "formDirection": "Dirección",
     "formSource": "Fuente",
-    "formCompany": "Compañía",
+    "customSourcePlaceholder": "Ingrese una fuente personalizada (por ejemplo, Indeed, Bolsa de trabajo)",
+    "formCompany": "Empresa",
+
     "formCompanyOptional": "Compañía (opcional)",
     "formContact": "Contacto",
     "formContactOptional": "Contacto (opcional)",
@@ -438,9 +440,12 @@
     "SourceType": {
       "Email": "Correo electrónico",
       "LinkedIn": "LinkedIn",
+      "Indeed": "Indeed",
+      "Glassdoor": "Glassdoor",
       "Website": "Sitio web",
       "Recruiter": "Reclutador",
-      "Referral": "Referencia"
+      "Referral": "Referencia",
+      "Other": "Otro"
     },
     "DirectionType": {
       "Inbound": "Entrante",

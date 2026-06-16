@@ -1,6 +1,69 @@
-import { EventCategoryType, RoleStatus } from '@job-tracker/domain';
+import {
+  EventCategoryType,
+  RoleStatus,
+  SYSTEM_SOURCE_EMAIL_ID,
+  SYSTEM_SOURCE_GLASSDOOR_ID,
+  SYSTEM_SOURCE_INDEED_ID,
+  SYSTEM_SOURCE_LINKEDIN_ID,
+  SYSTEM_SOURCE_RECRUITER_ID,
+  SYSTEM_SOURCE_REFERRAL_ID,
+  SYSTEM_SOURCE_WEBSITE_ID,
+} from '@job-tracker/domain';
 
 import { EventTypeDocument } from './documents/event-type.document';
+import { SourceTypeDocument } from './documents/source-type.document';
+
+export const seedSourceTypes: SourceTypeDocument[] = [
+  {
+    id: SYSTEM_SOURCE_EMAIL_ID,
+    serverId: null,
+    updatedAt: new Date().toISOString(),
+    name: 'Email',
+    isSystemDefined: true,
+  },
+  {
+    id: SYSTEM_SOURCE_LINKEDIN_ID,
+    serverId: null,
+    updatedAt: new Date().toISOString(),
+    name: 'LinkedIn',
+    isSystemDefined: true,
+  },
+  {
+    id: SYSTEM_SOURCE_WEBSITE_ID,
+    serverId: null,
+    updatedAt: new Date().toISOString(),
+    name: 'Website',
+    isSystemDefined: true,
+  },
+  {
+    id: SYSTEM_SOURCE_RECRUITER_ID,
+    serverId: null,
+    updatedAt: new Date().toISOString(),
+    name: 'Recruiter',
+    isSystemDefined: true,
+  },
+  {
+    id: SYSTEM_SOURCE_REFERRAL_ID,
+    serverId: null,
+    updatedAt: new Date().toISOString(),
+    name: 'Referral',
+    isSystemDefined: true,
+  },
+  {
+    id: SYSTEM_SOURCE_INDEED_ID,
+    serverId: null,
+    updatedAt: new Date().toISOString(),
+    name: 'Indeed',
+    isSystemDefined: true,
+  },
+  {
+    id: SYSTEM_SOURCE_GLASSDOOR_ID,
+    serverId: null,
+    updatedAt: new Date().toISOString(),
+    name: 'Glassdoor',
+    isSystemDefined: true,
+  },
+];
 
 /**
  * SEED DATA LOCALIZATION NOTE:

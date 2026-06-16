@@ -1,6 +1,10 @@
 import { firstValueFrom, of } from 'rxjs';
 
-import { DirectionType, SourceType } from '@job-tracker/domain';
+import {
+  DirectionType,
+  SYSTEM_SOURCE_EMAIL_ID,
+  SYSTEM_SOURCE_LINKEDIN_ID,
+} from '@job-tracker/domain';
 
 import { TrackerDatabase } from '../database/db';
 
@@ -31,7 +35,7 @@ describe('EventRepository', () => {
           toJSON: () => ({
             id: '1',
             occurredAt: new Date().toISOString(),
-            source: SourceType.Email,
+            sourceTypeId: SYSTEM_SOURCE_EMAIL_ID,
             direction: DirectionType.Inbound,
           }),
         },
@@ -88,7 +92,11 @@ describe('EventRepository', () => {
     it('should get event by id', async () => {
       const mockDoc = {
         id: '1',
-        toJSON: () => ({ id: '1', source: SourceType.Email, direction: DirectionType.Inbound }),
+        toJSON: () => ({
+          id: '1',
+          sourceTypeId: SYSTEM_SOURCE_EMAIL_ID,
+          direction: DirectionType.Inbound,
+        }),
       };
       mockDb.events.findOne.mockReturnValue({ exec: jest.fn().mockResolvedValue(mockDoc) });
 
@@ -108,7 +116,11 @@ describe('EventRepository', () => {
     it('should get event by id as observable', async () => {
       const mockDoc = {
         id: '1',
-        toJSON: () => ({ id: '1', source: SourceType.Email, direction: DirectionType.Inbound }),
+        toJSON: () => ({
+          id: '1',
+          sourceTypeId: SYSTEM_SOURCE_EMAIL_ID,
+          direction: DirectionType.Inbound,
+        }),
       };
       mockDb.events.findOne.mockReturnValue({ $: of(mockDoc) });
 
@@ -145,14 +157,14 @@ describe('EventRepository', () => {
       mockDb.events.findOne.mockReturnValue({ exec: jest.fn().mockResolvedValue(existingDoc) });
       mockDb.events.upsert.mockImplementation((doc: any) => Promise.resolve({ toJSON: () => doc }));
 
-      const result = await repository.update('1', { source: SourceType.LinkedIn });
-      expect(result?.source).toBe(SourceType.LinkedIn);
+      const result = await repository.update('1', { sourceTypeId: SYSTEM_SOURCE_LINKEDIN_ID });
+      expect(result?.sourceTypeId).toBe(SYSTEM_SOURCE_LINKEDIN_ID);
       expect(mockDb.events.upsert).toHaveBeenCalled();
     });
 
     it('should return null if event to update not found', async () => {
       mockDb.events.findOne.mockReturnValue({ exec: jest.fn().mockResolvedValue(null) });
-      const result = await repository.update('1', { source: SourceType.LinkedIn });
+      const result = await repository.update('1', { sourceTypeId: SYSTEM_SOURCE_LINKEDIN_ID });
       expect(result).toBeNull();
     });
   });

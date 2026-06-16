@@ -1,10 +1,9 @@
 import { DirectionType } from './direction-type';
-import { SourceType } from './source-type';
 
 export interface ActionDefaults {
   eventTypeName: string;
   direction: DirectionType;
-  source: SourceType;
+  sourceTypeId: string;
   suggestReminderDays?: number;
   suggestReminderRelativeToEvent?: boolean;
 }

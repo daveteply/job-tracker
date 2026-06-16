@@ -1,4 +1,4 @@
-import { DirectionType, RoleStatus, SourceType } from '@job-tracker/domain';
+import { DirectionType, RoleStatus, SYSTEM_SOURCE_EMAIL_ID } from '@job-tracker/domain';
 
 import { CompanyDTOSchema } from './company-schema';
 import { ContactDTOSchema } from './contact-schema';
@@ -33,7 +33,7 @@ describe('DTO Schemas version property', () => {
       ...validBase,
       eventTypeId: 'type-1',
       occurredAt: new Date(),
-      source: SourceType.Email,
+      sourceTypeId: SYSTEM_SOURCE_EMAIL_ID,
       direction: DirectionType.Inbound,
     };
     expect(EventDTOSchema.safeParse(data).success).toBe(true);

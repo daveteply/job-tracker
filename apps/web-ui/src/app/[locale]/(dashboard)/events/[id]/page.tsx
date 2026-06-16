@@ -51,11 +51,11 @@ export default function EventDetailsPage({ params }: { params: Promise<{ id: str
           {event.direction}
           <span>{t('on')}</span>
           <FormattedDate dateValue={event.occurredAt} useRelativeTime={false} />
-          {event.source && (
+          {event.sourceType && (
             <>
               <span>•</span>
               <span>{t('sourceLabel')}</span>
-              {event.source}
+              {event.sourceType.name}
             </>
           )}
         </div>

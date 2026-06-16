@@ -3,7 +3,7 @@ import { of } from 'rxjs';
 
 import { EMPTY_DELETION_BLOCKERS } from '@job-tracker/app-logic';
 import * as dataAccess from '@job-tracker/data-access';
-import { ContactDTO } from '@job-tracker/validation';
+import { ContactDTO, ContactWithCompanyDTO } from '@job-tracker/validation';
 
 import {
   useCanDeleteContact,
@@ -35,7 +35,7 @@ jest.mock('@job-tracker/data-access', () => ({
 }));
 
 describe('contact-hooks', () => {
-  const mockDb = {} as any;
+  const mockDb = {} as unknown as dataAccess.TrackerDatabase;
   const mockContact: ContactDTO = {
     id: '1',
     firstName: 'Test',
@@ -177,7 +177,7 @@ describe('contact-hooks', () => {
       (dataAccess.CompanyRepository as jest.Mock).mockImplementation(() => mockCompanyRepo);
 
       const { result } = renderHook(() => useContactSearch());
-      let searchResult: any;
+      let searchResult: ContactWithCompanyDTO[];
       await act(async () => {
         searchResult = await result.current.searchContacts('test');
       });
@@ -189,7 +189,7 @@ describe('contact-hooks', () => {
     it('should return empty array when repository is not available', async () => {
       (dataAccess.useDb as jest.Mock).mockReturnValue(null);
       const { result } = renderHook(() => useContactSearch());
-      let searchResult: any;
+      let searchResult: ContactWithCompanyDTO[];
       await act(async () => {
         searchResult = await result.current.searchContacts('test');
       });
@@ -209,7 +209,7 @@ describe('contact-hooks', () => {
       (dataAccess.CompanyRepository as jest.Mock).mockImplementation(() => mockCompanyRepo);
 
       const { result } = renderHook(() => useContactActions());
-      let actionResult: any;
+      let actionResult: { success: boolean; message?: string; id?: string };
       await act(async () => {
         actionResult = await result.current.upsertContact({
           firstName: 'New',
@@ -229,7 +229,7 @@ describe('contact-hooks', () => {
       (dataAccess.ContactRepository as jest.Mock).mockImplementation(() => mockContactRepo);
 
       const { result } = renderHook(() => useContactActions());
-      let actionResult: any;
+      let actionResult: { success: boolean; message?: string; id?: string };
       await act(async () => {
         actionResult = await result.current.upsertContact({
           firstName: 'New',
@@ -242,7 +242,7 @@ describe('contact-hooks', () => {
 
     it('should return error when names are missing', async () => {
       const { result } = renderHook(() => useContactActions());
-      let actionResult: any;
+      let actionResult: { success: boolean; message?: string; id?: string };
       await act(async () => {
         actionResult = await result.current.upsertContact({ firstName: '', lastName: '' });
       });
@@ -253,7 +253,7 @@ describe('contact-hooks', () => {
     it('should return error when repository is not available for upsert', async () => {
       (dataAccess.useDb as jest.Mock).mockReturnValue(null);
       const { result } = renderHook(() => useContactActions());
-      let actionResult: any;
+      let actionResult: { success: boolean; message?: string; id?: string };
       await act(async () => {
         actionResult = await result.current.upsertContact(mockContact);
       });
@@ -267,7 +267,7 @@ describe('contact-hooks', () => {
       (dataAccess.ContactRepository as jest.Mock).mockImplementation(() => mockRepo);
 
       const { result } = renderHook(() => useContactActions());
-      let actionResult: any;
+      let actionResult: { success: boolean; message?: string; id?: string };
       await act(async () => {
         actionResult = await result.current.removeContact('1');
       });
@@ -283,7 +283,7 @@ describe('contact-hooks', () => {
       (dataAccess.ContactRepository as jest.Mock).mockImplementation(() => mockRepo);
 
       const { result } = renderHook(() => useContactActions());
-      let actionResult: any;
+      let actionResult: { success: boolean; message?: string; id?: string };
       await act(async () => {
         actionResult = await result.current.removeContact('1');
       });

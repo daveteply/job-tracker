@@ -307,6 +307,7 @@
     "formEventType": "Event Type",
     "formDirection": "Direction",
     "formSource": "Source",
+    "customSourcePlaceholder": "Enter custom source (e.g. Indeed, Job Board)",
     "formCompany": "Company",
     "formCompanyOptional": "Company (Optional)",
     "formContact": "Contact",
@@ -438,9 +439,12 @@
     "SourceType": {
       "Email": "Email",
       "LinkedIn": "LinkedIn",
+      "Indeed": "Indeed",
+      "Glassdoor": "Glassdoor",
       "Website": "Website",
       "Recruiter": "Recruiter",
-      "Referral": "Referral"
+      "Referral": "Referral",
+      "Other": "Other"
     },
     "DirectionType": {
       "Inbound": "Inbound",

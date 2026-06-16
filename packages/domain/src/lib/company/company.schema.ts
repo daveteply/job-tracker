@@ -2,7 +2,7 @@ import { RxJsonSchema } from 'rxdb';
 
 import { CompanyEntity } from './company.entity';
 
-const COMPANY_SCHEMA_VERSION = 0;
+const COMPANY_SCHEMA_VERSION = 1;
 
 export const CompanySchema: RxJsonSchema<CompanyEntity> = {
   title: 'company schema',

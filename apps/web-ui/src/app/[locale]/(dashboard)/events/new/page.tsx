@@ -8,7 +8,7 @@ import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 
 import { EntitySelection } from '@job-tracker/app-logic';
-import { DirectionType, SourceType } from '@job-tracker/domain';
+import { DirectionType, SYSTEM_SOURCE_EMAIL_ID } from '@job-tracker/domain';
 import {
   addBusinessDays,
   addDays,
@@ -68,7 +68,8 @@ export default function EventsNewPage() {
     defaultValues: {
       eventTypeId: '',
       direction: DirectionType.Inbound,
-      source: SourceType.Email,
+      sourceTypeId: SYSTEM_SOURCE_EMAIL_ID,
+      sourceCustomName: '',
       occurredAt: formatDateForInput(new Date()) as unknown as Date,
       summary: '',
       details: '',
@@ -111,7 +112,7 @@ export default function EventsNewPage() {
         if (selectedType) {
           setValue('eventTypeId', selectedType.id);
           setValue('direction', action.defaults.direction);
-          setValue('source', action.defaults.source);
+          setValue('sourceTypeId', action.defaults.sourceTypeId);
 
           if (action.defaults.suggestReminderDays) {
             const remindAt = addBusinessDays(new Date(), action.defaults.suggestReminderDays);
@@ -209,7 +210,8 @@ export default function EventsNewPage() {
     let fieldsToValidate: (keyof EventCreateWithReminder)[] = [];
     if (step === 1) fieldsToValidate = ['eventTypeId'];
     if (step === 2) fieldsToValidate = ['company', 'contact', 'role'];
-    if (step === 3) fieldsToValidate = ['direction', 'source', 'occurredAt'];
+    if (step === 3)
+      fieldsToValidate = ['direction', 'sourceTypeId', 'sourceCustomName', 'occurredAt'];
 
     const isStepValid = await trigger(fieldsToValidate as Path<EventCreateWithReminder>[]);
     if (isStepValid) {
@@ -243,7 +245,11 @@ export default function EventsNewPage() {
     if (step === 1) return !!formValues.eventTypeId;
     if (step === 2) return true;
     if (step === 3) {
-      return !!formValues.occurredAt && !!formValues.source && !!formValues.direction;
+      return (
+        !!formValues.occurredAt &&
+        (!!formValues.sourceTypeId || !!formValues.sourceCustomName) &&
+        !!formValues.direction
+      );
     }
     if (step === 4) {
       if (formValues.hasReminder) {

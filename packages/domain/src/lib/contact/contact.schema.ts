@@ -2,7 +2,7 @@ import { RxJsonSchema } from 'rxdb';
 
 import { ContactEntity } from './contact.entity';
 
-const CONTACT_SCHEMA_VERSION = 0;
+const CONTACT_SCHEMA_VERSION = 1;
 
 export const ContactSchema: RxJsonSchema<ContactEntity> = {
   title: 'contact schema',

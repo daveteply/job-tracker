@@ -18,6 +18,7 @@ import { useToast } from '@job-tracker/ui-components';
 
 import { Link } from '../../../i18n/routing';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- next-intl's Translator expects Record<string, any> for values.
 const applySchema = (t: (key: string, values?: Record<string, any>) => string) =>
   z.object({
     email: z.string().email(t('invalidEmail')),

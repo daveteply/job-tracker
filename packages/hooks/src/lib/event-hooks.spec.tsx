@@ -2,6 +2,7 @@ import { act, renderHook } from '@testing-library/react';
 import { of } from 'rxjs';
 
 import * as dataAccess from '@job-tracker/data-access';
+import { DirectionType, SourceType } from '@job-tracker/domain';
 import { EventDTO } from '@job-tracker/validation';
 
 import { useEventActions, useEventRepository, useEventsWithChildren } from './event-hooks';
@@ -17,33 +18,38 @@ jest.mock('@job-tracker/data-access', () => ({
     deleteById: jest.fn(),
   })),
   EventTypeRepository: jest.fn().mockImplementation(() => ({
-    list$: jest.fn(),
+    list$: jest.fn().mockReturnValue(require('rxjs').of([])),
     getById: jest.fn(),
   })),
   CompanyRepository: jest.fn().mockImplementation(() => ({
-    list$: jest.fn(),
+    list$: jest.fn().mockReturnValue(require('rxjs').of([])),
     upsert: jest.fn(),
   })),
   ContactRepository: jest.fn().mockImplementation(() => ({
-    list$: jest.fn(),
+    list$: jest.fn().mockReturnValue(require('rxjs').of([])),
     upsert: jest.fn(),
   })),
   RoleRepository: jest.fn().mockImplementation(() => ({
-    list$: jest.fn(),
+    list$: jest.fn().mockReturnValue(require('rxjs').of([])),
     upsert: jest.fn(),
     getById: jest.fn(),
     update: jest.fn(),
   })),
   ReminderRepository: jest.fn().mockImplementation(() => ({
-    list$: jest.fn(),
+    list$: jest.fn().mockReturnValue(require('rxjs').of([])),
     getByEventId: jest.fn(),
     upsert: jest.fn(),
     deleteById: jest.fn(),
   })),
+  SourceTypeRepository: jest.fn().mockImplementation(() => ({
+    list$: jest.fn().mockReturnValue(require('rxjs').of([])),
+    findByName: jest.fn(),
+    create: jest.fn(),
+  })),
 }));
 
 describe('event-hooks', () => {
-  const mockDb = {} as any;
+  const mockDb = {} as unknown as dataAccess.TrackerDatabase;
   const mockEvent: EventDTO = {
     id: '1',
     occurredAt: new Date(),
@@ -51,8 +57,8 @@ describe('event-hooks', () => {
     companyId: 'c1',
     contactId: 'co1',
     roleId: 'r1',
-    source: 'LinkedIn' as any,
-    direction: 'Inbound' as any,
+    source: SourceType.LinkedIn,
+    direction: DirectionType.Inbound,
     version: 1,
   };
 
@@ -97,9 +103,9 @@ describe('event-hooks', () => {
     it('should return error if database not initialized', async () => {
       (dataAccess.useDb as jest.Mock).mockReturnValue(null);
       const { result } = renderHook(() => useEventActions());
-      let actionResult: any;
+      let actionResult: { success: boolean; message?: string; id?: string };
       await act(async () => {
-        actionResult = await result.current.upsertEvent({} as any);
+        actionResult = await result.current.upsertEvent({} as unknown as EventDTO);
       });
       expect(actionResult.success).toBe(false);
       expect(actionResult.message).toBe('Database not initialized');
@@ -111,9 +117,9 @@ describe('event-hooks', () => {
       };
       (dataAccess.EventRepository as jest.Mock).mockImplementation(() => mockEventRepo);
       const { result } = renderHook(() => useEventActions());
-      let actionResult: any;
+      let actionResult: { success: boolean; message?: string; id?: string };
       await act(async () => {
-        actionResult = await result.current.upsertEvent({} as any);
+        actionResult = await result.current.upsertEvent({} as unknown as EventDTO);
       });
       expect(actionResult.success).toBe(false);
       expect(actionResult.message).toBe('Event type is required');
@@ -138,9 +144,10 @@ describe('event-hooks', () => {
         await result.current.upsertEvent({
           id: '1',
           eventTypeId: 'et1',
+          sourceTypeId: 'st1',
           hasReminder: true,
           remindAt: new Date().toISOString(),
-        } as any);
+        } as unknown as EventDTO);
       });
 
       expect(mockEventRepo.upsert).toHaveBeenCalled();
@@ -163,8 +170,9 @@ describe('event-hooks', () => {
         await result.current.upsertEvent({
           id: '1',
           eventTypeId: 'et1',
+          sourceTypeId: 'st1',
           hasReminder: false,
-        } as any);
+        } as unknown as EventDTO);
       });
 
       expect(mockReminderRepo.deleteById).toHaveBeenCalledWith('rem1');
@@ -176,9 +184,9 @@ describe('event-hooks', () => {
       };
       (dataAccess.EventRepository as jest.Mock).mockImplementation(() => mockEventRepo);
       const { result } = renderHook(() => useEventActions());
-      let actionResult: any;
+      let actionResult: { success: boolean; message?: string; id?: string };
       await act(async () => {
-        actionResult = await result.current.upsertEvent({ eventTypeId: 'et1' } as any);
+        actionResult = await result.current.upsertEvent({ eventTypeId: 'et1', sourceTypeId: 'st1' } as unknown as EventDTO);
       });
       expect(actionResult.success).toBe(false);
       expect(actionResult.message).toBe('Failed to save Event');
@@ -190,7 +198,7 @@ describe('event-hooks', () => {
       };
       (dataAccess.EventRepository as jest.Mock).mockImplementation(() => mockEventRepo);
       const { result } = renderHook(() => useEventActions());
-      let actionResult: any;
+      let actionResult: { success: boolean; message?: string; id?: string };
       await act(async () => {
         actionResult = await result.current.removeEvent('1');
       });

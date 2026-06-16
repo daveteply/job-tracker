@@ -33,12 +33,14 @@ jest.mock('rxdb/plugins/validate-ajv', () => ({
 }));
 
 describe('rx-database', () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let mockDb: any;
 
   beforeEach(() => {
     jest.clearAllMocks();
 
     // Clear the global cache
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const _global = (typeof window !== 'undefined' ? window : global) as any;
     if (_global.__rxdb_promises) {
       _global.__rxdb_promises.clear();
@@ -48,6 +50,10 @@ describe('rx-database', () => {
       name: 'test-db',
       addCollections: jest.fn().mockResolvedValue(undefined),
       eventTypes: {
+        count: jest.fn().mockReturnValue({ exec: jest.fn().mockResolvedValue(1) }),
+        bulkInsert: jest.fn().mockResolvedValue(undefined),
+      },
+      sourceTypes: {
         count: jest.fn().mockReturnValue({ exec: jest.fn().mockResolvedValue(1) }),
         bulkInsert: jest.fn().mockResolvedValue(undefined),
       },
@@ -92,6 +98,14 @@ describe('rx-database', () => {
     expect(mockDb.eventTypes.bulkInsert).toHaveBeenCalled();
   });
 
+  it('should seed data if sourceTypes is empty', async () => {
+    mockDb.sourceTypes.count.mockReturnValue({ exec: jest.fn().mockResolvedValue(0) });
+
+    await initRxDatabase('test-db-seed-source');
+
+    expect(mockDb.sourceTypes.bulkInsert).toHaveBeenCalled();
+  });
+
   it('should seed userSettings if empty', async () => {
     mockDb.userSettings.count.mockReturnValue({ exec: jest.fn().mockResolvedValue(0) });
 
@@ -128,6 +142,7 @@ describe('rx-database', () => {
     process.env.NODE_ENV = 'development';
 
     // Clear storage cache
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (global as any).__rxdb_storage = undefined;
 
     getStorage();

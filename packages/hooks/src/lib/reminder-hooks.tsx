@@ -11,6 +11,7 @@ import {
   EventTypeRepository,
   ReminderRepository,
   RoleRepository,
+  SourceTypeRepository,
   useDb,
 } from '@job-tracker/data-access';
 import {
@@ -89,6 +90,11 @@ export function useRemindersWithChildren() {
     return new RoleRepository(db);
   }, [db]);
 
+  const sourceTypeRepository = useMemo(() => {
+    if (!db) return null;
+    return new SourceTypeRepository(db);
+  }, [db]);
+
   const remindersWithChildren$ = useMemo(() => {
     if (
       !reminderRepository ||
@@ -96,7 +102,8 @@ export function useRemindersWithChildren() {
       !eventTypeRepository ||
       !companyRepository ||
       !contactRepository ||
-      !roleRepository
+      !roleRepository ||
+      !sourceTypeRepository
     ) {
       return undefined;
     }
@@ -108,9 +115,11 @@ export function useRemindersWithChildren() {
       companyRepository.list$(),
       contactRepository?.list$(),
       roleRepository?.list$(),
+      sourceTypeRepository.list$(),
     ]).pipe(
-      map(([reminders, events, eventTypes, companies, contacts, roles]) => {
+      map(([reminders, events, eventTypes, companies, contacts, roles, sourceTypes]) => {
         const eventTypeId = new Map(eventTypes.map((eventType) => [eventType.id, eventType]));
+        const sourceTypesById = new Map(sourceTypes.map((sourceType) => [sourceType.id, sourceType]));
         const companiesById = new Map(companies.map((company) => [company.id, company]));
         const contactsById = new Map(contacts.map((contact) => [contact.id, contact]));
         const rolesById = new Map(roles.map((role) => [role.id, role]));
@@ -121,6 +130,9 @@ export function useRemindersWithChildren() {
             {
               ...event,
               eventType: event.eventTypeId ? (eventTypeId.get(event.eventTypeId) ?? null) : null,
+              sourceType: event.sourceTypeId
+                ? (sourceTypesById.get(event.sourceTypeId) ?? null)
+                : null,
               company: event.companyId ? (companiesById.get(event.companyId) ?? null) : null,
               contact: event.contactId ? (contactsById.get(event.contactId) ?? null) : null,
               role: event.roleId ? (rolesById.get(event.roleId) ?? null) : null,
@@ -142,6 +154,7 @@ export function useRemindersWithChildren() {
     companyRepository,
     contactRepository,
     roleRepository,
+    sourceTypeRepository,
   ]);
 
   const [reminders, observableLoading] = useObservable<ReminderWithChildrenDTO[]>(
