@@ -2,7 +2,7 @@ import { RxJsonSchema } from 'rxdb';
 
 import { ReminderEntity } from './reminder.entity';
 
-const REMINDER_SCHEMA_VERSION = 0;
+const REMINDER_SCHEMA_VERSION = 1;
 
 export const ReminderSchema: RxJsonSchema<ReminderEntity> = {
   title: 'reminder schema',

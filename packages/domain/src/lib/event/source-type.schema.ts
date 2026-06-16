@@ -2,7 +2,7 @@ import { RxJsonSchema } from 'rxdb';
 
 import { SourceTypeEntity } from './source-type.entity';
 
-const SOURCE_TYPE_SCHEMA_VERSION = 0;
+const SOURCE_TYPE_SCHEMA_VERSION = 1;
 
 export const SourceTypeSchema: RxJsonSchema<SourceTypeEntity> = {
   title: 'source type schema',

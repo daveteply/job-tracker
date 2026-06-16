@@ -5,11 +5,11 @@ import { RoleStatus } from '../common/role-status-type';
 
 import { EventTypeEntity } from './event-type.entity';
 
-const EVENTTYPE_SCHEMA_VERSION = 0;
+const EVENT_TYPE_SCHEMA_VERSION = 1;
 
 export const EventTypeSchema: RxJsonSchema<EventTypeEntity> = {
   title: 'event type schema',
-  version: EVENTTYPE_SCHEMA_VERSION,
+  version: EVENT_TYPE_SCHEMA_VERSION,
   primaryKey: 'id',
   type: 'object',
   properties: {

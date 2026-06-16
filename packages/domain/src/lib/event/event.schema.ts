@@ -4,7 +4,7 @@ import { DirectionType } from '../common/direction-type';
 
 import { EventEntity } from './event.entity';
 
-const EVENT_SCHEMA_VERSION = 1;
+const EVENT_SCHEMA_VERSION = 2;
 
 export const EventSchema: RxJsonSchema<EventEntity> = {
   title: 'event schema',

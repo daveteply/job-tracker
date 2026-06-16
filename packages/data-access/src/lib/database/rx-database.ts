@@ -141,9 +141,36 @@ export async function initRxDatabase(name: string): Promise<TrackerDatabase> {
       // We check if companies exists as a proxy for all collections.
       if (!db.companies) {
         await db.addCollections({
-          companies: { schema: CompanySchema },
-          contacts: { schema: ContactSchema },
-          roles: { schema: RoleSchema },
+          companies: {
+            schema: CompanySchema,
+            migrationStrategies: {
+              // 1: Identity migration to resolve hash mismatch
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Migration docs represent historical data and can have any shape.
+              1: (oldDoc: any) => {
+                return oldDoc;
+              },
+            },
+          },
+          contacts: {
+            schema: ContactSchema,
+            migrationStrategies: {
+              // 1: Identity migration to resolve hash mismatch (added default)
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Migration docs represent historical data and can have any shape.
+              1: (oldDoc: any) => {
+                return oldDoc;
+              },
+            },
+          },
+          roles: {
+            schema: RoleSchema,
+            migrationStrategies: {
+              // 1: Identity migration to resolve hash mismatch (added default)
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Migration docs represent historical data and can have any shape.
+              1: (oldDoc: any) => {
+                return oldDoc;
+              },
+            },
+          },
           events: {
             schema: EventSchema,
             migrationStrategies: {
@@ -162,11 +189,43 @@ export async function initRxDatabase(name: string): Promise<TrackerDatabase> {
                 delete oldDoc.source;
                 return oldDoc;
               },
+              // 2: Identity migration to resolve hash mismatch
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Migration docs represent historical data and can have any shape.
+              2: (oldDoc: any) => {
+                return oldDoc;
+              },
             },
           },
-          eventTypes: { schema: EventTypeSchema },
-          sourceTypes: { schema: SourceTypeSchema },
-          reminders: { schema: ReminderSchema },
+          eventTypes: {
+            schema: EventTypeSchema,
+            migrationStrategies: {
+              // 1: Identity migration to resolve hash mismatch
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Migration docs represent historical data and can have any shape.
+              1: (oldDoc: any) => {
+                return oldDoc;
+              },
+            },
+          },
+          sourceTypes: {
+            schema: SourceTypeSchema,
+            migrationStrategies: {
+              // 1: Identity migration to resolve hash mismatch
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Migration docs represent historical data and can have any shape.
+              1: (oldDoc: any) => {
+                return oldDoc;
+              },
+            },
+          },
+          reminders: {
+            schema: ReminderSchema,
+            migrationStrategies: {
+              // 1: Identity migration to resolve hash mismatch
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Migration docs represent historical data and can have any shape.
+              1: (oldDoc: any) => {
+                return oldDoc;
+              },
+            },
+          },
           userSettings: {
             schema: UserSettingsSchema,
             migrationStrategies: {

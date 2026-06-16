@@ -25,7 +25,7 @@ export function EmptyState({ icon, title, description, action }: EmptyStateProps
         style={{ transform: `rotate(${rotation}deg)` }}
       >
         <img
-          src="/mascot/Pip512.png"
+          src="/mascot/Pip512.webp"
           alt=""
           className={`h-48 w-48 object-contain ${isLeft ? '' : '-scale-x-100'}`}
         />
