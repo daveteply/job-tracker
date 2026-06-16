@@ -1,6 +1,14 @@
 import { fireEvent, render } from '@testing-library/react';
 import { useTranslations } from 'next-intl';
 
+import {
+  CompanyDTO,
+  ContactDTO,
+  EventTypeDTO,
+  RoleDTO,
+  SourceTypeDTO,
+} from '@job-tracker/validation';
+
 import { EventSummaryGenerator } from './event-summary-generator';
 
 // Mock next-intl
@@ -62,11 +70,11 @@ describe('EventSummaryGenerator', () => {
     const { getByRole } = render(
       <EventSummaryGenerator
         eventTypeId="1"
-        eventTypes={mockEventTypes as any}
-        jobRole={{ title: 'Engineer' } as any}
-        company={{ name: 'Acme' } as any}
+        eventTypes={mockEventTypes as unknown as EventTypeDTO[]}
+        jobRole={{ title: 'Engineer' } as unknown as RoleDTO}
+        company={{ name: 'Acme' } as unknown as CompanyDTO}
         sourceTypeId="s1"
-        sourceTypes={mockSourceTypes as any}
+        sourceTypes={mockSourceTypes as unknown as SourceTypeDTO[]}
         setValue={mockSetValue}
       />,
     );
@@ -77,11 +85,11 @@ describe('EventSummaryGenerator', () => {
     const { getByRole } = render(
       <EventSummaryGenerator
         eventTypeId="1"
-        eventTypes={mockEventTypes as any}
-        jobRole={{ title: 'Engineer' } as any}
-        company={{ name: 'Acme' } as any}
+        eventTypes={mockEventTypes as unknown as EventTypeDTO[]}
+        jobRole={{ title: 'Engineer' } as unknown as RoleDTO}
+        company={{ name: 'Acme' } as unknown as CompanyDTO}
         sourceTypeId="s1"
-        sourceTypes={mockSourceTypes as any}
+        sourceTypes={mockSourceTypes as unknown as SourceTypeDTO[]}
         setValue={mockSetValue}
       />,
     );
@@ -114,10 +122,10 @@ describe('EventSummaryGenerator', () => {
     const { getByRole } = render(
       <EventSummaryGenerator
         eventTypeId="2"
-        eventTypes={mockEventTypes as any}
-        contact={{ firstName: 'John', lastName: 'Doe' } as any}
+        eventTypes={mockEventTypes as unknown as EventTypeDTO[]}
+        contact={{ firstName: 'John', lastName: 'Doe' } as unknown as ContactDTO}
         sourceTypeId="s1"
-        sourceTypes={mockSourceTypes as any}
+        sourceTypes={mockSourceTypes as unknown as SourceTypeDTO[]}
         currentDirection="Inbound"
         jobRole={null}
         company={null}
@@ -137,10 +145,10 @@ describe('EventSummaryGenerator', () => {
     const { getByRole } = render(
       <EventSummaryGenerator
         eventTypeId="2"
-        eventTypes={mockEventTypes as any}
-        contact={{ firstName: 'John', lastName: 'Doe' } as any}
+        eventTypes={mockEventTypes as unknown as EventTypeDTO[]}
+        contact={{ firstName: 'John', lastName: 'Doe' } as unknown as ContactDTO}
         sourceTypeId="s1"
-        sourceTypes={mockSourceTypes as any}
+        sourceTypes={mockSourceTypes as unknown as SourceTypeDTO[]}
         currentDirection="Outbound"
         jobRole={null}
         company={null}
@@ -160,11 +168,11 @@ describe('EventSummaryGenerator', () => {
     render(
       <EventSummaryGenerator
         eventTypeId="1"
-        eventTypes={mockEventTypes as any}
-        jobRole={{ title: 'Engineer' } as any}
-        company={{ name: 'Acme' } as any}
+        eventTypes={mockEventTypes as unknown as EventTypeDTO[]}
+        jobRole={{ title: 'Engineer' } as unknown as RoleDTO}
+        company={{ name: 'Acme' } as unknown as CompanyDTO}
         sourceTypeId="s1"
-        sourceTypes={mockSourceTypes as any}
+        sourceTypes={mockSourceTypes as unknown as SourceTypeDTO[]}
         setValue={mockSetValue}
         autoGenerate={true}
       />,

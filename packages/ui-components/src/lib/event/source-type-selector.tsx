@@ -10,6 +10,7 @@ import { SourceTypeDTO } from '@job-tracker/validation';
 export interface SourceTypeSelectorProps {
   sourceTypes: SourceTypeDTO[];
   loading: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- UseFormReturn<any> is used to allow this component to be used with different form contexts.
   form: UseFormReturn<any>;
   sourceTypeIdField: string;
   sourceCustomNameField: string;

@@ -30,7 +30,14 @@ jest.mock('@job-tracker/hooks', () => ({
   }),
 }));
 
-const Wrapper = ({ children, defaultValues }: any) => {
+const Wrapper = ({
+  children,
+  defaultValues,
+}: {
+  children: React.ReactNode;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  defaultValues?: any;
+}) => {
   const methods = useForm({ defaultValues });
   return <FormProvider {...methods}>{children}</FormProvider>;
 };
@@ -51,8 +58,11 @@ describe('EventStepDetails', () => {
     const { getByText, getByTestId } = render(
       <Wrapper>
         <EventStepDetails
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
           register={jest.fn() as any}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           watch={jest.fn() as any}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           setValue={jest.fn() as any}
         />
       </Wrapper>,
@@ -67,7 +77,9 @@ describe('EventStepDetails', () => {
     const { getByText, getByTestId } = render(
       <Wrapper defaultValues={{ direction: 'Inbound', sourceTypeId: 's1' }}>
         <EventStepDetails
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           register={jest.fn() as any}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           watch={((name: string) => (name === 'direction' ? 'Inbound' : 's1')) as any}
           setValue={mockSetValue}
         />

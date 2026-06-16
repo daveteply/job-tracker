@@ -33,12 +33,14 @@ jest.mock('rxdb/plugins/validate-ajv', () => ({
 }));
 
 describe('rx-database', () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let mockDb: any;
 
   beforeEach(() => {
     jest.clearAllMocks();
 
     // Clear the global cache
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const _global = (typeof window !== 'undefined' ? window : global) as any;
     if (_global.__rxdb_promises) {
       _global.__rxdb_promises.clear();
@@ -140,6 +142,7 @@ describe('rx-database', () => {
     process.env.NODE_ENV = 'development';
 
     // Clear storage cache
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (global as any).__rxdb_storage = undefined;
 
     getStorage();

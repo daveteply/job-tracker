@@ -131,6 +131,7 @@ export function EventForm<T extends EventFormValues>({
 
   const { isDirty: isSummaryDirty } = getFieldState(
     'summary' as Path<T>,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- We only need errors and isSubmitting from formState here.
     {
       errors,
       isSubmitting,
@@ -246,6 +247,7 @@ export function EventForm<T extends EventFormValues>({
         <SourceTypeSelector
           sourceTypes={sourceTypes}
           loading={sourceTypesLoading}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any -- form context with generic T often fails to overlap sufficiently with expected UseFormReturn<any>.
           form={{ register, watch, setValue, control } as any}
           sourceTypeIdField="sourceTypeId"
           sourceCustomNameField="sourceCustomName"

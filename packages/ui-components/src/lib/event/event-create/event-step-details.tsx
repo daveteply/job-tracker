@@ -95,6 +95,7 @@ export function EventStepDetails<T extends FieldValues = FieldValues>({
           <SourceTypeSelector
             sourceTypes={sourceTypes}
             loading={sourceTypesLoading}
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             form={form as any}
             sourceTypeIdField="sourceTypeId"
             sourceCustomNameField="sourceCustomName"
