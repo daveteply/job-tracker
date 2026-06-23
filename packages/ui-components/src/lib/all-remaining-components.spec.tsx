@@ -29,6 +29,7 @@ import { ReminderList } from './reminder/reminder-list';
 import { Pipeline } from './role/pipeline';
 import { RoleInfoCard } from './role/role-info-card';
 import { RoleList } from './role/role-list';
+import { FabPositionSelector } from './settings/fab-position-selector';
 
 jest.mock('react', () => {
   const actual = jest.requireActual('react');
@@ -70,7 +71,7 @@ jest.mock('@job-tracker/hooks', () => ({
   useCanDeleteEvent: () => [{}, true],
   useCanDeleteEventType: () => [{}, true],
   useUserSettings: () => ({
-    settings: { showInactiveRoles: false },
+    settings: { showInactiveRoles: false, fabPosition: 'right' as const },
     updateSettings: jest.fn(),
     isLoading: false,
   }),
@@ -136,6 +137,13 @@ describe('UI Components Coverage', () => {
     );
     render(<DashboardMenuLinks />);
     render(<Header title="Vireo" />);
+    render(
+      <FabPositionSelector
+        value="right"
+        onChange={jest.fn()}
+        translations={{ title: 'title', rightHanded: 'right', leftHanded: 'left' }}
+      />,
+    );
   });
 
   it('renders entity cards', () => {

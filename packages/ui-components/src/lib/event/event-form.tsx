@@ -131,7 +131,7 @@ export function EventForm<T extends EventFormValues>({
 
   const { isDirty: isSummaryDirty } = getFieldState(
     'summary' as Path<T>,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- We only need errors and isSubmitting from formState here.
+     
     {
       errors,
       isSubmitting,

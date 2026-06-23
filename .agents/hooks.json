@@ -1,0 +1,16 @@
+{
+  "validate-code-changes": {
+    "PostToolUse": [
+      {
+        "matcher": "replace_file_content|multi_replace_file_content|write_to_file",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npx nx run-many -t lint build test || (npx nx run-many -t lint --fix && npx nx run-many -t lint build test)",
+            "timeout": 300
+          }
+        ]
+      }
+    ]
+  }
+}

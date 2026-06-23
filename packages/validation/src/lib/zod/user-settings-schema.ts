@@ -6,6 +6,7 @@ export const UserSettingsSchema = z.object({
   showInactiveRoles: z.boolean(),
   locale: z.string(),
   appearance: z.enum(['light', 'dark', 'system']),
+  fabPosition: z.enum(['left', 'right']),
   updatedAt: z.string().optional(),
   createdAt: z.string().optional(),
 });

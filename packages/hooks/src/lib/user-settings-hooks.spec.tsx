@@ -23,6 +23,7 @@ describe('user-settings-hooks', () => {
     locale: 'en-US',
     showFullEventList: false,
     showInactiveRoles: false,
+    fabPosition: 'right',
   };
 
   beforeEach(() => {

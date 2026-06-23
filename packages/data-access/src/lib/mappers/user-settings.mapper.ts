@@ -10,6 +10,7 @@ export class UserSettingsMapper {
       showInactiveRoles: doc.showInactiveRoles,
       locale: doc.locale,
       appearance: doc.appearance,
+      fabPosition: doc.fabPosition,
       updatedAt: doc.updatedAt,
       createdAt: doc.createdAt,
     };
@@ -22,6 +23,7 @@ export class UserSettingsMapper {
       showInactiveRoles: dto.showInactiveRoles,
       locale: dto.locale,
       appearance: dto.appearance,
+      fabPosition: dto.fabPosition,
       updatedAt: dto.updatedAt,
       createdAt: dto.createdAt,
     };

@@ -1,4 +1,4 @@
-/* eslint-disable */
+ 
 export default {
   displayName: 'sync-backend',
   preset: '../../jest.preset.js',

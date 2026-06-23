@@ -22,6 +22,11 @@ jest.mock('next-intl', () => ({
 // Mock @job-tracker/hooks
 jest.mock('@job-tracker/hooks', () => ({
   useAvailableActions: jest.fn(),
+  useUserSettings: () => ({
+    settings: { fabPosition: 'right' },
+    updateSettings: jest.fn(),
+    isLoading: false,
+  }),
   ACTION_CONSTRAINTS: {
     roles: ['applied-to-role'],
     contacts: ['networking-chat'],
