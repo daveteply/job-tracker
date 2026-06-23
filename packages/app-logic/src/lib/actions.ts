@@ -96,6 +96,7 @@ export const AVAILABLE_ACTIONS: Action[] = [
 
 export const ACTION_CONSTRAINTS: Record<string, string[]> = {
   roles: [
+    'not-selected',
     'applied-to-role',
     'scheduled-interview',
     'interview-completed',
