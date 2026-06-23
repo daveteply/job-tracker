@@ -16,7 +16,7 @@ import Link from 'next/link';
 import { useParams, usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 
-import { ACTION_CONSTRAINTS, useAvailableActions } from '@job-tracker/hooks';
+import { ACTION_CONSTRAINTS, useAvailableActions, useUserSettings } from '@job-tracker/hooks';
 
 import { useFloatingUI } from '../context/floating-ui-context';
 
@@ -35,6 +35,8 @@ export function FloatingActionButton() {
   const t = useTranslations('Navigation');
   const actions = useAvailableActions();
   const { isContainerActive } = useFloatingUI();
+  const { settings, isLoading } = useUserSettings();
+  const position = settings?.fabPosition || 'right';
   const [isOpen, setIsOpen] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [showLabel, setShowLabel] = useState(false);
@@ -119,17 +121,25 @@ export function FloatingActionButton() {
   // Function to close menu when a link is clicked
   const handleLinkClick = () => setIsOpen(false);
 
-  if (isContainerActive) {
+  if (isContainerActive || isLoading) {
     return null;
   }
 
   return (
-    <div className="fab-container fixed right-5 bottom-15 z-50 flex flex-col items-end gap-3 xl:right-[calc(50%-640px+24px)]">
+    <div
+      className={`fab-container fixed bottom-15 z-50 flex flex-col gap-3 ${
+        position === 'left'
+          ? 'left-5 items-start xl:left-[calc(50%-640px+24px)]'
+          : 'right-5 items-end xl:right-[calc(50%-640px+24px)]'
+      }`}
+    >
       {/* Speed Dial Menu Items */}
       {isOpen && (
-        <div className="mb-2 flex flex-col items-end gap-3">
+        <div className={`mb-2 flex flex-col gap-3 ${position === 'left' ? 'items-start' : 'items-end'}`}>
           <div
             className={`flex items-center gap-3 transition-all duration-300 ease-out ${
+              position === 'left' ? 'flex-row-reverse' : ''
+            } ${
               isAnimating ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
             }`}
             style={{ transitionDelay: `${filteredActions.length * 40}ms` }}
@@ -153,6 +163,8 @@ export function FloatingActionButton() {
               <div
                 key={action.id}
                 className={`flex items-center gap-3 transition-all duration-300 ease-out ${
+                  position === 'left' ? 'flex-row-reverse' : ''
+                } ${
                   isAnimating ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
                 }`}
                 style={{ transitionDelay: `${(filteredActions.length - 1 - index) * 40}ms` }}
@@ -175,11 +187,17 @@ export function FloatingActionButton() {
       )}
 
       {/* Main Trigger Button */}
-      <div className="relative flex items-center justify-end">
+      <div className={`relative flex items-center ${position === 'left' ? 'justify-start' : 'justify-end'}`}>
         {labelKey && (
           <div
-            className={`pointer-events-none absolute right-2 z-[-1] whitespace-nowrap transition-all duration-700 ease-out ${
-              showLabel ? '-translate-x-16 opacity-100' : 'translate-x-0 opacity-0'
+            className={`pointer-events-none absolute z-[-1] whitespace-nowrap transition-all duration-700 ease-out ${
+              position === 'left' ? 'left-2' : 'right-2'
+            } ${
+              showLabel
+                ? position === 'left'
+                  ? 'translate-x-16 opacity-100'
+                  : '-translate-x-16 opacity-100'
+                : 'translate-x-0 opacity-0'
             }`}
           >
             <span className="bg-info text-info-content rounded-full px-4 py-2 text-sm font-semibold shadow-lg">

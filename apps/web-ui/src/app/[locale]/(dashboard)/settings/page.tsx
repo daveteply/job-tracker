@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl';
 
 import { useDb } from '@job-tracker/data-access';
 import { useUserSettings } from '@job-tracker/hooks';
-import { ContentCard, DataManagement } from '@job-tracker/ui-components';
+import { ContentCard, DataManagement, FabPositionSelector } from '@job-tracker/ui-components';
 
 import { routing, useRouter } from '../../../../i18n/routing';
 
@@ -101,6 +101,17 @@ export default function SettingsPage({ params }: { params: Promise<{ locale: str
           </button>
         </div>
       </ContentCard>
+
+      <FabPositionSelector
+        value={settings?.fabPosition || 'right'}
+        onChange={(val) => updateSettings({ fabPosition: val })}
+        disabled={isLoading}
+        translations={{
+          title: t('fabPositionTitle'),
+          rightHanded: t('fabPositionRight'),
+          leftHanded: t('fabPositionLeft'),
+        }}
+      />
 
       <DataManagement
         db={db}

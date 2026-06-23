@@ -2,7 +2,7 @@ import { RxJsonSchema } from 'rxdb';
 
 import { UserSettingsEntity } from './user-settings.entity';
 
-const USER_SETTINGS_SCHEMA_VERSION = 2;
+const USER_SETTINGS_SCHEMA_VERSION = 3;
 
 export const UserSettingsSchema: RxJsonSchema<UserSettingsEntity> = {
   title: 'user settings schema',
@@ -19,8 +19,13 @@ export const UserSettingsSchema: RxJsonSchema<UserSettingsEntity> = {
       enum: ['light', 'dark', 'system'],
       default: 'system',
     },
+    fabPosition: {
+      type: 'string',
+      enum: ['left', 'right'],
+      default: 'right',
+    },
     updatedAt: { type: 'string', format: 'date-time', maxLength: 30 },
     createdAt: { type: 'string', format: 'date-time', maxLength: 30 },
   },
-  required: ['id', 'showFullEventList', 'showInactiveRoles', 'locale', 'appearance'],
+  required: ['id', 'showFullEventList', 'showInactiveRoles', 'locale', 'appearance', 'fabPosition'],
 };

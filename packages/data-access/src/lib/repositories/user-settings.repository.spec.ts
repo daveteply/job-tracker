@@ -39,12 +39,14 @@ describe('UserSettingsRepository', () => {
         showInactiveRoles: false,
         locale: 'en-US',
         appearance: 'system',
+        fabPosition: 'right',
         toJSON: () => ({
           id: 'current',
           showFullEventList: true,
           showInactiveRoles: false,
           locale: 'en-US',
           appearance: 'system',
+          fabPosition: 'right',
         }),
       };
       mockDb.userSettings.findOne.mockReturnValue({ $: of(mockDoc) });
@@ -55,6 +57,7 @@ describe('UserSettingsRepository', () => {
         showInactiveRoles: false,
         locale: 'en-US',
         appearance: 'system',
+        fabPosition: 'right',
       });
     });
   });
@@ -77,6 +80,7 @@ describe('UserSettingsRepository', () => {
       expect(result.showInactiveRoles).toBe(false);
       expect(result.locale).toBe('en-US');
       expect(result.appearance).toBe('system');
+      expect(result.fabPosition).toBe('right');
       expect(result.id).toBe('current');
     });
 
@@ -87,12 +91,14 @@ describe('UserSettingsRepository', () => {
         showInactiveRoles: false,
         locale: 'en-US',
         appearance: 'system',
+        fabPosition: 'right',
         toJSON: () => ({
           id: 'current',
           showFullEventList: false,
           showInactiveRoles: false,
           locale: 'en-US',
           appearance: 'system',
+          fabPosition: 'right',
         }),
       };
       mockDb.userSettings.findOne.mockReturnValue({
@@ -110,6 +116,7 @@ describe('UserSettingsRepository', () => {
       expect(result.showFullEventList).toBe(true);
       expect(result.locale).toBe('en-US');
       expect(result.appearance).toBe('system');
+      expect(result.fabPosition).toBe('right');
     });
   });
 });

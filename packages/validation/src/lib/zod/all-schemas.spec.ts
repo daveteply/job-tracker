@@ -51,6 +51,7 @@ describe('Zod Schemas', () => {
         showInactiveRoles: false,
         locale: 'en',
         appearance: 'system',
+        fabPosition: 'right' as const,
       };
       expect(UserSettingsSchema.safeParse(data).success).toBe(true);
     });

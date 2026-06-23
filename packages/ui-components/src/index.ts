@@ -66,3 +66,4 @@ export * from './lib/role/role-list';
 
 // Settings
 export * from './lib/settings/data-management';
+export * from './lib/settings/fab-position-selector';

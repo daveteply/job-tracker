@@ -241,6 +241,12 @@ export async function initRxDatabase(name: string): Promise<TrackerDatabase> {
                 oldDoc.appearance = 'system';
                 return oldDoc;
               },
+              // 3: Add fabPosition field
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Migration docs represent historical data and can have any shape.
+              3: (oldDoc: any) => {
+                oldDoc.fabPosition = 'right';
+                return oldDoc;
+              },
             },
           },
         });
@@ -266,6 +272,7 @@ export async function initRxDatabase(name: string): Promise<TrackerDatabase> {
           showInactiveRoles: false,
           locale: 'en-US',
           appearance: 'system',
+          fabPosition: 'right',
           createdAt: now,
           updatedAt: now,
         });
