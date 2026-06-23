@@ -42,8 +42,8 @@ export default function ClearDataPage() {
       await db.close();
       await removeRxDatabase(dbName, getStorage());
 
-      // Clear local storage key
-      localStorage.removeItem('job_tracker_prev_db_name');
+      // Clear local storage
+      localStorage.clear();
 
       // Note: We use window.location because signOut might not complete
       // before navigation if we don't wait, and we want a fresh start.
@@ -71,7 +71,9 @@ export default function ClearDataPage() {
                   checked={wipeCloud}
                   onChange={(e) => setWipeCloud(e.target.checked)}
                 />
-                <span className="label-text text-lg font-medium">{t('clearCloudCheckbox')}</span>
+                <span className="label-text font-medi0um label-text text-lg whitespace-normal">
+                  {t('clearCloudCheckbox')}
+                </span>
               </label>
             </div>
 
