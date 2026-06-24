@@ -93,16 +93,23 @@ export function EventStepReminder<T extends FieldValues = FieldValues>({
             <button
               type="button"
               className="btn btn-sm btn-outline btn-primary"
-              onClick={() => setReminderDate(5, true)}
+              onClick={() => setReminderDate(1, true)}
             >
-              {t('fiveBusinessDays')}
+              {t('oneBusinessDay')}
             </button>
             <button
               type="button"
               className="btn btn-sm btn-outline btn-primary"
-              onClick={() => setReminderDate(10, true)}
+              onClick={() => setReminderDate(3, true)}
             >
-              {t('tenBusinessDays')}
+              {t('threeBusinessDays')}
+            </button>
+            <button
+              type="button"
+              className="btn btn-sm btn-outline btn-primary"
+              onClick={() => setReminderDate(5, true)}
+            >
+              {t('fiveBusinessDays')}
             </button>
           </div>
           {errors?.remindAt && (

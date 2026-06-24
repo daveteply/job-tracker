@@ -10,6 +10,13 @@ jest.mock('next-intl', () => ({
   useTranslations: jest.fn(),
 }));
 
+// Mock @job-tracker/hooks
+jest.mock('@job-tracker/hooks', () => ({
+  useReminderActions: () => ({
+    completeReminder: jest.fn(),
+  }),
+}));
+
 // Mock BaseInfoCard
 jest.mock('../common/data-display/base-info-card', () => {
   return ({ title, detailsUrl }: any) => (
@@ -25,7 +32,12 @@ jest.mock('../common/data-display/formatted-date', () => {
 });
 
 describe('ReminderInfoCard', () => {
-  const mockT = jest.fn((key) => `translated:${key}`);
+  const mockT = jest.fn((key, params) => {
+    if (key === 'followUpWith') return `translated:followUpWith:${params.name}`;
+    if (key === 'followUpAt') return `translated:followUpAt:${params.company}`;
+    if (key === 'followUpOn') return `translated:followUpOn:${params.event}`;
+    return `translated:${key}`;
+  });
 
   beforeEach(() => {
     (useTranslations as jest.Mock).mockReturnValue(mockT);
@@ -56,38 +68,40 @@ describe('ReminderInfoCard', () => {
   it('renders successfully with full info', () => {
     const { getByText, getByTestId } = render(<ReminderInfoCard reminder={mockReminder} />);
 
+    expect(getByText('translated:followUpWith:John Doe')).toBeTruthy();
     expect(getByText('Interview Reminder')).toBeTruthy();
-    expect(getByText('John Doe @ Tech Corp')).toBeTruthy();
     expect(getByTestId('formatted-date')).toBeTruthy();
     expect(getByTestId('base-info-card').getAttribute('data-url')).toBe('/reminders/rem-1');
   });
 
-  it('renders with fallback title when summary is missing', () => {
-    const minimalReminder = {
+  it('renders with company fallback title when contact is missing', () => {
+    const companyReminder = {
       ...mockReminder,
       event: {
         ...mockReminder.event,
-        summary: '',
+        contact: null,
       },
     };
-    const { getByText } = render(<ReminderInfoCard reminder={minimalReminder as any} />);
-    expect(getByText('Follow up')).toBeTruthy();
+    const { getByText } = render(<ReminderInfoCard reminder={companyReminder as any} />);
+    expect(getByText('translated:followUpAt:Tech Corp')).toBeTruthy();
   });
 
-  it('renders without contact or company info', () => {
-    const reminderWithoutContext = {
+  it('renders with event type fallback title when contact and company are missing', () => {
+    const eventTypeReminder = {
       ...mockReminder,
       event: {
-        id: 'evt-1',
-        summary: 'Just a reminder',
+        ...mockReminder.event,
+        contact: null,
+        company: null,
+        eventType: {
+          id: 'et-1',
+          name: 'Screening Call',
+          translationKey: 'screeningCall',
+          isSystemDefined: true,
+        },
       },
     };
-    const { getByText, queryByText } = render(
-      <ReminderInfoCard reminder={reminderWithoutContext as any} />,
-    );
-
-    expect(getByText('Just a reminder')).toBeTruthy();
-    expect(queryByText(/John Doe/)).toBeNull();
-    expect(queryByText(/Tech Corp/)).toBeNull();
+    const { getByText } = render(<ReminderInfoCard reminder={eventTypeReminder as any} />);
+    expect(getByText('translated:followUpOn:translated:screeningCall')).toBeTruthy();
   });
 });
