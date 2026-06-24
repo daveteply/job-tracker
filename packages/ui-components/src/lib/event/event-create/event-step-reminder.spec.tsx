@@ -75,10 +75,13 @@ describe('EventStepReminder', () => {
       <TestComponent hasReminder={true} customSetValue={mockSetValue} />,
     );
 
-    fireEvent.click(getByText('fiveBusinessDays'));
+    fireEvent.click(getByText('oneBusinessDay'));
     expect(mockSetValue).toHaveBeenCalledWith('remindAt', expect.any(String), expect.any(Object));
 
-    fireEvent.click(getByText('tenBusinessDays'));
+    fireEvent.click(getByText('threeBusinessDays'));
+    expect(mockSetValue).toHaveBeenCalledWith('remindAt', expect.any(String), expect.any(Object));
+
+    fireEvent.click(getByText('fiveBusinessDays'));
     expect(mockSetValue).toHaveBeenCalledWith('remindAt', expect.any(String), expect.any(Object));
   });
 });

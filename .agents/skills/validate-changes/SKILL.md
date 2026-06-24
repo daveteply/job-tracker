@@ -30,9 +30,6 @@ npx nx run-many -t lint build test
 
 ## 3. Automation Hook
 
-A `PostToolUse` hook is configured in the `.agents/hooks.json` file. It automatically triggers this validation command after tool execution of `replace_file_content`, `multi_replace_file_content`, or `write_to_file`.
-
-If the validation fails:
-1. The hook automatically attempts to run `npx nx run-many -t lint --fix` to auto-fix styling and lint issues.
-2. If tests or builds still fail, the agent is expected to examine the failure logs, locate the source of the compiler or test error, modify the files to fix the error, and verify again.
+> [!NOTE]
+> The automated `PostToolUse` command hook is disabled to prevent executing commands outside the dev container environment. Changes must be validated manually from within the dev container.
 
