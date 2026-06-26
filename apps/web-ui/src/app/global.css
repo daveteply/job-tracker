@@ -108,4 +108,11 @@
       animation: none !important;
     }
   }
+
+  /* Elevate cards that contain an open dropdown details menu to prevent z-index clipping */
+  .card:has(details[open]) {
+    z-index: 50;
+    position: relative;
+  }
 }
+
