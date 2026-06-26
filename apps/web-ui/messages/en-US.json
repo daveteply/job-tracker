@@ -539,7 +539,9 @@
     "detailsAriaLabel": "Go to Event Details page",
     "context": "Context",
     "summary": "Summary",
-    "details": "Details"
+    "details": "Details",
+    "reminders": "Reminders",
+    "remindersCount": "{count, plural, =1 {# Reminder} other {# Reminders}}"
   },
   "BetaPage": {
     "title": "Join the Beta Program",

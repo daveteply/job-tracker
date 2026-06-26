@@ -123,7 +123,12 @@ export default function HomePage() {
             <span className="loading loading-spinner loading-md"></span>
           </div>
         ) : (
-          <EventList events={recentEvents} showControls={true} showFull={showFullEvents} />
+          <EventList
+            events={recentEvents}
+            showControls={true}
+            showFull={showFullEvents}
+            onToggleShowFull={handleToggleEvents}
+          />
         )}
       </section>
 

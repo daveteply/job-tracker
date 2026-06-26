@@ -53,7 +53,11 @@ export default function ActivityPage() {
           }
         />
       ) : (
-        <EventList events={events} showFull={showFullEvents} />
+        <EventList
+          events={events}
+          showFull={showFullEvents}
+          onToggleShowFull={handleToggleEvents}
+        />
       )}
     </>
   );
