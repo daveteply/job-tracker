@@ -92,18 +92,37 @@ export const AVAILABLE_ACTIONS: Action[] = [
       suggestReminderDays: 5,
     },
   },
+  {
+    id: 'offer-accepted',
+    nameKey: 'actionOfferAccepted',
+    iconName: 'BriefcaseIcon',
+    defaults: {
+      eventTypeName: 'Offer Accepted',
+      direction: DirectionType.Inbound,
+      sourceTypeId: SYSTEM_SOURCE_EMAIL_ID,
+    },
+  },
+  {
+    id: 'ghosted',
+    nameKey: 'actionGhosted',
+    iconName: 'EyeSlashIcon',
+    defaults: {
+      eventTypeName: 'Ghosted',
+      direction: DirectionType.Inbound,
+      sourceTypeId: SYSTEM_SOURCE_EMAIL_ID,
+    },
+  },
 ];
 
 export const ACTION_CONSTRAINTS: Record<string, string[]> = {
   roles: [
-    'not-selected',
-    'applied-to-role',
+    'ghosted',
     'scheduled-interview',
     'interview-completed',
-    'sent-follow-up',
     'email-received',
-    'recruiter-outreach',
+    'offer-accepted',
   ],
-  contacts: ['networking-chat', 'email-received', 'sent-follow-up', 'recruiter-outreach'],
+  contacts: ['networking-chat', 'email-received', 'sent-follow-up'],
   companies: ['applied-to-role', 'recruiter-outreach', 'email-received'],
+  general: ['applied-to-role', 'networking-chat', 'scheduled-interview', 'email-received'],
 };
