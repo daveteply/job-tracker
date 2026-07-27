@@ -96,7 +96,7 @@
     "jsdom": "^29.0.2",
     "jsonc-eslint-parser": "^3.1.0",
     "nx": "22.7.1",
-    "postcss": "^8.5.14",
+    "postcss": "^8.5.18",
     "prettier": "~3.8.3",
     "prettier-plugin-tailwindcss": "^0.8.0",
     "prisma": "^7.8.0",
@@ -113,6 +113,17 @@
   },
   "overrides": {
     "picomatch": "4.0.4",
-    "axios": "1.15.0"
+    "axios": "^1.18.0",
+    "postcss": "^8.5.18",
+    "brace-expansion": "^5.0.8",
+    "follow-redirects": "^1.15.12",
+    "form-data": "^4.0.6",
+    "tmp": "^0.2.6",
+    "uuid": "^11.1.1",
+    "yaml": "^2.8.3",
+    "esbuild": "^0.28.1",
+    "sharp": "^0.35.0",
+    "@fastify/static": "^10.1.2",
+    "adm-zip": "^0.6.0"
   }
 }
