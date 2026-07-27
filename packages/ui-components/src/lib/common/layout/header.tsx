@@ -2,13 +2,14 @@
 
 import { useEffect, useState } from 'react';
 
-import ArrowLeftOnRectangleIcon from '@heroicons/react/24/outline/ArrowLeftOnRectangleIcon';
-import ArrowRightOnRectangleIcon from '@heroicons/react/24/outline/ArrowRightOnRectangleIcon';
+import ArrowLeftStartOnRectangleIcon from '@heroicons/react/24/outline/ArrowLeftStartOnRectangleIcon';
+import ArrowRightEndOnRectangleIcon from '@heroicons/react/24/outline/ArrowRightEndOnRectangleIcon';
 import Bars3Icon from '@heroicons/react/24/outline/Bars3Icon';
 import Cog8ToothIcon from '@heroicons/react/24/outline/Cog8ToothIcon';
 import DocumentTextIcon from '@heroicons/react/24/outline/DocumentTextIcon';
 import InformationCircleIcon from '@heroicons/react/24/outline/InformationCircleIcon';
 import ShieldCheckIcon from '@heroicons/react/24/outline/ShieldCheckIcon';
+import UserCircleIcon from '@heroicons/react/24/outline/UserCircleIcon';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
@@ -99,7 +100,7 @@ export function Header({ title, iconSrc, homeHref = '/home' }: HeaderProps) {
                     }}
                     className="text-error font-semibold"
                   >
-                    <ArrowLeftOnRectangleIcon className="h-5 w-5" />
+                    <ArrowLeftStartOnRectangleIcon className="h-5 w-5" />
                     {t('signOut')}
                   </button>
                 </li>
@@ -110,10 +111,42 @@ export function Header({ title, iconSrc, homeHref = '/home' }: HeaderProps) {
                     onClick={closeMenu}
                     className="text-primary font-semibold"
                   >
-                    <ArrowRightOnRectangleIcon className="h-5 w-5" />
+                    <ArrowRightEndOnRectangleIcon className="h-5 w-5" />
                     {t('signIn')}
                   </Link>
                 </li>
+              )}
+              {session && (
+                <>
+                  <div className="divider my-0 opacity-50"></div>
+                  <li className="menu-title px-3 py-2">
+                    <div className="flex items-center gap-3">
+                      <div className="avatar">
+                        <div className="w-8 rounded-full overflow-hidden">
+                          {session.user?.image ? (
+                            <img
+                              alt={session.user.name ?? 'User'}
+                              src={session.user.image}
+                              referrerPolicy="no-referrer"
+                            />
+                          ) : (
+                            <div className="bg-neutral text-neutral-content flex h-full w-full items-center justify-center text-xs font-bold">
+                              {session.user?.name?.[0] ?? <UserCircleIcon className="h-5 w-5" />}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      <div className="flex flex-col items-start gap-0.5 min-w-0">
+                        <span className="font-bold text-base-content truncate max-w-[140px]">
+                          {session.user?.name}
+                        </span>
+                        <span className="text-xs font-normal text-base-content/60 truncate max-w-[140px]">
+                          {session.user?.email}
+                        </span>
+                      </div>
+                    </div>
+                  </li>
+                </>
               )}
               <div className="divider my-0 opacity-50"></div>
               <li>
@@ -143,17 +176,6 @@ export function Header({ title, iconSrc, homeHref = '/home' }: HeaderProps) {
                   {t('terms')}
                 </Link>
               </li>
-              {session && (
-                <>
-                  <div className="divider my-0 opacity-50"></div>
-                  <li className="menu-title px-4 py-2">
-                    <div className="flex flex-col items-start gap-1">
-                      <span className="font-bold">{session.user?.name}</span>
-                      <span className="text-xs font-normal opacity-60">{session.user?.email}</span>
-                    </div>
-                  </li>
-                </>
-              )}
               <div className="divider my-0 opacity-50"></div>
               <li className="px-4 py-1.5 opacity-30 select-none">
                 <div className="flex w-full items-center justify-between">

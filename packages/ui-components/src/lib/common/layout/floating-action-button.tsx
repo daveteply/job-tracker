@@ -158,13 +158,13 @@ export function FloatingActionButton() {
     >
       {/* Speed Dial Menu Items */}
       {isOpen && (
-        <div className={`mb-2 flex flex-col gap-3 ${position === 'left' ? 'items-start' : 'items-end'}`}>
+        <div
+          className={`mb-2 flex flex-col gap-3 ${position === 'left' ? 'items-start' : 'items-end'}`}
+        >
           <div
             className={`flex items-center gap-3 transition-all duration-300 ease-out ${
               position === 'left' ? 'flex-row-reverse' : ''
-            } ${
-              isAnimating ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
-            }`}
+            } ${isAnimating ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}
             style={{ transitionDelay: `${filteredActions.length * 40}ms` }}
           >
             <span className="bg-base-100 text-base-content rounded-md px-2 py-1 text-sm font-medium shadow-sm">
@@ -187,9 +187,7 @@ export function FloatingActionButton() {
                 key={action.id}
                 className={`flex items-center gap-3 transition-all duration-300 ease-out ${
                   position === 'left' ? 'flex-row-reverse' : ''
-                } ${
-                  isAnimating ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
-                }`}
+                } ${isAnimating ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}
                 style={{ transitionDelay: `${(filteredActions.length - 1 - index) * 40}ms` }}
               >
                 <span className="bg-base-100 text-base-content rounded-md px-2 py-1 text-sm font-medium shadow-sm">
@@ -210,7 +208,9 @@ export function FloatingActionButton() {
       )}
 
       {/* Main Trigger Button */}
-      <div className={`relative flex items-center ${position === 'left' ? 'justify-start' : 'justify-end'}`}>
+      <div
+        className={`relative flex items-center ${position === 'left' ? 'justify-start' : 'justify-end'}`}
+      >
         {labelKey && (
           <div
             className={`pointer-events-none absolute z-[-1] whitespace-nowrap transition-all duration-700 ease-out ${
