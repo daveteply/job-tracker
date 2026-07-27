@@ -50,11 +50,11 @@ describe('rx-database', () => {
       name: 'test-db',
       addCollections: jest.fn().mockResolvedValue(undefined),
       eventTypes: {
-        count: jest.fn().mockReturnValue({ exec: jest.fn().mockResolvedValue(1) }),
+        find: jest.fn().mockReturnValue({ exec: jest.fn().mockResolvedValue([{ id: 'existing-event-type' }]) }),
         bulkInsert: jest.fn().mockResolvedValue(undefined),
       },
       sourceTypes: {
-        count: jest.fn().mockReturnValue({ exec: jest.fn().mockResolvedValue(1) }),
+        find: jest.fn().mockReturnValue({ exec: jest.fn().mockResolvedValue([{ id: 'existing-source-type' }]) }),
         bulkInsert: jest.fn().mockResolvedValue(undefined),
       },
       userSettings: {
@@ -91,7 +91,7 @@ describe('rx-database', () => {
   });
 
   it('should seed data if eventTypes is empty', async () => {
-    mockDb.eventTypes.count.mockReturnValue({ exec: jest.fn().mockResolvedValue(0) });
+    mockDb.eventTypes.find.mockReturnValue({ exec: jest.fn().mockResolvedValue([]) });
 
     await initRxDatabase('test-db-seed-event');
 
@@ -99,7 +99,7 @@ describe('rx-database', () => {
   });
 
   it('should seed data if sourceTypes is empty', async () => {
-    mockDb.sourceTypes.count.mockReturnValue({ exec: jest.fn().mockResolvedValue(0) });
+    mockDb.sourceTypes.find.mockReturnValue({ exec: jest.fn().mockResolvedValue([]) });
 
     await initRxDatabase('test-db-seed-source');
 

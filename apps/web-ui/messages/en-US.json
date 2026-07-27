@@ -426,6 +426,9 @@
     "actionRejectionReceived": "Received Rejection",
     "actionNotSelected": "Not Selected",
     "actionNetworkingChat": "Networking / Coffee Chat",
+    "actionOfferAccepted": "Offer Accepted",
+    "actionGhosted": "No Response / Ghosted",
+    "moreActions": "More...",
     "toggleMenu": "Toggle menu"
   },
   "Enums": {
@@ -438,11 +441,13 @@
       "Interviewing": "Interviewing",
       "Offer": "Offer",
       "Accepted": "Accepted",
+      "Offer Accepted": "Offer Accepted",
+      "OfferAccepted": "Offer Accepted",
       "Rejected": "Rejected",
       "NotSelected": "Not Selected",
       "Not Selected": "Not Selected",
       "Withdrawn": "Withdrawn",
-      "Ghosted": "Ghosted"
+      "Ghosted": "No Response / Ghosted"
     },
     "EventCategoryType": {
       "Application": "Application",
@@ -488,8 +493,9 @@
     "rejected": "Rejected",
     "rejectionReceived": "Rejection Received",
     "notSelected": "Not Selected",
-    "notSelectedReceived": "Not Selected",
+    "notSelectedReceived": "Rejection Received",
     "withdrewApplication": "Withdrew Application",
+    "ghosted": "No Response / Ghosted",
 
     "Job Lead": "Job Lead",
     "Applied": "Applied",
@@ -513,7 +519,8 @@
     "Rejection Received": "Rejection Received",
     "Not Selected": "Not Selected",
     "Not Selected Received": "Not Selected",
-    "Withdrew Application": "Withdrew Application"
+    "Withdrew Application": "Withdrew Application",
+    "No Response / Ghosted": "No Response / Ghosted"
   },
   "Validation": {
     "required": "Required",
@@ -539,7 +546,9 @@
     "detailsAriaLabel": "Go to Event Details page",
     "context": "Context",
     "summary": "Summary",
-    "details": "Details"
+    "details": "Details",
+    "reminders": "Reminders",
+    "remindersCount": "{count, plural, =1 {# Reminder} other {# Reminders}}"
   },
   "BetaPage": {
     "title": "Join the Beta Program",

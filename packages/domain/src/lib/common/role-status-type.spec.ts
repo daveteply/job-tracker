@@ -21,13 +21,14 @@ describe('RoleStatus', () => {
     expect(ACTIVE_STATUSES).toContain(RoleStatus.Applied);
     expect(ACTIVE_STATUSES).toContain(RoleStatus.Interviewing);
     expect(ACTIVE_STATUSES).toContain(RoleStatus.Offer);
-    expect(ACTIVE_STATUSES).toContain(RoleStatus.Accepted);
+    expect(ACTIVE_STATUSES).not.toContain(RoleStatus.OfferAccepted);
   });
 
   it('should correctly identify inactive statuses', () => {
     expect(INACTIVE_STATUSES).toContain(RoleStatus.NotSelected);
     expect(INACTIVE_STATUSES).toContain(RoleStatus.Withdrawn);
     expect(INACTIVE_STATUSES).toContain(RoleStatus.Ghosted);
+    expect(INACTIVE_STATUSES).toContain(RoleStatus.OfferAccepted);
   });
 
   it('should correctly identify pipeline statuses', () => {
@@ -35,6 +36,6 @@ describe('RoleStatus', () => {
     expect(PIPELINE_STATUSES).toContain(RoleStatus.Applied);
     expect(PIPELINE_STATUSES).toContain(RoleStatus.Interviewing);
     expect(PIPELINE_STATUSES).toContain(RoleStatus.Offer);
-    expect(PIPELINE_STATUSES).not.toContain(RoleStatus.Accepted);
+    expect(PIPELINE_STATUSES).not.toContain(RoleStatus.OfferAccepted);
   });
 });

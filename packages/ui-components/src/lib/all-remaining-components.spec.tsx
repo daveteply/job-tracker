@@ -86,14 +86,10 @@ jest.mock('@job-tracker/hooks', () => ({
     roles: [],
     contacts: [],
     companies: [],
+    general: [],
   },
-  useAvailableActions: () => ({
-    canAddCompany: true,
-    canAddContact: true,
-    canAddRole: true,
-    canAddEvent: true,
-    canAddReminder: true,
-  }),
+  INACTIVE_STATUSES: [],
+  useAvailableActions: () => [],
 }));
 
 jest.mock('./common/context/floating-ui-context', () => ({

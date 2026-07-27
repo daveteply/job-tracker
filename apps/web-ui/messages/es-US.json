@@ -427,6 +427,9 @@
     "actionRejectionReceived": "Rechazo recibido",
     "actionNotSelected": "No seleccionado",
     "actionNetworkingChat": "Networking / Café virtual",
+    "actionOfferAccepted": "Oferta aceptada",
+    "actionGhosted": "Sin respuesta (Ghosted)",
+    "moreActions": "Más...",
     "toggleMenu": "Alternar menú"
   },
   "Enums": {
@@ -439,6 +442,8 @@
       "Interviewing": "En entrevista",
       "Offer": "Oferta",
       "Accepted": "Aceptado",
+      "Offer Accepted": "Oferta aceptada",
+      "OfferAccepted": "Oferta aceptada",
       "Rejected": "Rechazado",
       "NotSelected": "No seleccionado",
       "Not Selected": "No seleccionado",
@@ -488,8 +493,9 @@
     "rejected": "Rechazado",
     "rejectionReceived": "Rechazo recibido",
     "notSelected": "No seleccionado",
-    "notSelectedReceived": "No seleccionado",
+    "notSelectedReceived": "Rechazo recibido",
     "withdrewApplication": "Postulación retirada",
+    "ghosted": "Sin respuesta / Ghosted",
     "Job Lead": "Prospecto de empleo",
     "Applied": "Postulado",
     "Application Viewed": "Postulación vista",
@@ -512,7 +518,8 @@
     "Rejection Received": "Rechazo recibido",
     "Not Selected": "No seleccionado",
     "Not Selected Received": "No seleccionado",
-    "Withdrew Application": "Postulación retirada"
+    "Withdrew Application": "Postulación retirada",
+    "No Response / Ghosted": "Sin respuesta / Ghosted"
   },
   "Validation": {
     "required": "Requerido",
@@ -538,7 +545,9 @@
     "detailsAriaLabel": "Ir a la página de detalles del evento",
     "context": "Contexto",
     "summary": "Resumen",
-    "details": "Detalles"
+    "details": "Detalles",
+    "reminders": "Recordatorios",
+    "remindersCount": "{count, plural, =1 {# recordatorio} other {# recordatorios}}"
   },
   "BetaPage": {
     "title": "Únete al Programa Beta",

@@ -22,6 +22,7 @@ export function EventList({
   noEventsMessage,
   showFull = false,
   showReminders = false,
+  onToggleShowFull,
 }: EventListProps) {
   const t = useTranslations('Events');
   const message = noEventsMessage || t('noEventsFound');
@@ -38,6 +39,7 @@ export function EventList({
                 showControls={showControls}
                 showFull={showFull}
                 showReminders={showReminders}
+                onToggleShowFull={onToggleShowFull}
               />
             ))}
           </>

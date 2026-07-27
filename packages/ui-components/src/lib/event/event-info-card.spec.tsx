@@ -80,19 +80,50 @@ describe('EventInfoCard', () => {
 
   it('should render reminders when showReminders is true', () => {
     const { getByText } = render(<EventInfoCard event={mockEvent as any} showReminders={true} />);
-    expect(getByText('Reminders')).toBeTruthy();
+    expect(getByText('reminders')).toBeTruthy();
+    expect(getByText('remindersCount')).toBeTruthy();
   });
 
-  it('should hide reminders when showReminders is false', () => {
-    const { queryByText } = render(
-      <EventInfoCard event={mockEvent as any} showReminders={false} />,
+  it('should hide reminders list/header when showReminders is false but show reminder count when expanded', () => {
+    const { queryByText, getByText } = render(
+      <EventInfoCard event={mockEvent as any} showReminders={false} showFull={true} />,
     );
-    expect(queryByText('Reminders')).toBeNull();
+    expect(queryByText('reminders')).toBeNull();
+    expect(getByText('remindersCount')).toBeTruthy();
+  });
+
+  it('should hide reminder count in body when collapsed and showReminders is false', () => {
+    const { queryByText } = render(
+      <EventInfoCard event={mockEvent as any} showReminders={false} showFull={false} />,
+    );
+    expect(queryByText('reminders')).toBeNull();
+    expect(queryByText('remindersCount')).toBeNull();
   });
 
   it('should render outbound direction correctly', () => {
     const outboundEvent = { ...mockEvent, direction: DirectionType.Outbound };
     const { getByText } = render(<EventInfoCard event={outboundEvent as any} />);
     expect(getByText('DirectionType.Outbound')).toBeTruthy();
+  });
+
+  it('should render reminder count button in title when collapsed and trigger toggle on click', () => {
+    const mockOnToggle = jest.fn();
+    const { getByTitle } = render(
+      <EventInfoCard event={mockEvent as any} showFull={false} onToggleShowFull={mockOnToggle} />,
+    );
+    const badgeButton = getByTitle('Toggle event details');
+    expect(badgeButton).toBeTruthy();
+    expect(badgeButton.textContent).toBe('1');
+    badgeButton.click();
+    expect(mockOnToggle).toHaveBeenCalledTimes(1);
+  });
+
+  it('should render reminder count label in body when expanded', () => {
+    const { getByText, queryByTitle } = render(
+      <EventInfoCard event={mockEvent as any} showFull={true} />,
+    );
+    expect(queryByTitle('Toggle event details')).toBeNull();
+    expect(getByText('reminders')).toBeTruthy();
+    expect(getByText('remindersCount')).toBeTruthy();
   });
 });

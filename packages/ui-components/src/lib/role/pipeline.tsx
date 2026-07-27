@@ -22,7 +22,7 @@ const STATUS_ORDER = [
   RoleStatus.Applied,
   RoleStatus.Interviewing,
   RoleStatus.Offer,
-  RoleStatus.Accepted,
+  RoleStatus.OfferAccepted,
   RoleStatus.NotSelected,
   RoleStatus.Withdrawn,
   RoleStatus.Ghosted,
@@ -36,7 +36,7 @@ const STATUS_CONFIG: Record<RoleStatus, { icon: React.ElementType; color: string
     color: 'text-warning',
   },
   [RoleStatus.Offer]: { icon: CheckCircleIcon, color: 'text-success' },
-  [RoleStatus.Accepted]: { icon: BriefcaseIcon, color: 'text-success' },
+  [RoleStatus.OfferAccepted]: { icon: BriefcaseIcon, color: 'text-success' },
   [RoleStatus.NotSelected]: { icon: XCircleIcon, color: 'text-error' },
   [RoleStatus.Withdrawn]: {
     icon: ArchiveBoxIcon,

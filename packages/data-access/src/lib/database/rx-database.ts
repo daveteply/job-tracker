@@ -169,6 +169,14 @@ export async function initRxDatabase(name: string): Promise<TrackerDatabase> {
               1: (oldDoc: any) => {
                 return oldDoc;
               },
+              // 2: Migrate status 'Accepted' to 'Offer Accepted'
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Migration docs represent historical data and can have any shape.
+              2: (oldDoc: any) => {
+                if (oldDoc.status === 'Accepted') {
+                  oldDoc.status = 'Offer Accepted';
+                }
+                return oldDoc;
+              },
             },
           },
           events: {
@@ -202,6 +210,14 @@ export async function initRxDatabase(name: string): Promise<TrackerDatabase> {
               // 1: Identity migration to resolve hash mismatch
               // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Migration docs represent historical data and can have any shape.
               1: (oldDoc: any) => {
+                return oldDoc;
+              },
+              // 2: Migrate targetStatus 'Accepted' to 'Offer Accepted'
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Migration docs represent historical data and can have any shape.
+              2: (oldDoc: any) => {
+                if (oldDoc.targetStatus === 'Accepted') {
+                  oldDoc.targetStatus = 'Offer Accepted';
+                }
                 return oldDoc;
               },
             },
@@ -252,15 +268,59 @@ export async function initRxDatabase(name: string): Promise<TrackerDatabase> {
         });
       }
 
-      // Seed data if needed
-      const eventTypeCount = await db.eventTypes.count().exec();
-      if (eventTypeCount === 0) {
-        await db.eventTypes.bulkInsert(seedEventTypes);
+      // Seed and sync event types
+      const eventTypes = await db.eventTypes.find().exec();
+      const existingEventMap = new Map(eventTypes.map((et) => [et.id, et]));
+      const newEventTypes = [];
+      for (const seed of seedEventTypes) {
+        const existing = existingEventMap.get(seed.id);
+        if (existing) {
+          const needsUpdate =
+            existing.name !== seed.name ||
+            existing.translationKey !== seed.translationKey ||
+            existing.category !== seed.category ||
+            existing.targetStatus !== seed.targetStatus ||
+            existing.isCommon !== seed.isCommon;
+
+          if (needsUpdate && typeof existing.patch === 'function') {
+            await existing.patch({
+              name: seed.name,
+              translationKey: seed.translationKey,
+              category: seed.category,
+              targetStatus: seed.targetStatus,
+              isCommon: seed.isCommon,
+              updatedAt: new Date().toISOString(),
+            });
+          }
+        } else {
+          newEventTypes.push(seed);
+        }
+      }
+      if (newEventTypes.length > 0) {
+        await db.eventTypes.bulkInsert(newEventTypes);
       }
 
-      const sourceTypeCount = await db.sourceTypes.count().exec();
-      if (sourceTypeCount === 0) {
-        await db.sourceTypes.bulkInsert(seedSourceTypes);
+      // Seed and sync source types
+      const sourceTypes = await db.sourceTypes.find().exec();
+      const existingSourceMap = new Map(sourceTypes.map((st) => [st.id, st]));
+      const newSourceTypes = [];
+      for (const seed of seedSourceTypes) {
+        const existing = existingSourceMap.get(seed.id);
+        if (existing) {
+          const needsUpdate = existing.name !== seed.name;
+
+          if (needsUpdate && typeof existing.patch === 'function') {
+            await existing.patch({
+              name: seed.name,
+              updatedAt: new Date().toISOString(),
+            });
+          }
+        } else {
+          newSourceTypes.push(seed);
+        }
+      }
+      if (newSourceTypes.length > 0) {
+        await db.sourceTypes.bulkInsert(newSourceTypes);
       }
 
       const settingsCount = await db.userSettings.count().exec();

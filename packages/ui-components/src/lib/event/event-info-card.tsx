@@ -19,6 +19,7 @@ export interface EventInfoCardProps {
   showChevron?: boolean;
   showFull?: boolean;
   showReminders?: boolean;
+  onToggleShowFull?: () => void;
 }
 
 const EVENT_CATEGORY_COLOR_MAP: Record<string, string> = {
@@ -34,6 +35,7 @@ export function EventInfoCard({
   showChevron = true,
   showFull = true,
   showReminders = true,
+  onToggleShowFull,
 }: EventInfoCardProps) {
   const tEnum = useTranslations('Enums');
   const tEvent = useTranslations('SystemEventTypes');
@@ -73,8 +75,18 @@ export function EventInfoCard({
           </div>
         )}
       </span>
-      {reminderCount > 0 && (!showFull || !showReminders) && (
-        <span className="badge badge-ghost badge-sm ml-1">{reminderCount}</span>
+      {reminderCount > 0 && !showFull && (
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            onToggleShowFull?.();
+          }}
+          className="badge badge-ghost badge-sm ml-1 cursor-pointer border-none transition-colors hover:bg-base-content/20"
+          title="Toggle event details"
+        >
+          {reminderCount}
+        </button>
       )}
     </div>
   );
@@ -111,7 +123,12 @@ export function EventInfoCard({
         {/* Reminders Section */}
         {showReminders && event.reminders && event.reminders.length > 0 && (
           <div>
-            <h3 className="mb-1 text-xs font-semibold uppercase opacity-60">Reminders</h3>
+            <h3 className="mb-1 text-xs font-semibold uppercase opacity-60">
+              {tCard('reminders')}
+            </h3>
+            <p className="mb-1.5 text-xs font-medium text-base-content/80">
+              {tCard('remindersCount', { count: reminderCount })}
+            </p>
             <ul className="list-inside list-disc text-xs">
               {event.reminders.map((reminder) => (
                 <li key={reminder.id}>
@@ -123,6 +140,12 @@ export function EventInfoCard({
               ))}
             </ul>
           </div>
+        )}
+
+        {showFull && !showReminders && reminderCount > 0 && (
+          <p className="text-xs font-medium text-base-content/80">
+            {tCard('remindersCount', { count: reminderCount })}
+          </p>
         )}
 
         {/* Metadata Row */}

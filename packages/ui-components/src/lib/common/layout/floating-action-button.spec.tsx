@@ -27,10 +27,13 @@ jest.mock('@job-tracker/hooks', () => ({
     updateSettings: jest.fn(),
     isLoading: false,
   }),
+  useRoleWithCompany: jest.fn(() => ({ role: null, loading: false })),
+  INACTIVE_STATUSES: [],
   ACTION_CONSTRAINTS: {
     roles: ['applied-to-role'],
     contacts: ['networking-chat'],
     companies: ['applied-to-role'],
+    general: ['applied-to-role'],
   },
 }));
 
@@ -67,7 +70,7 @@ describe('FloatingActionButton', () => {
   it('should render successfully and be closed by default', () => {
     const { getByLabelText, queryByText } = render(<FloatingActionButton />);
     expect(getByLabelText('toggleMenu')).toBeTruthy();
-    expect(queryByText('newEvent')).toBeNull();
+    expect(queryByText('moreActions')).toBeNull();
   });
 
   it('should open menu when clicked', async () => {
@@ -75,7 +78,7 @@ describe('FloatingActionButton', () => {
     fireEvent.click(getByLabelText('toggleMenu'));
 
     await waitFor(() => {
-      expect(getByText('newEvent')).toBeTruthy();
+      expect(getByText('moreActions')).toBeTruthy();
       expect(getByText('action1')).toBeTruthy();
     });
   });
@@ -88,7 +91,7 @@ describe('FloatingActionButton', () => {
     fireEvent.click(getByLabelText('toggleMenu'));
 
     await waitFor(() => {
-      const newEventLink = getByRole('link', { name: 'newEvent' });
+      const newEventLink = getByRole('link', { name: 'moreActions' });
       expect(newEventLink.getAttribute('href')).toBe('/events/new?roleId=123');
 
       const actionLink = getByRole('link', { name: 'action1' });
@@ -126,11 +129,11 @@ describe('FloatingActionButton', () => {
     fireEvent.click(getByLabelText('toggleMenu'));
 
     await waitFor(() => {
-      const newEventLink = getByRole('link', { name: 'newEvent' });
+      const newEventLink = getByRole('link', { name: 'moreActions' });
       fireEvent.click(newEventLink);
     });
 
-    expect(queryByText('newEvent')).toBeNull();
+    expect(queryByText('moreActions')).toBeNull();
   });
 
   it('should not render if container is active', () => {

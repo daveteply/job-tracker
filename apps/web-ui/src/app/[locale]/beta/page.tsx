@@ -4,7 +4,7 @@ import { Suspense, useState } from 'react';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
-import ArrowRightOnRectangleIcon from '@heroicons/react/24/outline/ArrowRightOnRectangleIcon';
+import ArrowRightEndOnRectangleIcon from '@heroicons/react/24/outline/ArrowRightEndOnRectangleIcon';
 import EnvelopeIcon from '@heroicons/react/24/outline/EnvelopeIcon';
 import KeyIcon from '@heroicons/react/24/outline/KeyIcon';
 import UserIcon from '@heroicons/react/24/outline/UserIcon';
@@ -113,7 +113,7 @@ function BetaContent() {
       try {
         // Only try to translate if we think it might be a key
         message = t(normalizedCode);
-      } catch (e) {
+      } catch (error) {
         // Fallback already set
       }
 
@@ -258,7 +258,7 @@ function BetaContent() {
           <div className="collapse-arrow bg-base-100 border-base-300 collapse border shadow-sm">
             <input type="checkbox" />
             <div className="collapse-title flex items-center gap-3 text-xl font-medium">
-              <ArrowRightOnRectangleIcon className="text-primary h-6 w-6" />
+              <ArrowRightEndOnRectangleIcon className="text-primary h-6 w-6" />
               {t('alreadyApproved')}
             </div>
             <div className="collapse-content">
@@ -271,7 +271,7 @@ function BetaContent() {
                     localStorage.setItem(BRANDING.betaGateStorageKey, 'true');
                   }}
                 >
-                  <ArrowRightOnRectangleIcon className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                  <ArrowRightEndOnRectangleIcon className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                   {t('signInNow')}
                 </Link>
               </div>

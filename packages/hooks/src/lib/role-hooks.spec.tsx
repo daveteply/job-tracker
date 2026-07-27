@@ -68,18 +68,18 @@ describe('role-hooks', () => {
       const roles: Partial<RoleWithEventsDTO>[] = [
         { id: '1', status: RoleStatus.Lead }, // Active, Pipeline
         { id: '2', status: RoleStatus.Interviewing }, // Active, Pipeline
-        { id: '3', status: RoleStatus.Accepted }, // Active, Not Pipeline
+        { id: '3', status: RoleStatus.OfferAccepted }, // Inactive, Not Pipeline
         { id: '4', status: RoleStatus.NotSelected }, // Inactive, Not Pipeline
         { id: '5', status: RoleStatus.Ghosted }, // Inactive, Not Pipeline
       ];
 
       const { result } = renderHook(() => useGroupedRoles(roles as RoleWithEventsDTO[]));
 
-      expect(result.current.active).toHaveLength(3);
-      expect(result.current.active.map((r) => r.id)).toEqual(['1', '2', '3']);
+      expect(result.current.active).toHaveLength(2);
+      expect(result.current.active.map((r) => r.id)).toEqual(['1', '2']);
 
-      expect(result.current.inactive).toHaveLength(2);
-      expect(result.current.inactive.map((r) => r.id)).toEqual(['4', '5']);
+      expect(result.current.inactive).toHaveLength(3);
+      expect(result.current.inactive.map((r) => r.id)).toEqual(['3', '4', '5']);
 
       expect(result.current.pipeline).toHaveLength(2);
       expect(result.current.pipeline.map((r) => r.id)).toEqual(['1', '2']);

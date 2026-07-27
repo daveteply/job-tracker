@@ -71,6 +71,21 @@ export function UserMenu() {
               </Link>
             </li>
           )}
+          {session && (
+            <>
+              <div className="divider my-0"></div>
+              <li className="menu-title px-2 py-1">
+                <div className="flex flex-col items-start gap-0.5">
+                  <span className="text-base-content line-clamp-1 font-bold">
+                    {session.user?.name}
+                  </span>
+                  <span className="text-base-content/60 line-clamp-1 text-[10px] font-normal">
+                    {session.user?.email}
+                  </span>
+                </div>
+              </li>
+            </>
+          )}
           <div className="divider my-0"></div>
           <li>
             <Link href="/settings">{t('settings')}</Link>
@@ -87,21 +102,6 @@ export function UserMenu() {
           <li>
             <Link href="/terms">{t('terms')}</Link>
           </li>
-          {session && (
-            <>
-              <div className="divider my-0"></div>
-              <li className="menu-title px-2 py-1">
-                <div className="flex flex-col items-start gap-0.5">
-                  <span className="text-base-content line-clamp-1 font-bold">
-                    {session.user?.name}
-                  </span>
-                  <span className="text-base-content/60 line-clamp-1 text-[10px] font-normal">
-                    {session.user?.email}
-                  </span>
-                </div>
-              </li>
-            </>
-          )}
           <div className="divider my-0 opacity-50"></div>
           <li className="px-4 py-1.5 opacity-30 select-none">
             <div className="flex w-full items-center justify-between">

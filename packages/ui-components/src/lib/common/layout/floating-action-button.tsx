@@ -2,11 +2,13 @@
 
 import { useEffect, useMemo, useState } from 'react';
 
+import BriefcaseIcon from '@heroicons/react/24/outline/BriefcaseIcon';
 import CalendarIcon from '@heroicons/react/24/outline/CalendarIcon';
 import ChatBubbleLeftEllipsisIcon from '@heroicons/react/24/outline/ChatBubbleLeftEllipsisIcon';
 import ClipboardDocumentCheckIcon from '@heroicons/react/24/outline/ClipboardDocumentCheckIcon';
 import DocumentPlusIcon from '@heroicons/react/24/outline/DocumentPlusIcon';
 import EnvelopeIcon from '@heroicons/react/24/outline/EnvelopeIcon';
+import EyeSlashIcon from '@heroicons/react/24/outline/EyeSlashIcon';
 import PaperAirplaneIcon from '@heroicons/react/24/outline/PaperAirplaneIcon';
 import PlusIcon from '@heroicons/react/24/outline/PlusIcon';
 import UserGroupIcon from '@heroicons/react/24/outline/UserGroupIcon';
@@ -16,16 +18,24 @@ import Link from 'next/link';
 import { useParams, usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 
-import { ACTION_CONSTRAINTS, useAvailableActions, useUserSettings } from '@job-tracker/hooks';
+import {
+  ACTION_CONSTRAINTS,
+  INACTIVE_STATUSES,
+  useAvailableActions,
+  useRoleWithCompany,
+  useUserSettings,
+} from '@job-tracker/hooks';
 
 import { useFloatingUI } from '../context/floating-ui-context';
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+  BriefcaseIcon,
   CalendarIcon,
   ChatBubbleLeftEllipsisIcon,
   ClipboardDocumentCheckIcon,
   DocumentPlusIcon,
   EnvelopeIcon,
+  EyeSlashIcon,
   PaperAirplaneIcon,
   UserGroupIcon,
   XCircleIcon,
@@ -42,6 +52,18 @@ export function FloatingActionButton() {
   const [showLabel, setShowLabel] = useState(false);
   const pathname = usePathname();
   const params = useParams();
+
+  const roleId = useMemo(() => {
+    if (!pathname.includes('/roles/')) return '';
+    return (params?.id as string) || '';
+  }, [pathname, params]);
+
+  const { role, loading: loadingRole } = useRoleWithCompany(roleId);
+
+  const isRoleInactive = useMemo(() => {
+    if (!roleId || loadingRole || !role) return false;
+    return INACTIVE_STATUSES.includes(role.status);
+  }, [roleId, loadingRole, role]);
 
   useEffect(() => {
     if (isOpen) {
@@ -82,7 +104,8 @@ export function FloatingActionButton() {
     const route = segments.find((s) => Object.keys(ACTION_CONSTRAINTS).includes(s));
 
     if (!route || !ACTION_CONSTRAINTS[route]) {
-      return actions;
+      const allowedIds = ACTION_CONSTRAINTS['general'] || [];
+      return actions.filter((action) => allowedIds.includes(action.id));
     }
 
     const allowedIds = ACTION_CONSTRAINTS[route];
@@ -121,7 +144,7 @@ export function FloatingActionButton() {
   // Function to close menu when a link is clicked
   const handleLinkClick = () => setIsOpen(false);
 
-  if (isContainerActive || isLoading) {
+  if (isContainerActive || isLoading || isRoleInactive) {
     return null;
   }
 
@@ -135,23 +158,23 @@ export function FloatingActionButton() {
     >
       {/* Speed Dial Menu Items */}
       {isOpen && (
-        <div className={`mb-2 flex flex-col gap-3 ${position === 'left' ? 'items-start' : 'items-end'}`}>
+        <div
+          className={`mb-2 flex flex-col gap-3 ${position === 'left' ? 'items-start' : 'items-end'}`}
+        >
           <div
             className={`flex items-center gap-3 transition-all duration-300 ease-out ${
               position === 'left' ? 'flex-row-reverse' : ''
-            } ${
-              isAnimating ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
-            }`}
+            } ${isAnimating ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}
             style={{ transitionDelay: `${filteredActions.length * 40}ms` }}
           >
             <span className="bg-base-100 text-base-content rounded-md px-2 py-1 text-sm font-medium shadow-sm">
-              {t('newEvent')}
+              {t('moreActions')}
             </span>
             <Link
               href={getEventUrl()}
               onClick={handleLinkClick}
               className="btn btn-primary btn-circle shadow-lg"
-              aria-label={t('newEvent')}
+              aria-label={t('moreActions')}
             >
               <PlusIcon className="h-6 w-6" />
             </Link>
@@ -164,9 +187,7 @@ export function FloatingActionButton() {
                 key={action.id}
                 className={`flex items-center gap-3 transition-all duration-300 ease-out ${
                   position === 'left' ? 'flex-row-reverse' : ''
-                } ${
-                  isAnimating ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
-                }`}
+                } ${isAnimating ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}
                 style={{ transitionDelay: `${(filteredActions.length - 1 - index) * 40}ms` }}
               >
                 <span className="bg-base-100 text-base-content rounded-md px-2 py-1 text-sm font-medium shadow-sm">
@@ -187,7 +208,9 @@ export function FloatingActionButton() {
       )}
 
       {/* Main Trigger Button */}
-      <div className={`relative flex items-center ${position === 'left' ? 'justify-start' : 'justify-end'}`}>
+      <div
+        className={`relative flex items-center ${position === 'left' ? 'justify-start' : 'justify-end'}`}
+      >
         {labelKey && (
           <div
             className={`pointer-events-none absolute z-[-1] whitespace-nowrap transition-all duration-700 ease-out ${

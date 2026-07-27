@@ -4,7 +4,7 @@ import { RoleStatus } from '../common/role-status-type';
 
 import { RoleEntity } from './role.entity';
 
-const ROLE_SCHEMA_VERSION = 1;
+const ROLE_SCHEMA_VERSION = 2;
 
 export const RoleSchema: RxJsonSchema<RoleEntity> = {
   title: 'role schema',

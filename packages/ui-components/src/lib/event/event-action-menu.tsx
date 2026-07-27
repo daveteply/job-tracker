@@ -7,7 +7,7 @@ import EllipsisVerticalIcon from '@heroicons/react/24/solid/EllipsisVerticalIcon
 import PencilIcon from '@heroicons/react/24/solid/PencilIcon';
 import TrashIcon from '@heroicons/react/24/solid/TrashIcon';
 import Link from 'next/link';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 interface EventActionMenuProps {
   id: string;
@@ -16,6 +16,7 @@ interface EventActionMenuProps {
 export function EventActionMenu({ id }: EventActionMenuProps) {
   const tNav = useTranslations('Navigation');
   const tReminders = useTranslations('Reminders');
+  const locale = useLocale();
   const containerRef = useRef<HTMLDetailsElement>(null);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -65,7 +66,7 @@ export function EventActionMenu({ id }: EventActionMenuProps) {
       <ul className="menu dropdown-content bg-base-100 rounded-box border-base-200 z-1 w-48 border p-2 shadow-lg">
         <li>
           <Link
-            href={`/reminders/new?eventId=${id}`}
+            href={`/${locale}/reminders/new?eventId=${id}`}
             className="hover:bg-base-200 flex items-center gap-2"
             onClick={() => setIsOpen(false)}
           >
@@ -75,7 +76,7 @@ export function EventActionMenu({ id }: EventActionMenuProps) {
         </li>
         <li>
           <Link
-            href={`/events/${id}/edit`}
+            href={`/${locale}/events/${id}/edit`}
             className="hover:bg-base-200 flex items-center gap-2"
             onClick={() => setIsOpen(false)} // Close menu after clicking action
           >
@@ -85,7 +86,7 @@ export function EventActionMenu({ id }: EventActionMenuProps) {
         </li>
         <li>
           <Link
-            href={`/events/${id}/delete`}
+            href={`/${locale}/events/${id}/delete`}
             className="text-error hover:bg-error/10 flex items-center gap-2"
             onClick={() => setIsOpen(false)} // Close menu after clicking link
           >
