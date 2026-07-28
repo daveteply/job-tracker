@@ -5,6 +5,7 @@ export interface UserSettingsEntity {
   locale: string;
   appearance: 'light' | 'dark' | 'system';
   fabPosition: 'left' | 'right';
+  eventExpandedStates?: Record<string, boolean>;
   updatedAt?: string;
   createdAt?: string;
 }

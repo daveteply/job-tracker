@@ -43,7 +43,12 @@ export function RoleInfoCard({
     <div className="flex items-center gap-2">
       {!showFull && <ExternalLink url={role.jobPostingUrl} />}
       {eventCount > 0 && (!showFull || !showEvents) && (
-        <span className="badge badge-ghost badge-sm">{eventCount} events</span>
+        <Link
+          href={`/roles/${role.id}`}
+          className="badge badge-ghost badge-sm shrink-0 whitespace-nowrap hover:bg-base-200 transition-colors cursor-pointer"
+        >
+          {eventCount} {eventCount === 1 ? 'event' : 'events'}
+        </Link>
       )}
     </div>
   );

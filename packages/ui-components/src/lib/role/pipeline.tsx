@@ -13,7 +13,7 @@ import XCircleIcon from '@heroicons/react/24/outline/XCircleIcon';
 import { useTranslations } from 'next-intl';
 
 import { RoleStatus } from '@job-tracker/domain';
-import { RoleDTO } from '@job-tracker/validation';
+import { RoleWithEventsDTO } from '@job-tracker/validation';
 
 import RoleInfoCard from './role-info-card';
 
@@ -47,7 +47,7 @@ const STATUS_CONFIG: Record<RoleStatus, { icon: React.ElementType; color: string
 
 export interface PipelineColumnProps {
   status: RoleStatus;
-  roles: RoleDTO[];
+  roles: RoleWithEventsDTO[];
   loading?: boolean;
 }
 
@@ -75,7 +75,7 @@ export function PipelineColumn({ status, roles, loading }: PipelineColumnProps) 
         ) : roles.length > 0 ? (
           roles.map((role) => (
             <div key={role.id} className="transition-all active:scale-[0.98]">
-              <RoleInfoCard role={role} showFull={false} />
+              <RoleInfoCard role={role} events={role.events} showFull={false} />
             </div>
           ))
         ) : (
@@ -91,7 +91,7 @@ export function PipelineColumn({ status, roles, loading }: PipelineColumnProps) 
 }
 
 export interface PipelineProps {
-  roles: RoleDTO[];
+  roles: RoleWithEventsDTO[];
   loading?: boolean;
   columns?: { title: string; status: RoleStatus }[];
 }

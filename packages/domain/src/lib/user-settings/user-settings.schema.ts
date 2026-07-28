@@ -2,7 +2,7 @@ import { RxJsonSchema } from 'rxdb';
 
 import { UserSettingsEntity } from './user-settings.entity';
 
-const USER_SETTINGS_SCHEMA_VERSION = 3;
+const USER_SETTINGS_SCHEMA_VERSION = 4;
 
 export const UserSettingsSchema: RxJsonSchema<UserSettingsEntity> = {
   title: 'user settings schema',
@@ -23,6 +23,11 @@ export const UserSettingsSchema: RxJsonSchema<UserSettingsEntity> = {
       type: 'string',
       enum: ['left', 'right'],
       default: 'right',
+    },
+    eventExpandedStates: {
+      type: 'object',
+      additionalProperties: true,
+      default: {},
     },
     updatedAt: { type: 'string', format: 'date-time', maxLength: 30 },
     createdAt: { type: 'string', format: 'date-time', maxLength: 30 },

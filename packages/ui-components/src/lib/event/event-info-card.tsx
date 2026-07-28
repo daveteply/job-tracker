@@ -1,5 +1,7 @@
 'use client';
 
+import ChevronDownIcon from '@heroicons/react/24/outline/ChevronDownIcon';
+import ChevronUpIcon from '@heroicons/react/24/outline/ChevronUpIcon';
 import InboxArrowDownIcon from '@heroicons/react/24/solid/InboxArrowDownIcon';
 import PaperAirplaneIcon from '@heroicons/react/24/solid/PaperAirplaneIcon';
 import { useTranslations } from 'next-intl';
@@ -56,37 +58,54 @@ export function EventInfoCard({
     }
   }
 
+  const hasCompanyOrRole = Boolean(event.company?.name || event.role?.title);
+
   const title = (
-    <div className="flex min-w-0 items-center gap-1.5">
-      <span className="badge badge-info truncate text-xs font-semibold">{eventName}</span>
-      <span
-        className="tooltip flex shrink-0 items-center"
-        data-tip={tEnum(`DirectionType.${event.direction}`)}
-      >
-        {event.direction === DirectionType.Inbound ? (
-          <div className="bg-success/20 text-success flex items-center rounded-full px-1.5 py-0.5 text-[10px] font-bold tracking-wider uppercase">
-            <InboxArrowDownIcon className="mr-1 size-3.5" />
-            <span>{tEnum('DirectionType.Inbound')}</span>
-          </div>
-        ) : (
-          <div className="bg-primary/20 text-primary flex items-center rounded-full px-1.5 py-0.5 text-[10px] font-bold tracking-wider uppercase">
-            <PaperAirplaneIcon className="mr-1 size-3.5" />
-            <span>{tEnum('DirectionType.Outbound')}</span>
-          </div>
-        )}
-      </span>
-      {reminderCount > 0 && !showFull && (
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            onToggleShowFull?.();
-          }}
-          className="badge badge-ghost badge-sm ml-1 cursor-pointer border-none transition-colors hover:bg-base-content/20"
-          title="Toggle event details"
+    <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+      <div className="flex min-w-0 items-center gap-1.5">
+        <span className="badge badge-info truncate text-xs font-semibold">{eventName}</span>
+        <span
+          className="tooltip flex shrink-0 items-center"
+          data-tip={tEnum(`DirectionType.${event.direction}`)}
         >
-          {reminderCount}
-        </button>
+          {event.direction === DirectionType.Inbound ? (
+            <div className="bg-success/20 text-success flex items-center rounded-full px-1.5 py-0.5 text-[10px] font-bold tracking-wider uppercase">
+              <InboxArrowDownIcon className="mr-1 size-3.5" />
+              <span>{tEnum('DirectionType.Inbound')}</span>
+            </div>
+          ) : (
+            <div className="bg-primary/20 text-primary flex items-center rounded-full px-1.5 py-0.5 text-[10px] font-bold tracking-wider uppercase">
+              <PaperAirplaneIcon className="mr-1 size-3.5" />
+              <span>{tEnum('DirectionType.Outbound')}</span>
+            </div>
+          )}
+        </span>
+        {onToggleShowFull && (
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              onToggleShowFull();
+            }}
+            className="badge badge-ghost badge-sm ml-1 shrink-0 cursor-pointer border-none transition-colors hover:bg-base-content/20 gap-1"
+            title={showFull ? 'Collapse details' : 'Expand details'}
+            aria-label={showFull ? 'Collapse details' : 'Expand details'}
+          >
+            {reminderCount > 0 && <span>{reminderCount}</span>}
+            {showFull ? (
+              <ChevronUpIcon className="size-3" />
+            ) : (
+              <ChevronDownIcon className="size-3" />
+            )}
+          </button>
+        )}
+      </div>
+      {hasCompanyOrRole && (
+        <div className="truncate text-xs font-medium opacity-70">
+          {event.company?.name && <span>{event.company.name}</span>}
+          {event.company?.name && event.role?.title && <span className="mx-1.5">•</span>}
+          {event.role?.title && <span>{event.role.title}</span>}
+        </div>
       )}
     </div>
   );
@@ -110,15 +129,6 @@ export function EventInfoCard({
       className={`card bg-base-300 w-full rounded-xl border-l-5 shadow-sm transition-transform hover:shadow-md active:scale-[0.99] ${borderClass}`}
     >
       <div className="space-y-3">
-        {/* Main Content */}
-        {(event.company || event.role) && (
-          <div className="space-y-1">
-            {event.company && (
-              <p className="truncate text-sm font-semibold">{event.company?.name}</p>
-            )}
-            {event.role && <p className="truncate text-sm">{event.role?.title}</p>}
-          </div>
-        )}
 
         {/* Reminders Section */}
         {showReminders && event.reminders && event.reminders.length > 0 && (

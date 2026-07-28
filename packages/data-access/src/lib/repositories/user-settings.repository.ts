@@ -32,6 +32,7 @@ export class UserSettingsRepository {
       showFullEventList: false,
       showInactiveRoles: false,
       fabPosition: 'right',
+      eventExpandedStates: {},
     });
   }
 
@@ -54,6 +55,7 @@ export class UserSettingsRepository {
         locale: 'en-US',
         appearance: 'system',
         fabPosition: 'right',
+        eventExpandedStates: {},
         ...settings,
         ...timestamps,
       };

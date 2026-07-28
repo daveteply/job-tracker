@@ -22,11 +22,11 @@ export function EventListExpandToggle({ showFull, onToggleShowFull }: EventListE
       />
       <div className="swap-on flex items-center justify-end gap-1">
         <ArrowsPointingInIcon className="h-4 w-4" />
-        <span>{t('collapse')}</span>
+        <span>{t('collapseAll')}</span>
       </div>
       <div className="swap-off flex items-center justify-end gap-1">
         <ArrowsPointingOutIcon className="h-4 w-4" />
-        <span>{t('expand')}</span>
+        <span>{t('expandAll')}</span>
       </div>
     </label>
   );

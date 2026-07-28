@@ -352,7 +352,9 @@
     "reminderTasksNote": "Agregaremos esto a tus tareas.",
     "noReminderNote": "No se creará ningún recordatorio. Siempre puedes añadir uno más tarde.",
     "expand": "Expandir",
-    "collapse": "Contraer"
+    "collapse": "Contraer",
+    "expandAll": "Expandir Todo",
+    "collapseAll": "Contraer Todo"
   },
   "Reminders": {
     "listTitle": "Recordatorios",

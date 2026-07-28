@@ -13,6 +13,8 @@ export interface EventListProps {
   showFull?: boolean;
   showReminders?: boolean;
   onToggleShowFull?: () => void;
+  eventExpandedStates?: Record<string, boolean>;
+  onToggleEventExpand?: (eventId: string) => void;
   showExpandToggle?: boolean;
 }
 
@@ -23,6 +25,8 @@ export function EventList({
   showFull = false,
   showReminders = false,
   onToggleShowFull,
+  eventExpandedStates = {},
+  onToggleEventExpand,
 }: EventListProps) {
   const t = useTranslations('Events');
   const message = noEventsMessage || t('noEventsFound');
@@ -32,16 +36,25 @@ export function EventList({
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {events && events.length ? (
           <>
-            {events.map((event: EventWithChildrenDTO) => (
-              <EventInfoCard
-                key={event.id}
-                event={event}
-                showControls={showControls}
-                showFull={showFull}
-                showReminders={showReminders}
-                onToggleShowFull={onToggleShowFull}
-              />
-            ))}
+            {events.map((event: EventWithChildrenDTO) => {
+              const isCardExpanded = eventExpandedStates[event.id] ?? showFull;
+              return (
+                <EventInfoCard
+                  key={event.id}
+                  event={event}
+                  showControls={showControls}
+                  showFull={isCardExpanded}
+                  showReminders={showReminders}
+                  onToggleShowFull={() => {
+                    if (onToggleEventExpand) {
+                      onToggleEventExpand(event.id);
+                    } else {
+                      onToggleShowFull?.();
+                    }
+                  }}
+                />
+              );
+            })}
           </>
         ) : (
           <p className="px-1 text-sm italic opacity-50">{message}</p>
