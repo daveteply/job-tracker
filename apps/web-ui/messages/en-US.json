@@ -351,7 +351,9 @@
     "reminderTasksNote": "We'll add this to your tasks.",
     "noReminderNote": "No reminder will be created. You can always add one later.",
     "expand": "Expand",
-    "collapse": "Collapse"
+    "collapse": "Collapse",
+    "expandAll": "Expand All",
+    "collapseAll": "Collapse All"
   },
   "Reminders": {
     "listTitle": "Reminders",

@@ -11,6 +11,7 @@ export class UserSettingsMapper {
       locale: doc.locale,
       appearance: doc.appearance,
       fabPosition: doc.fabPosition,
+      eventExpandedStates: doc.eventExpandedStates ?? {},
       updatedAt: doc.updatedAt,
       createdAt: doc.createdAt,
     };
@@ -24,6 +25,7 @@ export class UserSettingsMapper {
       locale: dto.locale,
       appearance: dto.appearance,
       fabPosition: dto.fabPosition,
+      eventExpandedStates: dto.eventExpandedStates ?? {},
       updatedAt: dto.updatedAt,
       createdAt: dto.createdAt,
     };

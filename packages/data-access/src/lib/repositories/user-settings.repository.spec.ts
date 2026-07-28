@@ -40,6 +40,7 @@ describe('UserSettingsRepository', () => {
         locale: 'en-US',
         appearance: 'system',
         fabPosition: 'right',
+        eventExpandedStates: {},
         toJSON: () => ({
           id: 'current',
           showFullEventList: true,
@@ -47,6 +48,7 @@ describe('UserSettingsRepository', () => {
           locale: 'en-US',
           appearance: 'system',
           fabPosition: 'right',
+          eventExpandedStates: {},
         }),
       };
       mockDb.userSettings.findOne.mockReturnValue({ $: of(mockDoc) });
@@ -58,6 +60,7 @@ describe('UserSettingsRepository', () => {
         locale: 'en-US',
         appearance: 'system',
         fabPosition: 'right',
+        eventExpandedStates: {},
       });
     });
   });
@@ -92,6 +95,7 @@ describe('UserSettingsRepository', () => {
         locale: 'en-US',
         appearance: 'system',
         fabPosition: 'right',
+        eventExpandedStates: {},
         toJSON: () => ({
           id: 'current',
           showFullEventList: false,
@@ -99,6 +103,7 @@ describe('UserSettingsRepository', () => {
           locale: 'en-US',
           appearance: 'system',
           fabPosition: 'right',
+          eventExpandedStates: {},
         }),
       };
       mockDb.userSettings.findOne.mockReturnValue({

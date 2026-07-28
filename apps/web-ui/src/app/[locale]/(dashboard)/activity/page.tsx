@@ -23,9 +23,23 @@ export default function ActivityPage() {
   if (loading) return <ListSkeleton />;
 
   const showFullEvents = settings?.showFullEventList ?? false;
+  const eventExpandedStates = settings?.eventExpandedStates ?? {};
 
   const handleToggleEvents = async () => {
-    await updateSettings({ showFullEventList: !showFullEvents });
+    await updateSettings({
+      showFullEventList: !showFullEvents,
+      eventExpandedStates: {},
+    });
+  };
+
+  const handleToggleEventExpand = async (eventId: string) => {
+    const current = eventExpandedStates[eventId] ?? showFullEvents;
+    await updateSettings({
+      eventExpandedStates: {
+        ...eventExpandedStates,
+        [eventId]: !current,
+      },
+    });
   };
 
   return (
@@ -56,7 +70,9 @@ export default function ActivityPage() {
         <EventList
           events={events}
           showFull={showFullEvents}
+          eventExpandedStates={eventExpandedStates}
           onToggleShowFull={handleToggleEvents}
+          onToggleEventExpand={handleToggleEventExpand}
         />
       )}
     </>

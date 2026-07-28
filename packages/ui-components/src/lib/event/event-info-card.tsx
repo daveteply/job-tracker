@@ -1,5 +1,7 @@
 'use client';
 
+import ChevronDownIcon from '@heroicons/react/24/outline/ChevronDownIcon';
+import ChevronUpIcon from '@heroicons/react/24/outline/ChevronUpIcon';
 import InboxArrowDownIcon from '@heroicons/react/24/solid/InboxArrowDownIcon';
 import PaperAirplaneIcon from '@heroicons/react/24/solid/PaperAirplaneIcon';
 import { useTranslations } from 'next-intl';
@@ -78,17 +80,23 @@ export function EventInfoCard({
             </div>
           )}
         </span>
-        {reminderCount > 0 && !showFull && (
+        {onToggleShowFull && (
           <button
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
-              onToggleShowFull?.();
+              onToggleShowFull();
             }}
-            className="badge badge-ghost badge-sm ml-1 cursor-pointer border-none transition-colors hover:bg-base-content/20"
-            title="Toggle event details"
+            className="badge badge-ghost badge-sm ml-1 shrink-0 cursor-pointer border-none transition-colors hover:bg-base-content/20 gap-1"
+            title={showFull ? 'Collapse details' : 'Expand details'}
+            aria-label={showFull ? 'Collapse details' : 'Expand details'}
           >
-            {reminderCount}
+            {reminderCount > 0 && <span>{reminderCount}</span>}
+            {showFull ? (
+              <ChevronUpIcon className="size-3" />
+            ) : (
+              <ChevronDownIcon className="size-3" />
+            )}
           </button>
         )}
       </div>

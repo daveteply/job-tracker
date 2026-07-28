@@ -7,6 +7,7 @@ export const UserSettingsSchema = z.object({
   locale: z.string(),
   appearance: z.enum(['light', 'dark', 'system']),
   fabPosition: z.enum(['left', 'right']),
+  eventExpandedStates: z.record(z.string(), z.boolean()).optional(),
   updatedAt: z.string().optional(),
   createdAt: z.string().optional(),
 });

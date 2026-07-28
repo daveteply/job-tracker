@@ -111,18 +111,17 @@ describe('EventInfoCard', () => {
     const { getByTitle } = render(
       <EventInfoCard event={mockEvent as any} showFull={false} onToggleShowFull={mockOnToggle} />,
     );
-    const badgeButton = getByTitle('Toggle event details');
+    const badgeButton = getByTitle('Expand details');
     expect(badgeButton).toBeTruthy();
-    expect(badgeButton.textContent).toBe('1');
+    expect(badgeButton.textContent).toContain('1');
     badgeButton.click();
     expect(mockOnToggle).toHaveBeenCalledTimes(1);
   });
 
   it('should render reminder count label in body when expanded', () => {
-    const { getByText, queryByTitle } = render(
+    const { getByText } = render(
       <EventInfoCard event={mockEvent as any} showFull={true} />,
     );
-    expect(queryByTitle('Toggle event details')).toBeNull();
     expect(getByText('reminders')).toBeTruthy();
     expect(getByText('remindersCount')).toBeTruthy();
   });

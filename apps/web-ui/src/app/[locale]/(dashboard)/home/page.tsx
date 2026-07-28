@@ -67,9 +67,23 @@ export default function HomePage() {
   }
 
   const showFullEvents = settings?.showFullEventList ?? false;
+  const eventExpandedStates = settings?.eventExpandedStates ?? {};
 
   const handleToggleEvents = async () => {
-    await updateSettings({ showFullEventList: !showFullEvents });
+    await updateSettings({
+      showFullEventList: !showFullEvents,
+      eventExpandedStates: {},
+    });
+  };
+
+  const handleToggleEventExpand = async (eventId: string) => {
+    const current = eventExpandedStates[eventId] ?? showFullEvents;
+    await updateSettings({
+      eventExpandedStates: {
+        ...eventExpandedStates,
+        [eventId]: !current,
+      },
+    });
   };
 
   if (isEmpty) {
@@ -127,7 +141,9 @@ export default function HomePage() {
             events={recentEvents}
             showControls={true}
             showFull={showFullEvents}
+            eventExpandedStates={eventExpandedStates}
             onToggleShowFull={handleToggleEvents}
+            onToggleEventExpand={handleToggleEventExpand}
           />
         )}
       </section>

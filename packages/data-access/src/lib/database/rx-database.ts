@@ -263,6 +263,12 @@ export async function initRxDatabase(name: string): Promise<TrackerDatabase> {
                 oldDoc.fabPosition = 'right';
                 return oldDoc;
               },
+              // 4: Add eventExpandedStates field
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Migration docs represent historical data and can have any shape.
+              4: (oldDoc: any) => {
+                oldDoc.eventExpandedStates = oldDoc.eventExpandedStates || {};
+                return oldDoc;
+              },
             },
           },
         });
@@ -333,6 +339,7 @@ export async function initRxDatabase(name: string): Promise<TrackerDatabase> {
           locale: 'en-US',
           appearance: 'system',
           fabPosition: 'right',
+          eventExpandedStates: {},
           createdAt: now,
           updatedAt: now,
         });
