@@ -3,14 +3,14 @@
 import PlusIcon from '@heroicons/react/24/outline/PlusIcon';
 import { useTranslations } from 'next-intl';
 
-import { useRolesWithCompany } from '@job-tracker/hooks';
+import { useRolesWithEvents } from '@job-tracker/hooks';
 import { EmptyState, PageHeader, Pipeline, PipelineSkeleton } from '@job-tracker/ui-components';
 
 import { Link } from '../../../../i18n/routing';
 
 export default function PipelinePage() {
   const t = useTranslations('Pipeline');
-  const { roles, loading: loadingRoles } = useRolesWithCompany();
+  const { roles, loading: loadingRoles } = useRolesWithEvents();
 
   if (loadingRoles) return <PipelineSkeleton />;
 
