@@ -103,6 +103,12 @@ Management of Companies, Roles, and Contacts.
 3. **Deletion Safety:**
    - Deleting an entity (Company, Role, Contact, Event, etc.) is handled via a dedicated **Delete UI**.
    - **Usage Checks:** Before deletion, the system performs checks to determine if the entity is currently "in use" (e.g., a Company with active Roles cannot be deleted without first addressing those Roles).
+4. **Role & Company Relationship & Auto-Fill:**
+   - **Role Dependency:** A Role strictly belongs to a Company (`companyId`). Multiple companies can have roles with identical titles (e.g., "Software Engineer" at Google vs. Apple).
+   - **Disambiguated Search:** When searching roles across companies without a pre-selected company, search options display company context (e.g., `Software Engineer · Google`).
+   - **Fill-If-Empty Auto-Fill:** Selecting an existing role auto-fills the Company field only if the Company field is currently empty. Explicitly selected companies are never overwritten by role selection.
+   - **Single-Role Auto-Populate:** Selecting a company that has **exactly 1 role** saved in the database automatically populates `RoleCombobox` with that single role.
+   - **Company Switch Matching:** Changing the selected company updates the role to a role matching the current role's title under the new company if one exists; otherwise, the role selection clears.
 
 ---
 

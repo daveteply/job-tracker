@@ -1,7 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-import { Control, FieldValues, Path, PathValue, useFormContext } from 'react-hook-form';
+import { Control, FieldValues, Path, useFormContext } from 'react-hook-form';
 
 import { useTranslations } from 'next-intl';
 
@@ -11,6 +10,7 @@ import { CompanyDTO, ContactDTO, RoleDTO } from '@job-tracker/validation';
 import CompanyCombobox from '../../company/company-combobox';
 import ContactCombobox from '../../contact/contact-combobox';
 import RoleCombobox from '../../role/role-combobox';
+import { useEventContextSync } from '../use-event-context-sync';
 
 export interface EventStepContextProps<T extends FieldValues = FieldValues> {
   control: Control<T>;
@@ -40,57 +40,11 @@ export function EventStepContext<T extends FieldValues = FieldValues>({
   validateContact,
 }: EventStepContextProps<T>) {
   const t = useTranslations('Events');
-  const { setValue, watch } = useFormContext<T>();
+  const { watch } = useFormContext<T>();
 
-  const contact = watch('contact' as Path<T>) as (ContactDTO & { company?: CompanyDTO }) | null;
-  const role = watch('role' as Path<T>) as (RoleDTO & { company?: CompanyDTO }) | null;
   const company = watch('company' as Path<T>);
 
-  const prevContactRef = useRef(contact);
-  const prevRoleRef = useRef(role);
-  const prevCompanyRef = useRef(company);
-
-  useEffect(() => {
-    const currentCompanyId = (company as EntitySelection | null)?.id;
-    const prevCompanyId = (prevCompanyRef.current as EntitySelection | null)?.id;
-
-    // If role changed and has an associated company, it takes precedence
-    if (role?.id !== prevRoleRef.current?.id) {
-      if (role?.company) {
-        const selection: EntitySelection = {
-          ...role.company,
-          isNew: false,
-          shouldRemove: false,
-        };
-        setValue('company' as Path<T>, selection as PathValue<T, Path<T>>, {
-          shouldValidate: true,
-        });
-      }
-    }
-    // If contact changed and has an associated company, only fill if company is currently empty
-    else if (contact?.id !== prevContactRef.current?.id) {
-      if (contact?.company && !company) {
-        const selection: EntitySelection = {
-          ...contact.company,
-          isNew: false,
-          shouldRemove: false,
-        };
-        setValue('company' as Path<T>, selection as PathValue<T, Path<T>>, {
-          shouldValidate: true,
-        });
-      }
-    }
-    // If company changed, clear the role if it doesn't match the new company
-    else if (currentCompanyId !== prevCompanyId) {
-      if (role && role.companyId !== currentCompanyId) {
-        setValue('role' as Path<T>, null as PathValue<T, Path<T>>, { shouldValidate: true });
-      }
-    }
-
-    prevContactRef.current = contact;
-    prevRoleRef.current = role;
-    prevCompanyRef.current = company;
-  }, [contact, role, company, setValue]);
+  useEventContextSync<T>({ onSearchRole });
 
   return (
     <div className="space-y-6">

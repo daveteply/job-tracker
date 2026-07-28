@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo } from 'react';
 import { Controller, DefaultValues, FieldValues, Path, PathValue, useForm } from 'react-hook-form';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -30,6 +30,7 @@ import RoleCombobox from '../role/role-combobox';
 
 import EventSummaryGenerator from './event-summary-generator';
 import SourceTypeSelector from './source-type-selector';
+import useEventContextSync from './use-event-context-sync';
 
 interface EventFormValues extends FieldValues {
   occurredAt?: Date | string | null;
@@ -131,48 +132,14 @@ export function EventForm<T extends EventFormValues>({
 
   const { isDirty: isSummaryDirty } = getFieldState(
     'summary' as Path<T>,
-     
+
     {
       errors,
       isSubmitting,
     } as any,
   );
 
-  const prevContactRef = useRef(contact);
-  const prevRoleRef = useRef(role);
-  const prevCompanyRef = useRef(company);
-
-  useEffect(() => {
-    const currentCompanyId = company?.id;
-    const prevCompanyId = prevCompanyRef.current?.id;
-
-    // If role changed and has an associated company, it takes precedence
-    if (role?.id !== prevRoleRef.current?.id) {
-      if (role?.company) {
-        setValue('company' as Path<T>, role.company as PathValue<T, Path<T>>, {
-          shouldValidate: true,
-        });
-      }
-    }
-    // If contact changed and has an associated company, only fill if company is currently empty
-    else if (contact?.id !== prevContactRef.current?.id) {
-      if (contact?.company && !company) {
-        setValue('company' as Path<T>, contact.company as PathValue<T, Path<T>>, {
-          shouldValidate: true,
-        });
-      }
-    }
-    // If company changed, clear the role if it doesn't match the new company
-    else if (currentCompanyId !== prevCompanyId) {
-      if (role && role.companyId !== currentCompanyId) {
-        setValue('role' as Path<T>, null as PathValue<T, Path<T>>, { shouldValidate: true });
-      }
-    }
-
-    prevContactRef.current = contact;
-    prevRoleRef.current = role;
-    prevCompanyRef.current = company;
-  }, [contact, role, company, setValue]);
+  useEventContextSync<T>({ setValue, watch, onSearchRole });
 
   // Reset form when initialData changes
   useEffect(() => {

@@ -101,18 +101,20 @@ describe('EventStepContext', () => {
     );
   });
 
-  it('clears role when company changes to non-matching one', () => {
+  it('clears role when company changes to non-matching one', async () => {
     const mockSetValue = jest.fn();
-    const role = { id: 'role-1', companyId: 'comp-1' };
+    const role = { id: 'role-1', companyId: 'comp-1', title: 'Engineer' };
     const initialCompany = { id: 'comp-1' };
     const newCompany = { id: 'comp-2' };
+    const mockSearchRole = jest.fn().mockResolvedValue([]);
 
     const { rerender } = render(
       <TestComponent
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any -- mock control object
         control={{} as any}
         onSearchCompany={mockOnSearch}
         onSearchContact={mockOnSearch}
-        onSearchRole={mockOnSearch}
+        onSearchRole={mockSearchRole}
         customSetValue={mockSetValue}
         watchValue={{ role, contact: null, company: initialCompany }}
       />,
@@ -120,15 +122,54 @@ describe('EventStepContext', () => {
 
     rerender(
       <TestComponent
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any -- mock control object
         control={{} as any}
         onSearchCompany={mockOnSearch}
         onSearchContact={mockOnSearch}
-        onSearchRole={mockOnSearch}
+        onSearchRole={mockSearchRole}
         customSetValue={mockSetValue}
         watchValue={{ role, contact: null, company: newCompany }}
       />,
     );
 
+    await Promise.resolve();
     expect(mockSetValue).toHaveBeenCalledWith('role', null, expect.any(Object));
+  });
+
+  it('auto-fills role when company changes and company has exactly 1 role', async () => {
+    const mockSetValue = jest.fn();
+    const singleRole = { id: 'role-99', companyId: 'comp-2', title: 'Single Role' };
+    const mockSearchRole = jest.fn().mockResolvedValue([singleRole]);
+
+    const { rerender } = render(
+      <TestComponent
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any -- mock control object
+        control={{} as any}
+        onSearchCompany={mockOnSearch}
+        onSearchContact={mockOnSearch}
+        onSearchRole={mockSearchRole}
+        customSetValue={mockSetValue}
+        watchValue={{ role: null, contact: null, company: null }}
+      />,
+    );
+
+    rerender(
+      <TestComponent
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any -- mock control object
+        control={{} as any}
+        onSearchCompany={mockOnSearch}
+        onSearchContact={mockOnSearch}
+        onSearchRole={mockSearchRole}
+        customSetValue={mockSetValue}
+        watchValue={{ role: null, contact: null, company: { id: 'comp-2' } }}
+      />,
+    );
+
+    await Promise.resolve();
+    expect(mockSetValue).toHaveBeenCalledWith(
+      'role',
+      expect.objectContaining({ id: 'role-99', title: 'Single Role' }),
+      expect.any(Object),
+    );
   });
 });

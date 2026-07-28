@@ -135,3 +135,25 @@ export interface DeriveEventCompanyIdInput {
 export function deriveEventCompanyId(input: DeriveEventCompanyIdInput): string | null | undefined {
   return input.roleCompanyId ?? input.contactCompanyId ?? input.explicitCompanyId;
 }
+
+/**
+ * Determines the target role selection when a company is selected or changed.
+ * - If the company has exactly 1 role, returns that single role.
+ * - Else if a role title was already specified, attempts to find a matching role by title.
+ * - Otherwise returns null.
+ */
+export function determineRoleOnCompanyChange<T extends { title: string }>(
+  currentRoleTitle: string | undefined | null,
+  companyRoles: T[],
+): T | null {
+  if (companyRoles.length === 1) {
+    return companyRoles[0];
+  }
+  if (currentRoleTitle) {
+    const match = companyRoles.find(
+      (r) => r.title.toLowerCase() === currentRoleTitle.toLowerCase(),
+    );
+    return match ?? null;
+  }
+  return null;
+}
