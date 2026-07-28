@@ -31,6 +31,7 @@ import {
   EventStepReminder,
   EventStepType,
   FloatingButtonContainer,
+  triggerEventConfetti,
 } from '@job-tracker/ui-components';
 import { EventCreateWithReminder, EventCreateWithReminderSchema } from '@job-tracker/validation';
 
@@ -234,6 +235,10 @@ export default function EventsNewPage() {
     try {
       const result = await upsertEvent(data);
       if (result.success) {
+        const selectedType = eventTypes.find((t) => t.id === data.eventTypeId);
+        if (selectedType) {
+          triggerEventConfetti(selectedType.name, selectedType.translationKey);
+        }
         router.push('/activity');
       }
     } catch (error) {

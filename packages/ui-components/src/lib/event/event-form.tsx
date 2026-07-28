@@ -19,6 +19,7 @@ import {
   RoleDTO,
 } from '@job-tracker/validation';
 
+import { triggerEventConfetti } from '../common/feedback/confetti';
 import { useToast } from '../common/feedback/toast-context';
 import { EnumSelector } from '../common/forms/enum-selector';
 import { ErrorMsg } from '../common/forms/error-msg';
@@ -152,6 +153,13 @@ export function EventForm<T extends EventFormValues>({
     try {
       const result = await onSubmitAction(data);
       if (result.success) {
+        const typeId = (data as Record<string, unknown>)['eventTypeId'] as string | undefined;
+        if (typeId) {
+          const selectedType = eventTypes.find((t) => t.id === typeId);
+          if (selectedType) {
+            triggerEventConfetti(selectedType.name, selectedType.translationKey);
+          }
+        }
         showToast(`Event ${isEdit ? 'updated' : 'created'} successfully!`, 'success');
         router.push(postActionRoute);
       } else {

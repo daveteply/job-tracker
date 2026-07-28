@@ -14,6 +14,7 @@ export * from './lib/common/data-display/external-link';
 export * from './lib/common/data-display/formatted-date';
 
 // Feedback
+export * from './lib/common/feedback/confetti';
 export * from './lib/common/feedback/error-view';
 export * from './lib/common/feedback/page-loading';
 export * from './lib/common/feedback/skeletons';
