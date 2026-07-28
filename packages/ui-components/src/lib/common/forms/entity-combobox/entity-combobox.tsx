@@ -12,6 +12,9 @@ export interface EntityComboboxConfig<TEntity, TFormValue> {
   //   or `${contact.firstName} ${contact.lastName}`)
   getDisplayValue: (entity: TEntity) => string;
 
+  // Optional: Extract secondary text from an entity (e.g., company.name for a role)
+  getSecondaryText?: (entity: TEntity) => string | undefined;
+
   // Parse user input into the form value shape when creating a new entity
   // Return null if the input is invalid
   parseNewEntity: (input: string) => TFormValue | null;
@@ -253,13 +256,24 @@ export function EntityCombobox<TEntity extends { id: string }, T extends FieldVa
           )}
 
           {/* Show suggestions */}
-          {suggestions.map((item) => (
-            <li key={item.id}>
-              <button type="button" onClick={() => handleSelect(item)}>
-                {config.getDisplayValue(item)}
-              </button>
-            </li>
-          ))}
+          {suggestions.map((item) => {
+            const displayValue = config.getDisplayValue(item);
+            const secondaryText = config.getSecondaryText?.(item);
+            return (
+              <li key={item.id}>
+                <button
+                  type="button"
+                  onClick={() => handleSelect(item)}
+                  className="flex w-full items-center justify-between"
+                >
+                  <span>{displayValue}</span>
+                  {secondaryText && (
+                    <span className="ml-2 text-xs opacity-60"> ({secondaryText})</span>
+                  )}
+                </button>
+              </li>
+            );
+          })}
         </ul>
       )}
       {error && <span className="text-error text-xs">{error.message}</span>}

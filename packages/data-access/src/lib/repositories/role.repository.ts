@@ -92,13 +92,18 @@ export class RoleRepository {
     companyId?: string | null,
   ): Promise<RoleDTO[]> {
     const normalizedInput = normalizeSearchInput(query, limit);
-    if (!normalizedInput) return [];
 
-    const selector: Record<string, unknown> = {
-      search: {
+    if (!normalizedInput && !companyId) {
+      return [];
+    }
+
+    const selector: Record<string, unknown> = {};
+
+    if (normalizedInput) {
+      selector.search = {
         $regex: normalizedInput.pattern,
-      },
-    };
+      };
+    }
 
     if (companyId) {
       selector.companyId = companyId;
@@ -108,7 +113,7 @@ export class RoleRepository {
       .find({
         selector,
         sort: [{ title: 'asc' }],
-        limit: normalizedInput.limit,
+        limit: normalizedInput ? normalizedInput.limit : limit,
       })
       .exec();
 

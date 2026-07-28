@@ -1,6 +1,40 @@
-import { deriveEventCompanyId, resolveCompanyId, resolveEntityId } from './relations';
+import {
+  deriveEventCompanyId,
+  determineRoleOnCompanyChange,
+  resolveCompanyId,
+  resolveEntityId,
+} from './relations';
 
 describe('relations', () => {
+  describe('determineRoleOnCompanyChange', () => {
+    it('should return the single role if company has exactly 1 role', () => {
+      const singleRole = { id: 'r1', title: 'Software Engineer' };
+      expect(determineRoleOnCompanyChange(undefined, [singleRole])).toEqual(singleRole);
+      expect(determineRoleOnCompanyChange('Product Manager', [singleRole])).toEqual(singleRole);
+    });
+
+    it('should return matching role by title if company has multiple roles', () => {
+      const roles = [
+        { id: 'r1', title: 'Software Engineer' },
+        { id: 'r2', title: 'Product Manager' },
+      ];
+      expect(determineRoleOnCompanyChange('Product Manager', roles)).toEqual(roles[1]);
+      expect(determineRoleOnCompanyChange('software engineer', roles)).toEqual(roles[0]);
+    });
+
+    it('should return null if no matching role title is found among multiple roles', () => {
+      const roles = [
+        { id: 'r1', title: 'Software Engineer' },
+        { id: 'r2', title: 'Product Manager' },
+      ];
+      expect(determineRoleOnCompanyChange('Designer', roles)).toBeNull();
+      expect(determineRoleOnCompanyChange(undefined, roles)).toBeNull();
+    });
+
+    it('should return null if company has no roles', () => {
+      expect(determineRoleOnCompanyChange('Software Engineer', [])).toBeNull();
+    });
+  });
   describe('deriveEventCompanyId', () => {
     it('should prioritize roleCompanyId', () => {
       expect(

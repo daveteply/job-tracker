@@ -82,10 +82,17 @@ export const contactComboboxConfig: EntityComboboxConfig<ContactDTO, ContactForm
 
 // Role configuration
 // Assumes Role has a similar structure with an id and title
-export const roleComboboxConfig: EntityComboboxConfig<RoleDTO, RoleFormValue> = {
+export const roleComboboxConfig: EntityComboboxConfig<
+  RoleDTO & { company?: CompanyDTO | null },
+  RoleFormValue
+> = {
   getDisplayValue: (role) => {
     const roleWithDisplay = role as RoleDTO & { displayValue?: string };
     return role.title || roleWithDisplay.displayValue || '';
+  },
+
+  getSecondaryText: (role) => {
+    return role.company?.name || undefined;
   },
 
   parseNewEntity: (input) => ({
