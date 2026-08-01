@@ -98,7 +98,7 @@ export const AVAILABLE_ACTIONS: Action[] = [
     iconName: 'BriefcaseIcon',
     defaults: {
       eventTypeName: 'Offer Accepted',
-      direction: DirectionType.Inbound,
+      direction: DirectionType.Outbound,
       sourceTypeId: SYSTEM_SOURCE_EMAIL_ID,
     },
   },

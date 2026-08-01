@@ -1,7 +1,17 @@
 import { DirectionType } from '@job-tracker/domain';
 
+import { AVAILABLE_ACTIONS } from './actions';
+
 export function inferDirectionFromEventType(name: string): DirectionType | null {
-  const n = name.toLowerCase();
+  const n = name.toLowerCase().trim();
+
+  // Check known actions first for exact match
+  const matchedAction = AVAILABLE_ACTIONS.find(
+    (action) => action.defaults.eventTypeName.toLowerCase() === n,
+  );
+  if (matchedAction) {
+    return matchedAction.defaults.direction;
+  }
 
   // Outbound markers
   if (
